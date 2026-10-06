@@ -1,4 +1,4 @@
-/*! Vyntic Speed Optimizer – YouTube click-to-load */
+/*! Vyntic Speed Optimizer: YouTube click-to-load */
 (function (d) {
 	'use strict';
 	d.addEventListener('click', function (e) {

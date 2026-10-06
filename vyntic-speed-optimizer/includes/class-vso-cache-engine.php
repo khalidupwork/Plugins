@@ -14,7 +14,7 @@ if ( class_exists( 'VSO_Cache_Engine' ) ) {
 
 class VSO_Cache_Engine {
 
-	/** Cookies that always mean "personalised page – do not serve cache". */
+	/** Cookies that always mean "personalised page, do not serve cache". */
 	const BYPASS_COOKIES = array(
 		'wordpress_logged_in_',
 		'wp-postpass_',

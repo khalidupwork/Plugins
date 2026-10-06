@@ -1,6 +1,6 @@
 <?php
 /**
- * Local WebP conversion (GD or Imagick) – on upload and in bulk.
+ * Local WebP conversion (GD or Imagick), on upload and in bulk.
  * Files are stored next to the original as "photo.jpg.webp".
  *
  * @package VynticSpeedOptimizer
@@ -126,7 +126,7 @@ class VSO_WebP {
 		$before = (int) filesize( $path );
 		$after  = (int) filesize( $target );
 		if ( $after <= 0 || $after >= $before ) {
-			// WebP not smaller – keep serving the original.
+			// WebP is not smaller, so keep serving the original.
 			@unlink( $target ); // phpcs:ignore
 			return 0;
 		}

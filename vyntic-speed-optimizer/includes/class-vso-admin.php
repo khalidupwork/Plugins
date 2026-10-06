@@ -85,7 +85,7 @@ class VSO_Admin {
 				'nonce' => wp_create_nonce( 'vso_ajax' ),
 				'home'  => home_url( '/' ),
 				'i18n'  => array(
-					'testing'   => __( 'Testing… this takes 20–60 seconds', 'vyntic-speed-optimizer' ),
+					'testing'   => __( 'Testing, this takes 20 to 60 seconds...', 'vyntic-speed-optimizer' ),
 					'error'     => __( 'Something went wrong:', 'vyntic-speed-optimizer' ),
 					'converted' => __( 'Converted', 'vyntic-speed-optimizer' ),
 					'done'      => __( 'All images converted.', 'vyntic-speed-optimizer' ),
@@ -128,7 +128,8 @@ class VSO_Admin {
 					<span class="vso-logo" aria-hidden="true">V</span>
 					<div>
 						<h1><?php esc_html_e( 'Vyntic Speed Optimizer', 'vyntic-speed-optimizer' ); ?></h1>
-						<p><?php esc_html_e( 'Runs 100% on your server — no account, no login, no connect.', 'vyntic-speed-optimizer' ); ?></p>
+						<p><?php esc_html_e( 'Runs 100% on your server. No account, no login, no connect.', 'vyntic-speed-optimizer' ); ?>
+							<span class="vso-by"><?php esc_html_e( 'by', 'vyntic-speed-optimizer' ); ?> <a href="https://vyntic.studio/" target="_blank" rel="noopener">Vyntic Studio</a></span></p>
 					</div>
 				</div>
 				<div class="vso-header-actions">
@@ -198,7 +199,7 @@ class VSO_Admin {
 			),
 			'extreme'  => array(
 				__( 'Extreme', 'vyntic-speed-optimizer' ),
-				__( 'Balanced + remove unused CSS (inline only the CSS each page needs). Highest scores — check your pages after enabling.', 'vyntic-speed-optimizer' ),
+				__( 'Balanced + remove unused CSS (inline only the CSS each page needs). Highest scores. Check your pages after enabling.', 'vyntic-speed-optimizer' ),
 			),
 			'off'      => array(
 				__( 'Off', 'vyntic-speed-optimizer' ),
@@ -257,7 +258,7 @@ class VSO_Admin {
 				<?php if ( $status['enabled'] && $status['dropin'] && $status['wp_cache'] ) : ?>
 					<p class="vso-ok"><?php esc_html_e( 'Active', 'vyntic-speed-optimizer' ); ?></p>
 				<?php elseif ( $status['enabled'] ) : ?>
-					<p class="vso-warn"><?php esc_html_e( 'Enabled, but not fully installed — see the notice above.', 'vyntic-speed-optimizer' ); ?></p>
+					<p class="vso-warn"><?php esc_html_e( 'Enabled, but not fully installed. See the notice above.', 'vyntic-speed-optimizer' ); ?></p>
 				<?php else : ?>
 					<p class="vso-muted"><?php esc_html_e( 'Off', 'vyntic-speed-optimizer' ); ?></p>
 				<?php endif; ?>
@@ -310,7 +311,7 @@ class VSO_Admin {
 	private static function fields() {
 		return array(
 			'cache'  => array(
-				array( 'section', __( 'Page cache', 'vyntic-speed-optimizer' ), __( 'Stores a ready-made HTML copy of every page. Visitors get it instantly without PHP or database work — the biggest win for server response time (TTFB).', 'vyntic-speed-optimizer' ) ),
+				array( 'section', __( 'Page cache', 'vyntic-speed-optimizer' ), __( 'Stores a ready-made HTML copy of every page. Visitors get it instantly without PHP or database work. This is the biggest win for server response time (TTFB).', 'vyntic-speed-optimizer' ) ),
 				array( 'page_cache', 'toggle', __( 'Enable page cache', 'vyntic-speed-optimizer' ) ),
 				array( 'cache_lifespan', 'number', __( 'Cache lifespan (hours)', 'vyntic-speed-optimizer' ), __( '0 = never expires (cache is still cleared automatically whenever you edit content).', 'vyntic-speed-optimizer' ) ),
 				array( 'cache_preload', 'toggle', __( 'Preload cache', 'vyntic-speed-optimizer' ), __( 'Automatically visits your pages in the background after the cache is cleared.', 'vyntic-speed-optimizer' ) ),
@@ -323,22 +324,22 @@ class VSO_Admin {
 			),
 			'files'  => array(
 				array( 'section', __( 'JavaScript', 'vyntic-speed-optimizer' ), '' ),
-				array( 'delay_js', 'toggle', __( 'Delay all JavaScript until user interaction', 'vyntic-speed-optimizer' ), __( 'Scripts run on the first scroll, tap, mouse move or key press. Removes almost all Total Blocking Time — this is the main reason scores turn green.', 'vyntic-speed-optimizer' ) ),
+				array( 'delay_js', 'toggle', __( 'Delay all JavaScript until user interaction', 'vyntic-speed-optimizer' ), __( 'Scripts run on the first scroll, tap, mouse move or key press. Removes almost all Total Blocking Time, which is the main reason scores turn green.', 'vyntic-speed-optimizer' ) ),
 				array( 'delay_js_timeout', 'number', __( 'Also run scripts after (seconds)', 'vyntic-speed-optimizer' ), __( '0 = only on interaction (best score). Set e.g. 8 if you have auto-playing sliders.', 'vyntic-speed-optimizer' ) ),
 				array( 'delay_js_exclude', 'textarea', __( 'Do not delay scripts containing', 'vyntic-speed-optimizer' ), __( 'One per line: part of a file URL, script id or inline code. Example: jquery.min.js', 'vyntic-speed-optimizer' ) ),
-				array( 'section', __( 'Compatibility — keep these working before the first interaction', 'vyntic-speed-optimizer' ), __( 'Built-in exclusions for well-known plugins. When a script is excluded, everything it needs (for example jQuery) is excluded with it automatically, so nothing runs in the wrong order. Checkout, cart, account and order-received pages never delay scripts, so purchase events are always tracked.', 'vyntic-speed-optimizer' ) ),
+				array( 'section', __( 'Compatibility', 'vyntic-speed-optimizer' ), __( 'Built-in exclusions for well-known plugins. When a script is excluded, everything it needs (for example jQuery) is excluded with it automatically, so nothing runs in the wrong order. Checkout, cart, account and order-received pages never delay scripts, so purchase events are always tracked.', 'vyntic-speed-optimizer' ) ),
 				array( 'compat_detected', 'compat_detected', __( 'Detected on your site', 'vyntic-speed-optimizer' ) ),
-				array( 'compat_cookie', 'toggle', __( 'Cookie / GDPR consent banners', 'vyntic-speed-optimizer' ), __( 'CookieYes, Complianz, Cookiebot, Borlabs, iubenda, OneTrust… The banner must show right away (legal requirement).', 'vyntic-speed-optimizer' ) ),
-				array( 'compat_sliders', 'toggle', __( 'Sliders', 'vyntic-speed-optimizer' ), __( 'Slider Revolution, Smart Slider, LayerSlider, MetaSlider… These are usually the first thing on the page and stay blank until their script runs.', 'vyntic-speed-optimizer' ) ),
-				array( 'compat_lazyload', 'toggle', __( 'JavaScript lazy loaders', 'vyntic-speed-optimizer' ), __( 'Smush, a3 Lazy Load, Jetpack, theme lazy load, Elementor background lazy load — otherwise those images stay empty.', 'vyntic-speed-optimizer' ) ),
-				array( 'tracking_mode', 'select', __( 'Tracking & pixels', 'vyntic-speed-optimizer' ), __( 'Meta/Facebook Pixel, Google Analytics, Tag Manager, Google Ads, TikTok, Clarity, Hotjar, PixelYourSite… "Delay" gives the best score; visitors who leave without scrolling or tapping are not counted. "Load normally" tracks every visit but lowers the score (often 10–25 points on mobile).', 'vyntic-speed-optimizer' ), array( 'delay' => __( 'Delay until interaction (best score)', 'vyntic-speed-optimizer' ), 'normal' => __( 'Load normally (track every visit)', 'vyntic-speed-optimizer' ) ) ),
+				array( 'compat_cookie', 'toggle', __( 'Cookie / GDPR consent banners', 'vyntic-speed-optimizer' ), __( 'CookieYes, Complianz, Cookiebot, Borlabs, iubenda, OneTrust and more. The banner must show right away (legal requirement).', 'vyntic-speed-optimizer' ) ),
+				array( 'compat_sliders', 'toggle', __( 'Sliders', 'vyntic-speed-optimizer' ), __( 'Slider Revolution, Smart Slider, LayerSlider, MetaSlider and more. These are usually the first thing on the page and stay blank until their script runs.', 'vyntic-speed-optimizer' ) ),
+				array( 'compat_lazyload', 'toggle', __( 'JavaScript lazy loaders', 'vyntic-speed-optimizer' ), __( 'Smush, a3 Lazy Load, Jetpack, theme lazy load, Elementor background lazy load. Without this, those images stay empty.', 'vyntic-speed-optimizer' ) ),
+				array( 'tracking_mode', 'select', __( 'Tracking & pixels', 'vyntic-speed-optimizer' ), __( 'Meta/Facebook Pixel, Google Analytics, Tag Manager, Google Ads, TikTok, Clarity, Hotjar, PixelYourSite and more. "Delay" gives the best score; visitors who leave without scrolling or tapping are not counted. "Load normally" tracks every visit but lowers the score (often 10 to 25 points on mobile).', 'vyntic-speed-optimizer' ), array( 'delay' => __( 'Delay until interaction (best score)', 'vyntic-speed-optimizer' ), 'normal' => __( 'Load normally (track every visit)', 'vyntic-speed-optimizer' ) ) ),
 				array( 'section', __( 'More JavaScript options', 'vyntic-speed-optimizer' ), '' ),
 				array( 'defer_js', 'toggle', __( 'Defer JavaScript', 'vyntic-speed-optimizer' ), __( 'Adds "defer" to scripts that are not delayed (jQuery is kept in place for compatibility).', 'vyntic-speed-optimizer' ) ),
 				array( 'defer_exclude', 'textarea', __( 'Do not defer scripts containing', 'vyntic-speed-optimizer' ), '' ),
 				array( 'minify_js', 'toggle', __( 'Minify JavaScript files', 'vyntic-speed-optimizer' ) ),
 				array( 'section', __( 'CSS', 'vyntic-speed-optimizer' ), '' ),
 				array( 'minify_css', 'toggle', __( 'Minify CSS', 'vyntic-speed-optimizer' ) ),
-				array( 'remove_unused_css', 'toggle', __( 'Remove unused CSS', 'vyntic-speed-optimizer' ), __( 'For every page, only the CSS rules it actually uses are inlined; full stylesheets load later. Eliminates render-blocking CSS. Calculated locally — no external service.', 'vyntic-speed-optimizer' ) ),
+				array( 'remove_unused_css', 'toggle', __( 'Remove unused CSS', 'vyntic-speed-optimizer' ), __( 'For every page, only the CSS rules it actually uses are inlined; full stylesheets load later. Eliminates render-blocking CSS. Calculated locally, no external service.', 'vyntic-speed-optimizer' ) ),
 				array( 'full_css_load', 'select', __( 'Load full CSS', 'vyntic-speed-optimizer' ), '', array( 'interaction' => __( 'On user interaction (best score)', 'vyntic-speed-optimizer' ), 'onload' => __( 'After page load', 'vyntic-speed-optimizer' ) ) ),
 				array( 'unused_css_safelist', 'textarea', __( 'Always keep these selectors', 'vyntic-speed-optimizer' ), __( 'Class/ID names, one per line, "*" wildcard allowed (e.g. slick-*). Use for things added by JavaScript that must look right before interaction.', 'vyntic-speed-optimizer' ) ),
 				array( 'async_css', 'toggle', __( 'Load CSS asynchronously', 'vyntic-speed-optimizer' ), __( 'Alternative to "Remove unused CSS". Needs Critical CSS below or the page may flash unstyled.', 'vyntic-speed-optimizer' ) ),
@@ -358,7 +359,7 @@ class VSO_Admin {
 				array( 'section', __( 'Images', 'vyntic-speed-optimizer' ), '' ),
 				array( 'add_dimensions', 'toggle', __( 'Add missing width/height', 'vyntic-speed-optimizer' ), __( 'Prevents layout shift (CLS).', 'vyntic-speed-optimizer' ) ),
 				array( 'webp', 'toggle', __( 'Convert & serve WebP', 'vyntic-speed-optimizer' ), __( 'New uploads are converted automatically on your server. Originals are never changed.', 'vyntic-speed-optimizer' ) ),
-				array( 'webp_quality', 'number', __( 'WebP quality (30–100)', 'vyntic-speed-optimizer' ) ),
+				array( 'webp_quality', 'number', __( 'WebP quality (30 to 100)', 'vyntic-speed-optimizer' ) ),
 				array( 'webp_bulk', 'webp_bulk', __( 'Bulk convert existing images', 'vyntic-speed-optimizer' ) ),
 			),
 			'fonts'  => array(
@@ -479,7 +480,7 @@ class VSO_Admin {
 				<?php foreach ( VSO_Database::items() as $key => $label ) : ?>
 					<tr>
 						<td><?php echo esc_html( $label ); ?></td>
-						<td class="vso-db-count" data-item="<?php echo esc_attr( $key ); ?>"><?php echo 'optimize' === $key ? '—' : esc_html( number_format_i18n( $counts[ $key ] ) ); ?></td>
+						<td class="vso-db-count" data-item="<?php echo esc_attr( $key ); ?>"><?php echo 'optimize' === $key ? '-' : esc_html( number_format_i18n( $counts[ $key ] ) ); ?></td>
 						<td><button type="button" class="button vso-db-clean" data-item="<?php echo esc_attr( $key ); ?>"><?php echo 'optimize' === $key ? esc_html__( 'Optimize', 'vyntic-speed-optimizer' ) : esc_html__( 'Clean', 'vyntic-speed-optimizer' ); ?></button></td>
 					</tr>
 				<?php endforeach; ?>

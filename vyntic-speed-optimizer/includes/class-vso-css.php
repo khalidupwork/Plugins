@@ -87,12 +87,26 @@ class VSO_CSS {
 			$html
 		);
 
-		// Inline <style> blocks: font-display + minify.
-		$html = preg_replace_callback(
+		// Inline <style> blocks: font-display + minify. Large blocks (page builders
+		// print whole stylesheets inline) also get unused rules removed; the full
+		// block moves to a cached file that loads later, like any stylesheet.
+		$page_url = VSO_Utils::absolute_url( isset( $_SERVER['REQUEST_URI'] ) ? (string) wp_unslash( $_SERVER['REQUEST_URI'] ) : '/' ); // phpcs:ignore
+		$html     = preg_replace_callback(
 			'#(<style\b[^>]*>)(.*?)(</style>)#is',
-			function ( $m ) {
+			function ( $m ) use ( $rucss, $exclude, $page_url ) {
 				if ( false !== strpos( $m[1], 'data-vso-used' ) || '' === trim( $m[2] ) ) {
 					return $m[0];
+				}
+				$media = strtolower( (string) VSO_Utils::attr( $m[1], 'media' ) );
+				if ( $rucss && strlen( $m[2] ) > 8000 && 'print' !== $media && ! VSO_Utils::matches_any( $m[1], $exclude ) ) {
+					$full   = $this->font_display( $this->rewrite_urls( $m[2], $page_url ) );
+					$cached = $this->cache_css( $full );
+					if ( $cached ) {
+						$this->has_delayed = true;
+						$link = '<link rel="vso-stylesheet" data-vso-css="1" href="' . esc_attr( $cached ) . '"' . ( $media ? ' media="' . esc_attr( $media ) . '"' : '' ) . '>';
+						return '<style data-vso-used' . ( $media ? ' media="' . esc_attr( $media ) . '"' : '' ) . '>' . $this->used_css( $full ) . '</style>' . $link
+							. '<noscript><link rel="stylesheet" href="' . esc_attr( $cached ) . '"></noscript>';
+					}
 				}
 				$css = $this->font_display( $m[2] );
 				if ( VSO_Settings::enabled( 'minify_css' ) && strlen( $css ) < 300000 ) {

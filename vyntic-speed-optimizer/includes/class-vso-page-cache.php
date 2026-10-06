@@ -284,7 +284,7 @@ class VSO_Page_Cache {
 		}
 		$engine   = VSO_PATH . 'includes/class-vso-cache-engine.php';
 		$contents = "<?php\n"
-			. '// ' . self::DROPIN_SIGNATURE . ". Generated automatically — do not edit.\n"
+			. '// ' . self::DROPIN_SIGNATURE . ". Generated automatically. Do not edit.\n"
 			. "defined( 'ABSPATH' ) || exit;\n"
 			. "define( 'VSO_ADVANCED_CACHE', true );\n"
 			. '$vso_engine = ' . var_export( $engine, true ) . ";\n"

@@ -1,12 +1,13 @@
 <?php
 /**
  * Plugin Name:       Vyntic Speed Optimizer
- * Plugin URI:        https://github.com/khalidupwork/Plugins
- * Description:       All-in-one, 100% local speed optimizer — no account, no login, no connect. Page cache, delay JavaScript until user interaction, remove unused CSS, lazy load, WebP, font optimization and more to push PageSpeed scores into the green.
- * Version:           1.1.0
+ * Plugin URI:        https://vyntic.studio/
+ * Description:       All-in-one speed optimizer that runs 100% on your own server. No account, no login, no connect. Page cache, delay JavaScript until user interaction, remove unused CSS, lazy load, WebP, font optimization and more to push PageSpeed scores into the green.
+ * Version:           1.2.0
  * Requires at least: 5.8
  * Requires PHP:      7.4
- * Author:            Vyntic
+ * Author:            Vyntic Studio
+ * Author URI:        https://vyntic.studio/
  * License:           GPL-2.0-or-later
  * License URI:       https://www.gnu.org/licenses/gpl-2.0.html
  * Text Domain:       vyntic-speed-optimizer
@@ -17,7 +18,7 @@
 
 defined( 'ABSPATH' ) || exit;
 
-define( 'VSO_VERSION', '1.1.0' );
+define( 'VSO_VERSION', '1.2.0' );
 define( 'VSO_FILE', __FILE__ );
 define( 'VSO_PATH', plugin_dir_path( __FILE__ ) );
 define( 'VSO_URL', plugin_dir_url( __FILE__ ) );

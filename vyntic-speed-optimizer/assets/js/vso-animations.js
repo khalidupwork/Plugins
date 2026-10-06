@@ -1,4 +1,4 @@
-/*! Vyntic Speed Optimizer – Elementor entrance animations without waiting for JS */
+/*! Vyntic Speed Optimizer: Elementor entrance animations without waiting for JS */
 (function (w, d) {
 	'use strict';
 	var items = d.querySelectorAll('.elementor-invisible');

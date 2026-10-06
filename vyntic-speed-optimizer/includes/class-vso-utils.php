@@ -121,6 +121,18 @@ class VSO_Utils {
 		return false;
 	}
 
+	/**
+	 * Returns the first needle found in the haystack, or null.
+	 */
+	public static function first_match( $haystack, array $needles ) {
+		foreach ( $needles as $needle ) {
+			if ( '' !== $needle && false !== stripos( $haystack, $needle ) ) {
+				return $needle;
+			}
+		}
+		return null;
+	}
+
 	public static function ensure_dir( $dir ) {
 		if ( ! is_dir( $dir ) ) {
 			wp_mkdir_p( $dir );

@@ -1,4 +1,4 @@
-/*! Vyntic Speed Optimizer – delayed script loader */
+/*! Vyntic Speed Optimizer: delayed script loader */
 (function (w, d) {
 	'use strict';
 	var cfg = w.vsoConfig || {};

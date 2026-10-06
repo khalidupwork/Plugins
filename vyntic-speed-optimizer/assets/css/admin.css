@@ -74,3 +74,5 @@
 }
 .vso-detected { margin: 0; }
 .vso-detected li { margin-bottom: 4px; }
+.vso-by { margin-left: 6px; opacity: .85; }
+.vso-by a { color: #fff; font-weight: 600; text-decoration: underline; }

@@ -159,6 +159,11 @@ class VSO_Optimizer {
 
 		$html = self::restore( $html );
 
+		// Admin-only report of what runs early and why: ?vso_preview=1&vso_debug=1.
+		if ( isset( $_GET['vso_debug'] ) && self::is_preview() ) { // phpcs:ignore WordPress.Security.NonceVerification
+			$html .= "\n<!-- Vyntic script report\n" . implode( "\n", $js->debug_report() ) . "\n-->";
+		}
+
 		return (string) apply_filters( 'vso_optimized_html', $html );
 	}
 

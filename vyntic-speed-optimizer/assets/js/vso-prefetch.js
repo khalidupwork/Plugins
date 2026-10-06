@@ -1,4 +1,4 @@
-/*! Vyntic Speed Optimizer – prefetch links on hover */
+/*! Vyntic Speed Optimizer: prefetch links on hover */
 (function (w, d) {
 	'use strict';
 	if (!('IntersectionObserver' in w) || (navigator.connection && (navigator.connection.saveData || /2g/.test(navigator.connection.effectiveType || '')))) {

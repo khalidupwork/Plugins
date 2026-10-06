@@ -44,7 +44,7 @@ class VSO_Compat {
 			),
 			'sliders'  => array(
 				'setting'  => 'compat_sliders',
-				'label'    => __( 'Sliders (Slider Revolution, Smart Slider, LayerSlider, MetaSlider…)', 'vyntic-speed-optimizer' ),
+				'label'    => __( 'Sliders (Slider Revolution, Smart Slider, LayerSlider, MetaSlider and more)', 'vyntic-speed-optimizer' ),
 				'keywords' => array(
 					'revslider', 'rs6', 'rbtools', 'tp-tools', 'revapi', 'setREVStartSize', 'RS_MODULES', 'smart-slider', 'smartslider',
 					'n2-ss', '_N2.r(', 'nextend', 'layerslider', 'metaslider', 'ml-slider', 'soliloquy', 'masterslider', 'master-slider',
@@ -61,7 +61,7 @@ class VSO_Compat {
 			),
 			'lazyload' => array(
 				'setting'  => 'compat_lazyload',
-				'label'    => __( 'JavaScript image lazy loaders (Smush, a3, Jetpack, theme lazy load…)', 'vyntic-speed-optimizer' ),
+				'label'    => __( 'JavaScript image lazy loaders (Smush, a3, Jetpack, theme lazy load and more)', 'vyntic-speed-optimizer' ),
 				'keywords' => array(
 					'lazysizes', 'lazyload', 'lazy-load', 'lazy_load', 'smush-lazy', 'a3-lazy', 'a3_lazy', 'jetpack-lazy', 'lazyLoadOptions',
 					'lazyloadRunObserver', 'e-lazyload', 'rocket-lazy', 'lozad', 'data-lazy-src',
@@ -76,7 +76,7 @@ class VSO_Compat {
 			),
 			'tracking' => array(
 				'setting'  => 'tracking_mode',
-				'label'    => __( 'Tracking & pixels (Meta/Facebook Pixel, Google Analytics, Tag Manager, Google Ads, TikTok, Clarity, Hotjar…)', 'vyntic-speed-optimizer' ),
+				'label'    => __( 'Tracking & pixels (Meta/Facebook Pixel, Google Analytics, Tag Manager, Google Ads, TikTok, Clarity, Hotjar and more)', 'vyntic-speed-optimizer' ),
 				'keywords' => array(
 					// Google.
 					'googletagmanager.com', 'google-analytics.com', 'gtag(', 'gtm4wp', 'google_gtagjs', 'googleadservices.com', 'google_conversion',
@@ -159,7 +159,7 @@ class VSO_Compat {
 			return false;
 		}
 		// Every remaining word must be a declaration, an assignment target, an
-		// object key or a literal – a reference to another variable could be undefined.
+		// object key or a literal. A reference to another variable could be undefined.
 		$bare = preg_replace( '#(?:\b(?:var|let|const)\s+|window\.)[\w$]+(?:\.[\w$]+|\[""\])*\s*=#', '=', (string) $bare );
 		$bare = preg_replace( '#[\w$]+\s*:#', ':', (string) $bare );
 		$bare = preg_replace( '#\b\d[\w.]*#', '0', (string) $bare );

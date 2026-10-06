@@ -1,4 +1,4 @@
-/* Vyntic Speed Optimizer – admin */
+/* Vyntic Speed Optimizer: admin */
 (function () {
 	'use strict';
 	var cfg = window.vsoAdmin || {};
@@ -86,7 +86,7 @@
 					bar.style.width = pct + '%';
 					text.textContent = cfg.i18n.converted + ': ' + s.converted + ' / ' + s.total;
 					if (s.done) {
-						text.textContent += ' — ' + cfg.i18n.done;
+						text.textContent += '. ' + cfg.i18n.done;
 						webpBtn.disabled = false;
 					} else {
 						loop();

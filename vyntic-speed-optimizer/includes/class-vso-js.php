@@ -9,14 +9,17 @@ defined( 'ABSPATH' ) || exit;
 
 class VSO_JS {
 
-	/** Script types that are real JavaScript (everything else – JSON, templates – is left alone). */
+	/** Script types that are real JavaScript (everything else, like JSON or templates, is left alone). */
 	const JS_TYPES = array( '', 'text/javascript', 'application/javascript', 'module', 'text/ecmascript', 'application/ecmascript' );
 
 	/** Never delayed: our own scripts, markers used by other optimizers, the admin bar. */
 	const ALWAYS_EXCLUDE = array( 'data-vso-nodelay', 'data-no-delay', 'data-no-optimize', 'nowprocket', 'data-cfasync="false"', 'admin-bar', 'hoverintent' );
 
-	/** Never deferred: jQuery core is required by many inline scripts. */
-	const DEFER_EXCLUDE = array( '/jquery.min.js', '/jquery.js', 'jquery-core', 'jquery-migrate' );
+	/** Never deferred: consent tools that must block other scripts before they run. */
+	const DEFER_NEVER = array( 'cookiebot', 'otSDKStub', 'otAutoBlock', 'usercentrics', 'iubenda', 'termly', 'data-blockingmode' );
+
+	/** Kept for the filter's default value. */
+	const DEFER_EXCLUDE = array();
 
 	/** Handles that make up jQuery. */
 	const JQUERY_HANDLES = array( 'jquery', 'jquery-core', 'jquery-migrate' );
@@ -105,13 +108,26 @@ class VSO_JS {
 		$needs_jquery = false;
 
 		foreach ( $this->scripts as $i => $script ) {
-			$haystack = $script['open'] . ( $script['original'] ? ' ' . $script['original'] : '' ) . ( '' !== $script['code'] ? ' ' . substr( $script['code'], 0, 20000 ) : '' );
-			$excluded = VSO_Utils::matches_any( $haystack, $keywords )
-				|| ( ! $script['src'] && VSO_Compat::is_safe_inline( $script['code'] ) );
-			if ( ! $excluded ) {
+			// Config blocks printed for a script (localized data, "before" code,
+			// translations) mention lots of feature names, e.g. Elementor's config
+			// contains "lazyload". They never decide on their own; they follow their
+			// script, or run early when they are plain data.
+			if ( in_array( $script['part'], array( 'extra', 'before', 'translations' ), true ) ) {
+				if ( VSO_Compat::is_safe_inline( $script['code'] ) ) {
+					$this->exclude( $i, 'plain data' );
+				}
 				continue;
 			}
-			$this->scripts[ $i ]['exclude'] = true;
+			$haystack = $script['open'] . ( $script['original'] ? ' ' . $script['original'] : '' ) . ( '' !== $script['code'] ? ' ' . substr( $script['code'], 0, 20000 ) : '' );
+			$keyword  = VSO_Utils::first_match( $haystack, $keywords );
+			if ( null !== $keyword ) {
+				$this->exclude( $i, 'matches "' . $keyword . '"' );
+			} elseif ( ! $script['src'] && VSO_Compat::is_safe_inline( $script['code'] ) ) {
+				$this->exclude( $i, 'plain data / safe inline' );
+				continue; // Safe inline code needs nothing else.
+			} else {
+				continue;
+			}
 			if ( $script['handle'] ) {
 				$handles[ $script['handle'] ] = true;
 			}
@@ -144,10 +160,32 @@ class VSO_JS {
 			$is_dep = $script['handle'] && isset( $handles[ $script['handle'] ] );
 			// jQuery printed without an id (hard-coded by a theme).
 			$is_jq = $needs_jquery && $script['original'] && preg_match( '#/jquery(\.min)?\.js|/jquery-migrate(\.min)?\.js#i', $script['original'] );
-			if ( $is_dep || $is_jq ) {
-				$this->scripts[ $i ]['exclude'] = true;
+			if ( ( $is_dep || $is_jq ) && ! $this->scripts[ $i ]['exclude'] ) {
+				$this->exclude( $i, 'needed by a script that is not delayed' );
 			}
 		}
+	}
+
+	private function exclude( $index, $reason ) {
+		$this->scripts[ $index ]['exclude'] = true;
+		$this->scripts[ $index ]['reason']  = $reason;
+	}
+
+	/**
+	 * Lines for the ?vso_debug=1 report: which scripts run right away and why.
+	 */
+	public function debug_report() {
+		$lines = array();
+		foreach ( $this->scripts as $script ) {
+			$name = $script['handle'] ? $script['handle'] . ( $script['part'] ? ' (' . $script['part'] . ')' : '' ) : ( $script['original'] ? $script['original'] : 'inline: ' . substr( preg_replace( '/\s+/', ' ', $script['code'] ), 0, 60 ) );
+			if ( ! $script['exclude'] ) {
+				$state = 'delayed';
+			} else {
+				$state = ( $script['defer'] ? 'runs early, deferred' : 'runs early' ) . ( isset( $script['reason'] ) ? ': ' . $script['reason'] : '' );
+			}
+			$lines[] = str_replace( '--', '- -', $name . ' => ' . $state );
+		}
+		return $lines;
 	}
 
 	/**
@@ -187,44 +225,42 @@ class VSO_JS {
 	}
 
 	/**
-	 * Adds "defer" only where it cannot change execution order for code that
-	 * depends on the script.
+	 * Adds "defer" to scripts that run early (not delayed), but only where that
+	 * cannot change what other code sees. Deferred files keep their order, so a
+	 * file can be deferred as long as nothing that runs immediately comes after
+	 * it in the page (that code might use it).
 	 */
 	private function resolve_defer( $defer, $delay, array $defer_excl ) {
 		if ( ! $defer ) {
 			return;
 		}
-		// Excluded-from-delay scripts are left exactly as they are while delay is on.
-		$candidates = array();
-		$blocked    = array();
-		foreach ( $this->scripts as $i => $script ) {
-			if ( $delay && $script['exclude'] ) {
-				if ( $script['handle'] ) {
-					$blocked[] = $script['handle'];
+		$immediate_after = false; // Some code after this point runs right away.
+		$jquery_after    = false; // ...and some of it uses jQuery.
+		for ( $i = count( $this->scripts ) - 1; $i >= 0; $i-- ) {
+			$script = $this->scripts[ $i ];
+			if ( ! $script['exclude'] || 'module' === $script['type'] ) {
+				continue; // Delayed scripts run later anyway; modules are deferred by nature.
+			}
+			if ( ! $script['src'] ) {
+				if ( ! VSO_Compat::is_safe_inline( $script['code'] ) ) {
+					$immediate_after = true;
+					$jquery_after    = $jquery_after || $this->uses_jquery( $script );
 				}
 				continue;
 			}
-			if ( ! $script['exclude'] ) {
-				continue; // Delayed scripts don't need defer.
-			}
-			if ( 'after' === $script['part'] && $script['handle'] ) {
-				$blocked[] = $script['handle']; // Inline code right after the file needs it immediately.
-			}
-			if ( ! $script['src'] || 'module' === $script['type']
-				|| VSO_Utils::has_attr( $script['open'], 'defer' ) || VSO_Utils::has_attr( $script['open'], 'async' )
-				|| VSO_Utils::matches_any( $script['open'] . ' ' . $script['original'], $defer_excl ) ) {
-				if ( $script['src'] && $script['handle'] && ! VSO_Utils::has_attr( $script['open'], 'defer' ) && ! VSO_Utils::has_attr( $script['open'], 'async' ) ) {
-					$blocked[] = $script['handle'];
-				}
+			if ( VSO_Utils::has_attr( $script['open'], 'async' ) || VSO_Utils::has_attr( $script['open'], 'defer' ) ) {
 				continue;
 			}
-			$candidates[] = $i;
-		}
-		// Anything a non-deferred script depends on must stay non-deferred.
-		$blocked = $this->dependency_closure( $blocked );
-		foreach ( $candidates as $i ) {
-			$handle = $this->scripts[ $i ]['handle'];
-			if ( ! $handle || ! isset( $blocked[ $handle ] ) ) {
+			// jQuery only has to stay in place for code that actually uses it;
+			// any other file stays in place when anything at all runs after it.
+			$is_jquery = in_array( $script['handle'], self::JQUERY_HANDLES, true )
+				|| preg_match( '#/jquery(-migrate)?(\.min)?\.js#i', (string) $script['original'] );
+			$blocked   = ( $is_jquery ? $jquery_after : $immediate_after )
+				|| VSO_Utils::matches_any( $script['open'] . ' ' . $script['original'], array_merge( $defer_excl, self::DEFER_NEVER ) );
+			if ( $blocked ) {
+				$immediate_after = true;
+				$jquery_after    = $jquery_after || $this->uses_jquery( $script );
+			} else {
 				$this->scripts[ $i ]['defer'] = true;
 			}
 		}

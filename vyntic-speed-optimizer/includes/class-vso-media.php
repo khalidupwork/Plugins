@@ -17,6 +17,9 @@ class VSO_Media {
 	/** @var int */
 	private $img_index = 0;
 
+	/** @var bool The main (LCP) image already got high priority. */
+	private $lcp_done = false;
+
 	public function process( $html ) {
 		$webp = VSO_Settings::enabled( 'webp' ) && VSO_WebP::supported();
 
@@ -73,9 +76,20 @@ class VSO_Media {
 		$above_fold = $index < $skip_count;
 
 		if ( $above_fold || $excluded ) {
-			// Likely the LCP element: never lazy, load it first.
-			if ( 0 === $index && VSO_Settings::enabled( 'lcp_priority' ) && ! VSO_Utils::has_attr( $tag, 'fetchpriority' ) ) {
-				$tag = preg_replace( '#^<img\b#i', '<img fetchpriority="high"', $tag );
+			// The first real content image near the top is the likely LCP element:
+			// never lazy, fetched first. Logos and icons are skipped, and a
+			// "high" priority someone else put on a logo is removed.
+			if ( VSO_Settings::enabled( 'lcp_priority' ) && $above_fold ) {
+				if ( self::is_small_or_logo( $tag ) ) {
+					if ( 'high' === strtolower( (string) VSO_Utils::attr( $tag, 'fetchpriority' ) ) ) {
+						$tag = VSO_Utils::remove_attr( $tag, 'fetchpriority' );
+					}
+				} elseif ( ! $this->lcp_done ) {
+					$this->lcp_done = true;
+					$tag            = VSO_Utils::remove_attr( $tag, 'fetchpriority' );
+					$tag            = VSO_Utils::remove_attr( $tag, 'decoding' );
+					$tag            = preg_replace( '#^<img\b#i', '<img fetchpriority="high"', $tag );
+				}
 			}
 			if ( $above_fold && 'lazy' === strtolower( (string) VSO_Utils::attr( $tag, 'loading' ) ) ) {
 				$tag = VSO_Utils::remove_attr( $tag, 'loading' );
@@ -90,6 +104,19 @@ class VSO_Media {
 			$tag = preg_replace( '#^<img\b#i', '<img decoding="async"', $tag );
 		}
 		return $tag;
+	}
+
+	/**
+	 * Logos, icons, avatars and small images are never the LCP element.
+	 */
+	private static function is_small_or_logo( $tag ) {
+		$w = (int) VSO_Utils::attr( $tag, 'width' );
+		$h = (int) VSO_Utils::attr( $tag, 'height' );
+		if ( ( $w > 0 && $w < 300 ) || ( $h > 0 && $h < 150 ) ) {
+			return true;
+		}
+		$text = VSO_Utils::attr( $tag, 'class' ) . ' ' . VSO_Utils::attr( $tag, 'src' ) . ' ' . VSO_Utils::attr( $tag, 'alt' );
+		return VSO_Utils::matches_any( $text, array( 'logo', 'favicon', 'icon', 'avatar', 'gravatar', 'emoji', 'badge' ) );
 	}
 
 	private function add_dimensions( $tag, $src ) {
