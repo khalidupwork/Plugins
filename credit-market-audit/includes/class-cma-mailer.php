@@ -130,8 +130,15 @@ class CMA_Mailer {
 		if ( ! wp_mkdir_p( $dir ) ) {
 			return '';
 		}
-		$file = $dir . '/' . CMA_Report::filename( $audit );
-		$ok   = file_put_contents( $file, CMA_Report::render_document( $audit, 'download' ) ); // phpcs:ignore WordPress.WP.AlternativeFunctions.file_system_operations_file_put_contents
+		$pdf = CMA_PDF::render( $audit );
+		if ( is_wp_error( $pdf ) ) {
+			$file    = $dir . '/' . CMA_Report::filename( $audit, 'html' );
+			$content = CMA_Report::render_document( $audit, 'download' );
+		} else {
+			$file    = $dir . '/' . CMA_Report::filename( $audit );
+			$content = $pdf;
+		}
+		$ok = file_put_contents( $file, $content ); // phpcs:ignore WordPress.WP.AlternativeFunctions.file_system_operations_file_put_contents // phpcs:ignore WordPress.WP.AlternativeFunctions.file_system_operations_file_put_contents
 		return $ok ? $file : '';
 	}
 }

@@ -3,7 +3,7 @@
  * Plugin Name:       Credit Market Free Audit
  * Plugin URI:        https://github.com/khalidupwork/Plugins
  * Description:       Free website audit tool: collects a visitor's email + website URL, runs Google PageSpeed Insights, a basic SEO check and a design check, then shows a downloadable report and emails it. Includes a shortcode and an Elementor widget.
- * Version:           1.0.0
+ * Version:           1.1.0
  * Requires at least: 5.8
  * Requires PHP:      7.4
  * Author:            Credit Market
@@ -17,7 +17,7 @@
 
 defined( 'ABSPATH' ) || exit;
 
-define( 'CMA_VERSION', '1.0.0' );
+define( 'CMA_VERSION', '1.1.0' );
 define( 'CMA_DB_VERSION', '1.0.0' );
 define( 'CMA_FILE', __FILE__ );
 define( 'CMA_PATH', plugin_dir_path( __FILE__ ) );
@@ -30,6 +30,7 @@ require_once CMA_PATH . 'includes/class-cma-pagespeed.php';
 require_once CMA_PATH . 'includes/class-cma-analyzer.php';
 require_once CMA_PATH . 'includes/class-cma-audit.php';
 require_once CMA_PATH . 'includes/class-cma-report.php';
+require_once CMA_PATH . 'includes/class-cma-pdf.php';
 require_once CMA_PATH . 'includes/class-cma-mailer.php';
 require_once CMA_PATH . 'includes/class-cma-ajax.php';
 require_once CMA_PATH . 'includes/class-cma-frontend.php';

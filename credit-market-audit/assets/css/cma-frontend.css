@@ -51,7 +51,7 @@
 	border: 0;
 	border-radius: var(--cma-radius);
 	background: var(--cma-accent);
-	color: #ffffff;
+	color: var(--cma-on-brand, #ffffff);
 	font-size: 16px;
 	font-weight: 700;
 	cursor: pointer;
@@ -141,7 +141,7 @@
 	text-decoration: none !important; cursor: pointer;
 	border: 1px solid transparent; font-family: inherit;
 }
-.cma-action--primary { background: var(--cma-accent); color: #fff !important; }
+.cma-action--primary { background: var(--cma-accent); color: var(--cma-on-brand, #fff) !important; }
 .cma-action--secondary { background: #fff; color: #0f172a !important; border-color: #cbd5e1; }
 .cma-action--link { background: none; color: var(--cma-accent); text-decoration: underline !important; padding-left: 4px; padding-right: 4px; }
 .cma-action:hover { filter: brightness(1.05); }

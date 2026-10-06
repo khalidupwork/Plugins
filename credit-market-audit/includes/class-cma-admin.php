@@ -98,8 +98,11 @@ class CMA_Admin {
 		$fields = array(
 			array( 'psi_api_key', __( 'API key', 'credit-market-audit' ), 'password', 'cma_api', __( 'Free key from Google Cloud Console → APIs & Services → enable "PageSpeed Insights API" → Credentials → Create API key. Works without a key too, but with a very low shared quota.', 'credit-market-audit' ) ),
 			array( 'brand_name', __( 'Brand name', 'credit-market-audit' ), 'text', 'cma_branding', '' ),
-			array( 'brand_logo', __( 'Logo', 'credit-market-audit' ), 'media', 'cma_branding', __( 'Shown at the top of the report and email.', 'credit-market-audit' ) ),
-			array( 'brand_color', __( 'Brand colour', 'credit-market-audit' ), 'color', 'cma_branding', '' ),
+			array( 'brand_logo', __( 'Logo', 'credit-market-audit' ), 'media', 'cma_branding', __( 'Leave empty to use this website\'s own logo automatically (Appearance → Customize → Site Identity, or the Elementor site logo).', 'credit-market-audit' ) ),
+			array( 'brand_color', __( 'Brand colour', 'credit-market-audit' ), 'color', 'cma_branding', __( 'Leave empty to use your Elementor primary global colour automatically.', 'credit-market-audit' ) ),
+			array( 'brand_dark', __( 'Dark colour', 'credit-market-audit' ), 'color', 'cma_branding', __( 'Used for headings and the call-to-action box. Leave empty to auto-detect.', 'credit-market-audit' ) ),
+			array( 'report_mode', __( 'Report style', 'credit-market-audit' ), 'select', 'cma_branding', __( 'Quick wins keeps the report short and only lists issues that are easy to fix, so prospects get an achievable to-do list instead of a long list of everything.', 'credit-market-audit' ) ),
+			array( 'max_issues', __( 'Number of issues to show', 'credit-market-audit' ), 'number', 'cma_branding', __( 'Between 3 and 15. Recommended: 5.', 'credit-market-audit' ) ),
 			array( 'cta_text', __( 'Call-to-action button text', 'credit-market-audit' ), 'text', 'cma_branding', '' ),
 			array( 'cta_url', __( 'Call-to-action URL', 'credit-market-audit' ), 'url', 'cma_branding', __( 'E.g. your contact or booking page. Leave empty to hide the CTA box.', 'credit-market-audit' ) ),
 			array( 'cta_message', __( 'Call-to-action message', 'credit-market-audit' ), 'textarea', 'cma_branding', '' ),
@@ -144,6 +147,19 @@ class CMA_Admin {
 		if ( 'cma_api' === $section['id'] ) {
 			echo '<p>' . esc_html__( 'Performance, accessibility and best-practice scores plus screenshots come from Google PageSpeed Insights.', 'credit-market-audit' ) . '</p>';
 		}
+		if ( 'cma_branding' === $section['id'] ) {
+			$brand = CMA_Settings::brand();
+			echo '<div class="cma-brand-preview"><span>' . esc_html__( 'Currently used in reports:', 'credit-market-audit' ) . '</span>';
+			if ( $brand['logo'] ) {
+				echo '<img src="' . esc_url( $brand['logo'] ) . '" alt="">';
+			} else {
+				echo '<em>' . esc_html__( 'No logo found — add one under Appearance → Customize → Site Identity, or upload one below.', 'credit-market-audit' ) . '</em>';
+			}
+			foreach ( array( 'color', 'dark' ) as $key ) {
+				printf( '<span class="cma-swatch" style="background:%1$s" title="%1$s"></span><code>%1$s</code>', esc_attr( $brand[ $key ] ) );
+			}
+			echo '<span>' . ( CMA_PDF::available() ? esc_html__( 'PDF: enabled', 'credit-market-audit' ) : esc_html__( 'PDF: library missing, HTML report used', 'credit-market-audit' ) ) . '</span></div>';
+		}
 	}
 
 	/**
@@ -165,7 +181,18 @@ class CMA_Admin {
 				printf( '<textarea id="%1$s" name="%2$s" rows="3" class="large-text">%3$s</textarea>', esc_attr( $id ), esc_attr( $name ), esc_textarea( $value ) );
 				break;
 			case 'color':
-				printf( '<input type="text" id="%1$s" name="%2$s" value="%3$s" class="cma-color" data-default-color="#2563eb">', esc_attr( $id ), esc_attr( $name ), esc_attr( $value ) );
+				printf( '<input type="text" id="%1$s" name="%2$s" value="%3$s" class="cma-color">', esc_attr( $id ), esc_attr( $name ), esc_attr( $value ) );
+				break;
+			case 'select':
+				$options = array(
+					'quick' => __( 'Quick wins only (short, recommended)', 'credit-market-audit' ),
+					'full'  => __( 'Full report (every check)', 'credit-market-audit' ),
+				);
+				printf( '<select id="%1$s" name="%2$s">', esc_attr( $id ), esc_attr( $name ) );
+				foreach ( $options as $opt => $label ) {
+					printf( '<option value="%1$s" %2$s>%3$s</option>', esc_attr( $opt ), selected( $value, $opt, false ), esc_html( $label ) );
+				}
+				echo '</select>';
 				break;
 			case 'media':
 				printf(

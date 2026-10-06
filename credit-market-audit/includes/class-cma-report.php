@@ -46,10 +46,10 @@ class CMA_Report {
 	 * @param array $audit Audit row.
 	 * @return string
 	 */
-	public static function filename( array $audit ) {
+	public static function filename( array $audit, $ext = 'pdf' ) {
 		$host = wp_parse_url( $audit['url'], PHP_URL_HOST );
 		$host = $host ? preg_replace( '/^www\./', '', $host ) : 'website';
-		return sanitize_file_name( sprintf( 'website-audit-%s-%s.html', $host, gmdate( 'Y-m-d', strtotime( $audit['created_at'] ) ) ) );
+		return sanitize_file_name( sprintf( 'website-audit-%s-%s.%s', $host, gmdate( 'Y-m-d', strtotime( $audit['created_at'] ) ), $ext ) );
 	}
 
 	/**
@@ -75,11 +75,21 @@ class CMA_Report {
 
 		nocache_headers();
 		header( 'X-Robots-Tag: noindex, nofollow', true );
-		header( 'Content-Type: text/html; charset=' . get_option( 'blog_charset' ) );
 
 		if ( $download ) {
-			header( 'Content-Disposition: attachment; filename="' . self::filename( $audit ) . '"' );
+			$pdf = CMA_PDF::render( $audit );
+			if ( ! is_wp_error( $pdf ) ) {
+				header( 'Content-Type: application/pdf' );
+				header( 'Content-Disposition: attachment; filename="' . self::filename( $audit ) . '"' );
+				header( 'Content-Length: ' . strlen( $pdf ) );
+				echo $pdf; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- binary PDF.
+				exit;
+			}
+			// Fallback: standalone HTML file.
+			header( 'Content-Disposition: attachment; filename="' . self::filename( $audit, 'html' ) . '"' );
 		}
+
+		header( 'Content-Type: text/html; charset=' . get_option( 'blog_charset' ) );
 
 		// Full document; all dynamic values are escaped inside the template.
 		echo self::render_document( $audit, $download ? 'download' : ( $print ? 'print' : 'view' ) ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
@@ -94,6 +104,7 @@ class CMA_Report {
 	 */
 	public static function render( array $audit ) {
 		$settings = CMA_Settings::all();
+		$brand    = CMA_Settings::brand();
 		$report   = $audit['report'];
 
 		ob_start();
@@ -110,7 +121,7 @@ class CMA_Report {
 	 */
 	public static function render_document( array $audit, $context = 'view' ) {
 		$css      = (string) file_get_contents( CMA_PATH . 'assets/css/cma-report.css' ); // phpcs:ignore WordPress.WP.AlternativeFunctions.file_get_contents_file_get_contents
-		$color    = CMA_Settings::get( 'brand_color' );
+		$color    = CMA_Settings::brand()['color'];
 		$host     = wp_parse_url( $audit['url'], PHP_URL_HOST );
 		$title    = sprintf( '%s – %s', __( 'Website Audit Report', 'credit-market-audit' ), $host ? $host : $audit['url'] );
 		$body     = self::render( $audit );
@@ -140,8 +151,8 @@ body{margin:0;background:#f1f5f9;font-family:-apple-system,BlinkMacSystemFont,"S
 <div class="cma-standalone-wrap">
 		<?php if ( $toolbar ) : ?>
 	<div class="cma-toolbar">
-		<button type="button" onclick="window.print()"><?php esc_html_e( 'Save as PDF / Print', 'credit-market-audit' ); ?></button>
-		<a class="cma-secondary" href="<?php echo esc_url( self::download_url( $audit['token'] ) ); ?>"><?php esc_html_e( 'Download report', 'credit-market-audit' ); ?></a>
+		<a href="<?php echo esc_url( self::download_url( $audit['token'] ) ); ?>"><?php echo esc_html( CMA_PDF::available() ? __( 'Download PDF', 'credit-market-audit' ) : __( 'Download report', 'credit-market-audit' ) ); ?></a>
+		<button type="button" class="cma-secondary" onclick="window.print()"><?php esc_html_e( 'Print', 'credit-market-audit' ); ?></button>
 	</div>
 		<?php endif; ?>
 		<?php echo $body; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- escaped in template. ?>

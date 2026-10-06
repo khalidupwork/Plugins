@@ -15,16 +15,18 @@
 .cma-report__header {
 	display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; gap: 16px;
 	padding: 24px 28px;
-	background: var(--cma-accent);
-	color: #fff;
+	background: #fff;
+	color: var(--cma-dark, #0f172a);
+	border: 1px solid #e2e8f0;
+	border-top: 6px solid var(--cma-accent);
 	border-radius: 16px 16px 0 0;
 }
-.cma-report__logo { max-height: 48px; max-width: 220px; display: block; background: #fff; padding: 6px 10px; border-radius: 8px; }
+.cma-report__logo { max-height: 56px; max-width: 240px; display: block; }
 .cma-report__brand-name { font-size: 20px; }
 .cma-report__meta { text-align: right; }
-.cma-report__title { margin: 0; font-size: 22px; color: #fff !important; }
-.cma-report__url { font-weight: 600; word-break: break-all; opacity: .95; }
-.cma-report__date { font-size: 13px; opacity: .8; }
+.cma-report__title { margin: 0; font-size: 22px; color: var(--cma-dark, #0f172a) !important; }
+.cma-report__url { font-weight: 700; word-break: break-all; color: var(--cma-accent); }
+.cma-report__date { font-size: 13px; color: #64748b; }
 
 .cma-report__overall {
 	display: flex; flex-wrap: wrap; align-items: center; gap: 28px;
@@ -70,7 +72,7 @@
 .cma-issues { list-style: none; margin: 12px 0 0; padding: 0; counter-reset: cma; }
 .cma-issue { padding: 12px 16px; border-radius: 10px; background: #f8fafc; border-left: 4px solid #ffa400; margin: 0 0 10px; }
 .cma-issue--fail { border-left-color: #ff4e42; }
-.cma-issue__head { display: flex; align-items: center; gap: 10px; }
+.cma-issue__head { display: flex; flex-wrap: wrap; align-items: center; gap: 8px 10px; }
 .cma-issue p { margin: 6px 0 0 34px; color: #475569; font-size: 14px; }
 
 /* Status icon */
@@ -117,13 +119,13 @@
 .cma-cta {
 	display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 16px;
 	padding: 24px 28px; margin-bottom: 24px;
-	background: #0f172a; color: #e2e8f0;
+	background: var(--cma-dark, #0f172a); color: #e2e8f0;
 	border-radius: 16px;
 }
 .cma-cta h3 { margin: 0 0 4px; color: #fff !important; font-size: 20px; }
 .cma-cta p { color: #cbd5e1; }
 .cma-cta__btn {
-	background: var(--cma-accent); color: #fff !important; text-decoration: none !important;
+	background: var(--cma-accent); color: var(--cma-on-brand, #fff) !important; text-decoration: none !important;
 	padding: 12px 20px; border-radius: 10px; font-weight: 700; white-space: nowrap;
 }
 
@@ -144,3 +146,14 @@
 	.cma-shot--desktop img { width: 380px; }
 	.cma-shot--mobile img { width: 140px; }
 }
+
+/* Quick-wins report */
+.cma-report h2, .cma-report h3, .cma-report h4 { color: var(--cma-dark, #0f172a); }
+.cma-report .cma-cta h3 { color: #fff !important; }
+.cma-report__section-title { border-bottom: 2px solid var(--cma-accent); padding-bottom: 6px; display: inline-block; }
+.cma-tag--effort { margin-left: 0; background: #ecfdf5; color: #047857; }
+.cma-tag--medium { background: #eff6ff; color: #1d4ed8; }
+.cma-tag--hard { background: #fef2f2; color: #b91c1c; }
+.cma-good { list-style: none; margin: 8px 0 0; padding: 0; display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 8px 16px; }
+.cma-good li { display: flex; align-items: center; gap: 8px; margin: 0; font-size: 14px; }
+.cma-good .cma-status { flex-basis: 20px; width: 20px; height: 20px; font-size: 11px; }

@@ -245,6 +245,171 @@ class CMA_Audit {
 	}
 
 	/**
+	 * How much work each check takes to fix. Only easy/medium items are shown
+	 * in the "quick" report so prospects see a short, achievable list.
+	 */
+	const EFFORT = array(
+		// SEO.
+		'title'            => 'easy',
+		'meta_description' => 'easy',
+		'h1'               => 'easy',
+		'headings'         => 'easy',
+		'image_alt'        => 'easy',
+		'canonical'        => 'easy',
+		'indexable'        => 'easy',
+		'lang'             => 'easy',
+		'social'           => 'easy',
+		'schema'           => 'easy',
+		'robots_txt'       => 'easy',
+		'sitemap'          => 'easy',
+		'compression'      => 'easy',
+		'links'            => 'medium',
+		'https'            => 'medium',
+		'mixed_content'    => 'medium',
+		'content'          => 'hard',
+		'response_time'    => 'hard',
+		// Design.
+		'favicon'          => 'easy',
+		'mobile_branding'  => 'easy',
+		'image_formats'    => 'easy',
+		'image_dimensions' => 'easy',
+		'conversion'       => 'easy',
+		'fonts'            => 'medium',
+		'psi_color-contrast' => 'medium',
+		'psi_font-size'    => 'medium',
+		'psi_target-size'  => 'medium',
+		'viewport'         => 'hard',
+		'deprecated_html'  => 'hard',
+		'inline_styles'    => 'hard',
+		'assets'           => 'hard',
+		'psi_cls'          => 'hard',
+	);
+
+	/**
+	 * Lighthouse audits that are usually fixed in minutes (often with a plugin / setting).
+	 */
+	const EASY_SPEED_AUDITS = array(
+		'uses-webp-images',
+		'modern-image-formats',
+		'uses-optimized-images',
+		'uses-responsive-images',
+		'offscreen-images',
+		'uses-text-compression',
+		'unminified-css',
+		'unminified-javascript',
+		'uses-long-cache-ttl',
+		'efficient-animated-content',
+		'image-delivery-insight',
+		'cache-insight',
+	);
+
+	/**
+	 * Short list of problems that are quick to fix, ordered by impact.
+	 *
+	 * @param array $report Report.
+	 * @param int   $limit  Max items.
+	 * @return array[] { label, recommendation, status, section, effort }
+	 */
+	public static function quick_wins( array $report, $limit = 5 ) {
+		$items = array();
+		foreach ( array( 'seo' => 'SEO', 'design' => __( 'Design', 'credit-market-audit' ) ) as $key => $section ) {
+			foreach ( isset( $report[ $key ] ) ? $report[ $key ] : array() as $check ) {
+				$effort = isset( self::EFFORT[ $check['id'] ] ) ? self::EFFORT[ $check['id'] ] : 'medium';
+				if ( 'pass' === $check['status'] || 'hard' === $effort ) {
+					continue;
+				}
+				$items[] = array(
+					'label'          => $check['label'],
+					'recommendation' => $check['recommendation'],
+					'status'         => $check['status'],
+					'section'        => $section,
+					'effort'         => $effort,
+					'rank'           => ( 'fail' === $check['status'] ? 20 : 0 ) + ( 'easy' === $effort ? 10 : 0 ) + (int) $check['weight'],
+				);
+			}
+		}
+
+		// At most two easy speed fixes so the list isn't dominated by technical items.
+		$psi = self::psi( $report, 'mobile' );
+		$psi = $psi ? $psi : self::psi( $report, 'desktop' );
+		if ( $psi ) {
+			$added = 0;
+			foreach ( $psi['opportunities'] as $op ) {
+				if ( $added >= 2 || ! in_array( $op['id'], self::EASY_SPEED_AUDITS, true ) ) {
+					continue;
+				}
+				$items[] = array(
+					'label'          => $op['title'],
+					'recommendation' => $op['description'],
+					'status'         => $op['score'] < 0.5 ? 'fail' : 'warning',
+					'section'        => __( 'Speed', 'credit-market-audit' ),
+					'effort'         => 'easy',
+					'rank'           => ( $op['score'] < 0.5 ? 20 : 0 ) + 10 + 3,
+				);
+				++$added;
+			}
+		}
+
+		usort(
+			$items,
+			static function ( $a, $b ) {
+				return $b['rank'] <=> $a['rank'];
+			}
+		);
+
+		return array_slice( $items, 0, max( 1, (int) $limit ) );
+	}
+
+	/**
+	 * Labels of checks that passed (shown as "what's working well").
+	 *
+	 * @param array $report Report.
+	 * @param int   $limit  Max items.
+	 * @return string[]
+	 */
+	public static function strengths( array $report, $limit = 8 ) {
+		$out = array();
+		foreach ( array( 'seo', 'design' ) as $key ) {
+			foreach ( isset( $report[ $key ] ) ? $report[ $key ] : array() as $check ) {
+				if ( 'pass' === $check['status'] ) {
+					$out[ $check['weight'] * 100 + count( $out ) ] = $check['label'];
+				}
+			}
+		}
+		krsort( $out );
+		return array_slice( array_values( $out ), 0, $limit );
+	}
+
+	/**
+	 * Total number of problems found (for "N more items in a full audit").
+	 *
+	 * @param array $report Report.
+	 * @return int
+	 */
+	public static function issue_count( array $report ) {
+		$n = 0;
+		foreach ( array( 'seo', 'design' ) as $key ) {
+			foreach ( isset( $report[ $key ] ) ? $report[ $key ] : array() as $check ) {
+				if ( 'pass' !== $check['status'] ) {
+					++$n;
+				}
+			}
+		}
+		return $n;
+	}
+
+	/**
+	 * Issues to show for the configured report mode.
+	 *
+	 * @param array $report Report.
+	 * @return array[]
+	 */
+	public static function issues_for_report( array $report ) {
+		$limit = (int) CMA_Settings::get( 'max_issues', 5 );
+		return 'full' === CMA_Settings::get( 'report_mode' ) ? self::top_issues( $report, $limit ) : self::quick_wins( $report, $limit );
+	}
+
+	/**
 	 * Highest priority problems across the report.
 	 *
 	 * @param array $report Report.
@@ -263,6 +428,7 @@ class CMA_Audit {
 					'recommendation' => $check['recommendation'],
 					'status'         => $check['status'],
 					'section'        => $section,
+					'effort'         => isset( self::EFFORT[ $check['id'] ] ) ? self::EFFORT[ $check['id'] ] : 'medium',
 					'rank'           => ( 'fail' === $check['status'] ? 10 : 0 ) + (int) $check['weight'],
 				);
 			}
@@ -276,6 +442,7 @@ class CMA_Audit {
 					'recommendation' => $op['description'],
 					'status'         => $op['score'] < 0.5 ? 'fail' : 'warning',
 					'section'        => __( 'Speed', 'credit-market-audit' ),
+					'effort'         => in_array( $op['id'], self::EASY_SPEED_AUDITS, true ) ? 'easy' : 'medium',
 					'rank'           => ( $op['score'] < 0.5 ? 10 : 0 ) + 3,
 				);
 			}

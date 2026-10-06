@@ -12,8 +12,10 @@
 defined( 'ABSPATH' ) || exit;
 
 $scores = isset( $report['scores'] ) ? $report['scores'] : array();
-$issues = CMA_Audit::top_issues( $report, 5 );
-$accent = $settings['brand_color'];
+$brand  = CMA_Settings::brand();
+$issues = CMA_Audit::issues_for_report( $report );
+$accent = $brand['color'];
+$quick  = 'full' !== $settings['report_mode'];
 $name   = $audit['name'] ? $audit['name'] : __( 'there', 'credit-market-audit' );
 $cats   = array(
 	__( 'Performance', 'credit-market-audit' )    => isset( $scores['performance'] ) ? $scores['performance'] : null,
@@ -32,12 +34,16 @@ $overall = isset( $scores['overall'] ) ? $scores['overall'] : null;
 <tr><td align="center">
 	<table role="presentation" width="600" cellpadding="0" cellspacing="0" style="max-width:600px;width:100%;background:#ffffff;border-radius:12px;overflow:hidden;font-family:Arial,Helvetica,sans-serif;color:#0f172a;">
 		<tr>
-			<td style="background:<?php echo esc_attr( $accent ); ?>;padding:24px 28px;color:#ffffff;">
-				<?php if ( ! empty( $settings['brand_logo'] ) ) : ?>
-					<img src="<?php echo esc_url( $settings['brand_logo'] ); ?>" alt="<?php echo esc_attr( $settings['brand_name'] ); ?>" style="max-height:40px;max-width:200px;display:block;margin-bottom:12px;">
+			<td style="background:#ffffff;border-top:6px solid <?php echo esc_attr( $accent ); ?>;padding:22px 28px 0;">
+				<?php if ( ! empty( $brand['logo'] ) ) : ?>
+					<img src="<?php echo esc_url( $brand['logo'] ); ?>" alt="<?php echo esc_attr( $brand['name'] ); ?>" style="max-height:50px;max-width:220px;display:block;">
 				<?php else : ?>
-					<div style="font-size:18px;font-weight:bold;margin-bottom:8px;"><?php echo esc_html( $settings['brand_name'] ); ?></div>
+					<div style="font-size:20px;font-weight:bold;color:<?php echo esc_attr( $brand['dark'] ); ?>;"><?php echo esc_html( $brand['name'] ); ?></div>
 				<?php endif; ?>
+			</td>
+		</tr>
+		<tr>
+			<td style="background:<?php echo esc_attr( $brand['dark'] ); ?>;padding:22px 28px;color:#ffffff;">
 				<div style="font-size:22px;font-weight:bold;"><?php esc_html_e( 'Your Website Audit Report', 'credit-market-audit' ); ?></div>
 				<div style="font-size:14px;opacity:.9;margin-top:4px;"><?php echo esc_html( $audit['url'] ); ?></div>
 			</td>
@@ -72,7 +78,7 @@ $overall = isset( $scores['overall'] ) ? $scores['overall'] : null;
 				</table>
 
 				<?php if ( $issues ) : ?>
-					<div style="font-size:17px;font-weight:bold;margin-bottom:12px;"><?php esc_html_e( 'Top priority fixes', 'credit-market-audit' ); ?></div>
+					<div style="font-size:17px;font-weight:bold;margin-bottom:12px;"><?php echo esc_html( $quick ? __( 'Your quick wins', 'credit-market-audit' ) : __( 'Top priority fixes', 'credit-market-audit' ) ); ?></div>
 					<?php foreach ( $issues as $i => $issue ) : ?>
 						<table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="margin-bottom:10px;border-left:4px solid <?php echo 'fail' === $issue['status'] ? '#ff4e42' : '#ffa400'; ?>;background:#f8fafc;">
 							<tr><td style="padding:10px 14px;">
@@ -88,20 +94,20 @@ $overall = isset( $scores['overall'] ) ? $scores['overall'] : null;
 				<table role="presentation" cellpadding="0" cellspacing="0" style="margin:24px 0 8px;">
 					<tr>
 						<td style="background:<?php echo esc_attr( $accent ); ?>;border-radius:8px;">
-							<a href="<?php echo esc_url( CMA_Report::view_url( $audit['token'] ) ); ?>" style="display:inline-block;padding:12px 22px;color:#ffffff;text-decoration:none;font-weight:bold;font-size:15px;"><?php esc_html_e( 'View full report online', 'credit-market-audit' ); ?></a>
+							<a href="<?php echo esc_url( CMA_Report::view_url( $audit['token'] ) ); ?>" style="display:inline-block;padding:12px 22px;color:<?php echo esc_attr( $brand['on_color'] ); ?>;text-decoration:none;font-weight:bold;font-size:15px;"><?php esc_html_e( 'View your report online', 'credit-market-audit' ); ?></a>
 						</td>
 					</tr>
 				</table>
 				<p style="font-size:13px;color:#64748b;margin:0 0 24px;">
-					<a href="<?php echo esc_url( CMA_Report::download_url( $audit['token'] ) ); ?>" style="color:<?php echo esc_attr( $accent ); ?>;"><?php esc_html_e( 'Download the report', 'credit-market-audit' ); ?></a>
+					<a href="<?php echo esc_url( CMA_Report::download_url( $audit['token'] ) ); ?>" style="color:<?php echo esc_attr( $accent ); ?>;"><?php echo esc_html( CMA_PDF::available() ? __( 'Download the PDF report', 'credit-market-audit' ) : __( 'Download the report', 'credit-market-audit' ) ); ?></a>
 				</p>
 
 				<?php if ( ! empty( $settings['cta_url'] ) && ! empty( $settings['cta_text'] ) ) : ?>
-					<table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="background:#0f172a;border-radius:10px;">
+					<table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="background:<?php echo esc_attr( $brand['dark'] ); ?>;border-radius:10px;">
 						<tr><td style="padding:22px;color:#ffffff;">
-							<div style="font-size:17px;font-weight:bold;margin-bottom:6px;"><?php esc_html_e( 'Need help fixing these issues?', 'credit-market-audit' ); ?></div>
+							<div style="font-size:17px;font-weight:bold;margin-bottom:6px;"><?php esc_html_e( 'Want these fixed for you?', 'credit-market-audit' ); ?></div>
 							<div style="font-size:14px;line-height:1.5;color:#cbd5e1;margin-bottom:14px;"><?php echo wp_kses_post( $settings['cta_message'] ); ?></div>
-							<a href="<?php echo esc_url( $settings['cta_url'] ); ?>" style="display:inline-block;background:<?php echo esc_attr( $accent ); ?>;color:#ffffff;text-decoration:none;font-weight:bold;padding:10px 18px;border-radius:8px;font-size:14px;"><?php echo esc_html( $settings['cta_text'] ); ?></a>
+							<a href="<?php echo esc_url( $settings['cta_url'] ); ?>" style="display:inline-block;background:<?php echo esc_attr( $accent ); ?>;color:<?php echo esc_attr( $brand['on_color'] ); ?>;text-decoration:none;font-weight:bold;padding:10px 18px;border-radius:8px;font-size:14px;"><?php echo esc_html( $settings['cta_text'] ); ?></a>
 						</td></tr>
 					</table>
 				<?php endif; ?>
@@ -111,7 +117,7 @@ $overall = isset( $scores['overall'] ) ? $scores['overall'] : null;
 			<td style="padding:16px 28px;background:#f8fafc;font-size:12px;color:#94a3b8;">
 				<?php
 				/* translators: %s: brand name */
-				echo esc_html( sprintf( __( 'Sent by %s. You received this email because you requested a free website audit.', 'credit-market-audit' ), $settings['brand_name'] ) );
+				echo esc_html( sprintf( __( 'Sent by %s. You received this email because you requested a free website audit.', 'credit-market-audit' ), $brand['name'] ) );
 				?>
 			</td>
 		</tr>

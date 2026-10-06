@@ -4,7 +4,7 @@
  *
  * Override by copying to yourtheme/credit-market-audit/report.php.
  *
- * Available: $audit (row), $report (decoded report), $settings (plugin settings).
+ * Available: $audit (row), $report (decoded report), $settings (plugin settings), $brand (resolved branding).
  *
  * @package CreditMarketAudit
  */
@@ -14,7 +14,15 @@ defined( 'ABSPATH' ) || exit;
 $scores  = isset( $report['scores'] ) ? $report['scores'] : array();
 $mobile  = CMA_Audit::psi( $report, 'mobile' );
 $desktop = CMA_Audit::psi( $report, 'desktop' );
-$issues  = CMA_Audit::top_issues( $report, 6 );
+$issues  = CMA_Audit::issues_for_report( $report );
+$quick   = 'full' !== $settings['report_mode'];
+$total   = CMA_Audit::issue_count( $report );
+
+$effort_labels = array(
+	'easy'   => __( 'Easy fix', 'credit-market-audit' ),
+	'medium' => __( 'Quick fix', 'credit-market-audit' ),
+	'hard'   => __( 'Larger task', 'credit-market-audit' ),
+);
 $overall = isset( $scores['overall'] ) ? $scores['overall'] : null;
 $date    = isset( $report['completed_at'] ) ? $report['completed_at'] : $audit['created_at'];
 
@@ -31,14 +39,14 @@ $sections = array(
 	'design' => array( __( 'Design & User Experience', 'credit-market-audit' ), __( 'How your website looks and feels for visitors, especially on mobile phones.', 'credit-market-audit' ) ),
 );
 ?>
-<div class="cma-report" style="--cma-brand: <?php echo esc_attr( $settings['brand_color'] ); ?>;">
+<div class="cma-report<?php echo $quick ? ' cma-report--quick' : ''; ?>" style="--cma-brand: <?php echo esc_attr( $brand['color'] ); ?>; --cma-dark: <?php echo esc_attr( $brand['dark'] ); ?>; --cma-on-brand: <?php echo esc_attr( $brand['on_color'] ); ?>;">
 
 	<header class="cma-report__header">
 		<div class="cma-report__brand">
-			<?php if ( ! empty( $settings['brand_logo'] ) ) : ?>
-				<img src="<?php echo esc_url( $settings['brand_logo'] ); ?>" alt="<?php echo esc_attr( $settings['brand_name'] ); ?>" class="cma-report__logo">
+			<?php if ( ! empty( $brand['logo'] ) ) : ?>
+				<img src="<?php echo esc_url( $brand['logo'] ); ?>" alt="<?php echo esc_attr( $brand['name'] ); ?>" class="cma-report__logo">
 			<?php else : ?>
-				<strong class="cma-report__brand-name"><?php echo esc_html( $settings['brand_name'] ); ?></strong>
+				<strong class="cma-report__brand-name"><?php echo esc_html( $brand['name'] ); ?></strong>
 			<?php endif; ?>
 		</div>
 		<div class="cma-report__meta">
@@ -57,7 +65,10 @@ $sections = array(
 			<h3 style="color: <?php echo esc_attr( CMA_Audit::color( $overall ) ); ?>;"><?php echo esc_html( CMA_Audit::grade( $overall ) ); ?></h3>
 			<p>
 				<?php
-				if ( null !== $overall && $overall >= 90 ) {
+				if ( $quick && $issues && ( null === $overall || $overall < 90 ) ) {
+					/* translators: %d: number of quick wins */
+					echo esc_html( sprintf( _n( 'We found %d quick win that can improve your website without a redesign.', 'We found %d quick wins that can improve your website without a redesign.', count( $issues ), 'credit-market-audit' ), count( $issues ) ) );
+				} elseif ( null !== $overall && $overall >= 90 ) {
 					esc_html_e( 'Great job! Your website is in excellent shape. Fix the few remaining items below to stay ahead of competitors.', 'credit-market-audit' );
 				} elseif ( null !== $overall && $overall >= 50 ) {
 					esc_html_e( 'Your website has a solid base but there are clear opportunities to load faster, rank higher and convert more visitors.', 'credit-market-audit' );
@@ -81,13 +92,28 @@ $sections = array(
 
 	<?php if ( $issues ) : ?>
 		<section class="cma-report__section">
-			<h3 class="cma-report__section-title"><?php esc_html_e( 'Top priority fixes', 'credit-market-audit' ); ?></h3>
+			<h3 class="cma-report__section-title">
+				<?php
+				echo esc_html(
+					$quick
+						/* translators: %d: number of items */
+						? sprintf( __( 'Your top %d quick wins', 'credit-market-audit' ), count( $issues ) )
+						: __( 'Top priority fixes', 'credit-market-audit' )
+				);
+				?>
+			</h3>
+			<?php if ( $quick ) : ?>
+				<p class="cma-report__section-desc"><?php esc_html_e( 'Small, high-impact improvements that can be done quickly — no redesign needed.', 'credit-market-audit' ); ?></p>
+			<?php endif; ?>
 			<ol class="cma-issues">
 				<?php foreach ( $issues as $issue ) : ?>
 					<li class="cma-issue cma-issue--<?php echo esc_attr( $issue['status'] ); ?>">
 						<div class="cma-issue__head">
 							<?php echo CMA_Report::status_icon( $issue['status'] ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?>
 							<strong><?php echo esc_html( $issue['label'] ); ?></strong>
+							<?php if ( isset( $effort_labels[ $issue['effort'] ] ) ) : ?>
+								<span class="cma-tag cma-tag--effort cma-tag--<?php echo esc_attr( $issue['effort'] ); ?>"><?php echo esc_html( $effort_labels[ $issue['effort'] ] ); ?></span>
+							<?php endif; ?>
 							<span class="cma-tag"><?php echo esc_html( $issue['section'] ); ?></span>
 						</div>
 						<?php if ( $issue['recommendation'] ) : ?>
@@ -169,7 +195,7 @@ $sections = array(
 			<?php endif; ?>
 
 			<?php $opportunities = $mobile ? $mobile['opportunities'] : ( $desktop ? $desktop['opportunities'] : array() ); ?>
-			<?php if ( $opportunities ) : ?>
+			<?php if ( $opportunities && ! $quick ) : ?>
 				<h4 class="cma-report__sub"><?php esc_html_e( 'Speed improvement opportunities', 'credit-market-audit' ); ?></h4>
 				<ul class="cma-checks">
 					<?php foreach ( $opportunities as $op ) : ?>
@@ -193,6 +219,19 @@ $sections = array(
 		<?php endif; ?>
 	</section>
 
+	<?php if ( $quick ) : ?>
+		<?php $strengths = CMA_Audit::strengths( $report, 8 ); ?>
+		<?php if ( $strengths ) : ?>
+			<section class="cma-report__section">
+				<h3 class="cma-report__section-title"><?php esc_html_e( 'What is already working well', 'credit-market-audit' ); ?></h3>
+				<ul class="cma-good">
+					<?php foreach ( $strengths as $label ) : ?>
+						<li><?php echo CMA_Report::status_icon( 'pass' ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?> <?php echo esc_html( $label ); ?></li>
+					<?php endforeach; ?>
+				</ul>
+			</section>
+		<?php endif; ?>
+	<?php else : ?>
 	<?php foreach ( $sections as $key => $section ) : ?>
 		<?php
 		$checks = isset( $report[ $key ] ) ? $report[ $key ] : array();
@@ -255,10 +294,12 @@ $sections = array(
 		</section>
 	<?php endif; ?>
 
+	<?php endif; // Full report sections. ?>
+
 	<?php if ( ! empty( $settings['cta_url'] ) && ! empty( $settings['cta_text'] ) ) : ?>
 		<section class="cma-cta">
 			<div>
-				<h3><?php esc_html_e( 'Need help fixing these issues?', 'credit-market-audit' ); ?></h3>
+				<h3><?php esc_html_e( 'Want these fixed for you?', 'credit-market-audit' ); ?></h3>
 				<p><?php echo wp_kses_post( $settings['cta_message'] ); ?></p>
 			</div>
 			<a class="cma-cta__btn" href="<?php echo esc_url( $settings['cta_url'] ); ?>" target="_blank" rel="noopener"><?php echo esc_html( $settings['cta_text'] ); ?></a>
@@ -266,13 +307,21 @@ $sections = array(
 	<?php endif; ?>
 
 	<footer class="cma-report__footer">
+		<?php if ( $quick && $total > count( $issues ) ) : ?>
+			<p>
+				<?php
+				/* translators: %s: brand name */
+				echo esc_html( sprintf( __( 'This free audit focuses on the quickest improvements. Contact %s for a complete, in-depth review.', 'credit-market-audit' ), $brand['name'] ) );
+				?>
+			</p>
+		<?php endif; ?>
 		<?php if ( ! empty( $settings['report_footer'] ) ) : ?>
 			<div><?php echo wp_kses_post( wpautop( $settings['report_footer'] ) ); ?></div>
 		<?php endif; ?>
 		<p>
 			<?php
 			/* translators: %s: brand name */
-			echo esc_html( sprintf( __( 'Report generated by %s. Speed data provided by Google PageSpeed Insights.', 'credit-market-audit' ), $settings['brand_name'] ) );
+			echo esc_html( sprintf( __( 'Report generated by %s. Speed data provided by Google PageSpeed Insights.', 'credit-market-audit' ), $brand['name'] ) );
 			?>
 		</p>
 	</footer>

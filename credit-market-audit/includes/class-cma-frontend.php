@@ -44,8 +44,8 @@ class CMA_Frontend {
 					/* translators: %s: email address */
 					'emailSent'  => __( 'A copy has been sent to %s.', 'credit-market-audit' ),
 					'emailFail'  => __( 'We could not email the report, but you can download it below.', 'credit-market-audit' ),
-					'download'   => __( 'Download report', 'credit-market-audit' ),
-					'pdf'        => __( 'Save as PDF', 'credit-market-audit' ),
+					'download'   => CMA_PDF::available() ? __( 'Download PDF', 'credit-market-audit' ) : __( 'Download report', 'credit-market-audit' ),
+					'pdf'        => __( 'Print', 'credit-market-audit' ),
 					'view'       => __( 'Open online', 'credit-market-audit' ),
 					'again'      => __( 'Audit another website', 'credit-market-audit' ),
 					'error'      => __( 'Something went wrong. Please try again.', 'credit-market-audit' ),
@@ -108,7 +108,9 @@ class CMA_Frontend {
 		$args['show_consent'] = self::truthy( $args['show_consent'] );
 		$args['layout']       = 'inline' === $args['layout'] ? 'inline' : 'stacked';
 		$args['heading_tag']  = in_array( $args['heading_tag'], array( 'h1', 'h2', 'h3', 'h4', 'h5', 'h6', 'div', 'p' ), true ) ? $args['heading_tag'] : 'h3';
-		$accent               = CMA_Settings::get( 'brand_color' );
+		$brand                = CMA_Settings::brand();
+		$accent               = $brand['color'];
+		$on_accent            = $brand['on_color'];
 
 		ob_start();
 		include CMA_Report::template( 'form.php' );
