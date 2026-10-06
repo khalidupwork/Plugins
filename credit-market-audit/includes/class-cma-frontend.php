@@ -48,6 +48,9 @@ class CMA_Frontend {
 					'pdf'        => __( 'Print', 'credit-market-audit' ),
 					'view'       => __( 'Open online', 'credit-market-audit' ),
 					'again'      => __( 'Audit another website', 'credit-market-audit' ),
+					'viewReport'  => __( 'View report', 'credit-market-audit' ),
+					'reportTitle' => __( 'Your Website Audit Report', 'credit-market-audit' ),
+					'close'       => __( 'Close', 'credit-market-audit' ),
 					'error'      => __( 'Something went wrong. Please try again.', 'credit-market-audit' ),
 					'timeout'    => __( 'The request took too long. Please try again.', 'credit-market-audit' ),
 					'invalidEmail' => __( 'Please enter a valid email address.', 'credit-market-audit' ),
@@ -77,6 +80,7 @@ class CMA_Frontend {
 			'consent_text'      => CMA_Settings::get( 'consent_text' ),
 			'layout'            => 'stacked',
 			'theme'             => 'dark',
+			'result'            => 'popup',
 			'class'             => '',
 		);
 	}
@@ -109,6 +113,7 @@ class CMA_Frontend {
 		$args['show_consent'] = self::truthy( $args['show_consent'] );
 		$args['layout']       = 'inline' === $args['layout'] ? 'inline' : 'stacked';
 		$args['theme']        = 'light' === $args['theme'] ? 'light' : 'dark';
+		$args['result']       = 'inline' === $args['result'] ? 'inline' : 'popup';
 		$args['heading_tag']  = in_array( $args['heading_tag'], array( 'h1', 'h2', 'h3', 'h4', 'h5', 'h6', 'div', 'p' ), true ) ? $args['heading_tag'] : 'h3';
 		$brand                = CMA_Settings::brand();
 		$accent               = $brand['color'];

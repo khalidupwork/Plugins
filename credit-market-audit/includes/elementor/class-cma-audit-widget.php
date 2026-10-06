@@ -162,6 +162,19 @@ class CMA_Audit_Widget extends Widget_Base {
 		);
 
 		$this->add_control(
+			'result',
+			array(
+				'label'   => __( 'Show report in', 'credit-market-audit' ),
+				'type'    => Controls_Manager::SELECT,
+				'default' => 'popup',
+				'options' => array(
+					'popup'  => __( 'Popup (recommended)', 'credit-market-audit' ),
+					'inline' => __( 'Below the form', 'credit-market-audit' ),
+				),
+			)
+		);
+
+		$this->add_control(
 			'show_name',
 			array(
 				'label'        => __( 'Show name field', 'credit-market-audit' ),
@@ -582,6 +595,7 @@ class CMA_Audit_Widget extends Widget_Base {
 				'consent_text'      => isset( $s['consent_text'] ) ? $s['consent_text'] : '',
 				'layout'            => isset( $s['layout'] ) ? $s['layout'] : 'stacked',
 				'theme'             => isset( $s['theme'] ) ? $s['theme'] : 'dark',
+				'result'            => isset( $s['result'] ) ? $s['result'] : 'popup',
 				'heading_tag'       => isset( $s['heading_tag'] ) ? $s['heading_tag'] : 'h3',
 			)
 		);

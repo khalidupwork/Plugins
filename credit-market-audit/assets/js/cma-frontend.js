@@ -192,11 +192,13 @@
 
 	Audit.prototype.showResult = function ( res ) {
 		var self = this;
+		this.res = res;
 		this.text.textContent = i18n.done || '';
 
 		var msg = this.result.querySelector( '.cma-result__msg' );
 		var actions = this.result.querySelector( '.cma-result__actions' );
 		var report = this.result.querySelector( '.cma-result__report' );
+		var popup = this.root.getAttribute( 'data-result' ) !== 'inline';
 
 		msg.innerHTML = '';
 		var strong = document.createElement( 'strong' );
@@ -207,9 +209,21 @@
 		msg.appendChild( note );
 
 		actions.innerHTML = '';
-		actions.appendChild( this.button_( i18n.download, res.download_url, 'primary', false ) );
-		actions.appendChild( this.button_( i18n.pdf, res.print_url, 'secondary', true ) );
-		actions.appendChild( this.button_( i18n.view, res.view_url, 'secondary', true ) );
+		if ( popup ) {
+			var open = document.createElement( 'button' );
+			open.type = 'button';
+			open.className = 'cma-action cma-action--primary';
+			open.textContent = i18n.viewReport || '';
+			open.addEventListener( 'click', function () {
+				self.openModal();
+			} );
+			actions.appendChild( open );
+			actions.appendChild( this.button_( i18n.download, res.download_url, 'secondary', false ) );
+		} else {
+			actions.appendChild( this.button_( i18n.download, res.download_url, 'primary', false ) );
+			actions.appendChild( this.button_( i18n.pdf, res.print_url, 'secondary', true ) );
+			actions.appendChild( this.button_( i18n.view, res.view_url, 'secondary', true ) );
+		}
 
 		var again = document.createElement( 'button' );
 		again.type = 'button';
@@ -220,13 +234,100 @@
 		} );
 		actions.appendChild( again );
 
-		// Server-rendered report; every value is escaped in PHP.
-		report.innerHTML = res.html;
-
 		this.formWrap.hidden = true;
 		this.result.hidden = false;
+
+		if ( popup ) {
+			// The report opens in a full-screen popup so the page layout stays untouched.
+			report.innerHTML = '';
+			this.openModal();
+			return;
+		}
+
+		// Server-rendered report; every value is escaped in PHP.
+		report.innerHTML = res.html;
 		if ( this.result.scrollIntoView ) {
 			this.result.scrollIntoView( { behavior: 'smooth', block: 'start' } );
+		}
+	};
+
+	// Popup with the report. Appended to <body> so theme / Elementor containers can't clip it.
+	Audit.prototype.openModal = function () {
+		var self = this;
+		var res = this.res;
+		if ( ! res ) {
+			return;
+		}
+
+		if ( ! this.modal ) {
+			var modal = document.createElement( 'div' );
+			modal.className = 'cma-modal';
+			modal.setAttribute( 'role', 'dialog' );
+			modal.setAttribute( 'aria-modal', 'true' );
+			modal.setAttribute( 'aria-label', i18n.reportTitle || '' );
+			modal.innerHTML =
+				'<div class="cma-modal__backdrop"></div>' +
+				'<div class="cma-modal__dialog">' +
+					'<div class="cma-modal__bar">' +
+						'<strong class="cma-modal__title"></strong>' +
+						'<div class="cma-modal__actions"></div>' +
+						'<button type="button" class="cma-modal__close"><span aria-hidden="true">&times;</span></button>' +
+					'</div>' +
+					'<div class="cma-modal__body"></div>' +
+				'</div>';
+
+			// Carry the brand colours over from the form.
+			var style = window.getComputedStyle( this.root );
+			[ '--cma-brand', '--cma-on-brand' ].forEach( function ( v ) {
+				var val = style.getPropertyValue( v );
+				if ( val ) {
+					modal.style.setProperty( v, val.trim() );
+				}
+			} );
+
+			modal.querySelector( '.cma-modal__title' ).textContent = i18n.reportTitle || '';
+			modal.querySelector( '.cma-modal__close' ).setAttribute( 'aria-label', i18n.close || 'Close' );
+			modal.querySelector( '.cma-modal__close' ).addEventListener( 'click', function () {
+				self.closeModal();
+			} );
+			modal.querySelector( '.cma-modal__backdrop' ).addEventListener( 'click', function () {
+				self.closeModal();
+			} );
+			this.onKey = function ( e ) {
+				if ( e.key === 'Escape' ) {
+					self.closeModal();
+				}
+			};
+			document.body.appendChild( modal );
+			this.modal = modal;
+		}
+
+		var bar = this.modal.querySelector( '.cma-modal__actions' );
+		bar.innerHTML = '';
+		bar.appendChild( this.button_( i18n.download, res.download_url, 'primary', false ) );
+		bar.appendChild( this.button_( i18n.pdf, res.print_url, 'secondary', true ) );
+
+		// Server-rendered report; every value is escaped in PHP.
+		var body = this.modal.querySelector( '.cma-modal__body' );
+		body.innerHTML = res.html;
+		body.scrollTop = 0;
+
+		this.modal.classList.add( 'is-open' );
+		document.documentElement.classList.add( 'cma-modal-open' );
+		document.addEventListener( 'keydown', this.onKey );
+		this.modal.querySelector( '.cma-modal__close' ).focus();
+	};
+
+	Audit.prototype.closeModal = function () {
+		if ( ! this.modal ) {
+			return;
+		}
+		this.modal.classList.remove( 'is-open' );
+		document.documentElement.classList.remove( 'cma-modal-open' );
+		document.removeEventListener( 'keydown', this.onKey );
+		var btn = this.result.querySelector( '.cma-action--primary' );
+		if ( btn ) {
+			btn.focus();
 		}
 	};
 
@@ -243,6 +344,8 @@
 	};
 
 	Audit.prototype.reset = function () {
+		this.closeModal();
+		this.res = null;
 		this.result.hidden = true;
 		this.result.querySelector( '.cma-result__report' ).innerHTML = '';
 		this.progress.hidden = true;

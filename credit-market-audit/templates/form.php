@@ -13,7 +13,7 @@ defined( 'ABSPATH' ) || exit;
 
 $id = $args['id'];
 ?>
-<div id="<?php echo esc_attr( $id ); ?>" class="cma-audit cma-layout-<?php echo esc_attr( $args['layout'] ); ?> cma-theme-<?php echo esc_attr( $args['theme'] ); ?> <?php echo esc_attr( $args['class'] ); ?>" style="--cma-brand: <?php echo esc_attr( $accent ); ?>; --cma-on-brand: <?php echo esc_attr( $on_accent ); ?>;">
+<div id="<?php echo esc_attr( $id ); ?>" class="cma-audit cma-layout-<?php echo esc_attr( $args['layout'] ); ?> cma-theme-<?php echo esc_attr( $args['theme'] ); ?> <?php echo esc_attr( $args['class'] ); ?>" data-result="<?php echo esc_attr( $args['result'] ); ?>" style="--cma-brand: <?php echo esc_attr( $accent ); ?>; --cma-on-brand: <?php echo esc_attr( $on_accent ); ?>;">
 	<div class="cma-form-wrap">
 		<?php if ( '' !== $args['heading'] ) : ?>
 			<<?php echo tag_escape( $args['heading_tag'] ); ?> class="cma-heading"><?php echo esc_html( $args['heading'] ); ?></<?php echo tag_escape( $args['heading_tag'] ); ?>>
