@@ -522,7 +522,7 @@ class CMA_Audit_Widget extends Widget_Base {
 			array(
 				'label'     => __( 'Text colour', 'credit-market-audit' ),
 				'type'      => Controls_Manager::COLOR,
-				'selectors' => array( '{{WRAPPER}} .cma-btn' => 'color: {{VALUE}};' ),
+				'selectors' => array( '{{WRAPPER}} .cma-audit' => '--cma-btn-color: {{VALUE}};' ),
 			)
 		);
 		$this->add_control(
@@ -530,7 +530,7 @@ class CMA_Audit_Widget extends Widget_Base {
 			array(
 				'label'     => __( 'Background colour', 'credit-market-audit' ),
 				'type'      => Controls_Manager::COLOR,
-				'selectors' => array( '{{WRAPPER}} .cma-btn' => 'background: {{VALUE}};' ),
+				'selectors' => array( '{{WRAPPER}} .cma-audit' => '--cma-btn-bg: {{VALUE}};' ),
 			)
 		);
 		$this->end_controls_tab();
@@ -541,7 +541,7 @@ class CMA_Audit_Widget extends Widget_Base {
 			array(
 				'label'     => __( 'Text colour', 'credit-market-audit' ),
 				'type'      => Controls_Manager::COLOR,
-				'selectors' => array( '{{WRAPPER}} .cma-btn:hover' => 'color: {{VALUE}};' ),
+				'selectors' => array( '{{WRAPPER}} .cma-audit' => '--cma-btn-hover-color: {{VALUE}};' ),
 			)
 		);
 		$this->add_control(
@@ -549,7 +549,7 @@ class CMA_Audit_Widget extends Widget_Base {
 			array(
 				'label'     => __( 'Background colour', 'credit-market-audit' ),
 				'type'      => Controls_Manager::COLOR,
-				'selectors' => array( '{{WRAPPER}} .cma-btn:hover' => 'background: {{VALUE}}; filter: none;' ),
+				'selectors' => array( '{{WRAPPER}} .cma-audit' => '--cma-btn-hover-bg: {{VALUE}};' ),
 			)
 		);
 		$this->end_controls_tab();

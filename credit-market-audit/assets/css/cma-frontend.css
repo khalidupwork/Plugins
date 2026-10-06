@@ -252,3 +252,147 @@ html.cma-modal-open, html.cma-modal-open body { overflow: hidden !important; }
 	.cma-modal__actions .cma-action { flex: 1; justify-content: center; }
 	.cma-modal__body { padding: 12px; }
 }
+
+/* ---------------------------------------------------------------
+ * Button hardening: themes / Elementor kits often style every
+ * <button> and <a> (colours, hover, focus, uppercase…). Lock ours
+ * to the brand colour (#0157A0 by default). Colours go through
+ * variables so the Elementor widget controls can still change them.
+ * ------------------------------------------------------------- */
+.cma-audit, .cma-modal {
+	--cma-btn-bg: var(--cma-accent);
+	--cma-btn-color: var(--cma-on-brand, #ffffff);
+	--cma-btn-hover-bg: color-mix(in srgb, var(--cma-btn-bg) 85%, #000);
+	--cma-btn-hover-color: var(--cma-btn-color);
+}
+
+/* Submit button: colours locked, typography left to the widget controls. */
+.cma-audit .cma-btn,
+.cma-audit .cma-btn:visited {
+	background: var(--cma-btn-bg) !important;
+	background-image: none !important;
+	color: var(--cma-btn-color) !important;
+	border: 0;
+	border-radius: var(--cma-radius);
+	box-shadow: none;
+	height: 52px;
+	padding: 0 24px;
+	font-family: inherit;
+	font-size: 16px;
+	font-weight: 700;
+	line-height: 1.2;
+	text-transform: none;
+	letter-spacing: normal;
+	text-shadow: none;
+	text-decoration: none;
+}
+.cma-audit .cma-btn:hover,
+.cma-audit .cma-btn:focus,
+.cma-audit .cma-btn:active {
+	background: var(--cma-btn-hover-bg) !important;
+	color: var(--cma-btn-hover-color) !important;
+	filter: none;
+}
+.cma-audit .cma-btn:focus-visible { outline: 2px solid #ffffff; outline-offset: 2px; }
+
+/* Result card + popup buttons. */
+.cma-audit .cma-action,
+.cma-modal .cma-action {
+	display: inline-flex !important;
+	align-items: center !important;
+	justify-content: center !important;
+	gap: 6px;
+	width: auto !important;
+	height: 42px !important;
+	min-height: 0 !important;
+	margin: 0 !important;
+	padding: 0 18px !important;
+	font-family: inherit !important;
+	font-size: 14px !important;
+	font-weight: 600 !important;
+	line-height: 1 !important;
+	letter-spacing: normal !important;
+	text-transform: none !important;
+	text-decoration: none !important;
+	text-shadow: none !important;
+	box-shadow: none !important;
+	border-radius: 8px !important;
+	border: 1px solid transparent !important;
+	background-image: none !important;
+	cursor: pointer;
+	transition: background-color .15s, border-color .15s, color .15s;
+	filter: none !important;
+}
+.cma-audit .cma-action--primary,
+.cma-modal .cma-action--primary {
+	background-color: var(--cma-btn-bg) !important;
+	border-color: var(--cma-btn-bg) !important;
+	color: var(--cma-btn-color) !important;
+}
+.cma-audit .cma-action--primary:hover, .cma-audit .cma-action--primary:focus,
+.cma-modal .cma-action--primary:hover, .cma-modal .cma-action--primary:focus {
+	background-color: var(--cma-btn-hover-bg) !important;
+	border-color: var(--cma-btn-hover-bg) !important;
+	color: var(--cma-btn-hover-color) !important;
+}
+/* Secondary on the dark result card. */
+.cma-audit .cma-action--secondary {
+	background-color: transparent !important;
+	border-color: rgba(255, 255, 255, 0.35) !important;
+	color: #ffffff !important;
+}
+.cma-audit .cma-action--secondary:hover, .cma-audit .cma-action--secondary:focus {
+	background-color: rgba(255, 255, 255, 0.08) !important;
+	border-color: rgba(255, 255, 255, 0.6) !important;
+	color: #ffffff !important;
+}
+.cma-audit.cma-theme-light .cma-action--secondary,
+.cma-modal .cma-action--secondary {
+	background-color: #ffffff !important;
+	border-color: #cbd5e1 !important;
+	color: #0f172a !important;
+}
+.cma-audit.cma-theme-light .cma-action--secondary:hover,
+.cma-modal .cma-action--secondary:hover, .cma-modal .cma-action--secondary:focus {
+	background-color: #f1f5f9 !important;
+	border-color: #94a3b8 !important;
+	color: #0f172a !important;
+}
+/* "Audit another website" – plain text link. */
+.cma-audit .cma-action--link,
+.cma-audit .cma-action--link:hover,
+.cma-audit .cma-action--link:focus {
+	background-color: transparent !important;
+	border-color: transparent !important;
+	color: rgba(255, 255, 255, 0.85) !important;
+	padding: 0 6px !important;
+	text-decoration: underline !important;
+	text-underline-offset: 3px;
+	font-weight: 500 !important;
+}
+.cma-audit .cma-action--link:hover { color: #ffffff !important; }
+.cma-audit.cma-theme-light .cma-action--link { color: var(--cma-accent) !important; }
+.cma-audit .cma-action:focus-visible,
+.cma-modal .cma-action:focus-visible { outline: 2px solid var(--cma-btn-bg) !important; outline-offset: 2px; }
+
+/* Popup close button. */
+.cma-modal .cma-modal__close,
+.cma-modal .cma-modal__close:hover,
+.cma-modal .cma-modal__close:focus {
+	width: 40px !important; height: 40px !important; min-height: 0 !important;
+	padding: 0 !important; margin: 0 !important;
+	border: 0 !important; border-radius: 10px !important; box-shadow: none !important;
+	background: #f1f5f9 !important; color: #0f172a !important;
+	font-size: 26px !important; line-height: 1 !important; font-weight: 400 !important;
+	text-transform: none !important;
+}
+.cma-modal .cma-modal__close:hover { background: #e2e8f0 !important; }
+
+/* Report CTA button inside the popup. */
+.cma-report .cma-cta__btn,
+.cma-report .cma-cta__btn:hover {
+	background: var(--cma-accent) !important;
+	color: var(--cma-on-brand, #ffffff) !important;
+	text-transform: none !important;
+	border: 0 !important;
+}

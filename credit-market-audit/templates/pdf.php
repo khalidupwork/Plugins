@@ -87,12 +87,16 @@ $score_text = static function ( $score ) {
 
 	.issue { border: 1px solid #e2e8f0; border-left: 4px solid #f59e0b; border-radius: 6px; margin-bottom: 8px; page-break-inside: avoid; }
 	.issue.fail { border-left-color: #ef4444; }
-	.issue td { padding: 9px 12px; }
-	.issue .n { width: 26px; padding-right: 0; }
-	.issue .n span { display: inline-block; width: 20px; height: 15px; padding-top: 5px; border-radius: 10px; background: <?php echo esc_html( $accent ); ?>; color: <?php echo esc_html( $brand['on_color'] ); ?>; text-align: center; font-weight: bold; line-height: 1; font-size: 10px; }
-	.issue .t { font-weight: bold; font-size: 11.5px; color: <?php echo esc_html( $dark ); ?>; }
-	.issue .r { color: #475569; margin-top: 3px; }
-	.tag { display: inline-block; font-size: 8px; font-weight: bold; padding: 2px 7px; border-radius: 8px; background: #ecfdf5; color: #047857; margin-left: 6px; }
+	.issue td { vertical-align: middle; }
+	.issue .head td { padding: 9px 12px 3px 8px; }
+	.issue .body td { padding: 0 12px 10px 8px; }
+	.issue td.n { padding-left: 12px; }
+	.issue td.n { width: 22px; padding-right: 0; }
+	.issue-num { width: 20px; height: 15px; padding-top: 5px; border-radius: 10px; background: <?php echo esc_html( $accent ); ?>; color: <?php echo esc_html( $brand['on_color'] ); ?>; text-align: center; font-weight: bold; line-height: 1; font-size: 9.5px; }
+	.issue td.t { font-weight: bold; font-size: 11.5px; line-height: 1.3; color: <?php echo esc_html( $dark ); ?>; }
+	.issue td.tags { width: 150px; text-align: right; white-space: nowrap; }
+	.issue td.r { color: #475569; line-height: 1.45; }
+	.tag { font-size: 8px; font-weight: bold; line-height: 1; padding: 3px 7px; border-radius: 8px; background: #ecfdf5; color: #047857; margin-left: 4px; }
 	.tag.sec { background: #f1f5f9; color: #475569; }
 
 	.speed td.col { width: 50%; padding-right: 10px; }
@@ -101,7 +105,7 @@ $score_text = static function ( $score ) {
 	.box h4 { font-size: 12px; margin-bottom: 4px; }
 	.metric td { padding: 4px 0; border-bottom: 1px solid #f1f5f9; }
 	.metric td.v { text-align: right; font-weight: bold; }
-	.shots { margin-top: 12px; }
+	.shots { width: auto; margin: 12px auto 0; }
 	.shots td { text-align: center; vertical-align: bottom; padding: 0 6px; }
 	.shots img { border: 1px solid #e2e8f0; border-radius: 6px; }
 	.shots .cap { font-size: 8px; color: #94a3b8; margin-top: 3px; }
@@ -199,19 +203,22 @@ $score_text = static function ( $score ) {
 			<?php endif; ?>
 			<?php foreach ( $issues as $i => $issue ) : ?>
 				<table class="issue <?php echo esc_attr( $issue['status'] ); ?>">
-					<tr>
-						<td class="n"><span><?php echo (int) $i + 1; ?></span></td>
-						<td>
-							<div class="t">
-								<?php echo esc_html( $issue['label'] ); ?>
-								<span class="tag"><?php echo esc_html( isset( $effort_labels[ $issue['effort'] ] ) ? $effort_labels[ $issue['effort'] ] : '' ); ?></span>
-								<span class="tag sec"><?php echo esc_html( $issue['section'] ); ?></span>
-							</div>
-							<?php if ( $issue['recommendation'] ) : ?>
-								<div class="r"><?php echo esc_html( $issue['recommendation'] ); ?></div>
+					<tr class="head">
+						<td class="n"><div class="issue-num"><?php echo (int) $i + 1; ?></div></td>
+						<td class="t"><?php echo esc_html( $issue['label'] ); ?></td>
+						<td class="tags">
+							<?php if ( isset( $effort_labels[ $issue['effort'] ] ) ) : ?>
+								<span class="tag"><?php echo esc_html( $effort_labels[ $issue['effort'] ] ); ?></span>
 							<?php endif; ?>
+							<span class="tag sec"><?php echo esc_html( $issue['section'] ); ?></span>
 						</td>
 					</tr>
+					<?php if ( $issue['recommendation'] ) : ?>
+						<tr class="body">
+							<td class="n"></td>
+							<td class="r" colspan="2"><?php echo esc_html( $issue['recommendation'] ); ?></td>
+						</tr>
+					<?php endif; ?>
 				</table>
 			<?php endforeach; ?>
 		</div>
@@ -267,7 +274,6 @@ $score_text = static function ( $score ) {
 			<?php if ( ( $desktop && $desktop['screenshot'] ) || ( $mobile && $mobile['screenshot'] ) ) : ?>
 				<table class="shots">
 					<tr>
-						<td style="width: 25%;"></td>
 						<?php if ( $desktop && $desktop['screenshot'] ) : ?>
 							<td style="width: 340px;">
 								<img src="<?php echo esc_attr( $desktop['screenshot'] ); ?>" style="width: 320px;" alt="">
@@ -280,7 +286,6 @@ $score_text = static function ( $score ) {
 								<div class="cap"><?php esc_html_e( 'Mobile', 'credit-market-audit' ); ?></div>
 							</td>
 						<?php endif; ?>
-						<td style="width: 25%;"></td>
 					</tr>
 				</table>
 			<?php endif; ?>
