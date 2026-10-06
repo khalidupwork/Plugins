@@ -15,6 +15,11 @@ class CMA_Settings {
 	const OPTION = 'cma_settings';
 
 	/**
+	 * Brand primary colour used when none is set in Settings.
+	 */
+	const DEFAULT_COLOR = '#0157A0';
+
+	/**
 	 * Default values for every setting.
 	 *
 	 * @return array
@@ -41,7 +46,7 @@ class CMA_Settings {
 			'cta_message'         => __( 'Want us to fix these issues for you? Our team can help you improve speed, SEO and design.', 'credit-market-audit' ),
 			'report_footer'       => '',
 			'rate_limit'          => 5,
-			'require_consent'     => 1,
+			'require_consent'     => 0,
 			'consent_text'        => __( 'I agree to receive my audit report and occasional emails.', 'credit-market-audit' ),
 			'delete_on_uninstall' => 0,
 		);
@@ -120,7 +125,7 @@ class CMA_Settings {
 	 * Resolved branding: explicit settings first, then this site's own logo / Elementor colours.
 	 *
 	 * Because the plugin runs on the company's own WordPress site, the report automatically
-	 * matches the website (custom logo, site icon, Elementor global colours).
+	 * uses the website's logo and dark Elementor colour; the primary colour defaults to DEFAULT_COLOR.
 	 *
 	 * @return array{name: string, logo: string, color: string, dark: string, on_color: string}
 	 */
@@ -138,19 +143,7 @@ class CMA_Settings {
 			$logo = self::site_logo_url();
 		}
 
-		$color = $settings['brand_color'];
-		if ( ! $color ) {
-			foreach ( array( 'primary', 'accent', 'secondary' ) as $id ) {
-				// Skip near-white / near-black colours: they don't work as a header or button colour.
-				if ( ! empty( $kit[ $id ] ) && self::luminance( $kit[ $id ] ) < 0.8 && self::luminance( $kit[ $id ] ) > 0.03 ) {
-					$color = $kit[ $id ];
-					break;
-				}
-			}
-		}
-		if ( ! $color ) {
-			$color = '#2563eb';
-		}
+		$color = $settings['brand_color'] ? $settings['brand_color'] : self::DEFAULT_COLOR;
 
 		$dark = $settings['brand_dark'];
 		if ( ! $dark ) {

@@ -68,14 +68,15 @@ class CMA_Frontend {
 			'heading'           => __( 'Get Your Free Website Audit', 'credit-market-audit' ),
 			'heading_tag'       => 'h3',
 			'subheading'        => __( 'Find out how fast your website is, how well it ranks on Google and how good it looks — in under a minute.', 'credit-market-audit' ),
-			'show_name'         => 'yes',
+			'show_name'         => 'no',
 			'name_placeholder'  => __( 'Your name', 'credit-market-audit' ),
 			'email_placeholder' => __( 'Your email address', 'credit-market-audit' ),
 			'url_placeholder'   => __( 'Your website URL (e.g. example.com)', 'credit-market-audit' ),
 			'button_text'       => __( 'Get My Free Report', 'credit-market-audit' ),
-			'show_consent'      => CMA_Settings::get( 'require_consent' ) ? 'yes' : 'no',
+			'show_consent'      => 'no',
 			'consent_text'      => CMA_Settings::get( 'consent_text' ),
 			'layout'            => 'stacked',
+			'theme'             => 'dark',
 			'class'             => '',
 		);
 	}
@@ -107,6 +108,7 @@ class CMA_Frontend {
 		$args['show_name']    = self::truthy( $args['show_name'] );
 		$args['show_consent'] = self::truthy( $args['show_consent'] );
 		$args['layout']       = 'inline' === $args['layout'] ? 'inline' : 'stacked';
+		$args['theme']        = 'light' === $args['theme'] ? 'light' : 'dark';
 		$args['heading_tag']  = in_array( $args['heading_tag'], array( 'h1', 'h2', 'h3', 'h4', 'h5', 'h6', 'div', 'p' ), true ) ? $args['heading_tag'] : 'h3';
 		$brand                = CMA_Settings::brand();
 		$accent               = $brand['color'];

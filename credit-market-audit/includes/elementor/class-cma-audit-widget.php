@@ -149,12 +149,25 @@ class CMA_Audit_Widget extends Widget_Base {
 		);
 
 		$this->add_control(
+			'theme',
+			array(
+				'label'   => __( 'Colour scheme', 'credit-market-audit' ),
+				'type'    => Controls_Manager::SELECT,
+				'default' => 'dark',
+				'options' => array(
+					'dark'  => __( 'For dark backgrounds', 'credit-market-audit' ),
+					'light' => __( 'For light backgrounds', 'credit-market-audit' ),
+				),
+			)
+		);
+
+		$this->add_control(
 			'show_name',
 			array(
 				'label'        => __( 'Show name field', 'credit-market-audit' ),
 				'type'         => Controls_Manager::SWITCHER,
 				'return_value' => 'yes',
-				'default'      => 'yes',
+				'default'      => '',
 				'separator'    => 'before',
 			)
 		);
@@ -202,7 +215,7 @@ class CMA_Audit_Widget extends Widget_Base {
 				'label'        => __( 'Show consent checkbox', 'credit-market-audit' ),
 				'type'         => Controls_Manager::SWITCHER,
 				'return_value' => 'yes',
-				'default'      => 'yes' === $defaults['show_consent'] ? 'yes' : '',
+				'default'      => '',
 				'separator'    => 'before',
 			)
 		);
@@ -568,6 +581,7 @@ class CMA_Audit_Widget extends Widget_Base {
 				'show_consent'      => isset( $s['show_consent'] ) && 'yes' === $s['show_consent'] ? 'yes' : 'no',
 				'consent_text'      => isset( $s['consent_text'] ) ? $s['consent_text'] : '',
 				'layout'            => isset( $s['layout'] ) ? $s['layout'] : 'stacked',
+				'theme'             => isset( $s['theme'] ) ? $s['theme'] : 'dark',
 				'heading_tag'       => isset( $s['heading_tag'] ) ? $s['heading_tag'] : 'h3',
 			)
 		);

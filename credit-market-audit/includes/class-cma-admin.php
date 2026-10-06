@@ -99,7 +99,7 @@ class CMA_Admin {
 			array( 'psi_api_key', __( 'API key', 'credit-market-audit' ), 'password', 'cma_api', __( 'Free key from Google Cloud Console → APIs & Services → enable "PageSpeed Insights API" → Credentials → Create API key. Works without a key too, but with a very low shared quota.', 'credit-market-audit' ) ),
 			array( 'brand_name', __( 'Brand name', 'credit-market-audit' ), 'text', 'cma_branding', '' ),
 			array( 'brand_logo', __( 'Logo', 'credit-market-audit' ), 'media', 'cma_branding', __( 'Leave empty to use this website\'s own logo automatically (Appearance → Customize → Site Identity, or the Elementor site logo).', 'credit-market-audit' ) ),
-			array( 'brand_color', __( 'Brand colour', 'credit-market-audit' ), 'color', 'cma_branding', __( 'Leave empty to use your Elementor primary global colour automatically.', 'credit-market-audit' ) ),
+			array( 'brand_color', __( 'Brand colour', 'credit-market-audit' ), 'color', 'cma_branding', __( 'Used for buttons, progress bar and report accents. Leave empty for the default #0157A0.', 'credit-market-audit' ) ),
 			array( 'brand_dark', __( 'Dark colour', 'credit-market-audit' ), 'color', 'cma_branding', __( 'Used for headings and the call-to-action box. Leave empty to auto-detect.', 'credit-market-audit' ) ),
 			array( 'report_mode', __( 'Report style', 'credit-market-audit' ), 'select', 'cma_branding', __( 'Quick wins keeps the report short and only lists issues that are easy to fix, so prospects get an achievable to-do list instead of a long list of everything.', 'credit-market-audit' ) ),
 			array( 'max_issues', __( 'Number of issues to show', 'credit-market-audit' ), 'number', 'cma_branding', __( 'Between 3 and 15. Recommended: 5.', 'credit-market-audit' ) ),
@@ -115,8 +115,7 @@ class CMA_Admin {
 			array( 'email_intro', __( 'Email intro text', 'credit-market-audit' ), 'textarea', 'cma_email', '' ),
 			array( 'admin_notify', __( 'Notify me about new leads', 'credit-market-audit' ), 'checkbox', 'cma_email', '' ),
 			array( 'admin_email', __( 'Notification email', 'credit-market-audit' ), 'email', 'cma_email', '' ),
-			array( 'require_consent', __( 'Show consent checkbox by default', 'credit-market-audit' ), 'checkbox', 'cma_form', __( 'Can also be toggled per form in the Elementor widget / shortcode.', 'credit-market-audit' ) ),
-			array( 'consent_text', __( 'Consent text', 'credit-market-audit' ), 'textarea', 'cma_form', '' ),
+			array( 'consent_text', __( 'Consent text', 'credit-market-audit' ), 'textarea', 'cma_form', __( 'Only shown when the consent checkbox is switched on in the Elementor widget or with show_consent="yes" in the shortcode.', 'credit-market-audit' ) ),
 			array( 'rate_limit', __( 'Max audits per IP per hour', 'credit-market-audit' ), 'number', 'cma_form', __( '0 = unlimited. Protects your PageSpeed quota from abuse.', 'credit-market-audit' ) ),
 			array( 'delete_on_uninstall', __( 'Delete all data on uninstall', 'credit-market-audit' ), 'checkbox', 'cma_form', __( 'Removes the leads table and settings when the plugin is deleted.', 'credit-market-audit' ) ),
 		);

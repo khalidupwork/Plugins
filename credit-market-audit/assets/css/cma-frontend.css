@@ -1,6 +1,6 @@
 /* Credit Market Free Audit – form */
 .cma-audit {
-	--cma-accent: var(--cma-brand, #2563eb);
+	--cma-accent: var(--cma-brand, #0157A0);
 	--cma-radius: 10px;
 	box-sizing: border-box;
 	width: 100%;
@@ -11,12 +11,12 @@
 .cma-audit *, .cma-audit *::before, .cma-audit *::after { box-sizing: border-box; }
 .cma-audit [hidden] { display: none !important; }
 
+/* No box by default: the form sits directly on the page / Elementor section background. */
 .cma-form-wrap {
-	background: #ffffff;
-	border: 1px solid #e2e8f0;
-	border-radius: 16px;
-	padding: 32px;
-	box-shadow: 0 10px 30px -12px rgba(15, 23, 42, 0.18);
+	background: transparent;
+	border: 0;
+	padding: 0;
+	box-shadow: none;
 }
 .cma-heading { margin: 0 0 8px; font-size: 28px; line-height: 1.2; font-weight: 700; color: inherit; }
 .cma-subheading { margin: 0 0 24px; color: #475569; }
@@ -103,7 +103,7 @@
 }
 .cma-progress__meta { display: flex; justify-content: space-between; gap: 12px; margin-top: 10px; font-size: 14px; color: #475569; }
 .cma-progress__pct { font-weight: 700; color: var(--cma-accent); }
-.cma-progress__steps { list-style: none; margin: 16px 0 0; padding: 0; display: grid; grid-template-columns: repeat(auto-fit, minmax(140px, 1fr)); gap: 8px; }
+.cma-progress__steps { list-style: none; margin: 16px 0 0; padding: 0; display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 8px; }
 .cma-progress__steps li {
 	position: relative;
 	padding: 8px 10px 8px 32px;
@@ -147,8 +147,45 @@
 .cma-action:hover { filter: brightness(1.05); }
 
 @media (max-width: 600px) {
-	.cma-form-wrap { padding: 20px; }
 	.cma-heading { font-size: 22px; }
 	.cma-result__actions { width: 100%; }
 	.cma-action--primary, .cma-action--secondary { flex: 1 1 auto; justify-content: center; }
 }
+
+/* ---------------------------------------------------------------
+ * Dark scheme (default) – for black / dark section backgrounds.
+ * ------------------------------------------------------------- */
+.cma-theme-dark { color: #f8fafc; }
+.cma-theme-dark .cma-heading { color: #ffffff; }
+.cma-theme-dark .cma-subheading { color: rgba(255, 255, 255, 0.72); }
+.cma-theme-dark .cma-field input {
+	color: #ffffff;
+	background: rgba(255, 255, 255, 0.06);
+	border-color: rgba(255, 255, 255, 0.18);
+}
+.cma-theme-dark .cma-field input::placeholder { color: rgba(255, 255, 255, 0.5); opacity: 1; }
+.cma-theme-dark .cma-field input:focus {
+	background: rgba(255, 255, 255, 0.09);
+	border-color: var(--cma-accent);
+	box-shadow: 0 0 0 3px color-mix(in srgb, var(--cma-accent) 35%, transparent);
+}
+/* Keep autofilled fields dark in Chrome. */
+.cma-theme-dark .cma-field input:-webkit-autofill {
+	-webkit-text-fill-color: #ffffff;
+	-webkit-box-shadow: 0 0 0 1000px #111827 inset;
+	caret-color: #ffffff;
+}
+.cma-theme-dark .cma-consent { color: rgba(255, 255, 255, 0.72); }
+.cma-theme-dark .cma-error { background: rgba(239, 68, 68, 0.12); border-color: rgba(239, 68, 68, 0.4); color: #fca5a5; }
+.cma-theme-dark .cma-progress__bar { background: rgba(255, 255, 255, 0.12); }
+.cma-theme-dark .cma-progress__meta { color: rgba(255, 255, 255, 0.72); }
+.cma-theme-dark .cma-progress__pct { color: #ffffff; }
+.cma-theme-dark .cma-progress__steps li { background: rgba(255, 255, 255, 0.05); color: rgba(255, 255, 255, 0.45); }
+.cma-theme-dark .cma-progress__steps li::before { border-color: rgba(255, 255, 255, 0.3); }
+.cma-theme-dark .cma-progress__steps li.is-active { color: #ffffff; }
+.cma-theme-dark .cma-progress__steps li.is-active::before { border-color: var(--cma-accent); border-top-color: transparent; }
+.cma-theme-dark .cma-progress__steps li.is-done { color: #4ade80; }
+.cma-theme-dark .cma-result__bar { background: rgba(34, 197, 94, 0.1); border-color: rgba(34, 197, 94, 0.35); color: #f8fafc; }
+.cma-theme-dark .cma-result__msg strong { color: #4ade80; }
+.cma-theme-dark .cma-action--secondary { background: transparent; color: #ffffff !important; border-color: rgba(255, 255, 255, 0.3); }
+.cma-theme-dark .cma-action--link { color: #ffffff; }
