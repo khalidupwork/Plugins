@@ -45,12 +45,16 @@ class VSO_Settings {
 			'css_exclude'           => '',
 
 			// JavaScript.
-			'minify_js'             => 1,
+			'minify_js'             => 0,
 			'defer_js'              => 1,
 			'defer_exclude'         => '',
 			'delay_js'              => 1,
 			'delay_js_timeout'      => 0, // Seconds; 0 = wait for user interaction only.
 			'delay_js_exclude'      => '',
+			'compat_cookie'         => 1,
+			'compat_sliders'        => 1,
+			'compat_lazyload'       => 1,
+			'tracking_mode'         => 'delay', // delay | normal.
 
 			// Media.
 			'lazy_images'           => 1,
@@ -114,7 +118,6 @@ class VSO_Settings {
 				'browser_cache'     => 1,
 				'minify_html'       => 1,
 				'minify_css'        => 1,
-				'minify_js'         => 1,
 				'defer_js'          => 1,
 				'lazy_images'       => 1,
 				'lcp_priority'      => 1,
@@ -145,6 +148,7 @@ class VSO_Settings {
 			array(
 				'remove_unused_css'    => 1,
 				'full_css_load'        => 'interaction',
+				'minify_js'            => 1,
 				'remove_query_strings' => 1,
 			)
 		);
@@ -218,6 +222,7 @@ class VSO_Settings {
 
 		$out['level']         = in_array( $out['level'], array( 'off', 'safe', 'balanced', 'extreme', 'custom' ), true ) ? $out['level'] : 'custom';
 		$out['heartbeat']     = in_array( $out['heartbeat'], array( 'default', 'reduce', 'disable' ), true ) ? $out['heartbeat'] : 'default';
+		$out['tracking_mode'] = in_array( $out['tracking_mode'], array( 'delay', 'normal' ), true ) ? $out['tracking_mode'] : 'delay';
 		$out['full_css_load'] = in_array( $out['full_css_load'], array( 'interaction', 'onload' ), true ) ? $out['full_css_load'] : 'interaction';
 		$out['webp_quality']  = min( 100, max( 30, $out['webp_quality'] ) );
 		$out['lazy_skip']     = min( 20, $out['lazy_skip'] );

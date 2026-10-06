@@ -46,6 +46,14 @@ add_action(
 			$bar->add_node(
 				array(
 					'parent' => 'vso',
+					'id'     => 'vso-preview',
+					'title'  => esc_html__( 'Preview optimized page', 'vyntic-speed-optimizer' ),
+					'href'   => add_query_arg( 'vso_preview', 1, $current ),
+				)
+			);
+			$bar->add_node(
+				array(
+					'parent' => 'vso',
 					'id'     => 'vso-psi',
 					'title'  => esc_html__( 'Test on PageSpeed Insights', 'vyntic-speed-optimizer' ),
 					'href'   => 'https://pagespeed.web.dev/analysis?url=' . rawurlencode( $current ),

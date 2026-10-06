@@ -4,7 +4,7 @@ Tags: speed, cache, pagespeed, core web vitals, optimize
 Requires at least: 5.8
 Tested up to: 6.6
 Requires PHP: 7.4
-Stable tag: 1.0.0
+Stable tag: 1.1.0
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
@@ -16,8 +16,12 @@ Vyntic Speed Optimizer pushes Google PageSpeed / Core Web Vitals scores into the
 
 * **Page cache** – static HTML served before WordPress loads (advanced-cache.php drop-in), GZIP copies, auto-purge on edits, background preloading, mobile cache option.
 * **Delay JavaScript until user interaction** – every script (analytics, chat, sliders, jQuery…) runs on the first scroll / tap / mouse move / key press. Removes almost all Total Blocking Time. Scripts keep their original order; DOMContentLoaded, window load and jQuery ready/load handlers still fire, and the first click is replayed.
+* **Built-in compatibility exclusions** – cookie/GDPR banners (CookieYes, Complianz, Cookiebot, Borlabs, iubenda, OneTrust…), sliders (Slider Revolution, Smart Slider, LayerSlider, MetaSlider…) and JavaScript lazy loaders keep working before the first interaction. Every excluded script automatically takes its dependencies (e.g. jQuery and its localized config) with it, so nothing runs in the wrong order. Pure data scripts (`var config = {...}`) and the Google consent stub always run immediately.
+* **Tracking & pixels** – Meta/Facebook Pixel, GA4, Tag Manager, Google Ads, TikTok, Clarity, Hotjar, PixelYourSite…: choose "Delay until interaction" (best score) or "Load normally" (count every visit). Cart, checkout, account and order-received pages never delay scripts, so purchase/conversion events are never lost.
+* **Safety CSS** – page preloaders, AOS, Divi and WOW.js animations stay visible while scripts are delayed.
+* **Preview mode** – admins can check the optimized page while logged in with `?vso_preview=1` (admin bar → Preview optimized page).
 * **Remove unused CSS (local)** – for every page only the CSS rules it uses are inlined; full stylesheets load on interaction. No render-blocking CSS and no external service.
-* **Defer JavaScript**, **minify CSS / JS / HTML**.
+* **Defer JavaScript** (dependency-aware: a script is never deferred when something that runs immediately needs it), **minify CSS / HTML**, optional JS minify (Extreme level).
 * **Images** – native lazy loading (first N images skipped), `fetchpriority="high"` for the LCP image, missing width/height added (CLS), WebP conversion on your server (GD/Imagick) with bulk tool, lazy iframes, YouTube click-to-load.
 * **Fonts** – `font-display: swap`, Google Fonts hosted locally, preconnect and preload.
 * **Tweaks** – disable emojis, embeds, Dashicons for visitors, jQuery Migrate, query strings, XML-RPC, heartbeat control.
@@ -47,6 +51,9 @@ The plugin writes `wp-content/advanced-cache.php`, adds `define( 'WP_CACHE', tru
 = Do I need an account or API key? =
 No. Everything is computed on your server. A Google PageSpeed API key is optional and only removes Google's rate limit on the built-in score test.
 
+= Will Facebook / Meta Pixel and Google Analytics still track? =
+Yes. With the default "Delay until interaction" they fire on the visitor's first scroll, tap or mouse move, so only visitors who leave without touching the page are missed. Choose *Tracking & pixels → Load normally* to count every visit (costs some score). Purchase events on the WooCommerce / EDD thank-you page are never delayed.
+
 = A slider / menu / popup only works after I scroll =
 That is the "delay JavaScript" feature. Add part of its script URL (for example `slick` or `swiper`) to *CSS & JavaScript → Do not delay scripts containing*, or set *Also run scripts after (seconds)*.
 
@@ -68,10 +75,19 @@ Page cache, optimizations and WebP work on any server. The `.htaccess` browser-c
 * `vso_cache_page` (bool) – prevent storing the current page.
 * `vso_delay_js_exclusions`, `vso_defer_js_exclusions` (array) – extra exclusion keywords.
 * `vso_optimized_html` (string) – final HTML.
+* `vso_disable_delay_here` (bool) – turn off script delay for the current page.
+* `vso_safety_css` (string) – CSS printed while scripts are delayed.
 * `vso_preload_limit` (int) – max posts preloaded (default 500).
 * Constants `DONOTOPTIMIZE` and `DONOTCACHEPAGE` are respected; scripts with `data-no-delay` or `data-no-optimize` are never delayed.
 
 == Changelog ==
+
+= 1.1.0 =
+* Built-in exclusions for cookie banners, sliders, lazy loaders and tracking pixels, with automatic dependency resolution.
+* Tracking mode: delay or load normally. Script delay is always off on cart/checkout/thank-you pages.
+* Data-only inline scripts and the Google consent stub always run immediately.
+* Safety CSS for preloaders and entrance animations; admin preview mode (?vso_preview=1).
+* Safer defer (keeps dependencies of non-deferred code in place); JS minify now only in Extreme.
 
 = 1.0.0 =
 * First release.

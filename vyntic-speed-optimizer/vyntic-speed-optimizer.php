@@ -3,7 +3,7 @@
  * Plugin Name:       Vyntic Speed Optimizer
  * Plugin URI:        https://github.com/khalidupwork/Plugins
  * Description:       All-in-one, 100% local speed optimizer — no account, no login, no connect. Page cache, delay JavaScript until user interaction, remove unused CSS, lazy load, WebP, font optimization and more to push PageSpeed scores into the green.
- * Version:           1.0.0
+ * Version:           1.1.0
  * Requires at least: 5.8
  * Requires PHP:      7.4
  * Author:            Vyntic
@@ -17,7 +17,7 @@
 
 defined( 'ABSPATH' ) || exit;
 
-define( 'VSO_VERSION', '1.0.0' );
+define( 'VSO_VERSION', '1.1.0' );
 define( 'VSO_FILE', __FILE__ );
 define( 'VSO_PATH', plugin_dir_path( __FILE__ ) );
 define( 'VSO_URL', plugin_dir_url( __FILE__ ) );
@@ -47,6 +47,7 @@ require_once VSO_PATH . 'includes/class-vso-settings.php';
 require_once VSO_PATH . 'includes/class-vso-utils.php';
 require_once VSO_PATH . 'includes/class-vso-page-cache.php';
 require_once VSO_PATH . 'includes/class-vso-css.php';
+require_once VSO_PATH . 'includes/class-vso-compat.php';
 require_once VSO_PATH . 'includes/class-vso-js.php';
 require_once VSO_PATH . 'includes/class-vso-media.php';
 require_once VSO_PATH . 'includes/class-vso-fonts.php';

@@ -192,6 +192,7 @@
 			}
 
 			finished = true;
+			d.documentElement.classList.add('vso-js-loaded');
 			d.removeEventListener('click', onClick, true);
 			d.dispatchEvent(new Event('vso:loaded'));
 			w.vsoLoaded = true;

@@ -326,6 +326,13 @@ class VSO_Admin {
 				array( 'delay_js', 'toggle', __( 'Delay all JavaScript until user interaction', 'vyntic-speed-optimizer' ), __( 'Scripts run on the first scroll, tap, mouse move or key press. Removes almost all Total Blocking Time — this is the main reason scores turn green.', 'vyntic-speed-optimizer' ) ),
 				array( 'delay_js_timeout', 'number', __( 'Also run scripts after (seconds)', 'vyntic-speed-optimizer' ), __( '0 = only on interaction (best score). Set e.g. 8 if you have auto-playing sliders.', 'vyntic-speed-optimizer' ) ),
 				array( 'delay_js_exclude', 'textarea', __( 'Do not delay scripts containing', 'vyntic-speed-optimizer' ), __( 'One per line: part of a file URL, script id or inline code. Example: jquery.min.js', 'vyntic-speed-optimizer' ) ),
+				array( 'section', __( 'Compatibility — keep these working before the first interaction', 'vyntic-speed-optimizer' ), __( 'Built-in exclusions for well-known plugins. When a script is excluded, everything it needs (for example jQuery) is excluded with it automatically, so nothing runs in the wrong order. Checkout, cart, account and order-received pages never delay scripts, so purchase events are always tracked.', 'vyntic-speed-optimizer' ) ),
+				array( 'compat_detected', 'compat_detected', __( 'Detected on your site', 'vyntic-speed-optimizer' ) ),
+				array( 'compat_cookie', 'toggle', __( 'Cookie / GDPR consent banners', 'vyntic-speed-optimizer' ), __( 'CookieYes, Complianz, Cookiebot, Borlabs, iubenda, OneTrust… The banner must show right away (legal requirement).', 'vyntic-speed-optimizer' ) ),
+				array( 'compat_sliders', 'toggle', __( 'Sliders', 'vyntic-speed-optimizer' ), __( 'Slider Revolution, Smart Slider, LayerSlider, MetaSlider… These are usually the first thing on the page and stay blank until their script runs.', 'vyntic-speed-optimizer' ) ),
+				array( 'compat_lazyload', 'toggle', __( 'JavaScript lazy loaders', 'vyntic-speed-optimizer' ), __( 'Smush, a3 Lazy Load, Jetpack, theme lazy load, Elementor background lazy load — otherwise those images stay empty.', 'vyntic-speed-optimizer' ) ),
+				array( 'tracking_mode', 'select', __( 'Tracking & pixels', 'vyntic-speed-optimizer' ), __( 'Meta/Facebook Pixel, Google Analytics, Tag Manager, Google Ads, TikTok, Clarity, Hotjar, PixelYourSite… "Delay" gives the best score; visitors who leave without scrolling or tapping are not counted. "Load normally" tracks every visit but lowers the score (often 10–25 points on mobile).', 'vyntic-speed-optimizer' ), array( 'delay' => __( 'Delay until interaction (best score)', 'vyntic-speed-optimizer' ), 'normal' => __( 'Load normally (track every visit)', 'vyntic-speed-optimizer' ) ) ),
+				array( 'section', __( 'More JavaScript options', 'vyntic-speed-optimizer' ), '' ),
 				array( 'defer_js', 'toggle', __( 'Defer JavaScript', 'vyntic-speed-optimizer' ), __( 'Adds "defer" to scripts that are not delayed (jQuery is kept in place for compatibility).', 'vyntic-speed-optimizer' ) ),
 				array( 'defer_exclude', 'textarea', __( 'Do not defer scripts containing', 'vyntic-speed-optimizer' ), '' ),
 				array( 'minify_js', 'toggle', __( 'Minify JavaScript files', 'vyntic-speed-optimizer' ) ),
@@ -431,6 +438,19 @@ class VSO_Admin {
 						}
 						echo '</select>';
 						break;
+					case 'compat_detected':
+						$found  = VSO_Compat::detected();
+						$groups = VSO_Compat::groups();
+						if ( ! $found ) {
+							echo '<p class="vso-muted">' . esc_html__( 'No known cookie banner, slider, lazy-load or tracking plugin found. Scripts added by your theme or by hand are still matched.', 'vyntic-speed-optimizer' ) . '</p>';
+						} else {
+							echo '<ul class="vso-detected">';
+							foreach ( $found as $group => $names ) {
+								echo '<li><strong>' . esc_html( $groups[ $group ]['label'] ) . ':</strong> ' . esc_html( implode( ', ', array_unique( $names ) ) ) . '</li>';
+							}
+							echo '</ul>';
+						}
+						break;
 					case 'webp_bulk':
 						$stats = VSO_WebP::stats();
 						echo '<div id="vso-webp-bulk" data-remaining="' . esc_attr( $stats['remaining'] ) . '">';
@@ -512,6 +532,7 @@ class VSO_Admin {
 		<section class="vso-card">
 			<h2><?php esc_html_e( 'Troubleshooting', 'vyntic-speed-optimizer' ); ?></h2>
 			<ul class="vso-list">
+				<li><?php esc_html_e( 'Before trusting a change, check pages while logged in with ?vso_preview=1 at the end of the URL (or "Preview optimized page" in the admin bar). Admins normally see the original site.', 'vyntic-speed-optimizer' ); ?></li>
 				<li><?php esc_html_e( 'Something looks broken? Open the page with ?vso_off=1 at the end of the URL to see it without any optimization.', 'vyntic-speed-optimizer' ); ?></li>
 				<li><?php esc_html_e( 'A slider, menu or popup only works after scrolling? Add part of its script URL to "Do not delay scripts containing".', 'vyntic-speed-optimizer' ); ?></li>
 				<li><?php esc_html_e( 'Styles missing before the first scroll with "Remove unused CSS"? Add the class names to "Always keep these selectors".', 'vyntic-speed-optimizer' ); ?></li>

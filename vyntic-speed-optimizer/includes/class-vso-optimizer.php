@@ -62,7 +62,7 @@ class VSO_Optimizer {
 		if ( 'off' === VSO_Settings::get( 'level' ) ) {
 			return false;
 		}
-		if ( is_user_logged_in() && ! VSO_Settings::enabled( 'optimize_logged_in' ) ) {
+		if ( is_user_logged_in() && ! VSO_Settings::enabled( 'optimize_logged_in' ) && ! self::is_preview() ) {
 			return false;
 		}
 		if ( is_singular() && get_post_meta( get_queried_object_id(), '_vso_disable', true ) ) {
@@ -76,6 +76,13 @@ class VSO_Optimizer {
 			return false;
 		}
 		return true;
+	}
+
+	/**
+	 * Admins can see the optimized page while logged in with ?vso_preview=1.
+	 */
+	public static function is_preview() {
+		return isset( $_GET['vso_preview'] ) && current_user_can( 'manage_options' ); // phpcs:ignore WordPress.Security.NonceVerification
 	}
 
 	/**
@@ -125,6 +132,9 @@ class VSO_Optimizer {
 
 		// Head: loader + resource hints go first so they're discovered early.
 		$head = VSO_JS::loader_tag( $js->has_delayed_js(), $css->has_delayed_css() ) . VSO_Fonts::hints( $fonts->uses_google() );
+		if ( $js->has_delayed_js() ) {
+			$head .= VSO_Compat::safety_css();
+		}
 		if ( '' !== $head ) {
 			$html = self::inject_head( $html, $head, true );
 		}

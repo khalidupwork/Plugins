@@ -72,3 +72,5 @@
 	.vso-field { grid-template-columns: 1fr; gap: 8px; }
 	.vso-header { padding: 16px; }
 }
+.vso-detected { margin: 0; }
+.vso-detected li { margin-bottom: 4px; }
