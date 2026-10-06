@@ -4,7 +4,7 @@ Tags: seo audit, pagespeed, lead generation, website audit, elementor
 Requires at least: 5.8
 Tested up to: 7.1
 Requires PHP: 7.4
-Stable tag: 1.3.1
+Stable tag: 1.4.0
 License: GPLv2 or later
 
 Free website audit lead-generation tool: Google PageSpeed + basic SEO + design check, downloadable report, emailed to the visitor. Includes an Elementor widget and a shortcode.
@@ -50,6 +50,9 @@ By default the form has only email + website URL, no box/background, and a dark 
 * Action: `cma_audit_started` (send the lead to a CRM, etc.).
 
 == Changelog ==
+
+= 1.4.0 =
+* Dark popup, on-screen report and email to match black websites (Settings → Report & email colours). The PDF stays light for printing.
 
 = 1.3.1 =
 * Buttons are protected from theme / Elementor kit button styles and always use the brand colour (#0157A0).

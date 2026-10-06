@@ -396,3 +396,23 @@ html.cma-modal-open, html.cma-modal-open body { overflow: hidden !important; }
 	text-transform: none !important;
 	border: 0 !important;
 }
+
+/* Dark popup (matches the dark report). */
+.cma-modal--dark .cma-modal__backdrop { background: rgba(0, 0, 0, 0.85); }
+.cma-modal--dark .cma-modal__dialog { background: #000000; border: 1px solid #1f1f1f; box-shadow: 0 30px 80px -20px rgba(1, 87, 160, 0.35); }
+.cma-modal--dark .cma-modal__bar { background: #0a0a0a; border-bottom-color: #1f1f1f; color: #ffffff; }
+.cma-modal--dark .cma-modal__body { scrollbar-color: #333 #0a0a0a; }
+.cma-modal.cma-modal--dark .cma-action--secondary {
+	background-color: transparent !important;
+	border-color: rgba(255, 255, 255, 0.3) !important;
+	color: #ffffff !important;
+}
+.cma-modal.cma-modal--dark .cma-action--secondary:hover,
+.cma-modal.cma-modal--dark .cma-action--secondary:focus {
+	background-color: rgba(255, 255, 255, 0.08) !important;
+	border-color: rgba(255, 255, 255, 0.55) !important;
+	color: #ffffff !important;
+}
+.cma-modal.cma-modal--dark .cma-modal__close,
+.cma-modal.cma-modal--dark .cma-modal__close:focus { background: #1a1a1a !important; color: #ffffff !important; }
+.cma-modal.cma-modal--dark .cma-modal__close:hover { background: #262626 !important; }

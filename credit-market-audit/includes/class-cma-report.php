@@ -143,11 +143,13 @@ body{margin:0;background:#f1f5f9;font-family:-apple-system,BlinkMacSystemFont,"S
 .cma-toolbar{display:flex;gap:10px;justify-content:flex-end;margin-bottom:16px;flex-wrap:wrap;}
 .cma-toolbar a,.cma-toolbar button{background:var(--cma-accent);color:#fff;border:0;border-radius:8px;padding:10px 16px;font-size:14px;font-weight:600;cursor:pointer;text-decoration:none;font-family:inherit;}
 .cma-toolbar .cma-secondary{background:#fff;color:#0f172a;border:1px solid #cbd5e1;}
+.cma-standalone-dark{background:#000}
+.cma-standalone-dark .cma-toolbar .cma-secondary{background:transparent;color:#fff;border-color:rgba(255,255,255,.3)}
 @media print{body{background:#fff}.cma-toolbar{display:none!important}.cma-standalone-wrap{padding:0;max-width:none}}
 <?php echo $css; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- static plugin stylesheet. ?>
 </style>
 </head>
-<body>
+<body class="<?php echo 'light' !== CMA_Settings::get( 'report_theme' ) && 'download' !== $context ? 'cma-standalone-dark' : ''; ?>">
 <div class="cma-standalone-wrap">
 		<?php if ( $toolbar ) : ?>
 	<div class="cma-toolbar">

@@ -39,7 +39,7 @@ $sections = array(
 	'design' => array( __( 'Design & User Experience', 'credit-market-audit' ), __( 'How your website looks and feels for visitors, especially on mobile phones.', 'credit-market-audit' ) ),
 );
 ?>
-<div class="cma-report<?php echo $quick ? ' cma-report--quick' : ''; ?>" style="--cma-brand: <?php echo esc_attr( $brand['color'] ); ?>; --cma-dark: <?php echo esc_attr( $brand['dark'] ); ?>; --cma-on-brand: <?php echo esc_attr( $brand['on_color'] ); ?>;">
+<div class="cma-report<?php echo $quick ? ' cma-report--quick' : ''; ?><?php echo 'light' !== $settings['report_theme'] ? ' cma-report--dark' : ''; ?>" style="--cma-brand: <?php echo esc_attr( $brand['color'] ); ?>; --cma-dark: <?php echo esc_attr( $brand['dark'] ); ?>; --cma-on-brand: <?php echo esc_attr( $brand['on_color'] ); ?>;">
 
 	<header class="cma-report__header">
 		<div class="cma-report__brand">

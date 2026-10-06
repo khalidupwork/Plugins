@@ -307,6 +307,8 @@
 		bar.appendChild( this.button_( i18n.download, res.download_url, 'primary', false ) );
 		bar.appendChild( this.button_( i18n.pdf, res.print_url, 'secondary', true ) );
 
+		this.modal.classList.toggle( 'cma-modal--dark', res.html.indexOf( 'cma-report--dark' ) !== -1 );
+
 		// Server-rendered report; every value is escaped in PHP.
 		var body = this.modal.querySelector( '.cma-modal__body' );
 		body.innerHTML = res.html;

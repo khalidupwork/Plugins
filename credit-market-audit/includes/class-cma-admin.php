@@ -102,6 +102,7 @@ class CMA_Admin {
 			array( 'brand_color', __( 'Brand colour', 'credit-market-audit' ), 'color', 'cma_branding', __( 'Used for buttons, progress bar and report accents. Leave empty for the default #0157A0.', 'credit-market-audit' ) ),
 			array( 'brand_dark', __( 'Dark colour', 'credit-market-audit' ), 'color', 'cma_branding', __( 'Used for headings and the call-to-action box. Leave empty to auto-detect.', 'credit-market-audit' ) ),
 			array( 'report_mode', __( 'Report style', 'credit-market-audit' ), 'select', 'cma_branding', __( 'Quick wins keeps the report short and only lists issues that are easy to fix, so prospects get an achievable to-do list instead of a long list of everything.', 'credit-market-audit' ) ),
+			array( 'report_theme', __( 'Report & email colours', 'credit-market-audit' ), 'select', 'cma_branding', __( 'Dark matches a black website. The PDF always stays light so it prints well.', 'credit-market-audit' ) ),
 			array( 'max_issues', __( 'Number of issues to show', 'credit-market-audit' ), 'number', 'cma_branding', __( 'Between 3 and 15. Recommended: 5.', 'credit-market-audit' ) ),
 			array( 'cta_text', __( 'Call-to-action button text', 'credit-market-audit' ), 'text', 'cma_branding', '' ),
 			array( 'cta_url', __( 'Call-to-action URL', 'credit-market-audit' ), 'url', 'cma_branding', __( 'E.g. your contact or booking page. Leave empty to hide the CTA box.', 'credit-market-audit' ) ),
@@ -183,10 +184,17 @@ class CMA_Admin {
 				printf( '<input type="text" id="%1$s" name="%2$s" value="%3$s" class="cma-color">', esc_attr( $id ), esc_attr( $name ), esc_attr( $value ) );
 				break;
 			case 'select':
-				$options = array(
-					'quick' => __( 'Quick wins only (short, recommended)', 'credit-market-audit' ),
-					'full'  => __( 'Full report (every check)', 'credit-market-audit' ),
+				$all_options = array(
+					'report_mode'  => array(
+						'quick' => __( 'Quick wins only (short, recommended)', 'credit-market-audit' ),
+						'full'  => __( 'Full report (every check)', 'credit-market-audit' ),
+					),
+					'report_theme' => array(
+						'dark'  => __( 'Dark (black background)', 'credit-market-audit' ),
+						'light' => __( 'Light (white background)', 'credit-market-audit' ),
+					),
 				);
+				$options     = isset( $all_options[ $key ] ) ? $all_options[ $key ] : array();
 				printf( '<select id="%1$s" name="%2$s">', esc_attr( $id ), esc_attr( $name ) );
 				foreach ( $options as $opt => $label ) {
 					printf( '<option value="%1$s" %2$s>%3$s</option>', esc_attr( $opt ), selected( $value, $opt, false ), esc_html( $label ) );

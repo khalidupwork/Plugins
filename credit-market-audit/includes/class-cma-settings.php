@@ -32,6 +32,7 @@ class CMA_Settings {
 			'brand_color'         => '',
 			'brand_dark'          => '',
 			'report_mode'         => 'quick',
+			'report_theme'        => 'dark',
 			'max_issues'          => 5,
 			'from_name'           => get_bloginfo( 'name' ),
 			'from_email'          => get_option( 'admin_email' ),
@@ -104,7 +105,8 @@ class CMA_Settings {
 			$out[ $key ] = $color ? $color : '';
 		}
 
-		$out['report_mode'] = isset( $input['report_mode'] ) && 'full' === $input['report_mode'] ? 'full' : 'quick';
+		$out['report_mode']  = isset( $input['report_mode'] ) && 'full' === $input['report_mode'] ? 'full' : 'quick';
+		$out['report_theme'] = isset( $input['report_theme'] ) && 'light' === $input['report_theme'] ? 'light' : 'dark';
 		$out['max_issues']  = isset( $input['max_issues'] ) ? min( 15, max( 3, absint( $input['max_issues'] ) ) ) : $defaults['max_issues'];
 
 		foreach ( array( 'from_email', 'admin_email' ) as $key ) {
