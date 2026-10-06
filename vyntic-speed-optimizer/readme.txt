@@ -2,12 +2,12 @@
 Contributors: vyntic
 Author: Vyntic Studio
 Author URI: https://vyntic.studio/
-Plugin URI: https://vyntic.studio/
+Plugin URI: https://vyntic.studio/plugins/vyntic-speed-optimizer/
 Tags: speed, cache, pagespeed, core web vitals, optimize
 Requires at least: 5.8
 Tested up to: 6.6
 Requires PHP: 7.4
-Stable tag: 1.2.0
+Stable tag: 1.3.0
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
@@ -87,6 +87,10 @@ Page cache, optimizations and WebP work on any server. The `.htaccess` browser-c
 * Constants `DONOTOPTIMIZE` and `DONOTCACHEPAGE` are respected; scripts with `data-no-delay` or `data-no-optimize` are never delayed.
 
 == Changelog ==
+
+= 1.3.0 =
+* Automatic updates from the Vyntic Hub: new versions appear in Dashboard > Updates like any other plugin, with auto-update support.
+* All Vyntic plugins now share one "Vyntic" admin menu (Vyntic > Speed Optimizer) with an overview screen.
 
 = 1.2.0 =
 * Config blocks printed for a script (localized data, Elementor's config) no longer trigger exclusions on their own. Fixes Elementor and jQuery being loaded early because Elementor's config mentions "lazyload".

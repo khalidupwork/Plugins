@@ -15,3 +15,11 @@ WordPress speed plugin, similar to 10Web Booster, that runs **100% locally**: no
 See [`vyntic-speed-optimizer/readme.txt`](vyntic-speed-optimizer/readme.txt).
 
 **Install:** zip the `vyntic-speed-optimizer` folder → WordPress → Plugins → Add New → Upload, activate, and deactivate any other cache or optimization plugin.
+
+## Vyntic Hub (`vyntic-hub/`)
+
+Install on vyntic.studio. Publish plugin versions (upload the zip) and every site using that plugin gets the update in its WordPress dashboard. It also creates SEO pages at `/plugins/{slug}/`, a plugin grid (`[vyntic_plugins]`) and a list of the sites using each plugin. See [`vyntic-hub/readme.txt`](vyntic-hub/readme.txt).
+
+## Vyntic Client (`vyntic-client/`)
+
+Shared library bundled in each Vyntic plugin (`vendor/vyntic-client/`): one shared "Vyntic" admin menu and automatic updates from the hub. See [`vyntic-client/README.md`](vyntic-client/README.md).

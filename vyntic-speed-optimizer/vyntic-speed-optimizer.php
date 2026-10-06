@@ -1,9 +1,9 @@
 <?php
 /**
  * Plugin Name:       Vyntic Speed Optimizer
- * Plugin URI:        https://vyntic.studio/
+ * Plugin URI:        https://vyntic.studio/plugins/vyntic-speed-optimizer/
  * Description:       All-in-one speed optimizer that runs 100% on your own server. No account, no login, no connect. Page cache, delay JavaScript until user interaction, remove unused CSS, lazy load, WebP, font optimization and more to push PageSpeed scores into the green.
- * Version:           1.2.0
+ * Version:           1.3.0
  * Requires at least: 5.8
  * Requires PHP:      7.4
  * Author:            Vyntic Studio
@@ -18,12 +18,23 @@
 
 defined( 'ABSPATH' ) || exit;
 
-define( 'VSO_VERSION', '1.2.0' );
+define( 'VSO_VERSION', '1.3.0' );
 define( 'VSO_FILE', __FILE__ );
 define( 'VSO_PATH', plugin_dir_path( __FILE__ ) );
 define( 'VSO_URL', plugin_dir_url( __FILE__ ) );
 define( 'VSO_CACHE_DIR', WP_CONTENT_DIR . '/cache/vyntic/' );
 define( 'VSO_CACHE_URL', content_url( '/cache/vyntic/' ) );
+
+// Shared Vyntic menu + automatic updates from the Vyntic Hub (vyntic.studio).
+require_once VSO_PATH . 'vendor/vyntic-client/loader.php';
+vyntic_client_register(
+	array(
+		'file' => __FILE__,
+		'slug' => 'vyntic-speed-optimizer',
+		'name' => 'Vyntic Speed Optimizer',
+		'page' => 'vyntic-speed',
+	)
+);
 
 // Bundled MIT-licensed minifier (matthiasmullie/minify + path-converter).
 spl_autoload_register(

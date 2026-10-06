@@ -55,15 +55,12 @@ class VSO_Admin {
 	}
 
 	public static function menu() {
-		add_menu_page(
-			__( 'Vyntic Speed Optimizer', 'vyntic-speed-optimizer' ),
-			__( 'Vyntic Speed', 'vyntic-speed-optimizer' ),
-			'manage_options',
-			self::SLUG,
-			array( __CLASS__, 'render' ),
-			'dashicons-performance',
-			81
-		);
+		// Lives inside the shared "Vyntic" menu, so all Vyntic plugins take one menu item.
+		if ( class_exists( 'Vyntic_Client' ) ) {
+			add_submenu_page( Vyntic_Client::MENU, __( 'Vyntic Speed Optimizer', 'vyntic-speed-optimizer' ), __( 'Speed Optimizer', 'vyntic-speed-optimizer' ), 'manage_options', self::SLUG, array( __CLASS__, 'render' ) );
+			return;
+		}
+		add_menu_page( __( 'Vyntic Speed Optimizer', 'vyntic-speed-optimizer' ), __( 'Vyntic Speed', 'vyntic-speed-optimizer' ), 'manage_options', self::SLUG, array( __CLASS__, 'render' ), 'dashicons-performance', 81 );
 	}
 
 	public static function action_links( $links ) {
