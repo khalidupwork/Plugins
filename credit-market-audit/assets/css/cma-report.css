@@ -1,0 +1,146 @@
+/* Credit Market Free Audit – report (used on-page, standalone and in downloads) */
+.cma-report {
+	--cma-accent: var(--cma-brand, #2563eb);
+	box-sizing: border-box;
+	color: #0f172a;
+	font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+	font-size: 15px;
+	line-height: 1.55;
+	text-align: left;
+}
+.cma-report *, .cma-report *::before, .cma-report *::after { box-sizing: border-box; }
+.cma-report h2, .cma-report h3, .cma-report h4 { font-family: inherit; color: #0f172a; letter-spacing: normal; text-transform: none; }
+.cma-report p { margin: 0; }
+
+.cma-report__header {
+	display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; gap: 16px;
+	padding: 24px 28px;
+	background: var(--cma-accent);
+	color: #fff;
+	border-radius: 16px 16px 0 0;
+}
+.cma-report__logo { max-height: 48px; max-width: 220px; display: block; background: #fff; padding: 6px 10px; border-radius: 8px; }
+.cma-report__brand-name { font-size: 20px; }
+.cma-report__meta { text-align: right; }
+.cma-report__title { margin: 0; font-size: 22px; color: #fff !important; }
+.cma-report__url { font-weight: 600; word-break: break-all; opacity: .95; }
+.cma-report__date { font-size: 13px; opacity: .8; }
+
+.cma-report__overall {
+	display: flex; flex-wrap: wrap; align-items: center; gap: 28px;
+	padding: 28px;
+	background: #fff;
+	border: 1px solid #e2e8f0; border-top: 0;
+}
+.cma-report__overall-text { flex: 1 1 280px; }
+.cma-report__overall-text h3 { margin: 2px 0 6px; font-size: 28px; }
+.cma-report__overall-text p { color: #475569; }
+.cma-report__eyebrow { text-transform: uppercase; letter-spacing: .08em; font-size: 12px; color: #64748b; font-weight: 600; }
+
+.cma-report__cards {
+	display: flex; flex-wrap: wrap; gap: 1px;
+	background: #e2e8f0;
+	border: 1px solid #e2e8f0; border-top: 0;
+	border-radius: 0 0 16px 16px;
+	overflow: hidden;
+	margin-bottom: 24px;
+}
+.cma-card { flex: 1 1 150px; background: #fff; padding: 20px 14px; text-align: center; }
+.cma-card h4 { margin: 8px 0 2px; font-size: 15px; }
+.cma-card p { font-size: 12px; color: #64748b; }
+.cma-gauge { display: inline-block; vertical-align: middle; max-width: 100%; height: auto; }
+
+.cma-report__section {
+	background: #fff;
+	border: 1px solid #e2e8f0;
+	border-radius: 16px;
+	padding: 24px 28px;
+	margin-bottom: 24px;
+	page-break-inside: auto;
+}
+.cma-report__section-head { display: flex; justify-content: space-between; align-items: flex-start; gap: 12px; flex-wrap: wrap; margin-bottom: 8px; }
+.cma-report__section-title { margin: 0 0 4px; font-size: 20px; }
+.cma-report__section-desc { color: #64748b; font-size: 14px; }
+.cma-report__sub { margin: 24px 0 8px; font-size: 16px; }
+.cma-pill { background: #f1f5f9; color: #334155; border-radius: 99px; padding: 4px 12px; font-size: 13px; font-weight: 600; white-space: nowrap; }
+.cma-tag { margin-left: auto; background: #f1f5f9; color: #475569; border-radius: 6px; padding: 2px 8px; font-size: 12px; font-weight: 600; }
+.cma-note { color: #64748b; background: #f8fafc; padding: 12px 14px; border-radius: 8px; }
+
+/* Issues */
+.cma-issues { list-style: none; margin: 12px 0 0; padding: 0; counter-reset: cma; }
+.cma-issue { padding: 12px 16px; border-radius: 10px; background: #f8fafc; border-left: 4px solid #ffa400; margin: 0 0 10px; }
+.cma-issue--fail { border-left-color: #ff4e42; }
+.cma-issue__head { display: flex; align-items: center; gap: 10px; }
+.cma-issue p { margin: 6px 0 0 34px; color: #475569; font-size: 14px; }
+
+/* Status icon */
+.cma-status {
+	flex: 0 0 24px;
+	display: inline-flex; align-items: center; justify-content: center;
+	width: 24px; height: 24px; border-radius: 50%;
+	font-size: 13px; font-weight: 700; color: #fff; line-height: 1;
+}
+.cma-status--pass { background: #0cce6b; }
+.cma-status--warning { background: #ffa400; }
+.cma-status--fail { background: #ff4e42; }
+
+/* Checks */
+.cma-checks { list-style: none; margin: 8px 0 0; padding: 0; }
+.cma-check { display: flex; gap: 12px; padding: 14px 0; border-bottom: 1px solid #f1f5f9; margin: 0; }
+.cma-check:last-child { border-bottom: 0; }
+.cma-check__body { flex: 1; min-width: 0; }
+.cma-check__label { font-weight: 600; }
+.cma-check__value { color: #475569; font-size: 14px; word-break: break-word; }
+.cma-check__value-inline { color: #b45309; font-weight: 600; font-size: 13px; margin-left: 6px; }
+.cma-check__rec { margin-top: 6px; font-size: 14px; color: #334155; background: #f8fafc; padding: 8px 12px; border-radius: 8px; }
+
+/* Speed */
+.cma-speed { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 20px; margin-top: 12px; }
+.cma-speed__col { border: 1px solid #f1f5f9; border-radius: 12px; padding: 16px; }
+.cma-speed__head { display: flex; align-items: center; gap: 14px; margin-bottom: 8px; }
+.cma-speed__head h4 { margin: 0; font-size: 18px; }
+.cma-speed__head small { color: #64748b; }
+.cma-metrics { width: 100%; border-collapse: collapse; margin: 0; border: 0; }
+.cma-metrics td { padding: 8px 0; border: 0; border-bottom: 1px solid #f1f5f9; font-size: 14px; background: none; }
+.cma-metrics tr:last-child td { border-bottom: 0; }
+.cma-metrics__value { text-align: right; font-weight: 700; white-space: nowrap; }
+.cma-dot { display: inline-block; width: 10px; height: 10px; border-radius: 50%; margin-right: 8px; vertical-align: middle; }
+
+.cma-shots { display: flex; gap: 20px; align-items: flex-end; justify-content: center; margin-top: 20px; flex-wrap: wrap; }
+.cma-shot { margin: 0; text-align: center; }
+.cma-shot img { display: block; border: 1px solid #e2e8f0; border-radius: 10px; box-shadow: 0 8px 24px -10px rgba(15,23,42,.3); max-width: 100%; height: auto; }
+.cma-shot--desktop img { width: 520px; }
+.cma-shot--mobile img { width: 180px; border-radius: 16px; }
+.cma-shot figcaption { font-size: 12px; color: #64748b; margin-top: 6px; }
+
+/* CTA */
+.cma-cta {
+	display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 16px;
+	padding: 24px 28px; margin-bottom: 24px;
+	background: #0f172a; color: #e2e8f0;
+	border-radius: 16px;
+}
+.cma-cta h3 { margin: 0 0 4px; color: #fff !important; font-size: 20px; }
+.cma-cta p { color: #cbd5e1; }
+.cma-cta__btn {
+	background: var(--cma-accent); color: #fff !important; text-decoration: none !important;
+	padding: 12px 20px; border-radius: 10px; font-weight: 700; white-space: nowrap;
+}
+
+.cma-report__footer { text-align: center; color: #94a3b8; font-size: 12px; padding: 8px 0 0; }
+
+@media (max-width: 600px) {
+	.cma-report__header, .cma-report__overall, .cma-report__section, .cma-cta { padding: 18px; }
+	.cma-report__meta { text-align: left; }
+	.cma-report__overall { justify-content: center; text-align: center; }
+	.cma-issue p { margin-left: 0; }
+}
+
+@media print {
+	.cma-report { font-size: 12px; }
+	.cma-report__header, .cma-status, .cma-dot, .cma-cta, .cma-cta__btn { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+	.cma-report__section, .cma-cta { break-inside: avoid-page; box-shadow: none; }
+	.cma-check, .cma-issue { break-inside: avoid; }
+	.cma-shot--desktop img { width: 380px; }
+	.cma-shot--mobile img { width: 140px; }
+}

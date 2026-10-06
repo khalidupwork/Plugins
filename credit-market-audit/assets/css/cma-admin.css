@@ -1,0 +1,21 @@
+.cma-admin__usage {
+	background: #fff;
+	border: 1px solid #c3c4c7;
+	border-left: 4px solid #2563eb;
+	padding: 4px 20px 8px;
+	margin: 16px 0;
+	max-width: 900px;
+}
+.cma-admin__usage code { user-select: all; }
+.cma-media-preview img { max-height: 60px; margin-top: 8px; background: #f1f5f9; padding: 4px; border-radius: 4px; }
+.cma-score-badge {
+	display: inline-block;
+	min-width: 34px;
+	padding: 3px 8px;
+	border-radius: 99px;
+	color: #fff;
+	font-weight: 700;
+	text-align: center;
+}
+.cma-admin .column-overall_score, .cma-admin .column-email_sent { width: 80px; }
+.cma-admin .column-status { width: 100px; }
