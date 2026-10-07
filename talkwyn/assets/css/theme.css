@@ -1153,3 +1153,15 @@ html:has(dialog.tw-modal[open]) { overflow: hidden; }
 .tw-modal .twh-btn { inline-size: 100%; min-block-size: 48px; border: 0; border-radius: var(--tw-r-pill); background: var(--tw-red) !important; color: #FFFFFF; font: 600 1rem var(--tw-font-display); cursor: pointer; }
 .tw-modal .twh-btn:hover { background: var(--tw-red-600) !important; }
 .tw-modal { box-sizing: border-box; }
+
+/* v3.7 One edge for every band on every page: hero cards, red, ink and linen sections, page heads,
+   the CTA and the footer all sit var(--tw-inset) from the browser edge. Bands inside a block with
+   the global root padding subtract that padding so they line up with the footer. */
+.has-global-padding > .tw-inset.alignfull, .has-global-padding > .tw-inset {
+	margin-inline: calc(var(--tw-inset) - var(--wp--style--root--padding-left, 0px)) calc(var(--tw-inset) - var(--wp--style--root--padding-right, 0px)) !important;
+}
+.tw-page-head { padding-inline: var(--tw-inset) !important; }
+body .tw-page-head > .tw-page-head__card, .woocommerce-account .tw-page-head > .tw-page-head__card { max-inline-size: none !important; margin-inline: 0 !important; inline-size: auto; }
+.tw-page-head__card > * { max-inline-size: var(--tw-wide) !important; margin-inline: auto !important; }
+.tw-cart-head { max-inline-size: none !important; margin-inline: var(--tw-inset) !important; }
+.tw-cart-head > * { max-inline-size: var(--tw-wide); margin-inline: auto !important; inline-size: 100%; }

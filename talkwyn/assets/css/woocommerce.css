@@ -161,3 +161,96 @@
 .woocommerce-orders-table .button { min-block-size: 38px !important; padding: 8px 18px !important; display: inline-flex !important; align-items: center; margin: 3px 4px 3px 0 !important; font-size: .9375rem !important; }
 .wp-block-woocommerce-checkout-order-note-block, .wc-block-checkout__order-notes { display: none !important; }
 .wc-block-components-checkout-step:not(:has(*)) { display: none !important; }
+
+/* ===================== v3.7 My Account sub-pages in the theme style ===================== */
+/* Every form field in the account area: 48px, rounded, same border */
+.woocommerce-MyAccount-content :where(input.input-text, input[type="text"], input[type="email"], input[type="url"], input[type="password"], input[type="tel"], select, textarea) {
+	box-sizing: border-box; inline-size: 100%; min-block-size: 48px; padding: 12px 16px !important; border: 1.5px solid var(--tw-n-200) !important; border-radius: 14px !important;
+	background: #FFFFFF !important; color: var(--tw-ink) !important; font: 400 1rem/1.4 var(--tw-font-body) !important; box-shadow: none !important;
+}
+.woocommerce-MyAccount-content textarea { min-block-size: 96px; }
+.woocommerce-MyAccount-content :where(input, select, textarea):focus { outline: 2px solid var(--tw-focus) !important; outline-offset: 1px; border-color: var(--tw-focus) !important; }
+.woocommerce-MyAccount-content label { font-weight: 600; font-size: .9375rem; color: var(--tw-ink); }
+.woocommerce-MyAccount-content .password-input { display: block; position: relative; }
+.woocommerce-MyAccount-content .show-password-input { inset-block-start: 50% !important; transform: translateY(-50%); inset-inline-end: 14px !important; }
+
+/* Account details and address edit forms: a white card, two columns for short fields */
+.woocommerce-EditAccountForm, .woocommerce-MyAccount-content form:has(.woocommerce-address-fields) {
+	padding: clamp(22px, 3vw, 32px); border-radius: var(--tw-r-lg); background: #FFFFFF; box-shadow: 0 0 0 1px var(--tw-border);
+	display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 0 20px;
+}
+.woocommerce-EditAccountForm > *, .woocommerce-address-fields__field-wrapper > * { grid-column: 1 / -1; }
+.woocommerce-EditAccountForm .form-row-first { grid-column: 1; }
+.woocommerce-EditAccountForm .form-row-last { grid-column: 2; }
+.woocommerce-EditAccountForm .clear { display: none; }
+.woocommerce-MyAccount-content form .form-row { display: grid; gap: 6px; margin: 0 0 16px !important; padding: 0 !important; float: none !important; inline-size: auto !important; }
+.woocommerce-MyAccount-content form .form-row em, .woocommerce-MyAccount-content form .form-row .description { font-style: normal; font-size: .8125rem; color: var(--tw-n-600); }
+.woocommerce-EditAccountForm fieldset { margin: 8px 0 20px; padding: 20px; border: 0; border-radius: 18px; background: var(--tw-section); }
+.woocommerce-EditAccountForm legend { float: left; inline-size: 100%; margin: 0 0 14px; padding: 0; font: 700 1.125rem/1.3 var(--tw-font-display); letter-spacing: -.01em; }
+.woocommerce-EditAccountForm fieldset > .form-row:last-child { margin-block-end: 0 !important; }
+.woocommerce-address-fields { grid-column: 1 / -1; }
+.woocommerce-address-fields__field-wrapper { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 0 20px; }
+.woocommerce-address-fields__field-wrapper .form-row-first { grid-column: 1; }
+.woocommerce-address-fields__field-wrapper .form-row-last { grid-column: 2; }
+@media (max-width: 640px) {
+	.woocommerce-EditAccountForm, .woocommerce-address-fields__field-wrapper { grid-template-columns: 1fr; }
+	.woocommerce-EditAccountForm .form-row-first, .woocommerce-EditAccountForm .form-row-last,
+	.woocommerce-address-fields__field-wrapper .form-row-first, .woocommerce-address-fields__field-wrapper .form-row-last { grid-column: 1; }
+}
+.woocommerce-MyAccount-content h2, .woocommerce-MyAccount-content h3 { font-family: var(--tw-font-display); letter-spacing: -.02em; }
+.woocommerce-MyAccount-content form > h2:first-child, .woocommerce-MyAccount-content form > h3:first-child { grid-column: 1 / -1; margin: 0 0 18px; font-size: 1.5rem; }
+
+/* Addresses: two cards */
+.woocommerce-MyAccount-content > p:has(+ .woocommerce-Addresses), .woocommerce-MyAccount-content > p:has(+ .u-columns) { color: var(--tw-n-600); margin: 0 0 16px; }
+.woocommerce-Addresses, .woocommerce-MyAccount-content .u-columns.addresses { display: grid !important; grid-template-columns: repeat(auto-fit, minmax(min(100%, 280px), 1fr)); gap: 16px; }
+.woocommerce-Addresses::before, .woocommerce-Addresses::after { display: none !important; }
+.woocommerce-Addresses .woocommerce-Address { float: none !important; inline-size: auto !important; margin: 0 !important; padding: 22px; border-radius: var(--tw-r-lg); background: #FFFFFF; box-shadow: 0 0 0 1px var(--tw-border); display: flex; flex-direction: column; gap: 12px; }
+.woocommerce-Address-title { display: flex !important; align-items: center; justify-content: space-between; gap: 12px; flex-wrap: wrap; }
+.woocommerce-Address-title::before, .woocommerce-Address-title::after { display: none !important; }
+.woocommerce-Address-title h2, .woocommerce-Address-title h3 { margin: 0 !important; font-size: 1.25rem !important; float: none !important; }
+.woocommerce-Address-title .edit { float: none !important; display: inline-flex; align-items: center; padding: 6px 14px; border-radius: var(--tw-r-pill); background: var(--tw-red-50); color: var(--tw-red-700) !important; font: 600 .875rem/1.3 var(--tw-font-display); text-decoration: none !important; }
+.woocommerce-Address-title .edit:hover { background: var(--tw-red); color: #FFFFFF !important; }
+.woocommerce-Address address { margin: 0; font-style: normal; line-height: 1.6; color: var(--tw-n-600); padding: 14px 16px; border-radius: 14px; background: var(--tw-section); }
+
+/* Licenses: empty state and the add-a-key form */
+.twh-empty { display: grid; gap: 10px; justify-items: start; padding: clamp(22px, 3vw, 32px) !important; border: 0 !important; border-radius: var(--tw-r-lg) !important; background: #FFFFFF !important; box-shadow: 0 0 0 1px var(--tw-border); }
+.twh-empty > * { margin: 0 !important; }
+.twh-empty__title { font: 700 1.375rem/1.25 var(--tw-font-display); letter-spacing: -.02em; }
+.twh-empty p:not(.twh-empty__title) { color: var(--tw-n-600); }
+.twh-claim { margin-block-start: 16px !important; padding: 22px !important; border: 1.5px dashed var(--tw-red-200) !important; border-radius: var(--tw-r-lg) !important; background: var(--tw-red-50) !important; }
+.twh-claim p { margin: 0 0 12px !important; }
+.twh-claim__row { display: flex; flex-wrap: wrap; gap: 10px; align-items: center; }
+.twh-claim__row input[type="text"] { flex: 1 1 280px; inline-size: auto !important; font-family: ui-monospace, SFMono-Regular, Menlo, monospace !important; letter-spacing: .04em; }
+.twh-claim__row .button { flex: none; min-block-size: 48px; }
+.twh-license-card { border-radius: var(--tw-r-lg) !important; box-shadow: 0 0 0 1px var(--tw-border); border: 0 !important; }
+
+/* Partners: intro on the left, the application form on the right, in a white card */
+.twh-partner-join { padding: clamp(24px, 3vw, 36px) !important; }
+.twh-partner-join h2 { font-size: 1.625rem !important; letter-spacing: -.03em; }
+.twh-partner-join > p { color: var(--tw-n-600); }
+.twh-partner-join .twh-terms { list-style: none; margin: 16px 0 0; padding: 0; display: grid; gap: 8px; }
+.twh-partner-join .twh-terms li { display: flex; align-items: center; gap: 10px; margin: 0; padding: 10px 14px; border-radius: 12px; background: rgba(255, 255, 255, .75); font-weight: 600; font-size: .9375rem; }
+.twh-partner-join .twh-terms li::before { content: ""; inline-size: 20px; block-size: 20px; flex: none; border-radius: 50%; background: var(--tw-red) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='white' stroke-width='3' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M20 6 9 17l-5-5'/%3E%3C/svg%3E") center / 12px no-repeat; }
+.twh-partner-join .twh-form { max-inline-size: none !important; margin-block-start: 20px; padding: clamp(20px, 3vw, 28px); border-radius: 20px; background: #FFFFFF; box-shadow: 0 0 0 1px var(--tw-border), 0 18px 40px rgba(26, 15, 18, .06); gap: 16px !important; }
+@media (min-width: 1100px) {
+	.twh-partner-join { display: grid; grid-template-columns: minmax(0, .9fr) minmax(0, 1.1fr); grid-template-rows: auto auto 1fr; column-gap: 32px; align-items: start; }
+	.twh-partner-join > h2, .twh-partner-join > p, .twh-partner-join > .twh-terms { grid-column: 1; }
+	.twh-partner-join > .twh-form { grid-column: 2; grid-row: 1 / span 3; margin: 0; }
+}
+.twh-form p { margin: 0 !important; }
+.twh-form .twh-check { display: block !important; position: relative; padding-inline-start: 30px; font-weight: 500 !important; line-height: 1.5; }
+.twh-form .twh-check input { position: absolute; inset-inline-start: 0; inset-block-start: 3px; inline-size: 18px !important; min-block-size: 0 !important; block-size: 18px; padding: 0 !important; accent-color: var(--tw-red); margin: 0; }
+.twh-form .twh-check a { color: var(--tw-red-700); font-weight: 600; }
+.twh-form .twh-btn, .twh-form button[type="submit"] { inline-size: 100%; }
+.twh-form small { display: block; margin-block-start: 4px; }
+.woocommerce-MyAccount-content .form-row > :not(label), .woocommerce-MyAccount-content .woocommerce-input-wrapper,
+.woocommerce-MyAccount-content .form-row :where(input, select, textarea) { inline-size: 100% !important; max-inline-size: none !important; }
+.woocommerce-MyAccount-content .select2-container { inline-size: 100% !important; }
+.woocommerce-MyAccount-content form p, .woocommerce-MyAccount-content form .form-row, .woocommerce-MyAccount-content fieldset { max-inline-size: none !important; }
+.woocommerce-MyAccount-content .select2-container .select2-selection--single { block-size: 48px; border: 1.5px solid var(--tw-n-200); border-radius: 14px; background: #FFFFFF; display: flex; align-items: center; }
+.woocommerce-MyAccount-content .select2-container .select2-selection--single .select2-selection__rendered { padding-inline: 16px 36px; line-height: 1.4; font-size: 1rem; color: var(--tw-ink); }
+.woocommerce-MyAccount-content .select2-container .select2-selection--single .select2-selection__arrow { block-size: 46px; inset-inline-end: 10px; }
+.woocommerce-MyAccount-content .select2-container--focus .select2-selection--single, .woocommerce-MyAccount-content .select2-container--open .select2-selection--single { border-color: var(--tw-focus); outline: 2px solid var(--tw-focus); outline-offset: 1px; }
+.woocommerce .twh-btn--ghost, .woocommerce a.button.twh-btn--ghost, .woocommerce button.button.twh-btn--ghost { background: #FFFFFF !important; color: var(--tw-red-700) !important; box-shadow: inset 0 0 0 1.5px var(--tw-red-200) !important; }
+.woocommerce .twh-btn--ghost:hover { background: var(--tw-red-50) !important; }
+.twh-claim__row .button.twh-btn--ghost { background: var(--tw-red) !important; color: #FFFFFF !important; box-shadow: none !important; }
