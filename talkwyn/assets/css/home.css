@@ -287,23 +287,14 @@
 
 /* ===================== v3.4 contrast pass ===================== */
 
-/* How it works: ink band, cards one step lighter, white product UIs pop */
-.tw-how-section { background: var(--tw-band) radial-gradient(rgba(255, 255, 255, .06) 1px, transparent 1.6px) 0 0 / 22px 22px; }
-.tw-how-section .tw-eyebrow--plain { color: #FF95A2; }
-.tw-how-section .tw-step { background: #261A1E; box-shadow: inset 0 0 0 1px rgba(255, 255, 255, .08); color: #FFFFFF; }
-.tw-how-section .tw-step h3 { color: #FFFFFF; }
-.tw-how-section .tw-step p { color: var(--tw-on-band-muted); }
-.tw-how-section .tw-step p strong { color: #FFFFFF; }
-.tw-how-section .tw-step .tw-arrow-link { color: #FF95A2; }
-.tw-how-section .tw-step__num { background: var(--tw-red); inline-size: 40px; block-size: 40px; font-size: 1rem; box-shadow: 0 0 0 6px rgba(215, 38, 61, .18); }
-.tw-how-section .tw-mini-ui { box-shadow: none; }
-.tw-how-section .tw-spot::after { box-shadow: inset 0 0 0 1.5px rgba(255, 149, 162, .5); }
+/* How it works: linen band between the red demo and the story, white cards, red numbers */
 .tw-how-section { padding-inline: clamp(16px, 4vw, 48px); }
-.tw-how-section .tw-mini-ui { color: var(--tw-ink); }
-.tw-how-section .tw-mini-ui :where(p, li, span, i, b) { color: inherit; }
-.tw-how-section .tw-keys__row i { color: var(--tw-n-600); }
-.tw-how-section .tw-keys__row.is-on i { color: #146345; }
-.tw-how-section .tw-scan li { color: var(--tw-ink); }
+.tw-how-section .tw-step { background: #FFFFFF; }
+.tw-how-section .tw-step__num { background: var(--tw-red); inline-size: 40px; block-size: 40px; font-size: 1rem; box-shadow: 0 0 0 6px var(--tw-red-50); }
+.tw-how-section .tw-mini-ui { background: var(--tw-section); box-shadow: none; }
+.tw-how-section .tw-keys__row { background: #FFFFFF; }
+.tw-how-section .tw-golive__bubble { background: #FFFFFF; }
+.tw-how-section .tw-step .tw-arrow-link { color: var(--tw-red-700); }
 
 /* Story: product UIs sit on ink panels with a soft red light */
 body.home .tw-story-section .tw-glow { background-color: var(--tw-band); background-image: radial-gradient(70% 60% at 50% 0%, rgba(215, 38, 61, .35), rgba(215, 38, 61, 0) 70%), radial-gradient(rgba(255, 255, 255, .07) 1px, transparent 1.6px); background-size: auto, 20px 20px; }
@@ -368,7 +359,6 @@ body.home .tw-story-section .tw-glow { background-color: var(--tw-band); backgro
 
 /* Business tiles on white cards: visuals get the linen panel */
 .tw-tile__visual { background: var(--tw-section); }
-.tw-how-section .tw-scan__btn { color: #FFFFFF; }
 body.home .tw-card.tw-on-ink, body.home .tw-tile--ink { background: var(--tw-band); box-shadow: none; }
 .tw-integrations-section.tw-linen, .tw-pricing-section.tw-linen { padding-inline: clamp(16px, 4vw, 48px); }
 .tw-why-points { margin-block-start: 22px !important; }
@@ -377,3 +367,4 @@ body.home .tw-tile { display: flex; flex-direction: column; gap: 10px; }
 body.home .tw-tile .tw-card__icon { margin-block-start: 6px !important; }
 body.home .tw-tile--ink { display: grid !important; }
 body.home .tw-tile--ink .tw-card__icon { background: var(--tw-red); color: #FFFFFF; margin: 0 !important; }
+.tw-demo-section + .tw-how-section, .tw-demo-section ~ .tw-how-section { margin-block-start: 20px !important; }
