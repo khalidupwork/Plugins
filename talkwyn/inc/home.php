@@ -408,3 +408,51 @@ add_shortcode(
 		return $html . '</div>';
 	}
 );
+
+/**
+ * [tw_status_list only="wordpress,shopify" title="..."] Compact live status card for inner page visuals.
+ */
+add_shortcode(
+	'tw_status_list',
+	static function ( $atts ) {
+		$atts = shortcode_atts(
+			array(
+				'only'  => '',
+				'title' => '',
+			),
+			$atts,
+			'tw_status_list'
+		);
+		$all  = talkwyn_integrations();
+		$keys = array_filter( array_map( 'trim', explode( ',', (string) $atts['only'] ) ) );
+		$keys = $keys ? $keys : array_keys( $all );
+		$rows = '';
+		foreach ( $keys as $key ) {
+			if ( empty( $all[ $key ] ) ) {
+				continue;
+			}
+			$row   = $all[ $key ];
+			$rows .= '<li><a href="' . esc_url( home_url( $row['url'] ) ) . '"><span class="tw-vcard__label">' . esc_html( $row['name'] ) . '</span>' . talkwyn_status_pill( $row['status'] ) . '</a></li>';
+		}
+		return '<div class="tw-vcard tw-vcard--status"><div class="tw-vcard__head"><span class="tw-vcard__icon">' . talkwyn_icon( 'plug', 18 ) . '</span><b>' . esc_html( $atts['title'] ) . '</b><span class="tw-vcard__badge">' . esc_html__( 'Live status', 'talkwyn' ) . '</span></div><ul class="tw-vcard__rows">' . $rows . '</ul></div>';
+	}
+);
+
+/**
+ * [tw_status_legend] The three status labels with what each one means.
+ */
+add_shortcode(
+	'tw_status_legend',
+	static function () {
+		$items = array(
+			'available'      => __( 'Live today. Install it and use it now.', 'talkwyn' ),
+			'in_development' => __( 'Being built now. No launch dates.', 'talkwyn' ),
+			'planned'        => __( 'On the list. Your vote moves it up.', 'talkwyn' ),
+		);
+		$rows  = '';
+		foreach ( $items as $status => $text ) {
+			$rows .= '<li class="tw-legend__row">' . talkwyn_status_pill( $status ) . '<span>' . esc_html( $text ) . '</span></li>';
+		}
+		return '<div class="tw-vcard"><div class="tw-vcard__head"><span class="tw-vcard__icon">' . talkwyn_icon( 'list-checks', 18 ) . '</span><b>' . esc_html__( 'Status labels', 'talkwyn' ) . '</b></div><ul class="tw-vcard__rows tw-legend">' . $rows . '</ul></div>';
+	}
+);

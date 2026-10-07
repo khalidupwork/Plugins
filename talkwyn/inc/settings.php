@@ -649,3 +649,35 @@ add_action(
 		exit;
 	}
 );
+
+/**
+ * [tw_price_note vendor="tidio" name="Tidio"] A competitor price note that reads naturally when
+ * the note or the checked-on date has not been filled in yet.
+ */
+add_shortcode(
+	'tw_price_note',
+	static function ( $atts ) {
+		$atts   = shortcode_atts(
+			array(
+				'vendor' => '',
+				'name'   => '',
+			),
+			$atts,
+			'tw_price_note'
+		);
+		$vendor = sanitize_key( $atts['vendor'] );
+		$name   = (string) $atts['name'];
+		$note   = trim( (string) talkwyn_setting( $vendor . '_price_note' ) );
+		$date   = trim( (string) talkwyn_setting( $vendor . '_checked_on' ) );
+		if ( '' === $note ) {
+			/* translators: %s: competitor name */
+			return esc_html( sprintf( __( 'We have not recorded %s pricing on this page yet.', 'talkwyn' ), $name ) );
+		}
+		if ( '' === $date ) {
+			/* translators: 1: competitor name, 2: price note */
+			return esc_html( sprintf( __( '%1$s pricing, as we last saw it: %2$s.', 'talkwyn' ), $name, $note ) );
+		}
+		/* translators: 1: competitor name, 2: price note, 3: date */
+		return esc_html( sprintf( __( '%1$s pricing, as we last saw it: %2$s (checked on %3$s).', 'talkwyn' ), $name, $note, date_i18n( get_option( 'date_format' ), (int) strtotime( $date ) ) ) );
+	}
+);
