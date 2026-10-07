@@ -161,6 +161,11 @@ Success (200):
 | `is_dev_site` | This site matched a dev/staging pattern and doesn't use a slot |
 | `site_active` | This instance holds an active activation |
 | `features` | Feature flags from the product mapping |
+| `is_trial` | `true` while the key is a running free trial (since 1.1.0) |
+| `trial_ends_at` | ISO date the trial ends, or `null` |
+| `trial_days_left` | Whole days left in the trial (rounded up), `0` when not a trial |
+
+A trial key is a normal key with `activation_limit: 1`. When the customer upgrades, the **same key** becomes a paid license: `is_trial` turns `false`, and plan, limit, features and expiry change.
 
 Errors: `bad_request`, `invalid_key`, `wrong_product`, `expired`, `revoked`, `suspended`, `limit_reached`, `rate_limited`.
 
@@ -177,6 +182,8 @@ Errors: `bad_request`, `invalid_key`, `wrong_product`, `rate_limited`.
 Daily heartbeat. Returns the same `data` shape as activate, and updates `last_check_at` and the version fields of the activation. It **never creates an activation**. If the site was deactivated remotely (from My Account or by an admin), the response is still `success: true` with `"site_active": false`, and the client should stop Pro features.
 
 Errors: `bad_request`, `invalid_key`, `wrong_product`, `expired` (with `renew_url`), `revoked`, `suspended`, `rate_limited`.
+
+When the key is a trial that has ended, the `expired` error carries `"reason": "trial_ended"` and an `upgrade_url` (also sent as `renew_url`) in the signed `data`. Show "Trial ended" and an upgrade button instead of "Renew".
 
 ## POST `update/check`
 
@@ -225,6 +232,27 @@ Streams the release ZIP (`application/zip`). The token:
 At download time the license must still be `active` and the release active. Each download is logged (`update_download`). ZIPs are stored in `TWH_RELEASES_DIR`, or in a protected uploads folder with `.htaccess` deny rules and random file names.
 
 Errors return JSON in the error format: `bad_request` (invalid/expired token), `not_found`, `expired`, `revoked`, `suspended`, `rate_limited`.
+
+## GET `partners/terms`
+
+Public, unsigned, cached for 10 minutes. The website reads it to show the Partners program terms, so the numbers on `/partners/` always match the Hub settings.
+
+```json
+{
+  "enabled": true,
+  "commission_rate": 20,
+  "renewal_rate": 0,
+  "cookie_days": 60,
+  "approval_days": 30,
+  "payout_threshold": 50,
+  "currency": "USD",
+  "payout_methods": ["PayPal", "Wise", "Bank transfer", "Payoneer"],
+  "attribution": "last_click",
+  "trial_days": 15
+}
+```
+
+`renewal_rate: 0` means commission is paid on the first payment only.
 
 ## Rate limiting
 

@@ -20,7 +20,7 @@ if ( ! class_exists( 'Talkwyn_License_Client' ) ) :
 	 */
 	final class Talkwyn_License_Client {
 
-		public const SDK_VERSION    = '1.0.0';
+		public const SDK_VERSION    = '1.1.0';
 		public const GRACE_DAYS     = 7;
 		public const MAX_CLOCK_SKEW = 600;
 
@@ -49,6 +49,7 @@ if ( ! class_exists( 'Talkwyn_License_Client' ) ) :
 		 *     @type string[] $public_keys  Trusted Ed25519 public keys (base64), keyed by key id or as a plain list.
 		 *     @type string   $prefix       Option/hook prefix. Default 'talkwyn_license'.
 		 *     @type string   $manage_url   Customer account URL. Default https://talkwyn.com/my-account/licenses/.
+		 *     @type string   $upgrade_url  Pricing page shown to trial users. Default https://talkwyn.com/pricing/.
 		 *     @type string   $channel      Update channel: stable|beta. Default stable.
 		 *     @type string   $capability   Capability for license actions. Default manage_options.
 		 * }
@@ -63,6 +64,7 @@ if ( ! class_exists( 'Talkwyn_License_Client' ) ) :
 					'public_keys' => array(),
 					'prefix'      => 'talkwyn_license',
 					'manage_url'  => 'https://talkwyn.com/my-account/licenses/',
+					'upgrade_url' => 'https://talkwyn.com/pricing/',
 					'channel'     => 'stable',
 					'capability'  => 'manage_options',
 				),
@@ -131,6 +133,32 @@ if ( ! class_exists( 'Talkwyn_License_Client' ) ) :
 		 */
 		public function has_feature( string $feature ): bool {
 			return $this->is_pro() && in_array( $feature, (array) ( $this->state()['features'] ?? array() ), true );
+		}
+
+		/**
+		 * Whether this key is a running Pro trial.
+		 */
+		public function is_trial(): bool {
+			return ! empty( $this->state()['is_trial'] ) && $this->is_pro();
+		}
+
+		/**
+		 * Whole days left in a running trial (0 when not in a trial).
+		 */
+		public function trial_days_left(): int {
+			$state = $this->state();
+			if ( empty( $state['is_trial'] ) || empty( $state['trial_ends_at'] ) ) {
+				return 0;
+			}
+			$left = (int) strtotime( (string) $state['trial_ends_at'] ) - time();
+			return $left > 0 ? (int) ceil( $left / DAY_IN_SECONDS ) : 0;
+		}
+
+		/**
+		 * Whether the hub said this key was a trial that has ended.
+		 */
+		public function trial_ended(): bool {
+			return ! empty( $this->state()['trial_ended'] );
 		}
 
 		/**
@@ -237,6 +265,9 @@ if ( ! class_exists( 'Talkwyn_License_Client' ) ) :
 			$state['site_active'] = false;
 			$state['last_error']  = $res['code'];
 			$state['renew_url']   = (string) ( $res['data']['renew_url'] ?? '' );
+			// A finished trial: show "Trial ended" and an upgrade link instead of "Renew".
+			$state['trial_ended'] = 'trial_ended' === ( $res['data']['reason'] ?? '' );
+			$state['upgrade_url'] = (string) ( $res['data']['upgrade_url'] ?? '' );
 			unset( $state['offline_since'] );
 			$this->save_state( $state );
 		}
@@ -594,6 +625,8 @@ if ( ! class_exists( 'Talkwyn_License_Client' ) ) :
 				'inactive' => '#787c82',
 			);
 			$color  = $colors[ $status ] ?? '#d63638';
+			$trial  = 'active' === $status && ! empty( $state['is_trial'] );
+			$ended  = 'expired' === $status && ! empty( $state['trial_ended'] );
 			$labels = array(
 				'active'        => __( 'Active', 'talkwyn' ),
 				'inactive'      => __( 'Not activated', 'talkwyn' ),
@@ -608,7 +641,18 @@ if ( ! class_exists( 'Talkwyn_License_Client' ) ) :
 			?>
 			<div class="talkwyn-license-box" style="max-width:640px;background:#fff;border:1px solid #dcdcde;border-radius:6px;padding:16px 20px">
 				<h2 style="margin-top:0"><?php esc_html_e( 'License', 'talkwyn' ); ?>
-					<span style="display:inline-block;margin-left:8px;padding:1px 10px;border-radius:999px;font-size:12px;color:#fff;background:<?php echo esc_attr( $color ); ?>"><?php echo esc_html( $labels[ $status ] ?? $status ); ?></span>
+					<span style="display:inline-block;margin-left:8px;padding:1px 10px;border-radius:999px;font-size:12px;color:#fff;background:<?php echo esc_attr( $color ); ?>">
+					<?php
+					if ( $trial ) {
+						/* translators: %d: days left */
+						echo esc_html( sprintf( _n( 'Trial: %d day left', 'Trial: %d days left', $this->trial_days_left(), 'talkwyn' ), $this->trial_days_left() ) );
+					} elseif ( $ended ) {
+						esc_html_e( 'Trial ended', 'talkwyn' );
+					} else {
+						echo esc_html( $labels[ $status ] ?? $status );
+					}
+					?>
+					</span>
 				</h2>
 				<form method="post" action="<?php echo esc_url( admin_url( 'admin-post.php' ) ); ?>">
 					<input type="hidden" name="action" value="<?php echo esc_attr( $action ); ?>">
@@ -649,7 +693,9 @@ if ( ! class_exists( 'Talkwyn_License_Client' ) ) :
 						<p>
 							<button type="submit" name="do" value="check" class="button"><?php esc_html_e( 'Check now', 'talkwyn' ); ?></button>
 							<button type="submit" name="do" value="deactivate" class="button" onclick="return confirm('<?php echo esc_js( __( 'Deactivate the license on this site?', 'talkwyn' ) ); ?>');"><?php esc_html_e( 'Deactivate', 'talkwyn' ); ?></button>
-							<?php if ( ! empty( $state['renew_url'] ) && 'expired' === $status ) : ?>
+							<?php if ( $trial || $ended ) : ?>
+								<a class="button button-primary" href="<?php echo esc_url( $ended && ! empty( $state['upgrade_url'] ) ? (string) $state['upgrade_url'] : (string) $this->cfg['upgrade_url'] ); ?>" target="_blank" rel="noopener noreferrer"><?php esc_html_e( 'Upgrade to keep Pro', 'talkwyn' ); ?></a>
+							<?php elseif ( ! empty( $state['renew_url'] ) && 'expired' === $status ) : ?>
 								<a class="button button-primary" href="<?php echo esc_url( (string) $state['renew_url'] ); ?>" target="_blank" rel="noopener noreferrer"><?php esc_html_e( 'Renew license', 'talkwyn' ); ?></a>
 							<?php endif; ?>
 						</p>
@@ -718,6 +764,29 @@ if ( ! class_exists( 'Talkwyn_License_Client' ) ) :
 				return;
 			}
 			$status = (string) ( $state['status'] ?? '' );
+			if ( 'expired' === $status && ! empty( $state['trial_ended'] ) ) {
+				printf(
+					'<div class="notice notice-warning"><p><strong>Talkwyn Pro:</strong> %s <a href="%s" target="_blank" rel="noopener noreferrer">%s</a></p></div>',
+					esc_html__( 'Your Pro trial has ended. Talkwyn keeps working on the free plan. Upgrade with the same key to bring Pro back.', 'talkwyn' ),
+					esc_url( ! empty( $state['upgrade_url'] ) ? (string) $state['upgrade_url'] : (string) $this->cfg['manage_url'] ),
+					esc_html__( 'Upgrade', 'talkwyn' )
+				);
+				return;
+			}
+			if ( $this->is_trial() && $this->trial_days_left() <= 5 ) {
+				printf(
+					'<div class="notice notice-info"><p><strong>Talkwyn Pro:</strong> %s <a href="%s" target="_blank" rel="noopener noreferrer">%s</a></p></div>',
+					esc_html(
+						sprintf(
+							/* translators: %d: days left */
+							_n( 'Your Pro trial ends in %d day. Upgrade to keep your Pro features, leads and settings.', 'Your Pro trial ends in %d days. Upgrade to keep your Pro features, leads and settings.', $this->trial_days_left(), 'talkwyn' ),
+							$this->trial_days_left()
+						)
+					),
+					esc_url( ! empty( $this->cfg['upgrade_url'] ) ? (string) $this->cfg['upgrade_url'] : (string) $this->cfg['manage_url'] ),
+					esc_html__( 'See plans', 'talkwyn' )
+				);
+			}
 			if ( in_array( $status, array( 'expired', 'revoked', 'suspended', 'invalid_key' ), true ) ) {
 				$link = 'expired' === $status && ! empty( $state['renew_url'] ) ? (string) $state['renew_url'] : (string) $this->cfg['manage_url'];
 				printf(
@@ -785,6 +854,8 @@ if ( ! class_exists( 'Talkwyn_License_Client' ) ) :
 				'activation_limit' => (int) ( $data['activation_limit'] ?? 0 ),
 				'is_dev_site'      => ! empty( $data['is_dev_site'] ),
 				'site_active'      => ! empty( $data['site_active'] ),
+				'is_trial'         => ! empty( $data['is_trial'] ),
+				'trial_ends_at'    => $data['trial_ends_at'] ?? null,
 				'last_check'       => time(),
 			);
 			$this->save_state( $state );

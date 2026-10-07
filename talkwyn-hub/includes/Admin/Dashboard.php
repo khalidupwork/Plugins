@@ -125,14 +125,23 @@ final class Dashboard {
 					</div>
 				<?php endforeach; ?>
 			</div>
+			<?php $twh_trial = \TWH\Repository\Licenses::trial_stats(); ?>
+			<h2><?php esc_html_e( 'Trials', 'talkwyn-hub' ); ?></h2>
+			<div class="twh-cards">
+				<div class="twh-stat"><div class="twh-stat__label"><?php esc_html_e( 'Trials started', 'talkwyn-hub' ); ?></div><div class="twh-stat__value"><?php echo esc_html( number_format_i18n( $twh_trial['started'] ) ); ?></div></div>
+				<div class="twh-stat"><div class="twh-stat__label"><?php esc_html_e( 'Trials active', 'talkwyn-hub' ); ?></div><div class="twh-stat__value"><?php echo esc_html( number_format_i18n( $twh_trial['active'] ) ); ?></div></div>
+				<div class="twh-stat"><div class="twh-stat__label"><?php esc_html_e( 'Trial to paid', 'talkwyn-hub' ); ?></div><div class="twh-stat__value"><?php echo esc_html( $twh_trial['converted'] + $twh_trial['ended'] > 0 ? $twh_trial['rate'] . '%' : 'n/a' ); ?></div></div>
+				<div class="twh-stat"><div class="twh-stat__label"><?php esc_html_e( 'Average days to convert', 'talkwyn-hub' ); ?></div><div class="twh-stat__value"><?php echo esc_html( $twh_trial['converted'] > 0 ? number_format_i18n( $twh_trial['avg_days'], 1 ) : 'n/a' ); ?></div></div>
+			</div>
+			<p class="description"><?php esc_html_e( 'Conversion rate counts finished trials only: converted divided by converted plus ended.', 'talkwyn-hub' ); ?></p>
 			<div class="twh-charts">
 				<div class="twh-panel">
 					<h2><?php esc_html_e( 'New licenses per month', 'talkwyn-hub' ); ?></h2>
-					<?php echo self::bar_chart( $s['series_new'], '#2271b1' ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- built from escaped parts. ?>
+					<?php echo self::bar_chart( $s['series_new'], '#D7263D' ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- built from escaped parts. ?>
 				</div>
 				<div class="twh-panel">
 					<h2><?php esc_html_e( 'Net revenue per month (mapped products)', 'talkwyn-hub' ); ?></h2>
-					<?php echo self::bar_chart( $s['series_rev'], '#00a32a' ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- built from escaped parts. ?>
+					<?php echo self::bar_chart( $s['series_rev'], '#1A0F12' ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- built from escaped parts. ?>
 				</div>
 				<div class="twh-panel">
 					<h2><?php esc_html_e( 'Plugin versions on active sites', 'talkwyn-hub' ); ?></h2>

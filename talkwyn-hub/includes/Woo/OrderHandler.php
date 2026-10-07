@@ -23,6 +23,7 @@ final class OrderHandler {
 	public const ITEM_LICENSE_IDS   = '_twh_license_ids';
 	public const ITEM_RENEW_LICENSE = '_twh_renewal_license_id';
 	public const ITEM_UPGRADE       = '_twh_upgrade_license_id';
+	public const ITEM_TRIAL_CONVERT = '_twh_trial_convert_license_id';
 	public const ITEM_PROCESSED     = '_twh_processed';
 	public const ITEM_PREVIOUS      = '_twh_previous_state';
 	public const ORDER_DISPUTE      = '_twh_dispute_suspended';
@@ -86,7 +87,12 @@ final class OrderHandler {
 			}
 			$renew_id   = (int) $item->get_meta( self::ITEM_RENEW_LICENSE );
 			$upgrade_id = (int) $item->get_meta( self::ITEM_UPGRADE );
+			$convert_id = (int) $item->get_meta( self::ITEM_TRIAL_CONVERT );
 
+			if ( $convert_id > 0 ) {
+				self::apply_conversion( $order, $item, $convert_id );
+				continue;
+			}
 			if ( $renew_id > 0 ) {
 				self::apply_renewal( $order, $item, $renew_id );
 				continue;
@@ -247,6 +253,63 @@ final class OrderHandler {
 	}
 
 	/**
+	 * Apply a trial conversion line item: same key, paid plan, term starts now.
+	 *
+	 * @param \WC_Order              $order      Order.
+	 * @param \WC_Order_Item_Product $item       Item.
+	 * @param int                    $license_id Trial license id.
+	 */
+	private static function apply_conversion( \WC_Order $order, \WC_Order_Item_Product $item, int $license_id ): void {
+		if ( 'yes' === $item->get_meta( self::ITEM_PROCESSED ) ) {
+			return;
+		}
+		$license = Licenses::find( $license_id );
+		$product = $item->get_product();
+		$mapping = $product ? Mapping::for_product( $product ) : null;
+		if ( ! $license || empty( $license['is_trial'] ) || ! $mapping || (int) $mapping['product_id'] !== (int) $license['product_id'] ) {
+			$order->add_order_note( __( 'Talkwyn Hub could not convert the trial: license or product mapping not found. Please review.', 'talkwyn-hub' ) );
+			return;
+		}
+		$item->update_meta_data( self::ITEM_PROCESSED, 'yes' );
+		$item->update_meta_data(
+			self::ITEM_PREVIOUS,
+			array(
+				'plan_slug'        => $license['plan_slug'],
+				'activation_limit' => (int) $license['activation_limit'],
+				'features'         => $license['features'],
+				'wc_product_id'    => (int) $license['wc_product_id'],
+				'expires_at'       => $license['expires_at'],
+				'trial_ends_at'    => $license['trial_ends_at'],
+				'was_trial'        => 1,
+			)
+		);
+		$item->save();
+		// Link the paying customer to the license.
+		$owner = array();
+		if ( ! (int) $license['customer_id'] && $order->get_customer_id() ) {
+			$owner['customer_id'] = $order->get_customer_id();
+		}
+		if ( $owner ) {
+			Licenses::update( $license_id, $owner );
+			$license = array_merge( $license, $owner );
+		}
+		\TWH\Trial\Trial::convert(
+			$license,
+			$mapping,
+			$product->get_id(),
+			array(
+				'order_id' => $order->get_id(),
+				'amount'   => round( (float) $item->get_total(), 2 ),
+				'currency' => $order->get_currency(),
+			)
+		);
+		$order->add_order_note(
+			/* translators: 1: license id, 2: plan */
+			sprintf( __( 'Talkwyn Hub converted trial license #%1$d to plan "%2$s".', 'talkwyn-hub' ), $license_id, $mapping['plan_slug'] )
+		);
+	}
+
+	/**
 	 * Full refund: revoke new licenses, roll back renewals and upgrades.
 	 *
 	 * @param int $order_id  Order id.
@@ -403,12 +466,28 @@ final class OrderHandler {
 				continue;
 			}
 			$previous   = (array) $item->get_meta( self::ITEM_PREVIOUS );
-			$license_id = (int) ( $item->get_meta( self::ITEM_RENEW_LICENSE ) ? $item->get_meta( self::ITEM_RENEW_LICENSE ) : $item->get_meta( self::ITEM_UPGRADE ) );
+			$license_id = (int) ( $item->get_meta( self::ITEM_RENEW_LICENSE ) ? $item->get_meta( self::ITEM_RENEW_LICENSE ) : ( $item->get_meta( self::ITEM_UPGRADE ) ? $item->get_meta( self::ITEM_UPGRADE ) : $item->get_meta( self::ITEM_TRIAL_CONVERT ) ) );
 			$license    = $license_id ? Licenses::find( $license_id ) : null;
 			if ( ! $license || ! $previous ) {
 				continue;
 			}
-			if ( $item->get_meta( self::ITEM_RENEW_LICENSE ) ) {
+			if ( ! empty( $previous['was_trial'] ) ) {
+				// Back to the trial it was; if the trial window has passed it is expired.
+				$prev_exp = Time::to_ts( $previous['expires_at'] ?? null );
+				Licenses::update(
+					$license_id,
+					array(
+						'is_trial'         => 1,
+						'converted_at'     => null,
+						'plan_slug'        => (string) $previous['plan_slug'],
+						'activation_limit' => (int) $previous['activation_limit'],
+						'features'         => (string) $previous['features'],
+						'wc_product_id'    => (int) $previous['wc_product_id'],
+						'expires_at'       => $prev_exp,
+						'status'           => null !== $prev_exp && $prev_exp <= time() ? 'expired' : 'active',
+					)
+				);
+			} elseif ( $item->get_meta( self::ITEM_RENEW_LICENSE ) ) {
 				$prev_exp = Time::to_ts( $previous['expires_at'] ?? null );
 				$fields   = array( 'expires_at' => $prev_exp );
 				if ( 'active' === $license['status'] && null !== $prev_exp && $prev_exp <= time() ) {
@@ -423,7 +502,7 @@ final class OrderHandler {
 				$license_id,
 				array(
 					'order_id'    => $order->get_id(),
-					'rolled_back' => $item->get_meta( self::ITEM_RENEW_LICENSE ) ? 'renewal' : 'upgrade',
+					'rolled_back' => ! empty( $previous['was_trial'] ) ? 'trial_conversion' : ( $item->get_meta( self::ITEM_RENEW_LICENSE ) ? 'renewal' : 'upgrade' ),
 					'amount'      => round( (float) $item->get_total(), 2 ),
 					'currency'    => $order->get_currency(),
 					'reason'      => $reason,

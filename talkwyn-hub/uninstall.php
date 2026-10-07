@@ -38,7 +38,7 @@ if ( is_dir( $twh_dir ) ) {
 }
 
 // Tables.
-foreach ( array( 'products', 'releases', 'licenses', 'activations', 'events' ) as $twh_table ) {
+foreach ( array( 'products', 'releases', 'licenses', 'activations', 'events', 'partners', 'referral_visits', 'referrals', 'payouts' ) as $twh_table ) {
 	$wpdb->query( "DROP TABLE IF EXISTS {$wpdb->prefix}twh_{$twh_table}" ); // phpcs:ignore WordPress.DB.DirectDatabaseQuery,WordPress.DB.PreparedSQL.InterpolatedNotPrepared
 }
 

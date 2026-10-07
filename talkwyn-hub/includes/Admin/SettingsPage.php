@@ -41,11 +41,11 @@ final class SettingsPage {
 		}
 		$s     = Settings::all();
 		$keys  = SigningKeys::all();
-		$texts = array(
-			'license'  => __( 'License issued', 'talkwyn-hub' ),
-			'reminder' => __( 'Expiry reminder (before expiry)', 'talkwyn-hub' ),
-			'expired'  => __( 'License expired', 'talkwyn-hub' ),
-			'renewed'  => __( 'License renewed', 'talkwyn-hub' ),
+		$texts = self::email_types();
+		$plans = array(
+			'personal' => __( 'Personal', 'talkwyn-hub' ),
+			'business' => __( 'Business', 'talkwyn-hub' ),
+			'agency'   => __( 'Agency', 'talkwyn-hub' ),
 		);
 		?>
 		<div class="wrap twh-wrap">
@@ -65,6 +65,73 @@ final class SettingsPage {
 						<p class="description"><?php esc_html_e( 'Applied to manual renewals (when WooCommerce Subscriptions is not used).', 'talkwyn-hub' ); ?></p></td></tr>
 				</table>
 
+				<h2 id="trial"><?php esc_html_e( 'Trial', 'talkwyn-hub' ); ?></h2>
+				<table class="form-table" role="presentation">
+					<tr><th><?php esc_html_e( 'Free Pro trial', 'talkwyn-hub' ); ?></th>
+						<td><label><input name="trial_enabled" type="checkbox" value="1" <?php checked( (int) $s['trial_enabled'], 1 ); ?>> <?php esc_html_e( 'Let new customers try Pro for free', 'talkwyn-hub' ); ?></label>
+						<p class="description"><?php esc_html_e( 'Put the [twh_trial_form] shortcode on your pricing page. One trial per email and per website.', 'talkwyn-hub' ); ?></p></td></tr>
+					<tr><th><label for="twh-trial-days"><?php esc_html_e( 'Trial length (days)', 'talkwyn-hub' ); ?></label></th>
+						<td><input id="twh-trial-days" name="trial_days" type="number" min="1" max="90" value="<?php echo (int) $s['trial_days']; ?>" class="small-text"></td></tr>
+					<tr><th><label for="twh-trial-plan"><?php esc_html_e( 'Plan the trial includes', 'talkwyn-hub' ); ?></label></th>
+						<td><select id="twh-trial-plan" name="trial_plan">
+						<?php
+						foreach ( $plans as $slug => $label ) :
+							?>
+							<option value="<?php echo esc_attr( $slug ); ?>" <?php selected( (string) $s['trial_plan'], $slug ); ?>><?php echo esc_html( $label ); ?></option><?php endforeach; ?></select>
+						<p class="description"><?php esc_html_e( 'Features come from that plan. Trials are always limited to one site.', 'talkwyn-hub' ); ?></p></td></tr>
+					<tr><th><?php esc_html_e( 'Card policy', 'talkwyn-hub' ); ?></th>
+						<td><fieldset>
+							<label><input type="radio" name="trial_card_mode" value="none" <?php checked( (string) $s['trial_card_mode'], 'none' ); ?>> <?php esc_html_e( 'No card required: the trial starts from a short form (name, email, website) and ends on the free plan.', 'talkwyn-hub' ); ?></label><br>
+							<label><input type="radio" name="trial_card_mode" value="card" <?php checked( (string) $s['trial_card_mode'], 'card' ); ?>> <?php esc_html_e( 'Card on file: the trial starts at checkout with a $0 first period and converts to paid automatically. Needs WooCommerce Subscriptions.', 'talkwyn-hub' ); ?></label>
+						</fieldset>
+						<?php if ( 'card' === $s['trial_card_mode'] && ! \TWH\Trial\Trial::card_mode_ready() ) : ?>
+							<p class="description" style="color:#b32d2e"><?php esc_html_e( 'Not ready: activate WooCommerce Subscriptions and choose a subscription product with a free trial below.', 'talkwyn-hub' ); ?></p>
+						<?php endif; ?></td></tr>
+					<tr><th><label for="twh-trial-product"><?php esc_html_e( 'Trial product (card mode)', 'talkwyn-hub' ); ?></label></th>
+						<td><input id="twh-trial-product" name="trial_product_id" type="number" min="0" value="<?php echo (int) $s['trial_product_id']; ?>" class="small-text">
+						<p class="description"><?php esc_html_e( 'ID of a WooCommerce Subscriptions product (or variation) with a free trial period. Ignored in no-card mode.', 'talkwyn-hub' ); ?></p></td></tr>
+					<tr><th><label for="twh-trial-reminders"><?php esc_html_e( 'Reminder emails', 'talkwyn-hub' ); ?></label></th>
+						<td><input id="twh-trial-reminders" name="trial_reminder_days" type="text" value="<?php echo esc_attr( (string) $s['trial_reminder_days'] ); ?>">
+						<p class="description"><?php esc_html_e( 'Days left when a reminder is sent, comma separated. 5,2 means day 10 and day 13 of a 15-day trial. A welcome email goes out on day 0 and a "trial ended" email on the last day.', 'talkwyn-hub' ); ?></p></td></tr>
+					<tr><th><label for="twh-trial-disposable"><?php esc_html_e( 'Blocked email domains', 'talkwyn-hub' ); ?></label></th>
+						<td><textarea id="twh-trial-disposable" name="trial_disposable" rows="6" class="large-text code"><?php echo esc_textarea( (string) $s['trial_disposable'] ); ?></textarea>
+						<p class="description"><?php esc_html_e( 'Disposable email services, one per line. Subdomains are blocked too.', 'talkwyn-hub' ); ?></p></td></tr>
+				</table>
+
+				<h2 id="partners"><?php esc_html_e( 'Partners', 'talkwyn-hub' ); ?></h2>
+				<table class="form-table" role="presentation">
+					<tr><th><?php esc_html_e( 'Talkwyn Partners', 'talkwyn-hub' ); ?></th>
+						<td><label><input name="partners_enabled" type="checkbox" value="1" <?php checked( (int) $s['partners_enabled'], 1 ); ?>> <?php esc_html_e( 'Run the referral program (My Account, Partners)', 'talkwyn-hub' ); ?></label></td></tr>
+					<tr><th><label for="twh-rate-new"><?php esc_html_e( 'Commission on new sales (%)', 'talkwyn-hub' ); ?></label></th>
+						<td><input id="twh-rate-new" name="partner_rate_new" type="number" min="0" max="100" step="0.01" value="<?php echo esc_attr( (string) $s['partner_rate_new'] ); ?>" class="small-text"></td></tr>
+					<tr><th><label for="twh-rate-renewal"><?php esc_html_e( 'Commission on renewals (%)', 'talkwyn-hub' ); ?></label></th>
+						<td><input id="twh-rate-renewal" name="partner_rate_renewal" type="number" min="0" max="100" step="0.01" value="<?php echo esc_attr( (string) $s['partner_rate_renewal'] ); ?>" class="small-text">
+						<p class="description"><?php esc_html_e( '0 pays on the first payment only.', 'talkwyn-hub' ); ?></p></td></tr>
+					<tr><th><label for="twh-cookie"><?php esc_html_e( 'Cookie (days)', 'talkwyn-hub' ); ?></label></th>
+						<td><input id="twh-cookie" name="partner_cookie_days" type="number" min="1" max="365" value="<?php echo (int) $s['partner_cookie_days']; ?>" class="small-text">
+						<p class="description"><?php esc_html_e( 'Attribution is last click: the newest referral link (or partner coupon) wins.', 'talkwyn-hub' ); ?></p></td></tr>
+					<tr><th><label for="twh-approval"><?php esc_html_e( 'Approve commissions after (days)', 'talkwyn-hub' ); ?></label></th>
+						<td><input id="twh-approval" name="partner_approval_days" type="number" min="0" max="365" value="<?php echo (int) $s['partner_approval_days']; ?>" class="small-text">
+						<p class="description"><?php esc_html_e( 'Match your refund window. Fully refunded or charged-back orders reject the commission automatically.', 'talkwyn-hub' ); ?></p></td></tr>
+					<tr><th><label for="twh-threshold"><?php esc_html_e( 'Payout threshold', 'talkwyn-hub' ); ?></label></th>
+						<td><input id="twh-threshold" name="partner_payout_threshold" type="number" min="0" step="0.01" value="<?php echo esc_attr( (string) $s['partner_payout_threshold'] ); ?>" class="small-text"> <?php echo esc_html( function_exists( 'get_woocommerce_currency' ) ? get_woocommerce_currency() : '' ); ?></td></tr>
+					<tr><th><?php esc_html_e( 'Payout methods', 'talkwyn-hub' ); ?></th>
+						<td><?php $twh_methods = array_filter( array_map( 'trim', explode( ',', (string) $s['partner_methods'] ) ) ); ?>
+						<?php
+						foreach ( array(
+							'paypal'   => 'PayPal',
+							'wise'     => 'Wise',
+							'bank'     => __( 'Bank transfer', 'talkwyn-hub' ),
+							'payoneer' => 'Payoneer',
+						) as $slug => $label ) :
+							?>
+							<label style="margin-inline-end:16px"><input type="checkbox" name="partner_methods[]" value="<?php echo esc_attr( $slug ); ?>" <?php checked( in_array( $slug, $twh_methods, true ) ); ?>> <?php echo esc_html( $label ); ?></label>
+						<?php endforeach; ?></td></tr>
+					<tr><th><?php esc_html_e( 'Links', 'talkwyn-hub' ); ?></th>
+						<td><label><input name="partner_pretty_links" type="checkbox" value="1" <?php checked( (int) $s['partner_pretty_links'], 1 ); ?>> <?php echo esc_html( sprintf( /* translators: %s: example URL */ __( 'Also accept short links like %s', 'talkwyn-hub' ), home_url( '/r/code' ) ) ); ?></label><br>
+						<label><input name="partner_respect_consent" type="checkbox" value="1" <?php checked( (int) $s['partner_respect_consent'], 1 ); ?>> <?php esc_html_e( 'Only set the referral cookie after cookie consent when a consent plugin is active', 'talkwyn-hub' ); ?></label></td></tr>
+				</table>
+
 				<h2><?php esc_html_e( 'API', 'talkwyn-hub' ); ?></h2>
 				<table class="form-table" role="presentation">
 					<tr><th><?php esc_html_e( 'Rate limit', 'talkwyn-hub' ); ?></th>
@@ -82,7 +149,7 @@ final class SettingsPage {
 
 				<h2><?php esc_html_e( 'Emails', 'talkwyn-hub' ); ?></h2>
 				<p class="description">
-					<?php esc_html_e( 'Emails use the WooCommerce email template (Settings → Emails) for header, footer and colors. Placeholders:', 'talkwyn-hub' ); ?>
+					<?php esc_html_e( 'Emails use the branded Talkwyn layout (override it from your theme at talkwyn-hub/emails/branded.php). Placeholders:', 'talkwyn-hub' ); ?>
 					<code><?php echo esc_html( implode( ' ', Mailer::placeholders() ) ); ?></code>
 				</p>
 				<table class="form-table" role="presentation">
@@ -168,14 +235,60 @@ final class SettingsPage {
 			'admin_notify_email'  => sanitize_email( wp_unslash( $_POST['admin_notify_email'] ?? '' ) ),
 			'email_from_name'     => sanitize_text_field( wp_unslash( $_POST['email_from_name'] ?? '' ) ),
 		);
-		foreach ( array( 'license', 'reminder', 'expired', 'renewed' ) as $type ) {
+		$methods  = array_intersect( array_map( 'sanitize_key', (array) wp_unslash( $_POST['partner_methods'] ?? array() ) ), array( 'paypal', 'wise', 'bank', 'payoneer' ) );
+		$values   = array_merge(
+			$values,
+			array(
+				'trial_enabled'            => empty( $_POST['trial_enabled'] ) ? 0 : 1,
+				'trial_days'               => min( 90, max( 1, absint( $_POST['trial_days'] ?? 15 ) ) ),
+				'trial_plan'               => in_array( sanitize_key( wp_unslash( $_POST['trial_plan'] ?? '' ) ), array( 'personal', 'business', 'agency' ), true ) ? sanitize_key( wp_unslash( $_POST['trial_plan'] ) ) : 'business',
+				'trial_card_mode'          => 'card' === sanitize_key( wp_unslash( $_POST['trial_card_mode'] ?? '' ) ) ? 'card' : 'none',
+				'trial_product_id'         => absint( $_POST['trial_product_id'] ?? 0 ),
+				'trial_reminder_days'      => implode( ',', array_unique( array_filter( array_map( 'absint', explode( ',', sanitize_text_field( wp_unslash( $_POST['trial_reminder_days'] ?? '' ) ) ) ) ) ) ),
+				'trial_disposable'         => implode( "\n", \TWH\Domain\TrialPolicy::parse_list( sanitize_textarea_field( wp_unslash( $_POST['trial_disposable'] ?? '' ) ) ) ),
+				'partners_enabled'         => empty( $_POST['partners_enabled'] ) ? 0 : 1,
+				'partner_rate_new'         => min( 100, max( 0, (float) sanitize_text_field( wp_unslash( $_POST['partner_rate_new'] ?? '0' ) ) ) ),
+				'partner_rate_renewal'     => min( 100, max( 0, (float) sanitize_text_field( wp_unslash( $_POST['partner_rate_renewal'] ?? '0' ) ) ) ),
+				'partner_cookie_days'      => min( 365, max( 1, absint( $_POST['partner_cookie_days'] ?? 60 ) ) ),
+				'partner_approval_days'    => min( 365, absint( $_POST['partner_approval_days'] ?? 30 ) ),
+				'partner_payout_threshold' => max( 0, (float) sanitize_text_field( wp_unslash( $_POST['partner_payout_threshold'] ?? '0' ) ) ),
+				'partner_methods'          => implode( ',', $methods ),
+				'partner_pretty_links'     => empty( $_POST['partner_pretty_links'] ) ? 0 : 1,
+				'partner_respect_consent'  => empty( $_POST['partner_respect_consent'] ) ? 0 : 1,
+			)
+		);
+		foreach ( array_keys( self::email_types() ) as $type ) {
 			$subject                                 = sanitize_text_field( wp_unslash( $_POST[ 'email_' . $type . '_subject' ] ?? '' ) );
 			$body                                    = sanitize_textarea_field( wp_unslash( $_POST[ 'email_' . $type . '_body' ] ?? '' ) );
 			$values[ 'email_' . $type . '_subject' ] = '' !== $subject ? $subject : $defaults[ 'email_' . $type . '_subject' ];
 			$values[ 'email_' . $type . '_body' ]    = '' !== $body ? $body : $defaults[ 'email_' . $type . '_body' ];
 		}
 		Settings::save( $values );
+		flush_rewrite_rules( false ); // The /r/CODE rule depends on the pretty links setting.
 		Admin::redirect( 'twh-settings', 'saved' );
+	}
+
+	/**
+	 * Editable email types.
+	 *
+	 * @return array<string, string>
+	 */
+	public static function email_types(): array {
+		return array(
+			'license'             => __( 'License issued', 'talkwyn-hub' ),
+			'reminder'            => __( 'Expiry reminder (before expiry)', 'talkwyn-hub' ),
+			'expired'             => __( 'License expired', 'talkwyn-hub' ),
+			'renewed'             => __( 'License renewed', 'talkwyn-hub' ),
+			'trial_welcome'       => __( 'Trial started (day 0)', 'talkwyn-hub' ),
+			'trial_reminder'      => __( 'Trial reminder (days left)', 'talkwyn-hub' ),
+			'trial_ended'         => __( 'Trial ended', 'talkwyn-hub' ),
+			'trial_converted'     => __( 'Trial upgraded to paid', 'talkwyn-hub' ),
+			'partner_approved'    => __( 'Partner approved', 'talkwyn-hub' ),
+			'partner_referral'    => __( 'Partner: new referral (pending)', 'talkwyn-hub' ),
+			'partner_commission'  => __( 'Partner: commission approved', 'talkwyn-hub' ),
+			'partner_payout'      => __( 'Partner: payout sent', 'talkwyn-hub' ),
+			'partner_application' => __( 'Admin: new partner application', 'talkwyn-hub' ),
+		);
 	}
 
 	/**

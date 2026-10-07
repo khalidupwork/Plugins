@@ -12,7 +12,7 @@
 				setTimeout( function () { copyable.setAttribute( 'title', old ); }, 1500 );
 			} );
 		}
-		var confirmLink = e.target.closest( 'a.twh-confirm' );
+		var confirmLink = e.target.closest( 'a.twh-confirm, button.twh-confirm' );
 		if ( confirmLink && ! window.confirm( cfg.i18n.confirm ) ) {
 			e.preventDefault();
 		}

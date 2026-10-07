@@ -111,3 +111,30 @@ Run this on a staging copy of talkwyn.com with Stripe in **test mode** (card `42
 - [ ] My Account → Orders → **Invoice** opens a printable invoice (only when no invoice plugin is active). Another customer's invoice URL returns 404.
 - [ ] Settings → "Delete all data on uninstall" off → delete the plugin → reinstall → all data is still there.
 - [ ] HPOS on (WooCommerce → Settings → Advanced → Features → High-performance order storage) → repeat sections 1, 6 and 7.
+
+## 11. Free trial (1.1.0)
+
+- [ ] Put `[twh_trial_form]` on a page. Submit name, email and `https://shop-one.com` → "Your trial has started", one email "Your 15-day Talkwyn Pro trial has started" with the key.
+- [ ] The same email again (also `name+x@gmail.com` for a Gmail address) → "already used". The same site with another email → refused. A `mailinator.com` email and `http://localhost` → refused.
+- [ ] Submit the form in under 3 seconds, or fill the hidden field → refused quietly. 6 starts from one IP in an hour → the 6th is refused.
+- [ ] Activate the trial key in Talkwyn on shop-one.com → plugin shows "Trial: 15 days left". A second site → `limit_reached`.
+- [ ] Set the trial end to 2 days from now (license detail) and run cron → "2 days left" email, sent once.
+- [ ] Set the end to yesterday and run cron → status expired, "Your Talkwyn trial has ended" email with an upgrade link; plugin shows "Trial ended" and **Upgrade to keep Pro**.
+- [ ] Click the upgrade link while logged out → checkout with "Upgrade trial to Business". Pay → the same key is active for 1 year with 5 sites; "Your Talkwyn Pro is yours" email; Dashboard trial-to-paid rate goes up.
+- [ ] Refund that order → the license goes back to an ended trial.
+- [ ] Card mode: pick **Card on file** without WooCommerce Subscriptions → an admin notice explains why and the no-card form stays.
+
+## 12. Partners (1.1.0)
+
+- [ ] As a customer, My Account → Partners → apply. The admin gets "New partner application". Status shows "Pending review".
+- [ ] Talkwyn Hub → Partners → **Approve** → the partner gets "You're a Talkwyn Partner" with the link.
+- [ ] In a private window open `/r/partner-code?to=/pricing/` → lands on /pricing/; a `twh_ref` cookie (HttpOnly, 60 days) is set; the click shows on the partner dashboard.
+- [ ] Buy a plan in that window → a pending commission (20% of the line total) on the Referrals tab and the partner dashboard; the partner gets "New referral".
+- [ ] Start a trial in a window with the cookie, then upgrade it → the commission is created at upgrade time with source `trial`.
+- [ ] Buy while logged in as the partner → the commission is rejected as a self-referral.
+- [ ] Refund half → the commission halves. Refund the rest → rejected with reason `refund`.
+- [ ] Set approval days to 0 and run cron → pending becomes approved; the partner gets "commission approved".
+- [ ] When approved ≥ threshold, the partner appears on the Payouts tab; **Export CSV** has their decrypted payout details; **Mark paid** with a reference → "Payout sent" email; history shows it.
+- [ ] Reject a referral without a reason → refused with a notice. With a reason → the partner sees it.
+- [ ] `GET /wp-json/talkwyn-hub/v1/partners/terms` returns the current settings.
+- [ ] Turn Partners off → `?ref=` does nothing, My Account → Partners says the program is closed.

@@ -47,6 +47,8 @@ final class Plugin {
 			Woo\OrderHandler::init();
 			Woo\Subscriptions::init();
 			Woo\Cart::init();
+			Trial\Trial::init();
+			Partners\Program::init();
 			Woo\OrderDisplay::init();
 			Account\Account::init();
 		} else {

@@ -33,6 +33,7 @@ final class Admin {
 		ReleasesPage::init();
 		ProductsPage::init();
 		SettingsPage::init();
+		PartnersPage::init();
 		Export::init();
 	}
 
@@ -46,6 +47,7 @@ final class Admin {
 		add_submenu_page( 'twh-dashboard', __( 'Licenses', 'talkwyn-hub' ), __( 'Licenses', 'talkwyn-hub' ), $cap, 'twh-licenses', array( LicensesPage::class, 'render' ) );
 		add_submenu_page( 'twh-dashboard', __( 'Releases', 'talkwyn-hub' ), __( 'Releases', 'talkwyn-hub' ), $cap, 'twh-releases', array( ReleasesPage::class, 'render' ) );
 		add_submenu_page( 'twh-dashboard', __( 'Products', 'talkwyn-hub' ), __( 'Products', 'talkwyn-hub' ), $cap, 'twh-products', array( ProductsPage::class, 'render' ) );
+		add_submenu_page( 'twh-dashboard', __( 'Partners', 'talkwyn-hub' ), __( 'Partners', 'talkwyn-hub' ), $cap, 'twh-partners', array( PartnersPage::class, 'render' ) );
 		add_submenu_page( 'twh-dashboard', __( 'Logs', 'talkwyn-hub' ), __( 'Logs', 'talkwyn-hub' ), $cap, 'twh-logs', array( LogsPage::class, 'render' ) );
 		add_submenu_page( 'twh-dashboard', __( 'Settings', 'talkwyn-hub' ), __( 'Settings', 'talkwyn-hub' ), $cap, 'twh-settings', array( SettingsPage::class, 'render' ) );
 	}
@@ -137,6 +139,8 @@ final class Admin {
 			'slug_exists'      => array( 'error', __( 'A product with this slug already exists.', 'talkwyn-hub' ) ),
 			'key_next'         => array( 'success', __( 'A new signing key was generated. Add its public key to your client plugin before promoting it.', 'talkwyn-hub' ) ),
 			'key_promoted'     => array( 'success', __( 'The next signing key is now active.', 'talkwyn-hub' ) ),
+			'paid'             => array( 'success', __( 'Payout recorded and the partner was emailed.', 'talkwyn-hub' ) ),
+			'reason_required'  => array( 'error', __( 'Add a reason before rejecting a referral. The partner sees it.', 'talkwyn-hub' ) ),
 		);
 		if ( ! isset( $messages[ $code ] ) ) {
 			return;

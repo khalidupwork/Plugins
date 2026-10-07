@@ -115,6 +115,33 @@ To pull a broken release, uncheck **Active**. Clients then see the previous acti
 2. Copy the **active public key** from **Talkwyn Hub → Settings → Signing keys** into the client config. See [`client-sdk/example-integration.php`](../client-sdk/example-integration.php).
 3. Render `talkwyn_license()->render_settings()` on the plugin's License tab.
 
+## 5a. Free trial (since 1.1.0)
+
+A 15-day Pro trial that needs no card. Settings live under **Talkwyn Hub → Settings → Trial**: on/off, length, the plan it includes, the reminder days (default 5 and 2 days left), the disposable email list, and the card mode.
+
+- **Start it:** put `[twh_trial_form]` on a page (the website uses `/pricing/#trial`). The form asks for first name, email and website. It has a honeypot, a minimum fill time and a limit of 5 starts per IP per hour.
+- **One per person and per site:** the same email (Gmail dots and `+tags` ignored), the same domain, disposable emails, `localhost` and dev hosts are refused.
+- **What they get:** a real key for 1 site, emailed at once, with the plan's features. If the visitor is logged in with the same email, it shows in My Account too.
+- **During the trial:** "Trial: X days left" in My Account and in the plugin, reminder emails, and an "Upgrade now" box on the license page.
+- **At the end:** the daily cron expires it and sends "Your trial has ended". The plugin falls back to the free plan.
+- **Upgrade:** keeps the same key. The checkout line is "Upgrade trial to Business" and the term starts on the payment day. A refund turns it back into an ended trial.
+- **Card mode (optional):** set **Card on file** and pick a WooCommerce Subscriptions product with a free trial period. The trial is then a subscription that charges on day 16 unless cancelled. Until that product exists, the no-card form is used and an admin notice says why.
+- **Reporting:** the Dashboard shows trials started, active, trial-to-paid rate and average days to convert.
+
+## 5b. Partners (referral program, since 1.1.0)
+
+Settings live under **Talkwyn Hub → Settings → Partners**: on/off, commission on new sales (default 20%), on renewals (default 0, first payment only), cookie days (60), approval delay (30 days, the refund window), payout threshold (50) and payout methods.
+
+1. A logged-in customer applies from **My Account → Partners** (website, how they will promote, payout method and details, terms). The admin gets an email.
+2. Approve them under **Talkwyn Hub → Partners**. They get an email with their link.
+3. Their link is `/r/their-code` (or `?ref=their-code` on any page; `/r/code?to=/pricing/` lands on a chosen page). A visit stores a signed first-party cookie for the cookie window. Last click wins. A coupon linked to the partner also counts, at checkout time.
+4. A paid order creates a **pending** commission. A trial started from their link pays when it upgrades. Refunds, cancellations and chargebacks reject it; partial refunds scale it. Self-referrals (same account, email or payment fingerprint) are rejected.
+5. After the approval delay the daily cron marks it **approved**. When a partner reaches the threshold, the Payouts tab lists them (CSV export). Pay them with their method and click **Mark paid** with the reference. They get an email.
+
+Partners see clicks, trials, referrals, pending, approved and paid totals, a chart, a link builder with a QR code, marketing banners and copy in **My Account → Partners**. Trial users are never named to partners.
+
+If a consent plugin that supports the WP Consent API is active, the cookie is only set with marketing consent (the WooCommerce session still keeps the referral for that visit). Filter: `twh_referral_cookie_consent`.
+
 ## 6. Admin
 
 | Screen | What you can do |
@@ -125,6 +152,7 @@ To pull a broken release, uncheck **Active**. Clients then see the previous acti
 | Create license | Manual licenses for giveaways and partners. Linked to an existing user with that email; otherwise the recipient adds it with the key. |
 | Releases | Upload, edit, deactivate, delete |
 | Products | Software products, icons, banners and the description shown in "View details" |
+| Partners | Approve or suspend partners, rate override, coupon, code; approve or reject referrals (a reason is required); payouts due, CSV export, mark paid, history; fraud signals (many sales from one IP, buys under 60 seconds after the click, high refund rate) |
 | Logs | Filter by type, license and date |
 | Settings | Email templates (placeholders), reminder days, renewal discount, rate limits, dev domains, log retention, signing keys (view, rotate), delete data on uninstall, system status |
 
@@ -134,10 +162,10 @@ All screens require `manage_woocommerce` (filter: `twh_admin_capability`).
 
 Emails are branded HTML with a plain-text version for clients that don't show HTML. The layout has:
 
-- a Plum header with the logo
+- an Ink header with the logo
 - the message
-- the key in a Lilac panel
-- one Plum button
+- the key in a Blush panel
+- one Talkwyn Red button
 - a footer
 
 Subjects and message text are edited under **Talkwyn Hub → Settings**. They are plain text with placeholders; line breaks become paragraphs.
@@ -151,6 +179,15 @@ To change the layout, copy `templates/emails/branded.php` to `yourtheme/talkwyn-
 | Expired | On expiry, with a one-click renewal link |
 | Renewed | After a renewal payment |
 | Admin notice | License revoked (refund, cancellation, chargeback); a renewal or upgrade rolled back |
+| Trial started | Trial form submitted: key and setup steps |
+| Trial reminder | Days left in the trial (default 5 and 2) |
+| Trial ended | Trial expired, with a one-click upgrade link |
+| Trial upgraded | Trial converted to a paid plan |
+| Partner application | To the admin, when someone applies |
+| Partner approved | To the partner, with their link |
+| New referral | To the partner, when a referral is recorded (pending) |
+| Commission approved | To the partner, after the approval delay |
+| Payout sent | To the partner, with amount and reference |
 
 Keys are also shown in the WooCommerce order email, on the thank-you page and in the order view. In admin order emails they are masked.
 
@@ -171,7 +208,7 @@ Deleting the plugin keeps all data unless **Settings → Delete all data on unin
 ```bash
 cd talkwyn-hub
 composer install
-composer test   # PHPUnit: keys, domains/dev detection, activation limits, expiry/renewal math, signatures, download tokens
+composer test   # PHPUnit: keys, domains/dev detection, activation limits, expiry/renewal math, signatures, download tokens, trial and referral rules
 composer lint   # php -l on every file
 ```
 
@@ -183,9 +220,12 @@ talkwyn-hub/
   uninstall.php
   includes/
     Domain/                pure logic (unit tested): KeyGenerator, Domain, ActivationPolicy,
-                           ExpiryCalculator, Signer, DownloadToken, Crypto, Markdown, ZipInspector
+                           ExpiryCalculator, Signer, DownloadToken, Crypto, Markdown, ZipInspector,
+                           TrialPolicy, ReferralPolicy
+    Trial/                 Trial: form, start, reminders, upgrade link, conversion
+    Partners/              Program, Tracking (links + cookie), Commissions, PartnerAccount (My Account)
     Install/               Schema (dbDelta + versioning), Installer
-    Repository/            Products, Releases, Licenses, Activations, Events
+    Repository/            Products, Releases, Licenses, Activations, Events, Partners, Referrals
     Support/               Settings, Secrets, SigningKeys, Storage, Request, Time
     Woo/                   ProductTab, Mapping, OrderHandler, Cart (renew/upgrade), Subscriptions, OrderDisplay
     Api/                   RestController, Responder (signing), RateLimiter, ApiError
@@ -208,3 +248,7 @@ talkwyn-hub/
 | `wp_twh_licenses` | Keys (hash + encrypted + last 4), plan, limit, duration, features, status, expiry, order/subscription links |
 | `wp_twh_activations` | Sites per license (instance id, normalized domain, dev flag, versions, last check) |
 | `wp_twh_events` | Event log (hashed IP, JSON meta), pruned daily |
+| `wp_twh_partners` | Partners: user, status, referral code, rate override, coupon, payout method, encrypted payout details |
+| `wp_twh_referral_visits` | Clicks on partner links (hashed IP, one per IP per day) |
+| `wp_twh_referrals` | Commissions per order and license: amount, commission, status, reason, source |
+| `wp_twh_payouts` | Payouts with method and reference |

@@ -46,6 +46,11 @@ final class Daily {
 		}
 		self::expire();
 		self::reminders();
+		\TWH\Trial\Trial::cron();
+		/**
+		 * Daily maintenance hook for add-ons (Partners approval runs here).
+		 */
+		do_action( 'twh_daily_tasks' );
 		Events::prune( (int) Settings::get( 'log_retention_days' ) );
 		delete_transient( 'twh_dashboard_stats' );
 	}
@@ -59,10 +64,19 @@ final class Daily {
 		do {
 			$batch = Licenses::expire_due();
 			foreach ( $batch as $license ) {
-				Events::log( 'expire', (int) $license['id'], array( 'expires_at' => $license['expires_at'] ), '' );
+				$is_trial = ! empty( $license['is_trial'] );
+				Events::log(
+					'expire',
+					(int) $license['id'],
+					array(
+						'expires_at' => $license['expires_at'],
+						'reason'     => $is_trial ? 'trial_ended' : 'term_ended',
+					),
+					''
+				);
 				// A subscription renewal may still be in progress; don't nag those customers.
 				if ( ! Subscriptions::auto_renews( $license ) ) {
-					Mailer::send_template( 'expired', $license );
+					Mailer::send_template( $is_trial ? 'trial_ended' : 'expired', $license );
 				}
 				++$count;
 			}
@@ -82,7 +96,8 @@ final class Daily {
 		$sent = 0;
 		$now  = time();
 		foreach ( Licenses::expiring_within( max( $days ) ) as $license ) {
-			if ( Subscriptions::auto_renews( $license ) ) {
+			// Trials get their own reminders (Trial::cron).
+			if ( ! empty( $license['is_trial'] ) || Subscriptions::auto_renews( $license ) ) {
 				continue;
 			}
 			$already = array_filter( array_map( 'intval', explode( ',', (string) $license['reminders_sent'] ) ) );

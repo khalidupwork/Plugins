@@ -159,6 +159,7 @@ final class Account {
 					'activations' => Activations::active_for( $id ),
 					'product'     => Products::find( (int) $license['product_id'] ),
 					'upgrades'    => Cart::upgrade_targets( $license ),
+					'trial_plans' => \TWH\Trial\Trial::conversion_targets( $license ),
 					'renew_url'   => Cart::can_renew( $license ) ? Cart::renew_url( $license ) : '',
 					'auto_renews' => Subscriptions::auto_renews( $license ),
 					'back_url'    => wc_get_account_endpoint_url( self::EP_LICENSES ),
@@ -178,7 +179,34 @@ final class Account {
 				'detail_url' => self::detail_url( (int) $license['id'] ),
 			);
 		}
+		self::trial_banner( self::my_licenses() );
 		self::template( 'account/licenses.php', array( 'rows' => $rows ) );
+	}
+
+	/**
+	 * "Trial: X days left" banner above the licenses list.
+	 *
+	 * @param array<int, array<string, mixed>> $licenses Licenses.
+	 */
+	public static function trial_banner( array $licenses ): void {
+		foreach ( $licenses as $license ) {
+			if ( empty( $license['is_trial'] ) || ! in_array( Licenses::effective_status( $license ), array( 'active', 'expired' ), true ) ) {
+				continue;
+			}
+			$running = 'active' === Licenses::effective_status( $license );
+			$left    = \TWH\Trial\Trial::days_left( $license );
+			echo '<div class="twh-trial-banner' . ( $running ? '' : ' twh-trial-banner--ended' ) . '" role="status"><div>';
+			if ( $running ) {
+				/* translators: %d: days left */
+				echo '<p class="twh-trial-banner__title">' . esc_html( sprintf( _n( 'Trial: %d day left', 'Trial: %d days left', $left, 'talkwyn-hub' ), $left ) ) . '</p>';
+				echo '<p>' . esc_html__( 'Every Pro feature is on. Pick a plan any time, you keep the same key.', 'talkwyn-hub' ) . '</p>';
+			} else {
+				echo '<p class="twh-trial-banner__title">' . esc_html__( 'Your trial has ended', 'talkwyn-hub' ) . '</p>';
+				echo '<p>' . esc_html__( 'Talkwyn is on the free plan and kept all your data. Upgrade to switch Pro back on.', 'talkwyn-hub' ) . '</p>';
+			}
+			echo '</div><a class="button twh-btn" href="' . esc_url( self::detail_url( (int) $license['id'] ) . '#twh-trial-plans' ) . '">' . esc_html__( 'Upgrade', 'talkwyn-hub' ) . '</a></div>';
+			return;
+		}
 	}
 
 	/**
@@ -220,6 +248,20 @@ final class Account {
 		$action = sanitize_key( wp_unslash( $_POST['twh_action'] ) );
 		if ( 'claim_license' === $action ) {
 			self::handle_claim();
+			return;
+		}
+		if ( 'convert_trial' === $action ) {
+			$license_id = absint( $_POST['license_id'] ?? 0 );
+			if ( ! isset( $_POST['_twh_nonce'] ) || ! wp_verify_nonce( sanitize_text_field( wp_unslash( $_POST['_twh_nonce'] ) ), 'twh_convert_' . $license_id ) ) {
+				wc_add_notice( __( 'Your session expired. Please try again.', 'talkwyn-hub' ), 'error' );
+				return;
+			}
+			$license = Licenses::find( $license_id );
+			if ( ! $license || ! Licenses::is_owned_by( $license, get_current_user_id() ) || empty( $license['is_trial'] ) ) {
+				wc_add_notice( __( 'License not found.', 'talkwyn-hub' ), 'error' );
+				return;
+			}
+			\TWH\Trial\Trial::to_checkout( $license, sanitize_key( wp_unslash( $_POST['plan'] ?? '' ) ) );
 			return;
 		}
 		if ( 'deactivate_site' !== $action ) {
@@ -293,6 +335,16 @@ final class Account {
 	 */
 	public static function badge( array $license ): array {
 		$status = Licenses::effective_status( $license );
+		if ( ! empty( $license['is_trial'] ) ) {
+			if ( 'active' === $status ) {
+				$left = \TWH\Trial\Trial::days_left( $license );
+				/* translators: %d: days left in the trial */
+				return array( 'trial', sprintf( _n( 'Trial: %d day left', 'Trial: %d days left', $left, 'talkwyn-hub' ), $left ) );
+			}
+			if ( 'expired' === $status ) {
+				return array( 'expired', __( 'Trial ended', 'talkwyn-hub' ) );
+			}
+		}
 		if ( 'active' === $status ) {
 			$expires = Licenses::expires_ts( $license );
 			if ( null === $expires ) {

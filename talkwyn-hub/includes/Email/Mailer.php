@@ -72,6 +72,41 @@ final class Mailer {
 	}
 
 	/**
+	 * Send any configured email type to an address (partner and admin emails).
+	 *
+	 * @param string                $to   Recipient.
+	 * @param string                $type Email type (settings keys email_{type}_subject/body).
+	 * @param array<string, string> $vars Placeholders. {site_name} and {account_url} are added.
+	 */
+	public static function send_type( string $to, string $type, array $vars ): bool {
+		$vars = array_merge(
+			array(
+				'{site_name}'   => wp_specialchars_decode( (string) get_bloginfo( 'name' ), ENT_QUOTES ),
+				'{account_url}' => function_exists( 'wc_get_account_endpoint_url' ) ? wc_get_account_endpoint_url( 'licenses' ) : home_url( '/' ),
+				'{renew_url}'   => '',
+			),
+			$vars
+		);
+		return self::send( $to, $type, $vars );
+	}
+
+	/**
+	 * Send the trial welcome email with the key.
+	 *
+	 * @param array<string, mixed> $license License.
+	 * @param string               $key     Plain key.
+	 * @param string               $name    First name entered on the form.
+	 */
+	public static function send_trial_welcome( array $license, string $key, string $name = '' ): bool {
+		$vars                  = self::vars( $license );
+		$vars['{license_key}'] = $key;
+		if ( '' !== $name ) {
+			$vars['{customer_name}'] = $name;
+		}
+		return self::send( self::recipient( $license ), 'trial_welcome', $vars, array( $key ) );
+	}
+
+	/**
 	 * Notify the admin that a license was revoked.
 	 *
 	 * @param array<string, mixed> $license License.
@@ -141,6 +176,9 @@ final class Mailer {
 			'{account_url}'      => function_exists( 'wc_get_account_endpoint_url' ) ? wc_get_account_endpoint_url( 'licenses' ) : home_url( '/' ),
 			'{site_name}'        => wp_specialchars_decode( (string) get_bloginfo( 'name' ), ENT_QUOTES ),
 			'{order_number}'     => (string) $license['order_id'],
+			'{trial_ends_at}'    => ! empty( $license['trial_ends_at'] ) ? Time::human( $license['trial_ends_at'] ) : '',
+			'{trial_days}'       => (string) (int) Settings::get( 'trial_days' ),
+			'{upgrade_url}'      => ! empty( $license['is_trial'] ) ? \TWH\Trial\Trial::upgrade_url( $license ) : '',
 		);
 	}
 
@@ -150,7 +188,7 @@ final class Mailer {
 	 * @return string[]
 	 */
 	public static function placeholders(): array {
-		return array( '{customer_name}', '{license_key}', '{key_last4}', '{product_name}', '{plan}', '{expires_at}', '{days_left}', '{activation_limit}', '{renew_url}', '{account_url}', '{site_name}', '{order_number}' );
+		return array( '{customer_name}', '{license_key}', '{key_last4}', '{product_name}', '{plan}', '{expires_at}', '{days_left}', '{activation_limit}', '{renew_url}', '{account_url}', '{site_name}', '{order_number}', '{trial_ends_at}', '{trial_days}', '{trial_usage}', '{upgrade_url}' );
 	}
 
 	/**
@@ -182,6 +220,22 @@ final class Mailer {
 			'reminder' => array( __( 'Your license renews soon', 'talkwyn-hub' ), __( 'Renew now', 'talkwyn-hub' ), $renew ),
 			'expired'  => array( __( 'Your license has expired', 'talkwyn-hub' ), __( 'Renew in one click', 'talkwyn-hub' ), $renew ),
 			'renewed'  => array( __( 'Thanks for renewing', 'talkwyn-hub' ), __( 'View your license', 'talkwyn-hub' ), $vars['{account_url}'] ),
+		);
+		$upgrade = $vars['{upgrade_url}'] ?? $vars['{account_url}'];
+		$dash    = $vars['{dashboard_url}'] ?? $vars['{account_url}'];
+		$layouts = array_merge(
+			$layouts,
+			array(
+				'trial_welcome'       => array( __( 'Your Pro trial has started', 'talkwyn-hub' ), __( 'Read the setup guide', 'talkwyn-hub' ), (string) apply_filters( 'twh_setup_guide_url', home_url( '/docs/getting-started/' ) ) ),
+				'trial_reminder'      => array( __( 'Your trial ends soon', 'talkwyn-hub' ), __( 'Choose a plan', 'talkwyn-hub' ), $upgrade ),
+				'trial_ended'         => array( __( 'Your trial has ended', 'talkwyn-hub' ), __( 'Upgrade in one click', 'talkwyn-hub' ), $upgrade ),
+				'trial_converted'     => array( __( 'Welcome to Talkwyn Pro', 'talkwyn-hub' ), __( 'View your license', 'talkwyn-hub' ), $vars['{account_url}'] ),
+				'partner_approved'    => array( __( 'You\'re a Talkwyn Partner', 'talkwyn-hub' ), __( 'Open your dashboard', 'talkwyn-hub' ), $dash ),
+				'partner_referral'    => array( __( 'You have a new referral', 'talkwyn-hub' ), __( 'Open your dashboard', 'talkwyn-hub' ), $dash ),
+				'partner_commission'  => array( __( 'Commission approved', 'talkwyn-hub' ), __( 'Open your dashboard', 'talkwyn-hub' ), $dash ),
+				'partner_payout'      => array( __( 'Payout sent', 'talkwyn-hub' ), __( 'See your payouts', 'talkwyn-hub' ), $dash ),
+				'partner_application' => array( __( 'New partner application', 'talkwyn-hub' ), __( 'Review applications', 'talkwyn-hub' ), admin_url( 'admin.php?page=twh-partners' ) ),
+			)
 		);
 		$l       = $layouts[ $type ] ?? array( '', '', '' );
 		return array(

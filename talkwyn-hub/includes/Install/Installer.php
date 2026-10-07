@@ -42,6 +42,8 @@ final class Installer {
 		self::seed_default_product();
 
 		\TWH\Account\Account::add_endpoints();
+		\TWH\Partners\PartnerAccount::endpoint();
+		\TWH\Partners\Tracking::rewrite();
 		flush_rewrite_rules();
 
 		if ( ! wp_next_scheduled( 'twh_daily' ) ) {
@@ -74,6 +76,10 @@ final class Installer {
 			}
 		}
 		update_option( self::DB_VERSION_OPTION, TWH_DB_VERSION );
+		if ( ! $force ) {
+			// New endpoints or rewrite rules may ship with a schema change: rebuild once they are registered.
+			add_action( 'init', 'flush_rewrite_rules', 999 );
+		}
 	}
 
 	/**

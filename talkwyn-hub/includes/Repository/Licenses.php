@@ -70,11 +70,15 @@ final class Licenses {
 					'features'         => self::sanitize_features( (string) ( $args['features'] ?? 'pro' ) ),
 					'expires_at'       => Time::to_mysql( null === $expires ? null : (int) $expires ),
 					'reminders_sent'   => '',
+					'is_trial'         => empty( $args['is_trial'] ) ? 0 : 1,
+					'trial_ends_at'    => empty( $args['is_trial'] ) ? null : Time::to_mysql( null === $expires ? null : (int) $expires ),
+					'site_domain'      => (string) ( $args['site_domain'] ?? '' ),
+					'partner_id'       => (int) ( $args['partner_id'] ?? 0 ),
 					'created_at'       => $now,
 					'updated_at'       => $now,
 					'notes'            => (string) ( $args['notes'] ?? '' ),
 				),
-				array( '%d', '%s', '%s', '%s', '%s', '%d', '%s', '%d', '%d', '%d', '%d', '%s', '%d', '%d', '%s', '%s', '%s', '%s', '%s', '%s' )
+				array( '%d', '%s', '%s', '%s', '%s', '%d', '%s', '%d', '%d', '%d', '%d', '%s', '%d', '%d', '%s', '%s', '%s', '%d', '%s', '%s', '%d', '%s', '%s', '%s' )
 			);
 			if ( $ok ) {
 				return array(
@@ -223,6 +227,12 @@ final class Licenses {
 			'expires_at'       => '%s',
 			'reminders_sent'   => '%s',
 			'notes'            => '%s',
+			'is_trial'         => '%d',
+			'trial_ends_at'    => '%s',
+			'trial_emails'     => '%s',
+			'converted_at'     => '%s',
+			'site_domain'      => '%s',
+			'partner_id'       => '%d',
 		);
 		$data    = array();
 		$formats = array();
@@ -230,7 +240,7 @@ final class Licenses {
 			if ( ! isset( $allowed[ $col ] ) ) {
 				continue;
 			}
-			if ( 'expires_at' === $col && ( is_int( $value ) || null === $value ) ) {
+			if ( in_array( $col, array( 'expires_at', 'trial_ends_at', 'converted_at' ), true ) && ( is_int( $value ) || null === $value ) ) {
 				$value = Time::to_mysql( $value );
 			}
 			if ( 'status' === $col && ! in_array( $value, self::STATUSES, true ) ) {
@@ -424,6 +434,96 @@ final class Licenses {
 	}
 
 	/**
+	 * Whether a trial was ever issued for this email or this site domain.
+	 *
+	 * @param string $email  Email (compared case-insensitively).
+	 * @param string $domain Normalized domain ('' to skip).
+	 * @return string '' when none, otherwise 'email' or 'domain'.
+	 */
+	public static function trial_exists( string $email, string $domain ): string {
+		global $wpdb;
+		$email = strtolower( trim( $email ) );
+		if ( '' !== $email && $wpdb->get_var( $wpdb->prepare( 'SELECT id FROM ' . self::t() . ' WHERE is_trial = 1 AND LOWER(customer_email) = %s LIMIT 1', $email ) ) ) {
+			return 'email';
+		}
+		// Converted trials keep is_trial = 0 but are found through converted_at.
+		if ( '' !== $email && $wpdb->get_var( $wpdb->prepare( 'SELECT id FROM ' . self::t() . ' WHERE converted_at IS NOT NULL AND LOWER(customer_email) = %s LIMIT 1', $email ) ) ) {
+			return 'email';
+		}
+		if ( '' !== $domain && $wpdb->get_var( $wpdb->prepare( 'SELECT id FROM ' . self::t() . ' WHERE site_domain = %s AND ( is_trial = 1 OR converted_at IS NOT NULL ) LIMIT 1', $domain ) ) ) {
+			return 'domain';
+		}
+		return '';
+	}
+
+	/**
+	 * Active trials (for reminder emails).
+	 *
+	 * @return array<int, array<string, mixed>>
+	 */
+	public static function active_trials(): array {
+		global $wpdb;
+		$rows = (array) $wpdb->get_results( 'SELECT * FROM ' . self::t() . " WHERE is_trial = 1 AND status = 'active' AND trial_ends_at IS NOT NULL ORDER BY trial_ends_at ASC LIMIT 5000", ARRAY_A );
+		return array_map( array( self::class, 'hydrate' ), $rows );
+	}
+
+	/**
+	 * Trials started through a partner (no personal data is returned to partners).
+	 *
+	 * @param int $partner_id Partner id.
+	 * @return array<int, array{created_at: string, plan_slug: string, state: string}>
+	 */
+	public static function referred_trials( int $partner_id ): array {
+		global $wpdb;
+		$rows = (array) $wpdb->get_results(
+			$wpdb->prepare( 'SELECT created_at, plan_slug, is_trial, status, converted_at, expires_at FROM ' . self::t() . ' WHERE partner_id = %d AND trial_ends_at IS NOT NULL ORDER BY id DESC LIMIT 200', $partner_id ),
+			ARRAY_A
+		);
+		$out  = array();
+		foreach ( $rows as $row ) {
+			if ( ! empty( $row['converted_at'] ) ) {
+				$state = 'converted';
+			} elseif ( 'active' === $row['status'] && ! ExpiryCalculator::is_expired( Time::to_ts( $row['expires_at'] ), time() ) ) {
+				$state = 'running';
+			} else {
+				$state = 'ended';
+			}
+			$out[] = array(
+				'created_at' => (string) $row['created_at'],
+				'plan_slug'  => (string) $row['plan_slug'],
+				'state'      => $state,
+			);
+		}
+		return $out;
+	}
+
+	/**
+	 * Trial reporting numbers.
+	 *
+	 * @param int $since Only trials started after this timestamp (0 = all time).
+	 * @return array{started: int, active: int, converted: int, ended: int, rate: float, avg_days: float}
+	 */
+	public static function trial_stats( int $since = 0 ): array {
+		global $wpdb;
+		$from      = gmdate( 'Y-m-d H:i:s', $since );
+		$t         = self::t();
+		$started   = (int) $wpdb->get_var( $wpdb->prepare( "SELECT COUNT(*) FROM {$t} WHERE ( is_trial = 1 OR converted_at IS NOT NULL ) AND trial_ends_at IS NOT NULL AND created_at >= %s", $from ) );
+		$active    = (int) $wpdb->get_var( $wpdb->prepare( "SELECT COUNT(*) FROM {$t} WHERE is_trial = 1 AND status = 'active' AND trial_ends_at > %s", Time::now_mysql() ) );
+		$converted = (int) $wpdb->get_var( $wpdb->prepare( "SELECT COUNT(*) FROM {$t} WHERE converted_at IS NOT NULL AND created_at >= %s", $from ) );
+		$avg       = (float) $wpdb->get_var( $wpdb->prepare( "SELECT AVG(TIMESTAMPDIFF(HOUR, created_at, converted_at)) / 24 FROM {$t} WHERE converted_at IS NOT NULL AND created_at >= %s", $from ) );
+		$ended     = (int) $wpdb->get_var( $wpdb->prepare( "SELECT COUNT(*) FROM {$t} WHERE is_trial = 1 AND status = 'expired' AND created_at >= %s", $from ) );
+		$decided   = $converted + $ended;
+		return array(
+			'started'   => $started,
+			'active'    => $active,
+			'converted' => $converted,
+			'ended'     => $ended,
+			'rate'      => $decided > 0 ? round( 100 * $converted / $decided, 1 ) : 0.0,
+			'avg_days'  => round( $avg, 1 ),
+		);
+	}
+
+	/**
 	 * Normalize a features string: comma separated sanitized keys.
 	 *
 	 * @param string $features Raw.
@@ -444,7 +544,7 @@ final class Licenses {
 	 * @return array<string, mixed>
 	 */
 	private static function hydrate( array $row ): array {
-		foreach ( array( 'id', 'product_id', 'customer_id', 'order_id', 'order_item_id', 'wc_product_id', 'activation_limit', 'duration_days' ) as $col ) {
+		foreach ( array( 'id', 'product_id', 'customer_id', 'order_id', 'order_item_id', 'wc_product_id', 'activation_limit', 'duration_days', 'is_trial', 'partner_id' ) as $col ) {
 			if ( isset( $row[ $col ] ) ) {
 				$row[ $col ] = (int) $row[ $col ];
 			}

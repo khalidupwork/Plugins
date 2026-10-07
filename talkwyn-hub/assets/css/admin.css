@@ -26,8 +26,17 @@
 .twh-event{font-family:Menlo,Consolas,monospace;font-size:12px}
 .twh-event--revoke,.twh-event--invalid_key,.twh-event--rate_limited,.twh-event--chargeback{color:#b32d2e}
 .twh-event--purchase,.twh-event--renewal,.twh-event--upgrade{color:#007017}
-/* Talkwyn brand: Plum only for primary buttons and the lifetime badge. */
-.twh-wrap .button-primary{background:#5B2A86;border-color:#5B2A86;color:#fff}
-.twh-wrap .button-primary:hover,.twh-wrap .button-primary:focus{background:#4C2271;border-color:#4C2271;color:#fff}
-.twh-wrap .button-primary:focus{box-shadow:0 0 0 1px #fff,0 0 0 3px #5B2A86}
-.twh-badge--lifetime{background:#5B2A86;color:#fff}
+/* Talkwyn Red: brand red for primary buttons and the lifetime badge. */
+.twh-wrap .button-primary{background:#D7263D;border-color:#D7263D;color:#fff}
+.twh-wrap .button-primary:hover,.twh-wrap .button-primary:focus{background:#B81D33;border-color:#B81D33;color:#fff}
+.twh-wrap .button-primary:focus{box-shadow:0 0 0 1px #fff,0 0 0 3px #D7263D}
+.twh-badge--lifetime{background:#D7263D;color:#fff}
+.twh-badge--trial{background:#FFF1F2;color:#96172A}
+.twh-badge--converted{background:#1A0F12;color:#fff}
+.twh-badge--approved,.twh-badge--paid{background:#d1fae5;color:#065f46}
+.twh-badge--pending{background:#f0f0f1;color:#3c434a}
+.twh-badge--rejected{background:#ffedd5;color:#9a3412}
+.twh-badge.is-warn{background:#ffedd5;color:#9a3412;white-space:normal}
+.twh-inline-form{margin:0}
+.twh-inline-form label{display:inline-block;margin-bottom:4px}
+.twh-table td{vertical-align:top}

@@ -10,6 +10,7 @@
  * @var array<int, array<string, mixed>> $activations
  * @var array<string, mixed>|null        $product
  * @var array<int, array<string, mixed>> $upgrades
+ * @var array<int, array<string, mixed>> $trial_plans
  * @var string                           $renew_url
  * @var bool                             $auto_renews
  * @var string                           $back_url
@@ -119,6 +120,30 @@ foreach ( $activations as $twh_a ) {
 						<span class="twh-upgrade-option__name"><?php echo esc_html( LicenseService::plan_label( (string) $twh_u['mapping']['plan_slug'] ) ); ?></span>
 						<span class="twh-upgrade-option__sites"><?php echo esc_html( sprintf( /* translators: %s: number of sites */ __( '%s sites', 'talkwyn-hub' ), LicenseService::limit_label( (int) $twh_u['mapping']['activation_limit'] ) ) ); ?></span>
 						<span class="twh-upgrade-option__price"><?php echo wp_kses_post( wc_price( $twh_u['price'] ) ); ?></span>
+					</label>
+				<?php endforeach; ?>
+			</fieldset>
+			<p><button type="submit" class="button twh-btn"><?php esc_html_e( 'Upgrade now', 'talkwyn-hub' ); ?></button></p>
+		</form>
+	</section>
+<?php endif; ?>
+
+<?php if ( ! empty( $trial_plans ) ) : ?>
+	<section class="twh-section" id="twh-trial-plans" aria-labelledby="twh-trial-title">
+		<h2 id="twh-trial-title"><?php esc_html_e( 'Keep Pro after your trial', 'talkwyn-hub' ); ?></h2>
+		<p><?php esc_html_e( 'Choose a plan. You keep the same license key and your yearly term starts the day you pay.', 'talkwyn-hub' ); ?></p>
+		<form method="post" class="twh-upgrade">
+			<input type="hidden" name="twh_action" value="convert_trial">
+			<input type="hidden" name="license_id" value="<?php echo (int) $license['id']; ?>">
+			<?php wp_nonce_field( 'twh_convert_' . (int) $license['id'], '_twh_nonce' ); ?>
+			<fieldset>
+				<legend class="screen-reader-text"><?php esc_html_e( 'Choose a plan', 'talkwyn-hub' ); ?></legend>
+				<?php foreach ( $trial_plans as $twh_i => $twh_p ) : ?>
+					<label class="twh-upgrade-option">
+						<input type="radio" name="plan" value="<?php echo esc_attr( (string) $twh_p['mapping']['plan_slug'] ); ?>" <?php checked( (string) $twh_p['mapping']['plan_slug'], (string) $license['plan_slug'] ); ?>>
+						<span class="twh-upgrade-option__name"><?php echo esc_html( LicenseService::plan_label( (string) $twh_p['mapping']['plan_slug'] ) ); ?></span>
+						<span class="twh-upgrade-option__sites"><?php echo esc_html( sprintf( /* translators: %s: number of sites */ __( '%s sites', 'talkwyn-hub' ), LicenseService::limit_label( (int) $twh_p['mapping']['activation_limit'] ) ) ); ?></span>
+						<span class="twh-upgrade-option__price"><?php echo wp_kses_post( wc_price( $twh_p['price'] ) ); ?></span>
 					</label>
 				<?php endforeach; ?>
 			</fieldset>

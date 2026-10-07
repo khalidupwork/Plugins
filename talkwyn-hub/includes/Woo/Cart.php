@@ -25,6 +25,7 @@ final class Cart {
 
 	public const RENEW   = 'twh_renew_license_id';
 	public const UPGRADE = 'twh_upgrade_license_id';
+	public const CONVERT = 'twh_convert_license_id';
 
 	/**
 	 * Register hooks.
@@ -66,7 +67,9 @@ final class Cart {
 	 * @param array<string, mixed> $license License.
 	 */
 	public static function can_renew( array $license ): bool {
-		return (int) $license['duration_days'] > 0
+		// Trials convert through Trial::upgrade_url(), never the discounted renewal.
+		return empty( $license['is_trial'] )
+			&& (int) $license['duration_days'] > 0
 			&& in_array( Licenses::effective_status( $license ), array( 'active', 'expired' ), true );
 	}
 
@@ -154,7 +157,7 @@ final class Cart {
 	 * @return array<int, array{wc_product: \WC_Product, mapping: array<string, mixed>, price: float}>
 	 */
 	public static function upgrade_targets( array $license ): array {
-		if ( 'active' !== Licenses::effective_status( $license ) || Subscriptions::manage_url( $license ) ) {
+		if ( ! empty( $license['is_trial'] ) || 'active' !== Licenses::effective_status( $license ) || Subscriptions::manage_url( $license ) ) {
 			return array();
 		}
 		$software = Products::find( (int) $license['product_id'] );
@@ -277,7 +280,7 @@ final class Cart {
 	 * @return array<int, array<string, string>>
 	 */
 	public static function item_data( $data, $item ) {
-		foreach ( array( self::RENEW, self::UPGRADE ) as $key ) {
+		foreach ( array( self::RENEW, self::UPGRADE, self::CONVERT ) as $key ) {
 			if ( empty( $item[ $key ] ) ) {
 				continue;
 			}
@@ -285,10 +288,21 @@ final class Cart {
 			if ( ! $license ) {
 				continue;
 			}
+			$labels = array(
+				self::RENEW   => __( 'Renewal of license', 'talkwyn-hub' ),
+				self::UPGRADE => __( 'Upgrade of license', 'talkwyn-hub' ),
+				self::CONVERT => __( 'Upgrade of your trial', 'talkwyn-hub' ),
+			);
 			$data[] = array(
-				'key'   => self::RENEW === $key ? __( 'Renewal of license', 'talkwyn-hub' ) : __( 'Upgrade of license', 'talkwyn-hub' ),
+				'key'   => $labels[ $key ],
 				'value' => KeyGenerator::mask( (string) $license['key_last4'] ),
 			);
+			if ( self::CONVERT === $key ) {
+				$data[] = array(
+					'key'   => __( 'Note', 'talkwyn-hub' ),
+					'value' => __( 'You keep the same license key. Your yearly term starts today.', 'talkwyn-hub' ),
+				);
+			}
 			if ( self::RENEW === $key && (float) Settings::get( 'renewal_discount' ) > 0 ) {
 				$data[] = array(
 					'key'   => __( 'Renewal discount', 'talkwyn-hub' ),
@@ -319,6 +333,9 @@ final class Cart {
 		if ( ! empty( $values[ self::UPGRADE ] ) ) {
 			$order_item->add_meta_data( OrderHandler::ITEM_UPGRADE, (int) $values[ self::UPGRADE ], true );
 		}
+		if ( ! empty( $values[ self::CONVERT ] ) ) {
+			$order_item->add_meta_data( OrderHandler::ITEM_TRIAL_CONVERT, (int) $values[ self::CONVERT ], true );
+		}
 	}
 
 	/**
@@ -329,7 +346,7 @@ final class Cart {
 	 * @param array<string, mixed> $item     Cart item.
 	 */
 	public static function lock_quantity( $html, $cart_key, $item = array() ) {
-		if ( ! empty( $item[ self::RENEW ] ) || ! empty( $item[ self::UPGRADE ] ) ) {
+		if ( ! empty( $item[ self::RENEW ] ) || ! empty( $item[ self::UPGRADE ] ) || ! empty( $item[ self::CONVERT ] ) ) {
 			return sprintf( '1 <input type="hidden" name="cart[%s][qty]" value="1" />', esc_attr( $cart_key ) );
 		}
 		return $html;
@@ -344,7 +361,7 @@ final class Cart {
 	 * @param int                  $quantity Quantity.
 	 */
 	public static function validate_quantity( $passed, $cart_key, $values, $quantity ) {
-		if ( ( ! empty( $values[ self::RENEW ] ) || ! empty( $values[ self::UPGRADE ] ) ) && 1 !== (int) $quantity ) {
+		if ( ( ! empty( $values[ self::RENEW ] ) || ! empty( $values[ self::UPGRADE ] ) || ! empty( $values[ self::CONVERT ] ) ) && 1 !== (int) $quantity ) {
 			wc_add_notice( __( 'Renewals and upgrades are limited to a quantity of 1.', 'talkwyn-hub' ), 'error' );
 			return false;
 		}
@@ -359,7 +376,7 @@ final class Cart {
 	 * @return array<string, mixed>
 	 */
 	public static function from_session( $item, $values ) {
-		foreach ( array( self::RENEW, self::UPGRADE ) as $key ) {
+		foreach ( array( self::RENEW, self::UPGRADE, self::CONVERT ) as $key ) {
 			if ( ! empty( $values[ $key ] ) ) {
 				$item[ $key ] = (int) $values[ $key ];
 			}
@@ -383,14 +400,30 @@ final class Cart {
 			} elseif ( ! empty( $item[ self::UPGRADE ] ) ) {
 				$license = Licenses::find( (int) $item[ self::UPGRADE ] );
 				$valid   = $license && Licenses::is_owned_by( $license, get_current_user_id() ) && 'active' === Licenses::effective_status( $license );
+			} elseif ( ! empty( $item[ self::CONVERT ] ) ) {
+				// Anyone holding the signed link may pay for a trial; expired trials can still convert.
+				$license = Licenses::find( (int) $item[ self::CONVERT ] );
+				$valid   = $license && ! empty( $license['is_trial'] ) && in_array( $license['status'], array( 'active', 'expired' ), true );
 			}
 			if ( ! $valid ) {
 				$cart->remove_cart_item( $key );
 				wc_add_notice( __( 'A license renewal or upgrade in your cart is no longer valid and was removed.', 'talkwyn-hub' ), 'error' );
-			} elseif ( (int) $item['quantity'] > 1 && ( ! empty( $item[ self::RENEW ] ) || ! empty( $item[ self::UPGRADE ] ) ) ) {
+			} elseif ( (int) $item['quantity'] > 1 && ( ! empty( $item[ self::RENEW ] ) || ! empty( $item[ self::UPGRADE ] ) || ! empty( $item[ self::CONVERT ] ) ) ) {
 				$cart->set_quantity( $key, 1, false );
 			}
 		}
+	}
+
+	/**
+	 * Add a trial conversion to the cart (replacing any earlier one for the license).
+	 *
+	 * @param \WC_Product $product    Paid plan product.
+	 * @param int         $license_id Trial license id.
+	 */
+	public static function add_conversion( \WC_Product $product, int $license_id ): bool {
+		self::ensure_cart();
+		self::remove_existing( self::CONVERT, $license_id );
+		return self::add( $product, array( self::CONVERT => $license_id ) );
 	}
 
 	/**

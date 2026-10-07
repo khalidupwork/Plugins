@@ -11,6 +11,7 @@ A drop-in PHP class (`class-talkwyn-license-client.php`) for the Talkwyn plugin.
 - **Grace period:** if the hub can't be reached, Pro stays active for 7 days after the last successful check, with an admin notice.
 - **Updates:** hooks `pre_set_site_transient_update_plugins` and `plugins_api` (the "View details" modal). Right before downloading, it fetches a fresh 10-minute package URL (`upgrader_pre_download`). "Check again" on Dashboard → Updates bypasses its cache.
 - **Helpers:** `is_pro()`, `get_plan()`, `has_feature( $feature )`, `in_grace_period()`, `state()`.
+- **Trials (SDK 1.1.0, Hub 1.1.0):** `is_trial()`, `trial_days_left()`, `trial_ended()`. The license box shows "Trial: X days left" or "Trial ended" with an **Upgrade to keep Pro** button, and a notice appears in the last 5 days. Set `upgrade_url` in the config (default `https://talkwyn.com/pricing/`). When a trial ends the plugin falls back to the free plan; the same key turns Pro on again after the upgrade.
 - **Settings partial:** `render_settings()` outputs the license box: key input, Activate/Deactivate/Check now buttons, status badge, plan, expiry, sites, and a "Manage license" link to `talkwyn.com/my-account/licenses/`.
 
 ## Usage

@@ -217,6 +217,17 @@ final class RestController {
 			case 'suspended':
 				throw new ApiError( 'suspended', __( 'This license is suspended. Please contact support.', 'talkwyn-hub' ) );
 			case 'expired':
+				if ( ! empty( $license['is_trial'] ) ) {
+					throw new ApiError(
+						'expired',
+						__( 'Your Pro trial has ended. Talkwyn keeps working on the free plan, and you can upgrade any time with the same key.', 'talkwyn-hub' ),
+						array(
+							'reason'      => 'trial_ended',
+							'renew_url'   => \TWH\Trial\Trial::upgrade_url( $license ),
+							'upgrade_url' => \TWH\Trial\Trial::upgrade_url( $license ),
+						)
+					);
+				}
 				throw new ApiError(
 					'expired',
 					__( 'This license has expired. Renew it to keep Pro features and updates.', 'talkwyn-hub' ),
@@ -422,7 +433,9 @@ final class RestController {
 				$data['package'] = add_query_arg( 'token', rawurlencode( $token ), rest_url( self::NS . '/download' ) );
 			}
 		}
-		if ( 'expired' === $status && Cart::can_renew( $license ) ) {
+		if ( 'expired' === $status && ! empty( $license['is_trial'] ) ) {
+			$data['renew_url'] = \TWH\Trial\Trial::upgrade_url( $license );
+		} elseif ( 'expired' === $status && Cart::can_renew( $license ) ) {
 			$data['renew_url'] = Cart::renew_url( $license );
 		}
 
@@ -532,6 +545,9 @@ final class RestController {
 			'is_dev_site'      => $is_dev,
 			'site_active'      => $site_active,
 			'features'         => Licenses::features( $license ),
+			'is_trial'         => ! empty( $license['is_trial'] ),
+			'trial_ends_at'    => ! empty( $license['is_trial'] ) ? Time::to_iso( $license['trial_ends_at'] ) : null,
+			'trial_days_left'  => ! empty( $license['is_trial'] ) ? \TWH\Trial\Trial::days_left( $license ) : null,
 		);
 	}
 

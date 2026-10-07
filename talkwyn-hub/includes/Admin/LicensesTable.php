@@ -218,7 +218,13 @@ final class LicensesTable extends \WP_List_Table {
 	 */
 	protected function column_status( $item ) {
 		$status = Licenses::effective_status( $item );
-		return '<span class="twh-badge twh-badge--' . esc_attr( $status ) . '">' . esc_html( LicenseService::status_label( $status ) ) . '</span>';
+		$out    = '<span class="twh-badge twh-badge--' . esc_attr( $status ) . '">' . esc_html( LicenseService::status_label( $status ) ) . '</span>';
+		if ( ! empty( $item['is_trial'] ) ) {
+			$out .= ' <span class="twh-badge twh-badge--dev">' . esc_html__( 'Trial', 'talkwyn-hub' ) . '</span>';
+		} elseif ( ! empty( $item['converted_at'] ) ) {
+			$out .= ' <span class="twh-badge twh-badge--lifetime">' . esc_html__( 'From trial', 'talkwyn-hub' ) . '</span>';
+		}
+		return $out;
 	}
 
 	/**
