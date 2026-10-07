@@ -525,7 +525,9 @@ function talkwyn_settings_render(): void {
 		<form method="post" action="<?php echo esc_url( admin_url( 'admin-post.php' ) ); ?>">
 			<input type="hidden" name="action" value="talkwyn_save_settings">
 			<?php wp_nonce_field( 'talkwyn_save_settings' ); ?>
+			<?php $twi = 0; ?>
 			<?php foreach ( talkwyn_settings_fields() as $section => $fields ) : ?>
+				<section class="tw-set-panel" id="tw-set-<?php echo (int) $twi; ?>" data-title="<?php echo esc_attr( $section ); ?>">
 				<h2><?php echo esc_html( $section ); ?></h2>
 				<table class="form-table" role="presentation">
 				<?php foreach ( $fields as $field ) : ?>
@@ -551,10 +553,56 @@ function talkwyn_settings_render(): void {
 					</tr>
 				<?php endforeach; ?>
 				</table>
+				</section>
+				<?php ++$twi; ?>
 			<?php endforeach; ?>
 			<?php submit_button(); ?>
 		</form>
-		<?php do_action( 'talkwyn_settings_after_form' ); ?>
+		<section class="tw-set-panel" id="tw-set-pages" data-title="<?php esc_attr_e( 'Site pages', 'talkwyn' ); ?>">
+			<?php do_action( 'talkwyn_settings_after_form' ); ?>
+		</section>
+		<style>
+			.tw-set-tabs { display: flex; flex-wrap: wrap; gap: 4px; margin: 16px 0 0; border-bottom: 1px solid #c3c4c7; }
+			.tw-set-tabs button { border: 1px solid transparent; border-bottom: 0; background: none; padding: 8px 14px; margin-bottom: -1px; font-size: 14px; font-weight: 600; color: #50575e; cursor: pointer; border-radius: 4px 4px 0 0; }
+			.tw-set-tabs button[aria-selected="true"] { background: #fff; border-color: #c3c4c7; color: #1A0F12; box-shadow: inset 0 3px 0 #D7263D; }
+			.tw-set-js .tw-set-panel[hidden] { display: none; }
+			.tw-set-js .tw-set-panel > h2:first-child { display: none; }
+			.tw-set-panel { background: #fff; border: 1px solid #c3c4c7; border-top: 0; padding: 4px 20px 12px; max-width: 980px; }
+			.tw-set-panel .form-table th { width: 300px; }
+			.tw-set-panel hr { display: none; }
+		</style>
+		<script>
+		( function () {
+			var wrap = document.currentScript.parentNode;
+			var panels = wrap.querySelectorAll( '.tw-set-panel' );
+			if ( ! panels.length ) { return; }
+			wrap.classList.add( 'tw-set-js' );
+			var nav = document.createElement( 'div' );
+			nav.className = 'tw-set-tabs';
+			nav.setAttribute( 'role', 'tablist' );
+			var form = wrap.querySelector( 'form' );
+			form.parentNode.insertBefore( nav, form );
+			var saved = '';
+			try { saved = sessionStorage.getItem( 'tw-set-tab' ) || ''; } catch ( e ) {}
+			function show( id ) {
+				panels.forEach( function ( p ) { p.hidden = p.id !== id; } );
+				nav.querySelectorAll( 'button' ).forEach( function ( b ) { b.setAttribute( 'aria-selected', b.dataset.target === id ? 'true' : 'false' ); } );
+				var submit = form.querySelector( '.submit' );
+				if ( submit ) { submit.hidden = 'tw-set-pages' === id; }
+				try { sessionStorage.setItem( 'tw-set-tab', id ); } catch ( e ) {}
+			}
+			panels.forEach( function ( p ) {
+				var b = document.createElement( 'button' );
+				b.type = 'button';
+				b.setAttribute( 'role', 'tab' );
+				b.dataset.target = p.id;
+				b.textContent = p.dataset.title;
+				b.addEventListener( 'click', function () { show( p.id ); } );
+				nav.appendChild( b );
+			} );
+			show( document.getElementById( saved ) ? saved : panels[0].id );
+		}() );
+		</script>
 	</div>
 	<?php
 }

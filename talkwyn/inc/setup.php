@@ -66,13 +66,38 @@ add_action(
 		printf( '<link rel="preload" href="%s" as="font" type="font/woff2" crossorigin>' . "\n", esc_url( $fonts . 'figtree-latin-400-normal.woff2' ) );
 
 		$brand = TALKWYN_THEME_URL . '/assets/brand/';
+		// Talkwyn favicon set (a Site Icon chosen under Settings, General takes over when set).
 		if ( ! has_site_icon() ) {
-			printf( '<link rel="icon" href="%s" type="image/svg+xml">' . "\n", esc_url( $brand . 'logo/favicon.svg' ) );
-			printf( '<link rel="icon" href="%s" sizes="48x48">' . "\n", esc_url( $brand . 'icons/favicon.ico' ) );
-			printf( '<link rel="apple-touch-icon" href="%s">' . "\n", esc_url( $brand . 'icons/apple-touch-icon.png' ) );
+			$v = '?v=' . rawurlencode( TALKWYN_THEME_VERSION );
+			printf( '<link rel="icon" href="%s" sizes="any">' . "\n", esc_url( $brand . 'icons/favicon.ico' . $v ) );
+			printf( '<link rel="icon" href="%s" type="image/svg+xml">' . "\n", esc_url( $brand . 'logo/favicon.svg' . $v ) );
+			printf( '<link rel="icon" href="%s" type="image/png" sizes="32x32">' . "\n", esc_url( $brand . 'icons/favicon-32x32.png' . $v ) );
+			printf( '<link rel="icon" href="%s" type="image/png" sizes="16x16">' . "\n", esc_url( $brand . 'icons/favicon-16x16.png' . $v ) );
+			printf( '<link rel="apple-touch-icon" sizes="180x180" href="%s">' . "\n", esc_url( $brand . 'icons/apple-touch-icon.png' . $v ) );
 		}
 		printf( '<link rel="manifest" href="%s">' . "\n", esc_url( home_url( '/site.webmanifest' ) ) );
 		echo '<meta name="theme-color" content="#FFFFFF">' . "\n";
+	},
+	1
+);
+
+/**
+ * /favicon.ico: WordPress answers it with its own "W" logo when no Site Icon is set. Serve the Talkwyn icon instead.
+ */
+add_action(
+	'do_faviconico',
+	static function () {
+		if ( has_site_icon() ) {
+			return;
+		}
+		$file = TALKWYN_THEME_DIR . '/assets/brand/icons/favicon.ico';
+		if ( ! file_exists( $file ) ) {
+			return;
+		}
+		header( 'Content-Type: image/x-icon' );
+		header( 'Cache-Control: public, max-age=604800' );
+		readfile( $file ); // phpcs:ignore WordPress.WP.AlternativeFunctions.file_system_operations_readfile -- local theme file.
+		exit;
 	},
 	1
 );

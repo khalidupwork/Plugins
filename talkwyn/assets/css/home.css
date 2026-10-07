@@ -276,3 +276,11 @@
 	.tw-missed__win { flex: 1; display: flex; flex-direction: column; }
 	.tw-missed__list { flex: 1; display: flex; flex-direction: column; justify-content: space-between; padding: 12px; gap: 6px; }
 }
+
+/* v3.2 night band on red */
+.tw-red .tw-eyebrow--plain { color: #FFD3D9; }
+.tw-night-section.tw-red .tw-night-card { background: #FFFFFF; color: var(--tw-ink); }
+.tw-night-section.tw-red .tw-night-card p { color: var(--tw-n-600); }
+.tw-night-section.tw-red .tw-night-card:last-child { background: var(--tw-ink); }
+.tw-night-section.tw-red .tw-night-card:last-child p { color: #FFFFFF; }
+.tw-night-section.tw-red .tw-night__close { color: #FFFFFF; }
