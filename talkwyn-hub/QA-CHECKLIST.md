@@ -1,0 +1,113 @@
+# Talkwyn Hub – Manual QA checklist
+
+Run this on a staging copy of talkwyn.com with Stripe in **test mode** (card `4242 4242 4242 4242`), plus a separate test WordPress site that runs the Talkwyn plugin with the client SDK. Tick each box.
+
+**Test-site naming tip:** use a production-looking domain for the client (e.g. `client1.example.com` mapped in `/etc/hosts` doesn't work, because `*.example` is a dev pattern; use something like `qa-client1.com`). Use `*.local` for dev-site tests.
+
+## 0. Setup
+
+- [ ] `TWH_SECRET_KEY` is defined. Settings → System status shows ✅. No warning notice.
+- [ ] Settings → Signing keys shows one `active` key. Its public key is copied into the client config.
+- [ ] Product "Talkwyn Pro" (variable) has the Personal (1 site, 365 d), Business (5, 365), Agency (0, 365) and Lifetime (5, 0) variations, all mapped in the **Talkwyn Hub** tab.
+- [ ] Releases: version `1.0.0` uploaded (active). The client site runs `1.0.0`.
+- [ ] Uploading a ZIP whose header says `1.0.1` with version field `1.0.2` is **rejected** ("does not match").
+- [ ] Uploading a ZIP without a plugin header is rejected.
+- [ ] Opening the ZIP's direct URL under `/wp-content/uploads/talkwyn-hub-releases/` returns 403/404 (or `TWH_RELEASES_DIR` is outside the web root).
+
+## 1. Buy → receive key
+
+- [ ] As a new customer, buy **Personal** with Stripe. The order goes to `processing`/`completed`.
+- [ ] The thank-you page shows the key `TALK-XXXX-XXXX-XXXX-XXXX` and a "Manage your licenses" link.
+- [ ] The WooCommerce order email shows the key. The admin "New order" email shows only a masked key.
+- [ ] The branded "Your Talkwyn Pro license key" email arrives, with the key highlighted.
+- [ ] The order has a note "Talkwyn Hub issued license keys: …ABCD".
+- [ ] Admin → Licenses shows the license: plan *personal*, limit 1, expiry in 365 days.
+- [ ] **Idempotency:** change the order status to `completed`, then `processing`, then `completed`. Still exactly one license; no second email.
+- [ ] Buy **quantity 2** of Business → two different keys in one email.
+- [ ] My Account → Licenses: masked key, Reveal shows the full key, Copy copies it, status badge, expiry, sites `0 / 1`, Renew button.
+- [ ] View page source of My Account → Licenses: the full key is **not** in the HTML.
+- [ ] Buy as a guest, then register with the same email → the license is **not** shown automatically. **Add license** with the emailed key → it appears.
+
+## 2. Activate
+
+- [ ] On the client site, paste the key → **Activate**. The badge turns Active; plan, expiry and sites `1 / 1` are shown.
+- [ ] `is_pro()` is true and Pro features work.
+- [ ] Admin license detail shows the activation (domain, versions, last check). The log has an `activate` event.
+- [ ] Activate again on the same site → still `1 / 1` (row reused, not duplicated).
+- [ ] Enter a wrong key → "This license key is not valid." The hub logs `invalid_key` with only the last 4 characters.
+- [ ] Use a key from another product (create one manually for a second product) → `wrong_product`.
+
+## 3. Hit the limit
+
+- [ ] Activate the same Personal key on a second production site → error "already active on 1 site(s)…" (`limit_reached`).
+- [ ] Activate it on `something.local` and `staging.qa-client1.com` → works and shows "dev/staging site does not count". Sites stay at `1 / 1`.
+- [ ] Clone the production client site to a new domain → the daily check (or **Check now**) gets a new instance id and tries to activate. On a dev domain it succeeds; on a production domain it reports the limit.
+
+## 4. Deactivate
+
+- [ ] Client → **Deactivate** → the license is removed locally; the hub shows the activation as deactivated; sites `0 / 1`.
+- [ ] Activate the second production site now → succeeds.
+- [ ] My Account → license detail → **Deactivate** a site → the slot is freed. On that site, the next **Check now** shows "This site was deactivated from your account" and Pro turns off.
+- [ ] Admin → license detail → **Deactivate** works the same way.
+
+## 5. Update
+
+- [ ] Upload release `1.1.0` with a Markdown changelog.
+- [ ] Client: Dashboard → Updates → **Check again** → Talkwyn shows 1.1.0.
+- [ ] **View details** opens the modal with description, changelog, banners and icons.
+- [ ] **Update now** succeeds even if the update transient is hours old (fresh package URL). An `update_download` event is logged.
+- [ ] Copy the `package` URL from an `update/check` response and open it after 11 minutes → `This download link is invalid or has expired.`
+- [ ] Set channel `beta` in the client config and upload `1.2.0-beta1` as beta → only beta sites see it.
+- [ ] Untick **Active** on 1.2.0-beta1 → beta sites see 1.1.0 again.
+- [ ] My Account → Software downloads lists the latest stable ZIP and the changelog. Download works.
+
+## 6. Refund → revoke
+
+- [ ] Fully refund the Personal order in WooCommerce (Stripe refund) → the license becomes **Revoked**. The admin gets an email "License …ABCD revoked (refund)".
+- [ ] Client **Check now** → "Your license has been revoked." Pro turns off right away (signed `revoked`).
+- [ ] Partial refund on another order → the log has a `refund` event with `partial: true`; the license stays Active.
+- [ ] Cancel an order that had licenses → revoked.
+- [ ] **Dispute:** move a paid order to `on-hold` → licenses become *Suspended*. Move it back to `completed` → *Active* again. Move it to `failed` → *Revoked*.
+
+## 7. Expire → renew
+
+- [ ] Admin → license detail → set the expiry to **tomorrow** → run `wp cron event run twh_daily` → nothing yet; a 7-day reminder is sent (because tomorrow is within 7 days).
+- [ ] Set the expiry to 20 days ahead, clear "reminders" by saving, and run cron → the **30-day** reminder email arrives with a Renew link. Run cron again → no duplicate.
+- [ ] Set the expiry to yesterday and run cron → status **Expired**; the "expired" email with a one-click renewal link arrives; an `expire` event is logged.
+- [ ] Client **Check now** → "Your license has expired" with a Renew button. `update/check` still shows the new version, but without a package and with an "upgrade notice".
+- [ ] Open the renewal link in a private window (logged out) → the cart contains the Personal variation at **price − 20%**, labeled "Renewal of license TALK-****-****-****-ABCD", quantity locked to 1.
+- [ ] Pay → the license is Active, expiry = now + 365 days, and the "renewed" email arrives.
+- [ ] Renew early (license still active with 30 days left) → expiry = old expiry + 365 days.
+- [ ] Refund the renewal order → the expiry rolls back to the previous date (Expired again if that date has passed). The admin is notified.
+- [ ] Tamper with the renewal URL (`twh_renew=<other id>`) → "This renewal link is not valid."
+- [ ] Lifetime license: no Renew button, no reminders, `expires_at: null`.
+
+## 8. Upgrade
+
+- [ ] My Account → Personal license (bought today) → **Upgrade** lists Business and Agency (not Lifetime), priced about (99 − 49) × remaining/365.
+- [ ] Choose Business → checkout at the prorated price → pay.
+- [ ] The **same key** now shows plan *business*, limit 5, and the same expiry. The order note says "upgraded license #… to plan business".
+- [ ] The client **Check now** shows Business, sites `x / 5`.
+- [ ] Refund the upgrade order → the plan, limit and features roll back to Personal.
+
+## 9. Offline / tampering (client)
+
+- [ ] Block talkwyn.com on the client (e.g. `define( 'WP_HTTP_BLOCK_EXTERNAL', true );`) and run **Check now** → Pro stays active; after 1+ day a warning notice shows "…stay active for N more day(s)".
+- [ ] Simulate 8 days offline (edit the `talkwyn_license_state` option: `last_check` = now − 8 days) → Pro turns off.
+- [ ] Change one public key character in the client config → activation fails with "response could not be verified".
+- [ ] Set the client server clock 15 minutes off → "server clock differs…".
+
+## 10. Admin & ops
+
+- [ ] Dashboard numbers match the Licenses list; the charts render; version distribution shows 1.0.0/1.1.0.
+- [ ] Licenses search works for the last 4 characters, the full key, a customer email and a domain. The status, plan and product filters work.
+- [ ] Bulk suspend → bulk reactivate → bulk export CSV (keys masked; no cell starts with `=`).
+- [ ] Create a license manually for a partner email that has an account → it appears in their account. For an email without an account → the email is sent; after the partner registers, **Add license** with the key links it. The same key can't be added by a second account.
+- [ ] Edit the expiry or limit and add a private note → an `admin_edit` event lists the changes.
+- [ ] Resend the license email works.
+- [ ] Logs: filter by type, license id and date. Set retention to 1 day, run cron → old events are pruned.
+- [ ] Rate limit: 31 `license/check` calls in a row from one IP → the 31st returns HTTP 429 `rate_limited`, logged once.
+- [ ] Signing keys: **Generate next key** → two keys shown (`active`, `next`). The client trusting both still works. **Promote** → the client with only the new key works; a client with only the old key fails verification (expected).
+- [ ] My Account → Orders → **Invoice** opens a printable invoice (only when no invoice plugin is active). Another customer's invoice URL returns 404.
+- [ ] Settings → "Delete all data on uninstall" off → delete the plugin → reinstall → all data is still there.
+- [ ] HPOS on (WooCommerce → Settings → Advanced → Features → High-performance order storage) → repeat sections 1, 6 and 7.

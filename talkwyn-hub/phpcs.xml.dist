@@ -1,0 +1,39 @@
+<?xml version="1.0"?>
+<ruleset name="Talkwyn Hub">
+	<description>WordPress Coding Standards with PSR-4 file names and PHP 8.0+ compatibility.</description>
+
+	<file>.</file>
+	<file>../client-sdk</file>
+	<exclude-pattern>*/vendor/*</exclude-pattern>
+	<exclude-pattern>*/tests/*</exclude-pattern>
+	<arg name="extensions" value="php"/>
+
+	<config name="testVersion" value="8.0-"/>
+	<config name="minimum_wp_version" value="6.4"/>
+	<rule ref="PHPCompatibilityWP"/>
+
+	<rule ref="WordPress">
+		<!-- PSR-4 autoloading (TWH\Domain\KeyGenerator → includes/Domain/KeyGenerator.php). -->
+		<exclude name="WordPress.Files.FileName"/>
+		<!-- Exception messages become JSON API error messages, never HTML. -->
+		<exclude name="WordPress.Security.EscapeOutput.ExceptionNotEscaped"/>
+	</rule>
+
+	<rule ref="WordPress.WP.I18n">
+		<properties>
+			<property name="text_domain" type="array">
+				<element value="talkwyn-hub"/>
+				<element value="talkwyn"/>
+			</property>
+		</properties>
+	</rule>
+
+	<!-- Admin handlers verify capability + nonce through TWH\Admin\Admin::guard(). -->
+	<rule ref="WordPress.Security.NonceVerification">
+		<properties>
+			<property name="customNonceVerificationFunctions" type="array">
+				<element value="guard"/>
+			</property>
+		</properties>
+	</rule>
+</ruleset>

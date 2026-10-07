@@ -1,0 +1,21 @@
+.twh-key code,.twh-key-value{font-family:Menlo,Consolas,monospace;font-size:.95em;background:#f3f4f6;padding:2px 6px;border-radius:4px;user-select:all;word-break:break-all}
+.twh-key--full{display:flex;gap:8px;align-items:center;flex-wrap:wrap;margin:12px 0}
+.twh-key--full code{font-size:1.15em;padding:8px 12px}
+.twh-link{background:none;border:0;padding:0 0 0 6px;color:inherit;text-decoration:underline;cursor:pointer;font-size:.85em}
+.twh-badge{display:inline-block;padding:1px 8px;border-radius:999px;font-size:.8em;font-weight:600;line-height:1.7;vertical-align:middle;background:#e5e7eb;color:#374151}
+.twh-badge--active{background:#dcfce7;color:#166534}
+.twh-badge--expired{background:#fef3c7;color:#92400e}
+.twh-badge--suspended{background:#ffedd5;color:#9a3412}
+.twh-badge--revoked{background:#fee2e2;color:#991b1b}
+.twh-badge--dev{background:#e0f2fe;color:#075985}
+.twh-card{border:1px solid #e5e7eb;border-radius:8px;padding:16px 20px;margin:0 0 20px}
+.twh-card h3{margin-top:0;display:flex;gap:10px;align-items:center;flex-wrap:wrap}
+.twh-meta{display:grid;grid-template-columns:max-content 1fr;gap:4px 16px;margin:0 0 12px}
+.twh-meta dt{font-weight:600}
+.twh-meta dd{margin:0}
+.twh-actions .button{margin:2px}
+.twh-upgrade-option{display:block;margin:6px 0}
+.twh-muted{color:#6b7280;font-size:.9em}
+.twh-changelog{padding:8px 0}
+.twh-claim{margin-top:24px;padding-top:16px;border-top:1px solid #e5e7eb}
+.twh-claim input[type=text]{min-width:280px;font-family:Menlo,Consolas,monospace}
