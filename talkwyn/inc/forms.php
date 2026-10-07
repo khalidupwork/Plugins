@@ -1,6 +1,6 @@
 <?php
 /**
- * Lightweight forms: contact and Shopify waitlist. No form plugin needed.
+ * Lightweight forms: contact and waitlist (see waitlist.php). No form plugin needed.
  *
  * Spam protection: nonce, honeypot field, minimum fill time and a per-IP rate limit.
  *
@@ -18,7 +18,7 @@ function talkwyn_form_notice( string $form ): string {
 	// phpcs:ignore WordPress.Security.NonceVerification.Recommended -- display only.
 	$status   = isset( $_GET['tw_form'], $_GET['tw_status'] ) && $form === $_GET['tw_form'] ? sanitize_key( wp_unslash( $_GET['tw_status'] ) ) : '';
 	$messages = array(
-		'sent'    => array( 'success', 'contact' === $form ? __( 'Thanks. Your message is on its way, and we will reply by email soon.', 'talkwyn' ) : __( 'You are on the list. We will email you when the Shopify app launches.', 'talkwyn' ) ),
+		'sent'    => array( 'success', 'contact' === $form ? __( 'Thanks. Your message is on its way, and we will reply by email soon.', 'talkwyn' ) : __( 'You are on the list. Check your inbox for a confirmation, and we will email you the day it launches.', 'talkwyn' ) ),
 		'invalid' => array( 'error', __( 'Please check the form. A valid email address is required.', 'talkwyn' ) ),
 		'limited' => array( 'error', __( 'Too many attempts. Please try again in a few minutes.', 'talkwyn' ) ),
 		'failed'  => array( 'error', __( 'Something went wrong. Please email us directly instead.', 'talkwyn' ) ),
@@ -54,21 +54,7 @@ add_shortcode(
 			. '<label>' . esc_html__( 'Topic', 'talkwyn' ) . '<select name="tw_topic"><option>' . esc_html__( 'Question before buying', 'talkwyn' ) . '</option><option>' . esc_html__( 'Help with my license or setup', 'talkwyn' ) . '</option><option>' . esc_html__( 'Agency or partnership', 'talkwyn' ) . '</option><option>' . esc_html__( 'Something else', 'talkwyn' ) . '</option></select></label>'
 			. '<label>' . esc_html__( 'Message', 'talkwyn' ) . '<textarea name="tw_message" rows="6" required maxlength="5000"></textarea></label>'
 			. '<p class="tw-small">' . wp_kses_post( sprintf( /* translators: %s: privacy URL */ __( 'We use your details only to reply to you. See our <a href="%s">privacy policy</a>.', 'talkwyn' ), esc_url( home_url( '/privacy/' ) ) ) ) . '</p>'
-			. '<p><button class="tw-btn" type="submit">' . esc_html__( 'Send message', 'talkwyn' ) . '</button></p></form>';
-	}
-);
-
-add_shortcode(
-	'tw_waitlist_form',
-	static function () {
-		$external = (string) talkwyn_setting( 'waitlist_action' );
-		if ( '' !== $external ) {
-			return '<form class="tw-inline-form" method="post" action="' . esc_url( $external ) . '"><label class="screen-reader-text" for="tw-waitlist-email">' . esc_html__( 'Email', 'talkwyn' ) . '</label><input id="tw-waitlist-email" type="email" name="email" autocomplete="email" required placeholder="you@store.com"><button class="tw-btn" type="submit">' . esc_html__( 'Join the waitlist', 'talkwyn' ) . '</button></form>';
-		}
-		return talkwyn_form_notice( 'waitlist' ) . '<form class="tw-inline-form" method="post" action="' . esc_url( admin_url( 'admin-post.php' ) ) . '#waitlist" id="waitlist">'
-			. talkwyn_form_hidden( 'waitlist' )
-			. '<label class="screen-reader-text" for="tw-waitlist-email">' . esc_html__( 'Email', 'talkwyn' ) . '</label><input id="tw-waitlist-email" type="email" name="tw_email" autocomplete="email" required maxlength="190" placeholder="you@store.com">'
-			. '<button class="tw-btn" type="submit">' . esc_html__( 'Join the waitlist', 'talkwyn' ) . '</button></form>';
+			. '<p><button class="tw-pill tw-pill--ink" type="submit">' . esc_html__( 'Send message', 'talkwyn' ) . '</button></p></form>';
 	}
 );
 
@@ -113,13 +99,7 @@ function talkwyn_handle_form(): void {
 	$to = talkwyn_value( 'contact_email' );
 
 	if ( 'waitlist' === $form ) {
-		$list = get_option( 'talkwyn_waitlist', array() );
-		$list = is_array( $list ) ? $list : array();
-		if ( ! isset( $list[ strtolower( $email ) ] ) ) {
-			$list[ strtolower( $email ) ] = gmdate( 'c' );
-			update_option( 'talkwyn_waitlist', $list, false );
-			wp_mail( $to, '[Talkwyn] New Shopify waitlist sign-up', $email . "\n\n" . count( $list ) . ' people on the list.' );
-		}
+		talkwyn_waitlist_add( $email, sanitize_text_field( wp_unslash( $_POST['tw_platform'] ?? '' ) ), esc_url_raw( wp_unslash( $_POST['tw_site'] ?? '' ) ) );
 		$go( 'sent' );
 	}
 
@@ -136,26 +116,3 @@ function talkwyn_handle_form(): void {
 }
 add_action( 'admin_post_talkwyn_form', 'talkwyn_handle_form' );
 add_action( 'admin_post_nopriv_talkwyn_form', 'talkwyn_handle_form' );
-
-/**
- * Waitlist export under Tools.
- */
-add_action(
-	'admin_menu',
-	static function () {
-		add_management_page(
-			__( 'Shopify waitlist', 'talkwyn' ),
-			__( 'Shopify waitlist', 'talkwyn' ),
-			'manage_options',
-			'talkwyn-waitlist',
-			static function () {
-				$list = get_option( 'talkwyn_waitlist', array() );
-				echo '<div class="wrap"><h1>' . esc_html__( 'Shopify waitlist', 'talkwyn' ) . '</h1><p>' . esc_html( sprintf( /* translators: %d: count */ _n( '%d sign-up', '%d sign-ups', count( (array) $list ), 'talkwyn' ), count( (array) $list ) ) ) . '</p><textarea class="large-text code" rows="20" readonly>';
-				foreach ( (array) $list as $email => $date ) {
-					echo esc_textarea( $email . ',' . $date ) . "\n";
-				}
-				echo '</textarea></div>';
-			}
-		);
-	}
-);

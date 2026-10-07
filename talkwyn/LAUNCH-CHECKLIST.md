@@ -49,7 +49,7 @@ Work through this on the live server, in order. Tick each box when done.
   - [ ] When the plugin is live, paste the **WordPress.org URL**. Every "Install free" button switches over by itself.
 - [ ] **Tidio comparison:** check tidio.com/pricing, then fill in the price note and the date you checked. Until then the page links to their pricing instead of quoting a number.
 - [ ] **Live demo:** when the Talkwyn plugin runs on this site, paste its inline shortcode into Site Settings. Then ask the homepage demo a real question.
-- [ ] Read every page once on a phone and once on a desktop, in light and dark mode.
+- [ ] Read every page once on a phone and once on a desktop.
 - [ ] Every not-yet-shipped feature shows a "Coming soon" badge.
 - [ ] Replace the docs' "Screenshot coming soon" boxes with real screenshots. Each needs width, height and alt text.
 - [ ] Placeholder pages stay noindex until they are written. These are still placeholders:

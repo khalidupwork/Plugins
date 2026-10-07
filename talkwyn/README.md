@@ -1,15 +1,15 @@
 # Talkwyn theme
 
-Block theme for talkwyn.com. It works with WooCommerce and the Talkwyn Hub plugin (licenses, updates, My Account screens and emails).
+Block theme for talkwyn.com (v3, Talkwyn Red). It works with WooCommerce and the Talkwyn Hub plugin (licenses, free trial, partners, updates, My Account screens and emails).
 
 - Requires WordPress 6.5+, PHP 8.0+.
-- Light first, with an optional dark mode. The header toggle cycles System, Light and Dark and remembers the choice in the browser.
+- Light only. There is no dark mode and no theme switcher. Colors: Talkwyn Red `#D7263D`, Ink `#1A0F12`, Linen `#F7F3F3`, Blush gradient. Fonts: Plus Jakarta Sans (headings and UI), Figtree (body), JetBrains Mono (keys).
 - Fonts are self-hosted, so the theme makes no Google Fonts requests. Licenses are in `assets/fonts/`.
 - Layouts are RTL-ready: logical CSS properties throughout, and Arabic, Urdu and Hindi fonts are applied by `:lang()`.
 
 ## Install order
 
-1. **WordPress** 6.5 or newer. Under Settings → Permalinks choose "Post name" (setup also does this).
+1. **WordPress** 6.5 or newer. Setup sets permalinks to `/blog/%postname%/` so posts live under `/blog/`.
 2. **WooCommerce.** Finish or skip the onboarding wizard. In WooCommerce → Settings → Advanced → Features, keep "High-performance order storage" on.
 3. **Talkwyn Hub** (`talkwyn-hub/`). Follow its README:
    - set `TWH_SECRET_KEY` in `wp-config.php`
@@ -25,7 +25,8 @@ Block theme for talkwyn.com. It works with WooCommerce and the Talkwyn Hub plugi
    ```
 
    Setup is safe to run again. Without `overwrite` it only creates missing pages and keeps your edits. It does the following:
-   - creates all 34 pages from `setup/content/pages.json`, plus docs and blog categories
+   - creates every page, the 4 launch blog posts and the docs from `setup/content/pages.json`, plus blog categories
+   - trashes the theme 1.x pages that v3 replaced (their URLs 301 to the new ones, for example `/wordpress-ai-chatbot/` to `/integrations/wordpress/`; see `inc/redirects.php`)
    - sets the homepage and the posts page
    - maps the plan products into Site Settings (by the Hub plan slug)
    - links the WooCommerce terms and privacy pages
@@ -43,29 +44,34 @@ Block theme for talkwyn.com. It works with WooCommerce and the Talkwyn Hub plugi
 | Refund days | Used in the checkout trust line, the FAQ and the policy text (14). |
 | WordPress.org URL | Leave empty until the free plugin is live. While empty, every "Install free" button goes to `/download/`. Once set, they all point to WordPress.org. |
 | Free ZIP URL | Direct ZIP download shown on `/download/` until WordPress.org is live. |
-| Shopify waitlist target | Leave empty to keep sign-ups on this site (Tools → Shopify waitlist, with an email to you). Or paste a form endpoint URL. |
+| Free trial (days, card policy) | Used everywhere the trial is mentioned. When Talkwyn Hub runs on this site, its Trial settings win. |
+| Partners (Hub URL and fallbacks) | Partner terms on `/partners/` come from Talkwyn Hub on this site, or from the Hub's `/wp-json/talkwyn-hub/v1/partners/terms` endpoint when you set the Hub URL. The fallback fields are used only without the Hub. |
+| Integrations | Status of each integration: Available, In development or Planned. Pills in the mega menu, homepage and `/integrations/` follow it. |
+| Show waitlist count | Shows "N people are waiting for Shopify" on integration pages. Off by default. |
+| Waitlist | Sign-ups are stored under **Waitlist** in the admin menu (email, platform, website), with a platform filter and **Export CSV**. Each sign-up gets a confirmation email, and you get a notice. |
 | Contact email | Where contact form messages and waitlist alerts go. |
 | Social links | Only the filled ones appear in the footer. |
 | Analytics | `none`, `ga4` (Measurement ID) or `plausible` (domain and script URL). Logged-in editors are never tracked. |
 | Live demo shortcode | When the Talkwyn plugin runs on this site, paste its inline shortcode and the homepage demo becomes the real chatbot. Until then the demo is a scripted preview and says so. |
-| Tidio price note and date checked | The `/compare/tidio-alternative/` page shows this text with the date you checked. While empty it links to Tidio's pricing page instead of quoting a number. |
+| Tidio, Chatbase, Intercom price notes and dates checked | The comparison pages show these notes with the date you checked. Check each vendor's pricing page before filling them in. |
 
 Events sent when analytics is on:
 
+- `trial_click` (every Start free trial button) and `trial_start` (trial form submitted)
 - `install_click`
-- `demo_question`
-- `demo_lead_saved`
-- `pricing_cta`
-- `checkout_start`
+- `demo_question`, `demo_lead_saved`
+- `waitlist_signup` (location = platform)
+- `pricing_view`, `checkout_start`, `pricing_cta`
+- `partner_application`, `partner_apply_click`
 - `doc_feedback`
 
 ## Editing pages
 
 Pages are ordinary block content, so edit them in the block editor. Most sections are groups with Talkwyn block styles:
 
-- **Band** is the Plum full-width section. Use it at most for the hero plus one more band per page.
-- **Card** and **Panel** are the white card and the Lilac panel.
-- **Buttons** come in Primary, Secondary and On band.
+- **Ink band** is the dark rounded band. Use it for one strong moment per page (the end-of-page CTA already is one).
+- **Card** and **Linen card** are the soft rounded cards.
+- **Buttons** are pills: Ink (primary), Red (`tw-trial` class, for Start free trial), White and Outline.
 
 ### Homepage sections are patterns
 
@@ -87,7 +93,11 @@ These keep prices, settings and data in one place. Use them in a Shortcode block
 | `[tw_plans]` | Pricing cards with Buy buttons |
 | `[tw_compare_plans]` | Plan comparison table |
 | `[tw_pricing_teaser]` | Short price summary for the homepage |
-| `[tw_founding style="panel"]` | Founding member offer (`style="band"` for the Plum version) |
+| `[tw_founding style="panel"]` | Founding member offer (`style="band"` for the Ink version) |
+| `[tw_trial_block]` | The free trial block (`#trial`) with the Hub's start form |
+| `[tw_partner_terms]` | Live partner terms cards |
+| `[tw_integrations set="home"]` | Integration cards with status pills (`set="all"` adds Elementor) |
+| `[tw_waitlist platform="Shopify"]` | Waitlist form (email, platform, website) |
 | `[tw_cost_explainer]` | Yearly license vs monthly tool comparison |
 | `[tw_renewal_discount]` | Renewal discount sentence, read from the Hub |
 | `[tw_download_box]` | Download steps and button for `/download/` |
@@ -96,17 +106,19 @@ These keep prices, settings and data in one place. Use them in a Shortcode block
 | `[tw_hero_chat]`, `[tw_live_demo]` | Homepage chat sample and demo |
 | `[tw_value key="refund_days"]` | Any Site Settings value inline (`suffix`, `fallback` optional) |
 | `[tw_badge type="soon"]` | "Coming soon" badge. Use it on every feature that isn't shipped. |
-| `[tw_contact_form]`, `[tw_waitlist_form]` | Forms with nonce, honeypot and rate limiting |
+| `[tw_contact_form]` | Contact form with nonce, honeypot and rate limiting |
 | `[tw_breadcrumbs]`, `[tw_toc]`, `[tw_docs_nav]` | Navigation helpers |
 
 A paragraph can also read a setting through the `talkwyn/value` block binding.
 
 ### Header, footer and menus
 
-The header, footer and checkout header are template parts. Edit them under Appearance → Editor → Patterns → Template parts.
+The header (mega menu), footer and the end-of-page CTA band are dynamic blocks rendered from `inc/header.php`, so they stay in sync with Site Settings.
 
-- The header menu is a Navigation block. "Log in" and the "Install free" button inside the menu appear only in the mobile overlay.
-- Anything with the class `tw-install` follows the WordPress.org URL setting automatically.
+- Edit menu items in `talkwyn_menu()` or with the `talkwyn_menu` filter. Panels open on hover and click, close on Escape, and work with the keyboard (arrow keys move between items). Under 1024px a full-screen menu with accordions replaces them.
+- Footer columns are in `talkwyn_footer_columns()`.
+- The CTA band shows the trial. A page with the custom field `_tw_cta` = `waitlist` (and `_tw_platform`) shows the waitlist instead; `none` hides it.
+- Every "Install free" link follows the WordPress.org URL setting automatically.
 
 ## Adding a doc
 
@@ -159,25 +171,12 @@ Category archives with fewer than 3 posts are noindex until they fill up.
 
 ## Motion and visual effects
 
-The homepage (and any page using its patterns or the CTA band) uses the effects below. They live in `assets/css/home.css` and the "Motion" block in `assets/js/theme.js`.
+Effects live in `assets/css/home.css`, `assets/css/theme.css` and `assets/js/theme.js`.
 
-**Hero and backgrounds**
-
-- The hero and the final call to action have drifting light and floating language bubbles.
-- The rotating hero word draws an underline under each new language.
-- The hero chat plays itself on a loop, and bot replies "type" first.
-
-**On scroll**
-
-- Sections fade and rise in as they enter the screen. Cards and steps stagger.
-- The night section is a scroll story: the chat on the right follows the time on the left, and the rail fills as you go.
-- The other sample chats play once when scrolled into view.
-- The founding seats count up.
-
-**Pointer and buttons**
-
-- Cards light up under the pointer.
-- Buttons get a light sweep on hover.
+- The hero word rotates through languages (only that word moves). With reduced motion it reads "in their language."
+- The product inbox rises from the hero card, and sample chats play with Rising Dots typing.
+- Sections fade and rise in on scroll; cards and steps stagger. Cards glow softly under the pointer.
+- The language marquee scrolls and pauses on hover.
 
 **Hooks for your own blocks** (add these attributes in a Custom HTML block):
 
@@ -197,7 +196,7 @@ The homepage (and any page using its patterns or the CTA band) uses the effects 
 
 ## Performance notes
 
-- **Font subsets.** The fonts ship as small subsets with the full files as fallback. Headings use an English-only cut of Bricolage. The Arabic, Urdu and Hindi fonts are cut to the characters the site uses today. A browser downloads the full file only when a page needs a character outside the subset, so new text always renders. To regenerate the subsets after big copy changes, see `assets/fonts/README.md`.
+- **Font subsets.** The fonts ship as small subsets with the full files as fallback. Headings use Plus Jakarta Sans (Latin). The Arabic, Urdu and Hindi fonts are cut to the characters the site uses today. A browser downloads the full file only when a page needs a character outside the subset, so new text always renders. To regenerate the subsets after big copy changes, see `assets/fonts/README.md`.
 - **Leaner marketing pages.** WooCommerce's jQuery, cart scripts and shop CSS load only on cart, checkout and My Account. Filter: `talkwyn_trim_woocommerce_assets`.
 - **Hosting.** Use a host with gzip or Brotli, long cache headers for `/wp-content/` and a page cache. The Lighthouse numbers in the launch checklist assume that.
 
@@ -206,7 +205,7 @@ The homepage (and any page using its patterns or the CTA band) uses the effects 
 ```
 talkwyn/
   style.css, theme.json, functions.php, screenshot.png
-  inc/          settings, components, homepage, pricing, docs, SEO, analytics, forms, WooCommerce, installer
+  inc/          settings, header (mega menu, footer, CTA band), components, homepage, pricing, docs, SEO, analytics, forms, waitlist, redirects, WooCommerce, installer
   templates/    front page, pages (default, landing, pricing, no title, checkout), single, docs, archives, search, 404
   parts/        header, header-checkout, footer, cta-band
   patterns/     homepage sections and the full homepage

@@ -1,6 +1,6 @@
 <?php
 /**
- * Branded HTML email: white body, Plum header with the logo as PNG, Ink text, one Plum button.
+ * Branded HTML email: white body, white header with the logo as PNG, Ink text, one Ink pill button.
  * Table layout and inline styles for email clients. Override by copying to
  * yourtheme/talkwyn-hub/emails/branded.php.
  *
@@ -26,7 +26,7 @@ $twh_keys = (array) $args['keys'];
 		<td align="center" style="padding:24px 12px;">
 			<table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="max-width:600px;background:#FFFFFF;border:1px solid #EEE7E8;border-radius:16px;overflow:hidden;">
 				<tr>
-					<td style="background:#1A0F12;padding:24px 32px;">
+					<td style="background:#FFFFFF;padding:24px 32px;border-bottom:1px solid #EEE7E8;">
 						<img src="<?php echo esc_url( (string) $args['logo'] ); ?>" width="180" height="44" alt="Talkwyn" style="display:block;border:0;width:180px;height:auto;">
 					</td>
 				</tr>
@@ -51,7 +51,7 @@ $twh_keys = (array) $args['keys'];
 						<?php if ( '' !== (string) $args['url'] && '' !== (string) $args['button'] ) : ?>
 							<table role="presentation" cellpadding="0" cellspacing="0" style="margin:28px 0 8px;">
 								<tr>
-									<td style="border-radius:999px;background:#D7263D;">
+									<td style="border-radius:999px;background:#1A0F12;">
 										<a href="<?php echo esc_url( (string) $args['url'] ); ?>" style="display:inline-block;padding:14px 28px;font-family:Figtree,-apple-system,'Segoe UI',Roboto,Helvetica,Arial,sans-serif;font-size:16px;font-weight:600;color:#FFFFFF;text-decoration:none;border-radius:999px;"><?php echo esc_html( (string) $args['button'] ); ?></a>
 									</td>
 								</tr>

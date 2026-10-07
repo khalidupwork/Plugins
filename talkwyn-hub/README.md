@@ -162,10 +162,10 @@ All screens require `manage_woocommerce` (filter: `twh_admin_capability`).
 
 Emails are branded HTML with a plain-text version for clients that don't show HTML. The layout has:
 
-- an Ink header with the logo
+- a white header with the logo
 - the message
 - the key in a Blush panel
-- one Talkwyn Red button
+- one Ink pill button
 - a footer
 
 Subjects and message text are edited under **Talkwyn Hub → Settings**. They are plain text with placeholders; line breaks become paragraphs.

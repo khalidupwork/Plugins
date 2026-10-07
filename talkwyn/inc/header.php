@@ -120,7 +120,7 @@ function talkwyn_menu(): array {
  * Path of the current request, for aria-current.
  */
 function talkwyn_current_path(): string {
-	$uri = isset( $_SERVER['REQUEST_URI'] ) ? (string) wp_parse_url( esc_url_raw( wp_unslash( $_SERVER['REQUEST_URI'] ) ), PHP_URL_PATH ) : '/';
+	$uri  = isset( $_SERVER['REQUEST_URI'] ) ? (string) wp_parse_url( esc_url_raw( wp_unslash( $_SERVER['REQUEST_URI'] ) ), PHP_URL_PATH ) : '/';
 	$home = (string) wp_parse_url( home_url( '/' ), PHP_URL_PATH );
 	if ( '' !== $home && '/' !== $home && 0 === strpos( $uri, rtrim( $home, '/' ) ) ) {
 		$uri = substr( $uri, strlen( rtrim( $home, '/' ) ) );

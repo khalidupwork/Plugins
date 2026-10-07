@@ -54,9 +54,9 @@ final class Account {
 	 * Rewrite endpoints (also called on activation before flushing rules).
 	 */
 	public static function add_endpoints(): void {
-		add_rewrite_endpoint( self::EP_LICENSES, EP_ROOT | EP_PAGES );
-		add_rewrite_endpoint( self::EP_DOWNLOADS, EP_ROOT | EP_PAGES );
-		add_rewrite_endpoint( self::EP_INVOICE, EP_ROOT | EP_PAGES );
+		add_rewrite_endpoint( self::EP_LICENSES, EP_PAGES );
+		add_rewrite_endpoint( self::EP_DOWNLOADS, EP_PAGES );
+		add_rewrite_endpoint( self::EP_INVOICE, EP_PAGES );
 	}
 
 	/**
@@ -328,7 +328,7 @@ final class Account {
 
 	/**
 	 * Badge for a license: Active (success), Expiring soon (warning, within 30 days),
-	 * Expired (error), Lifetime (Plum), plus Suspended and Revoked.
+	 * Expired (error), Lifetime (Ink), plus Suspended and Revoked.
 	 *
 	 * @param array<string, mixed> $license License.
 	 * @return array{0: string, 1: string} [modifier class, label].

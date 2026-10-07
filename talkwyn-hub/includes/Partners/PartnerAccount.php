@@ -38,7 +38,7 @@ final class PartnerAccount {
 	 * Rewrite endpoint.
 	 */
 	public static function endpoint(): void {
-		add_rewrite_endpoint( self::ENDPOINT, EP_ROOT | EP_PAGES );
+		add_rewrite_endpoint( self::ENDPOINT, EP_PAGES );
 	}
 
 	/**

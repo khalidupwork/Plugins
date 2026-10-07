@@ -372,10 +372,10 @@ add_shortcode(
 		$html = '<div class="tw-integrations" data-tw-reveal data-tw-stagger>';
 		foreach ( $cards as $slug => $card ) {
 			$row   = $all[ $slug ];
-			$title = 'wordpress' === $slug
+			$title = 'WordPress' === $slug
 				? esc_html( $row['name'] )
 				: '<a class="tw-card__title-link" href="' . esc_url( home_url( $row['url'] ) ) . '">' . esc_html( $row['name'] ) . '</a>';
-			$desc  = 'wordpress' === $slug ? wp_kses_post( str_replace( 'href="/', 'href="' . esc_url( home_url( '/' ) ), $card[1] ) ) : esc_html( $card[1] );
+			$desc  = 'WordPress' === $slug ? wp_kses_post( str_replace( 'href="/', 'href="' . esc_url( home_url( '/' ) ), $card[1] ) ) : esc_html( $card[1] );
 			$html .= '<article class="tw-integration tw-spot"><div class="tw-integration__top"><span class="tw-integration__logo">' . talkwyn_icon( $card[0], 24 ) . '</span>' . talkwyn_status_pill( $row['status'] ) . '</div>'
 				. '<h3>' . $title . '</h3><p>' . $desc . '</p>'
 				. '<span class="tw-card__more" aria-hidden="true">' . esc_html( 'available' === $row['status'] ? __( 'See how it works', 'talkwyn' ) : __( 'Join the waitlist', 'talkwyn' ) ) . talkwyn_icon( 'arrow-right', 16 ) . '</span></article>';

@@ -20,6 +20,7 @@ defined( 'ABSPATH' ) || exit;
  */
 function talkwyn_run_setup( bool $overwrite = false ): array {
 	$report = array(
+		'retired'      => array(),
 		'created'      => array(),
 		'updated'      => array(),
 		'kept'         => array(),
@@ -31,8 +32,18 @@ function talkwyn_run_setup( bool $overwrite = false ): array {
 		return $report;
 	}
 
-	if ( '/%postname%/' !== get_option( 'permalink_structure' ) ) {
-		update_option( 'permalink_structure', '/%postname%/' );
+	// Blog posts live under /blog/ (pages, docs and products are unaffected: their rewrites skip the front).
+	if ( '/blog/%postname%/' !== get_option( 'permalink_structure' ) ) {
+		update_option( 'permalink_structure', '/blog/%postname%/' );
+	}
+
+	// Pages from theme 1.x that v3 replaced: trash them (their URLs 301 to the new pages, see redirects.php).
+	foreach ( array_keys( talkwyn_legacy_redirects() ) as $old_path ) {
+		$old = get_page_by_path( trim( $old_path, '/' ) );
+		if ( $old && 'page' === $old->post_type ) {
+			wp_trash_post( $old->ID );
+			$report['retired'][] = $old_path;
+		}
 	}
 
 	// WordPress sample content ("Hello world!", "Sample Page") would ship placeholder filler. Trash it only while untouched.
@@ -69,6 +80,13 @@ function talkwyn_run_setup( bool $overwrite = false ): array {
 	update_option( 'show_on_front', 'page' );
 	update_option( 'page_on_front', $home_id );
 
+	// Blog categories that match the launch content plan (before posts are assigned to them).
+	foreach ( array( 'Guides', 'Multilingual', 'WordPress', 'Comparisons', 'Industries' ) as $cat ) {
+		if ( ! term_exists( $cat, 'category' ) ) {
+			wp_insert_term( $cat, 'category' );
+		}
+	}
+
 	// Parents first (shorter paths first).
 	usort(
 		$pages,
@@ -83,13 +101,6 @@ function talkwyn_run_setup( bool $overwrite = false ): array {
 		}
 		if ( ! empty( $page['noindex'] ) ) {
 			$report['placeholders'][] = $page['path'];
-		}
-	}
-
-	// Blog categories that match the launch content plan.
-	foreach ( array( 'Guides', 'Multilingual', 'WordPress', 'Comparisons', 'Industries' ) as $cat ) {
-		if ( ! term_exists( $cat, 'category' ) ) {
-			wp_insert_term( $cat, 'category' );
 		}
 	}
 
@@ -139,8 +150,8 @@ function talkwyn_run_setup( bool $overwrite = false ): array {
 function talkwyn_setup_upsert( array $page, bool $overwrite, array &$report ): int {
 	$type     = $page['post_type'];
 	$segments = array_values( array_filter( explode( '/', trim( (string) $page['path'], '/' ) ) ) );
-	if ( 'doc' === $type ) {
-		array_shift( $segments ); // Drop the "docs" archive base.
+	if ( 'doc' === $type || 'post' === $type ) {
+		array_shift( $segments ); // Drop the "docs" archive base or the "blog" permalink front.
 	}
 	$slug   = (string) array_pop( $segments );
 	$parent = 0;
@@ -191,6 +202,15 @@ function talkwyn_setup_upsert( array $page, bool $overwrite, array &$report ): i
 			update_post_meta( $id, 'rank_math_description', $page['seo_desc'] );
 		}
 		update_post_meta( $id, 'rank_math_robots', $page['noindex'] ? array( 'noindex', 'follow' ) : array( 'index' ) );
+	}
+	foreach ( (array) ( $page['meta'] ?? array() ) as $meta_key => $meta_value ) {
+		update_post_meta( $id, sanitize_key( (string) $meta_key ), sanitize_text_field( (string) $meta_value ) );
+	}
+	if ( 'post' === $type && ! empty( $page['category'] ) ) {
+		$cat = get_term_by( 'name', (string) $page['category'], 'category' );
+		if ( $cat ) {
+			wp_set_post_categories( $id, array( (int) $cat->term_id ) );
+		}
 	}
 	if ( 'doc' === $type && $page['doc_cat'] ) {
 		$term = term_exists( $page['doc_cat'], 'doc_category' );

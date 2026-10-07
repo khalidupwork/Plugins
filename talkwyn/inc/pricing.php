@@ -123,7 +123,11 @@ add_shortcode(
 			} else {
 				/* translators: %s: plan name */
 				$label = sprintf( __( 'Buy %s', 'talkwyn' ), $plan['name'] );
-				$html .= '<a class="tw-btn tw-btn--block' . ( $featured ? '' : ' tw-btn--secondary' ) . '" href="' . esc_url( talkwyn_plan_checkout_url( $key ) ) . '" rel="nofollow" data-tw-event="pricing_cta" data-tw-location="plan_' . esc_attr( $key ) . '">' . esc_html( $label ) . '</a>';
+				$html .= '<a class="tw-btn tw-btn--block' . ( $featured ? ' tw-btn--red' : '' ) . '" href="' . esc_url( talkwyn_plan_checkout_url( $key ) ) . '" rel="nofollow" data-tw-event="checkout_start" data-tw-location="plan_' . esc_attr( $key ) . '">' . esc_html( $label ) . '</a>';
+				if ( $featured ) {
+					/* translators: %d: trial days */
+					$html .= '<a class="tw-plan__trial" href="#trial" data-tw-event="trial_click" data-tw-location="plan_card">' . esc_html( sprintf( __( 'or try it free for %d days', 'talkwyn' ), talkwyn_trial()['days'] ) ) . '</a>';
+				}
 			}
 			$html .= '</article>';
 		}
@@ -319,5 +323,57 @@ add_shortcode(
 			$html .= '<p>' . esc_html__( 'The first release notes are on their way.', 'talkwyn' ) . '</p>';
 		}
 		return $html . '</div>';
+	}
+);
+
+/**
+ * [tw_trial_block] The free trial block on /pricing/#trial: copy from Site Settings or Talkwyn Hub,
+ * and the Hub's start form when the Hub runs on this site.
+ */
+add_shortcode(
+	'tw_trial_block',
+	static function () {
+		$trial = talkwyn_trial();
+		$form  = '';
+		if ( shortcode_exists( 'twh_trial_form' ) ) {
+			$form = do_shortcode( '[twh_trial_form]' );
+		} elseif ( '' !== (string) talkwyn_setting( 'hub_url' ) ) {
+			$form = '<a class="tw-pill tw-pill--red tw-pill--lg tw-pill--block" href="' . esc_url( trailingslashit( (string) talkwyn_setting( 'hub_url' ) ) . 'pricing/#trial' ) . '" data-tw-event="trial_click" data-tw-location="trial_block">' . esc_html__( 'Start my free trial', 'talkwyn' ) . '</a>';
+		} else {
+			$form = '<p>' . esc_html__( 'Trials open soon. Tell us your website and we will set yours up by hand.', 'talkwyn' ) . '</p><a class="tw-pill tw-pill--red tw-pill--block" href="' . esc_url( home_url( '/contact/' ) ) . '">' . esc_html__( 'Ask for a trial', 'talkwyn' ) . '</a>';
+		}
+		return '<section class="tw-trial-block" id="trial" aria-labelledby="tw-trial-title"><div class="tw-trial-block__text">'
+			. '<p class="tw-eyebrow"><span class="tw-dot" aria-hidden="true"></span>' . esc_html__( 'Free trial', 'talkwyn' ) . '</p>'
+			/* translators: %d: trial days */
+			. '<h2 id="tw-trial-title">' . esc_html( sprintf( __( 'Try every Pro feature free for %d days.', 'talkwyn' ), $trial['days'] ) ) . '</h2>'
+			. '<p class="tw-lede">' . esc_html( $trial['policy'] ) . ' ' . esc_html__( 'When the trial ends you can upgrade or simply stay on the free plan.', 'talkwyn' ) . '</p>'
+			. '<ul class="tw-checklist"><li>' . esc_html__( 'Every Pro feature on one site', 'talkwyn' ) . '</li><li>' . esc_html__( 'Your key arrives by email in a minute', 'talkwyn' ) . '</li><li>' . esc_html__( 'Reminder emails before the trial ends', 'talkwyn' ) . '</li><li>' . esc_html__( 'Upgrade with the same key, nothing to reinstall', 'talkwyn' ) . '</li></ul>'
+			. '</div><div class="tw-trial-block__form">' . $form . '</div></section>';
+	}
+);
+
+/**
+ * [tw_partner_terms] Live partner program terms (from Talkwyn Hub when available).
+ */
+add_shortcode(
+	'tw_partner_terms',
+	static function () {
+		$t     = talkwyn_partner_terms();
+		$rate  = talkwyn_value( 'partner_rate' );
+		$cards = array(
+			/* translators: %s: commission percent */
+			array( 'gift', $rate, $t['renewal_rate'] > 0 ? sprintf( __( 'on new paid plans, and %s on renewals', 'talkwyn' ), rtrim( rtrim( number_format( $t['renewal_rate'], 2, '.', '' ), '0' ), '.' ) . '%' ) : __( 'on every paid plan you refer', 'talkwyn' ) ),
+			/* translators: %d: days */
+			array( 'clock', sprintf( _n( '%d day', '%d days', $t['cookie_days'], 'talkwyn' ), $t['cookie_days'] ), __( 'cookie window, and the last click wins', 'talkwyn' ) ),
+			array( 'badge-check', talkwyn_money( $t['threshold'], $t['currency'] ), __( 'minimum payout', 'talkwyn' ) ),
+			array( 'send', $t['methods'], __( 'payout methods', 'talkwyn' ) ),
+		);
+		$html = '<div class="tw-terms-cards">';
+		foreach ( $cards as $c ) {
+			$html .= '<div class="tw-terms-card"><span class="tw-card__icon">' . talkwyn_icon( $c[0], 22 ) . '</span><p class="tw-terms-card__big">' . esc_html( $c[1] ) . '</p><p>' . esc_html( $c[2] ) . '</p></div>';
+		}
+		/* translators: %d: days */
+		$html .= '</div><p class="tw-small tw-terms-note">' . esc_html( sprintf( __( 'Commissions are approved %d days after the sale, once the refund window has passed. Terms come straight from our partner system, so they are always current.', 'talkwyn' ), $t['approval_days'] ) ) . '</p>';
+		return $html;
 	}
 );

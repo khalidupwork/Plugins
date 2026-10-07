@@ -18,6 +18,11 @@
 		} catch ( e ) {}
 	}
 	window.twTrack = track;
+	if ( /^\/pricing\/?$/.test( window.location.pathname ) ) {
+		window.addEventListener( 'load', function () {
+			track( 'pricing_view' );
+		} );
+	}
 	document.addEventListener( 'click', function ( e ) {
 		var el = e.target.closest( '[data-tw-event]' );
 		if ( el ) {
