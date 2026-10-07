@@ -11,13 +11,18 @@
 defined( 'ABSPATH' ) || exit;
 ?>
 <!-- wp:group {"tagName":"section","align":"full","className":"tw-section tw-problem-section","layout":{"type":"constrained"}} -->
-<section data-tw-reveal class="wp-block-group alignfull tw-section tw-problem-section"><!-- wp:group {"className":"tw-problem","layout":{"type":"default"}} -->
-<div class="wp-block-group tw-problem"><!-- wp:heading {"textAlign":"center","className":"tw-statement"} -->
-<h2 class="wp-block-heading has-text-align-center tw-statement">Most visitors leave with a question nobody answered.</h2>
+<section class="wp-block-group alignfull tw-section tw-problem-section"><!-- wp:group {"align":"wide","layout":{"type":"default"}} -->
+<div class="wp-block-group alignwide"><!-- wp:group {"className":"tw-row tw-problem","layout":{"type":"default"}} -->
+<div class="wp-block-group tw-row tw-problem"><!-- wp:group {"className":"tw-row__text tw-problem__text","layout":{"type":"default"}} -->
+<div class="wp-block-group tw-row__text tw-problem__text"><!-- wp:paragraph {"className":"tw-eyebrow tw-eyebrow--plain"} -->
+<p class="tw-eyebrow tw-eyebrow--plain">The problem</p>
+<!-- /wp:paragraph -->
+
+<!-- wp:heading {"className":"tw-statement"} -->
+<h2 class="wp-block-heading tw-statement">Most visitors leave with a question nobody answered.</h2>
 <!-- /wp:heading -->
 
-<!-- wp:group {"className":"tw-problem__text","layout":{"type":"default"}} -->
-<div class="wp-block-group tw-problem__text"><!-- wp:paragraph -->
+<!-- wp:paragraph -->
 <p>Someone lands on your site at 11 at night. They want to know if you deliver to their area, whether you take insurance, or how long a project takes. Your contact form says "we'll get back to you within 24 hours." By then they have booked with someone else.</p>
 <!-- /wp:paragraph -->
 
@@ -28,6 +33,23 @@ defined( 'ABSPATH' ) || exit;
 <!-- wp:paragraph {"className":"tw-problem__punch"} -->
 <p class="tw-problem__punch">You don't need a bigger team to fix this. You need your website to answer the way your best employee would, at any hour, in the visitor's own words.</p>
 <!-- /wp:paragraph --></div>
+<!-- /wp:group -->
+
+<!-- wp:html -->
+<figure class="tw-missed" data-tw-reveal="zoom">
+<div class="tw-missed__win" aria-hidden="true">
+ <div class="tw-missed__bar"><span class="tw-missed__brand">[tw_icon name="inbox" size="16"] Contact form inbox</span><span class="tw-missed__clock">[tw_icon name="clock" size="14"] 11:04 pm</span></div>
+ <ul class="tw-missed__list">
+  <li><span class="tw-app__avatar">D</span><span class="tw-missed__msg"><b>Visitor from Dubai</b><span lang="ar" dir="rtl">كم سعر الباقة العائلية؟</span></span><em>No reply</em></li>
+  <li><span class="tw-app__avatar">L</span><span class="tw-missed__msg"><b>Shopper in Lahore</b><span lang="ur-Latn">delivery Lahore mein kab tak hogi?</span></span><em>No reply</em></li>
+  <li><span class="tw-app__avatar">M</span><span class="tw-missed__msg"><b>Family in Madrid</b><span lang="es">¿Tienen cita el sábado?</span></span><em>No reply</em></li>
+ </ul>
+ <div class="tw-missed__auto">[tw_icon name="mail" size="16"] "Thanks! We'll get back to you within 24 hours."</div>
+ <div class="tw-missed__gone">[tw_icon name="arrow-right" size="16"] They booked with someone else</div>
+</div>
+<figcaption class="tw-small">Example: three late questions, three languages, and nobody there to answer.</figcaption>
+</figure>
+<!-- /wp:html --></div>
 <!-- /wp:group --></div>
 <!-- /wp:group --></section>
 <!-- /wp:group -->

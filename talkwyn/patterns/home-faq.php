@@ -18,8 +18,9 @@ defined( 'ABSPATH' ) || exit;
 <!-- /wp:heading --></div>
 <!-- /wp:group -->
 
-<!-- wp:group {"className":"tw-faq tw-faq--2","layout":{"type":"default"}} -->
-<div class="wp-block-group tw-faq tw-faq--2"><!-- wp:details -->
+<!-- wp:group {"className":"tw-faq-cols","layout":{"type":"default"}} -->
+<div class="wp-block-group tw-faq-cols"><!-- wp:group {"className":"tw-faq","layout":{"type":"default"}} -->
+<div class="wp-block-group tw-faq"><!-- wp:details -->
 <details class="wp-block-details"><summary>Is Talkwyn really free?</summary><!-- wp:paragraph -->
 <p>Yes. The free plan includes site scanning, multilingual answers, lead capture, and chat history. You can also try every Pro feature free for [tw_value key="trial_days"] days. <a href="/pricing/">See pricing</a>.</p>
 <!-- /wp:paragraph --></details>
@@ -47,9 +48,11 @@ defined( 'ABSPATH' ) || exit;
 <details class="wp-block-details"><summary>Will it make things up?</summary><!-- wp:paragraph -->
 <p>Talkwyn is instructed to answer business questions only from your website content. If the answer isn't there, it says so and offers to connect the visitor with your team.</p>
 <!-- /wp:paragraph --></details>
-<!-- /wp:details -->
+<!-- /wp:details --></div>
+<!-- /wp:group -->
 
-<!-- wp:details -->
+<!-- wp:group {"className":"tw-faq","layout":{"type":"default"}} -->
+<div class="wp-block-group tw-faq"><!-- wp:details -->
 <details class="wp-block-details"><summary>Does it work with Elementor and WooCommerce?</summary><!-- wp:paragraph -->
 <p>Yes. Talkwyn reads Elementor page content and WooCommerce product details such as price, stock status, and attributes. <a href="/integrations/woocommerce/">See the WooCommerce chatbot</a>.</p>
 <!-- /wp:paragraph --></details>
@@ -78,6 +81,7 @@ defined( 'ABSPATH' ) || exit;
 <p>We're building it now. Join the waitlist and we'll email you when it launches. <a href="/integrations/shopify/">Join the Shopify waitlist</a>.</p>
 <!-- /wp:paragraph --></details>
 <!-- /wp:details --></div>
+<!-- /wp:group --></div>
 <!-- /wp:group --></div>
 <!-- /wp:group --></section>
 <!-- /wp:group -->

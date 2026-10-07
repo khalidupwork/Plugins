@@ -480,6 +480,38 @@
 		} );
 	} );
 
+	/* ---------- FAQ: smooth open and close ---------- */
+	document.querySelectorAll( '.tw-faq details' ).forEach( function ( d ) {
+		var summary = d.querySelector( 'summary' );
+		if ( ! summary || reduceMotion || ! d.animate ) {
+			return;
+		}
+		var anim = null;
+		summary.addEventListener( 'click', function ( e ) {
+			e.preventDefault();
+			if ( anim ) {
+				return;
+			}
+			var start = d.offsetHeight;
+			var end;
+			if ( d.open ) {
+				d.classList.add( 'is-closing' );
+				end = summary.offsetHeight;
+			} else {
+				d.open = true;
+				end = d.offsetHeight;
+			}
+			anim = d.animate( { height: [ start + 'px', end + 'px' ] }, { duration: 320, easing: 'cubic-bezier(.2,.8,.2,1)' } );
+			anim.onfinish = function () {
+				if ( d.classList.contains( 'is-closing' ) ) {
+					d.open = false;
+					d.classList.remove( 'is-closing' );
+				}
+				anim = null;
+			};
+		} );
+	} );
+
 	/* ---------- Docs: "Was this helpful?" ---------- */
 	document.querySelectorAll( '[data-tw-helpful]' ).forEach( function ( box ) {
 		box.addEventListener( 'click', function ( e ) {

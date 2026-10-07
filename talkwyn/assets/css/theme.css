@@ -704,3 +704,38 @@ ol.tw-steps-list li + li { margin-block-start: 10px; }
 .wp-block-post-terms.tw-eyebrow { display: block; background: none; box-shadow: none; padding: 0; }
 .wp-block-post-terms.tw-eyebrow a { display: inline-flex; padding: 6px 14px; border-radius: var(--tw-r-pill); background: var(--tw-red-50); color: var(--tw-red-700); text-decoration: none; font: 600 .8125rem var(--tw-font-display); }
 .tw-post-grid .wp-block-post-terms.tw-eyebrow a { padding: 4px 12px; }
+
+/* ---------- v3.1: one button size everywhere ---------- */
+.tw-pill, .tw-pill--sm, .tw-pill--lg, .tw-btn, .wp-element-button, .wp-block-button__link, .tw-btn-sm .wp-block-button__link {
+	min-block-size: 48px; padding: 12px 26px; font-size: 1rem; line-height: 1.2;
+}
+.tw-hdr__actions .tw-pill { min-block-size: 48px; padding: 12px 22px; }
+.tw-actions, .tw-section .wp-block-buttons, .tw-download-box__actions, .tw-lead-card__row { gap: 12px; }
+.tw-actions > *, .wp-block-buttons > * { margin: 0 !important; }
+.tw-chat__chips { gap: 8px; padding-block-end: 14px; }
+
+/* ---------- Red sections ---------- */
+.tw-red { background: radial-gradient(90% 120% at 100% 0%, #D7263D 0%, rgba(215, 38, 61, 0) 60%), linear-gradient(135deg, #B81D33 0%, #8E1527 100%); color: #FFFFFF; --tw-link: #FFFFFF; --tw-focus: #FFFFFF; --tw-text-muted: rgba(255, 255, 255, .86); }
+.tw-red :where(h1, h2, h3, h4, p, li) { color: inherit; }
+.tw-red .tw-lede { color: rgba(255, 255, 255, .9); }
+.tw-red .tw-demo-points .tw-icon { background: rgba(255, 255, 255, .14); color: #FFFFFF; }
+.tw-red .tw-chat { box-shadow: 0 30px 80px -20px rgba(40, 0, 8, .55); }
+.tw-red ::selection { background: #FFFFFF; color: var(--tw-red-700); }
+
+/* ---------- CTA band: red, so it never looks like the Ink footer ---------- */
+.tw-cta-band { background: radial-gradient(70% 90% at 50% 0%, #F05A6E 0%, rgba(240, 90, 110, 0) 70%), linear-gradient(160deg, #D7263D 0%, #96172A 100%); --tw-focus: #FFFFFF; }
+.tw-cta-band::before { inset: auto -10% -60% -10%; block-size: 100%; background: radial-gradient(closest-side, rgba(255, 255, 255, .16), rgba(255, 255, 255, 0)); }
+.tw-cta-band p { color: rgba(255, 255, 255, .92); }
+.tw-cta-band .tw-pill--red { background: #FFFFFF; color: var(--tw-red-700); }
+.tw-cta-band .tw-pill--red:hover { background: #FFF1F2; color: var(--tw-red-700); box-shadow: 0 12px 28px -12px rgba(40, 0, 8, .6); }
+.tw-cta-band .tw-pill--white { background: transparent; color: #FFFFFF; box-shadow: inset 0 0 0 1.5px rgba(255, 255, 255, .75); }
+.tw-cta-band .tw-pill--white:hover { background: rgba(255, 255, 255, .12); color: #FFFFFF; }
+.tw-cta-band .tw-cta-band__link a { color: #FFFFFF; }
+
+/* ---------- FAQ: two independent columns ---------- */
+.tw-faq-cols { display: grid; gap: 12px 20px; align-items: start; }
+@media (min-width: 900px) { .tw-faq-cols { grid-template-columns: 1fr 1fr; } }
+.tw-faq-cols > * { margin: 0 !important; }
+.tw-faq details { overflow: hidden; }
+.tw-faq details > :not(summary) { transition: opacity 260ms var(--tw-ease); }
+.tw-faq details.is-closing > :not(summary) { opacity: 0; }
