@@ -41,14 +41,14 @@ final class Settings {
 			'delete_on_uninstall'    => 0,
 			'admin_notify_email'     => '',
 			'email_from_name'        => '',
-			'email_license_subject'  => __( 'Your {product_name} license key', 'talkwyn-hub' ),
-			'email_license_body'     => __( "Hi {customer_name},\n\nThank you for your purchase! Here is your license key for {product_name} ({plan}):\n\n{license_key}\n\nSites: {activation_limit}\nValid until: {expires_at}\n\nPaste the key into Talkwyn → Settings → License on your website to unlock Pro features and automatic updates.\n\nManage your licenses, sites and downloads: {account_url}\n\nThe {site_name} team", 'talkwyn-hub' ),
-			'email_reminder_subject' => __( 'Your {product_name} license expires in {days_left} days', 'talkwyn-hub' ),
-			'email_reminder_body'    => __( "Hi {customer_name},\n\nYour {product_name} license ({plan}, key ending {key_last4}) expires on {expires_at}.\n\nRenew now to keep Pro features and updates on your sites:\n{renew_url}\n\nThe {site_name} team", 'talkwyn-hub' ),
-			'email_expired_subject'  => __( 'Your {product_name} license has expired', 'talkwyn-hub' ),
-			'email_expired_body'     => __( "Hi {customer_name},\n\nYour {product_name} license ({plan}, key ending {key_last4}) expired on {expires_at}. Pro features and updates are now paused on your sites.\n\nRenew in one click:\n{renew_url}\n\nThe {site_name} team", 'talkwyn-hub' ),
-			'email_renewed_subject'  => __( 'Your {product_name} license has been renewed', 'talkwyn-hub' ),
-			'email_renewed_body'     => __( "Hi {customer_name},\n\nThanks for renewing! Your {product_name} license (key ending {key_last4}) is now valid until {expires_at}.\n\nManage your license: {account_url}\n\nThe {site_name} team", 'talkwyn-hub' ),
+			'email_license_subject'  => __( 'Your Talkwyn license is ready', 'talkwyn-hub' ),
+			'email_license_body'     => __( "Hi {customer_name},\n\nThank you for choosing {product_name}. Your {plan} license is ready, and your key is below.\n\nTo turn on Pro, open Talkwyn in your WordPress dashboard, go to the License tab, and paste the key. Staging and local sites are free and don't use a slot.\n\nSites: {activation_limit}\nValid until: {expires_at}\n\nYou can see your sites, downloads, and invoices in your account at any time.\n\nThe {site_name} team", 'talkwyn-hub' ),
+			'email_reminder_subject' => __( 'Your Talkwyn license renews in {days_left} days', 'talkwyn-hub' ),
+			'email_reminder_body'    => __( "Hi {customer_name},\n\nYour {product_name} license ({plan}, key ending {key_last4}) is due for renewal on {expires_at}.\n\nRenew before then to keep Pro features and updates running on your sites. It takes one click and your renewal discount is already applied.\n\nThe {site_name} team", 'talkwyn-hub' ),
+			'email_expired_subject'  => __( 'Your Talkwyn license has expired', 'talkwyn-hub' ),
+			'email_expired_body'     => __( "Hi {customer_name},\n\nYour {product_name} license ({plan}, key ending {key_last4}) expired on {expires_at}. Talkwyn keeps answering with the free features, but Pro features and updates are paused.\n\nRenew in one click and everything picks up where it left off, with the same key.\n\nThe {site_name} team", 'talkwyn-hub' ),
+			'email_renewed_subject'  => __( 'Your Talkwyn license was renewed', 'talkwyn-hub' ),
+			'email_renewed_body'     => __( "Hi {customer_name},\n\nThanks for renewing. Your {product_name} license (key ending {key_last4}) is now valid until {expires_at}. Nothing to do on your sites, updates keep coming.\n\nThe {site_name} team", 'talkwyn-hub' ),
 		);
 	}
 

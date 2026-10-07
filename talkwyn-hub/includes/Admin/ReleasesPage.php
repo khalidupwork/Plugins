@@ -133,7 +133,7 @@ final class ReleasesPage {
 							<?php endif; ?>
 						</td>
 						<td><?php echo esc_html( (string) $r['channel'] ); ?></td>
-						<td><small><?php echo esc_html( sprintf( 'WP %s · PHP %s · tested %s', $r['requires_wp'] ? $r['requires_wp'] : '—', $r['requires_php'] ? $r['requires_php'] : '—', $r['tested_wp'] ? $r['tested_wp'] : '—' ) ); ?></small></td>
+						<td><small><?php echo esc_html( sprintf( 'WP %s · PHP %s · tested %s', $r['requires_wp'] ? $r['requires_wp'] : 'n/a', $r['requires_php'] ? $r['requires_php'] : 'n/a', $r['tested_wp'] ? $r['tested_wp'] : 'n/a' ) ); ?></small></td>
 						<td><?php echo esc_html( size_format( (int) $r['file_size'] ) ); ?></td>
 						<td><?php echo esc_html( Time::human( (string) $r['released_at'] ) ); ?></td>
 						<td><?php echo (int) $r['is_active'] ? '<span class="twh-badge twh-badge--active">' . esc_html__( 'Yes', 'talkwyn-hub' ) . '</span>' : '<span class="twh-badge">' . esc_html__( 'No', 'talkwyn-hub' ) . '</span>'; ?></td>

@@ -1,0 +1,82 @@
+/* Talkwyn design tokens v1.1 (Royal Plum & Electric Aqua). Light is the default; dark mode is opt-in via system preference. */
+:root {
+  /* Brand */
+  --tw-plum: #5B2A86;
+  --tw-aqua: #3DD9EB;
+  --tw-ink: #1E0F2C;
+  --tw-lilac: #F4EEFA;
+
+  /* Plum ramp */
+  --tw-plum-50: #F1EAF8; --tw-plum-100: #E6D9F2; --tw-plum-200: #CDB3E5; --tw-plum-300: #B08AD4; --tw-plum-400: #7B4BB0;
+  --tw-plum-500: #5B2A86; --tw-plum-600: #4C2271; --tw-plum-700: #3D1B5C; --tw-plum-800: #2E1446; --tw-plum-900: #1E0F2C;
+
+  /* Aqua ramp (never use 50 to 600 for text on light backgrounds) */
+  --tw-aqua-50: #E8FBFD; --tw-aqua-100: #C6F4F9; --tw-aqua-200: #9AEDF5; --tw-aqua-300: #6EE4F0; --tw-aqua-400: #52DEEE;
+  --tw-aqua-500: #3DD9EB; --tw-aqua-600: #1FB8CA; --tw-aqua-700: #1792A1; --tw-aqua-800: #116D78; --tw-aqua-900: #0B4950;
+
+  /* Neutrals (plum-tinted) */
+  --tw-n-0: #FFFFFF; --tw-n-25: #FAF8FC; --tw-n-50: #F4EEFA; --tw-n-100: #E9E3EF; --tw-n-200: #D3CADB; --tw-n-300: #ADA2B8;
+  --tw-n-400: #847A90; --tw-n-500: #625871; --tw-n-600: #463D53; --tw-n-900: #1E0F2C; --tw-n-950: #120A1A;
+
+  /* Semantic */
+  --tw-success: #23905F; --tw-warning: #D98E1F; --tw-error: #D2453D; --tw-info: #5B2A86;
+
+  /* Roles (light) */
+  --tw-bg: #FFFFFF;
+  --tw-bg-soft: #FAF8FC;
+  --tw-surface: #FFFFFF;
+  --tw-panel: #F4EEFA;
+  --tw-text: #1E0F2C;
+  --tw-text-muted: #625871;
+  --tw-border: #E9E3EF;
+  --tw-primary: #5B2A86;
+  --tw-on-primary: #FFFFFF;
+  --tw-accent: #3DD9EB;
+  --tw-on-accent: #1E0F2C;
+  --tw-link: #5B2A86;
+  --tw-focus: #5B2A86;
+
+  /* Type */
+  --tw-font-display: "Bricolage Grotesque", "Figtree", system-ui, sans-serif;
+  --tw-font-body: "Figtree", system-ui, -apple-system, "Segoe UI", "Noto Sans Arabic", "Noto Nastaliq Urdu", "Noto Sans Devanagari", sans-serif;
+  --tw-font-mono: "JetBrains Mono", ui-monospace, Menlo, monospace;
+  --tw-text-display: clamp(2.5rem, 6vw, 3.5rem);
+  --tw-text-h1: clamp(2rem, 5vw, 2.5rem);
+  --tw-text-h2: clamp(1.625rem, 4vw, 2rem);
+  --tw-text-h3: 1.5rem;
+  --tw-text-h4: 1.25rem;
+  --tw-text-lg: 1.125rem;
+  --tw-text-base: 1rem;
+  --tw-text-sm: 0.875rem;
+  --tw-text-xs: 0.75rem;
+
+  /* Space (4px base) */
+  --tw-s-1: 4px; --tw-s-2: 8px; --tw-s-3: 12px; --tw-s-4: 16px; --tw-s-6: 24px; --tw-s-8: 32px; --tw-s-12: 48px; --tw-s-18: 72px; --tw-s-24: 96px;
+
+  /* Shape and depth */
+  --tw-r-sm: 8px; --tw-r-md: 12px; --tw-r-lg: 20px; --tw-r-pill: 999px;
+  --tw-bubble-radius: 18px; --tw-bubble-tail: 6px;
+  --tw-shadow-sm: 0 1px 2px rgba(30, 15, 44, .08), 0 1px 1px rgba(30, 15, 44, .04);
+  --tw-shadow-lg: 0 18px 48px rgba(30, 15, 44, .18);
+
+  /* Motion */
+  --tw-ease: cubic-bezier(.2, .8, .2, 1);
+  --tw-dur: 180ms;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --tw-bg: #120A1A; --tw-bg-soft: #17101F; --tw-surface: #1F1629; --tw-panel: #251B31;
+    --tw-text: #EDE7F3; --tw-text-muted: #ADA2B8; --tw-border: #352A42;
+    --tw-primary: #7B4BB0; --tw-on-primary: #FFFFFF; --tw-link: #CDB3E5; --tw-focus: #B08AD4;
+    --tw-accent: #52DEEE; --tw-on-accent: #120A1A;
+    color-scheme: dark;
+  }
+}
+:root[data-theme="dark"] {
+  --tw-bg: #120A1A; --tw-bg-soft: #17101F; --tw-surface: #1F1629; --tw-panel: #251B31;
+  --tw-text: #EDE7F3; --tw-text-muted: #ADA2B8; --tw-border: #352A42;
+  --tw-primary: #7B4BB0; --tw-on-primary: #FFFFFF; --tw-link: #CDB3E5; --tw-focus: #B08AD4;
+  --tw-accent: #52DEEE; --tw-on-accent: #120A1A;
+  color-scheme: dark;
+}

@@ -15,7 +15,7 @@
 .twh-badge--suspended{background:#ffedd5;color:#9a3412}
 .twh-badge--revoked{background:#fee2e2;color:#991b1b}
 .twh-badge--dev{background:#e0f2fe;color:#075985}
-.twh-muted{color:#787c82}
+.twh-muted{color:#646970}
 .twh-inactive td{opacity:.55}
 .twh-copyable{cursor:pointer;user-select:all;word-break:break-all}
 .twh-inline{display:inline}
@@ -26,3 +26,8 @@
 .twh-event{font-family:Menlo,Consolas,monospace;font-size:12px}
 .twh-event--revoke,.twh-event--invalid_key,.twh-event--rate_limited,.twh-event--chargeback{color:#b32d2e}
 .twh-event--purchase,.twh-event--renewal,.twh-event--upgrade{color:#007017}
+/* Talkwyn brand: Plum only for primary buttons and the lifetime badge. */
+.twh-wrap .button-primary{background:#5B2A86;border-color:#5B2A86;color:#fff}
+.twh-wrap .button-primary:hover,.twh-wrap .button-primary:focus{background:#4C2271;border-color:#4C2271;color:#fff}
+.twh-wrap .button-primary:focus{box-shadow:0 0 0 1px #fff,0 0 0 3px #5B2A86}
+.twh-badge--lifetime{background:#5B2A86;color:#fff}

@@ -1,4 +1,4 @@
-/* Talkwyn Hub – My Account: reveal and copy license keys. */
+/* Talkwyn Hub, My Account: reveal and copy license keys. */
 ( function () {
 	'use strict';
 

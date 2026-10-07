@@ -1,0 +1,733 @@
+{
+  "$schema": "https://schemas.wp.org/wp/6.5/theme.json",
+  "version": 3,
+  "settings": {
+    "appearanceTools": true,
+    "useRootPaddingAwareAlignments": true,
+    "layout": {
+      "contentSize": "720px",
+      "wideSize": "1200px"
+    },
+    "color": {
+      "custom": false,
+      "customGradient": false,
+      "customDuotone": false,
+      "defaultPalette": false,
+      "defaultGradients": false,
+      "defaultDuotone": false,
+      "gradients": [],
+      "duotone": [],
+      "palette": [
+        {
+          "slug": "base",
+          "name": "Background",
+          "color": "var(--tw-bg)"
+        },
+        {
+          "slug": "base-soft",
+          "name": "Background soft",
+          "color": "var(--tw-bg-soft)"
+        },
+        {
+          "slug": "surface",
+          "name": "Surface",
+          "color": "var(--tw-surface)"
+        },
+        {
+          "slug": "panel",
+          "name": "Panel (Lilac)",
+          "color": "var(--tw-panel)"
+        },
+        {
+          "slug": "contrast",
+          "name": "Text (Ink)",
+          "color": "var(--tw-text)"
+        },
+        {
+          "slug": "muted",
+          "name": "Muted text",
+          "color": "var(--tw-text-muted)"
+        },
+        {
+          "slug": "border",
+          "name": "Border",
+          "color": "var(--tw-border)"
+        },
+        {
+          "slug": "primary",
+          "name": "Primary (Plum)",
+          "color": "var(--tw-primary)"
+        },
+        {
+          "slug": "on-primary",
+          "name": "On primary",
+          "color": "var(--tw-on-primary)"
+        },
+        {
+          "slug": "band",
+          "name": "Plum band",
+          "color": "var(--tw-band)"
+        },
+        {
+          "slug": "plum",
+          "name": "Royal Plum",
+          "color": "#5B2A86"
+        },
+        {
+          "slug": "plum-700",
+          "name": "Plum 700",
+          "color": "#3D1B5C"
+        },
+        {
+          "slug": "plum-50",
+          "name": "Plum 50",
+          "color": "#F1EAF8"
+        },
+        {
+          "slug": "ink",
+          "name": "Ink",
+          "color": "#1E0F2C"
+        },
+        {
+          "slug": "lilac",
+          "name": "Lilac",
+          "color": "#F4EEFA"
+        },
+        {
+          "slug": "white",
+          "name": "White",
+          "color": "#FFFFFF"
+        },
+        {
+          "slug": "aqua",
+          "name": "Electric Aqua (accent only)",
+          "color": "#3DD9EB"
+        },
+        {
+          "slug": "aqua-800",
+          "name": "Aqua 800 (accent on light)",
+          "color": "#116D78"
+        },
+        {
+          "slug": "success",
+          "name": "Success",
+          "color": "#23905F"
+        },
+        {
+          "slug": "warning",
+          "name": "Warning",
+          "color": "#D98E1F"
+        },
+        {
+          "slug": "error",
+          "name": "Error",
+          "color": "#D2453D"
+        }
+      ]
+    },
+    "typography": {
+      "customFontSize": false,
+      "dropCap": false,
+      "fluid": true,
+      "defaultFontSizes": false,
+      "fontFamilies": [
+        {
+          "slug": "display",
+          "name": "Bricolage Grotesque",
+          "fontFamily": "\"Bricolage Grotesque\", \"Figtree\", system-ui, sans-serif",
+          "fontFace": [
+            {
+              "fontFamily": "Bricolage Grotesque",
+              "fontWeight": "700",
+              "fontStyle": "normal",
+              "fontDisplay": "swap",
+              "src": [
+                "file:./assets/fonts/bricolage-grotesque-latin-700-normal.woff2"
+              ]
+            },
+            {
+              "fontFamily": "Bricolage Grotesque",
+              "fontWeight": "800",
+              "fontStyle": "normal",
+              "fontDisplay": "swap",
+              "src": [
+                "file:./assets/fonts/bricolage-grotesque-latin-800-normal.woff2"
+              ]
+            },
+            {
+              "fontFamily": "Bricolage Grotesque",
+              "fontWeight": "700",
+              "fontStyle": "normal",
+              "fontDisplay": "swap",
+              "src": [
+                "file:./assets/fonts/bricolage-grotesque-basic-700-normal.woff2"
+              ],
+              "unicodeRange": "U+0020-007E, U+00A0, U+00A9, U+00B7, U+00D7, U+2018-201D, U+2022, U+2026, U+2190-2193"
+            },
+            {
+              "fontFamily": "Bricolage Grotesque",
+              "fontWeight": "800",
+              "fontStyle": "normal",
+              "fontDisplay": "swap",
+              "src": [
+                "file:./assets/fonts/bricolage-grotesque-basic-800-normal.woff2"
+              ],
+              "unicodeRange": "U+0020-007E, U+00A0, U+00A9, U+00B7, U+00D7, U+2018-201D, U+2022, U+2026, U+2190-2193"
+            }
+          ]
+        },
+        {
+          "slug": "body",
+          "name": "Figtree",
+          "fontFamily": "Figtree, system-ui, -apple-system, \"Segoe UI\", \"Noto Sans Arabic\", \"Noto Nastaliq Urdu\", \"Noto Sans Devanagari\", sans-serif",
+          "fontFace": [
+            {
+              "fontFamily": "Figtree",
+              "fontWeight": "400",
+              "fontStyle": "normal",
+              "fontDisplay": "swap",
+              "src": [
+                "file:./assets/fonts/figtree-latin-400-normal.woff2"
+              ]
+            },
+            {
+              "fontFamily": "Figtree",
+              "fontWeight": "500",
+              "fontStyle": "normal",
+              "fontDisplay": "swap",
+              "src": [
+                "file:./assets/fonts/figtree-latin-500-normal.woff2"
+              ]
+            },
+            {
+              "fontFamily": "Figtree",
+              "fontWeight": "600",
+              "fontStyle": "normal",
+              "fontDisplay": "swap",
+              "src": [
+                "file:./assets/fonts/figtree-latin-600-normal.woff2"
+              ]
+            },
+            {
+              "fontFamily": "Figtree",
+              "fontWeight": "700",
+              "fontStyle": "normal",
+              "fontDisplay": "swap",
+              "src": [
+                "file:./assets/fonts/figtree-latin-700-normal.woff2"
+              ]
+            }
+          ]
+        },
+        {
+          "slug": "mono",
+          "name": "JetBrains Mono",
+          "fontFamily": "\"JetBrains Mono\", ui-monospace, Menlo, monospace",
+          "fontFace": [
+            {
+              "fontFamily": "JetBrains Mono",
+              "fontWeight": "400",
+              "fontStyle": "normal",
+              "fontDisplay": "swap",
+              "src": [
+                "file:./assets/fonts/jetbrains-mono-latin-400-normal.woff2"
+              ]
+            },
+            {
+              "fontFamily": "JetBrains Mono",
+              "fontWeight": "500",
+              "fontStyle": "normal",
+              "fontDisplay": "swap",
+              "src": [
+                "file:./assets/fonts/jetbrains-mono-latin-500-normal.woff2"
+              ]
+            }
+          ]
+        },
+        {
+          "slug": "arabic",
+          "name": "Noto Sans Arabic",
+          "fontFamily": "\"Noto Sans Arabic\", Figtree, sans-serif",
+          "fontFace": [
+            {
+              "fontFamily": "Noto Sans Arabic",
+              "fontWeight": "400",
+              "fontStyle": "normal",
+              "fontDisplay": "swap",
+              "src": [
+                "file:./assets/fonts/noto-sans-arabic-arabic-400-normal.woff2"
+              ],
+              "unicodeRange": "U+0600-06FF, U+0750-077F, U+0870-088E, U+0890-0891, U+0898-08E1, U+08E3-08FF, U+200C-200E, U+2010-2011, U+204F, U+2E41, U+FB50-FDFF, U+FE70-FE74, U+FE76-FEFC"
+            },
+            {
+              "fontFamily": "Noto Sans Arabic",
+              "fontWeight": "600",
+              "fontStyle": "normal",
+              "fontDisplay": "swap",
+              "src": [
+                "file:./assets/fonts/noto-sans-arabic-arabic-600-normal.woff2"
+              ],
+              "unicodeRange": "U+0600-06FF, U+0750-077F, U+0870-088E, U+0890-0891, U+0898-08E1, U+08E3-08FF, U+200C-200E, U+2010-2011, U+204F, U+2E41, U+FB50-FDFF, U+FE70-FE74, U+FE76-FEFC"
+            },
+            {
+              "fontFamily": "Noto Sans Arabic",
+              "fontWeight": "400",
+              "fontStyle": "normal",
+              "fontDisplay": "swap",
+              "src": [
+                "file:./assets/fonts/noto-sans-arabic-used-400-normal.woff2"
+              ],
+              "unicodeRange": "U+060C, U+061B, U+061F, U+0621, U+0622, U+0623, U+0624, U+0625, U+0626, U+0627, U+0628, U+0629, U+062A, U+062B, U+062C, U+062D, U+062E, U+062F, U+0630, U+0631, U+0632, U+0633, U+0634, U+0635, U+0636, U+0637, U+0638, U+0639, U+063A, U+0640, U+0641, U+0642, U+0643, U+0644, U+0645, U+0646, U+0647, U+0648, U+0649, U+064A, U+064B, U+0651, U+066B, U+066C, U+0679, U+067E, U+0688, U+06A9, U+06AF, U+06BA, U+06BE, U+06C1, U+06CC, U+06D2, U+06D4, U+200C, U+200D, U+200E, U+200F"
+            },
+            {
+              "fontFamily": "Noto Sans Arabic",
+              "fontWeight": "600",
+              "fontStyle": "normal",
+              "fontDisplay": "swap",
+              "src": [
+                "file:./assets/fonts/noto-sans-arabic-used-600-normal.woff2"
+              ],
+              "unicodeRange": "U+060C, U+061B, U+061F, U+0621, U+0622, U+0623, U+0624, U+0625, U+0626, U+0627, U+0628, U+0629, U+062A, U+062B, U+062C, U+062D, U+062E, U+062F, U+0630, U+0631, U+0632, U+0633, U+0634, U+0635, U+0636, U+0637, U+0638, U+0639, U+063A, U+0640, U+0641, U+0642, U+0643, U+0644, U+0645, U+0646, U+0647, U+0648, U+0649, U+064A, U+064B, U+0651, U+066B, U+066C, U+0679, U+067E, U+0688, U+06A9, U+06AF, U+06BA, U+06BE, U+06C1, U+06CC, U+06D2, U+06D4, U+200C, U+200D, U+200E, U+200F"
+            }
+          ]
+        },
+        {
+          "slug": "urdu",
+          "name": "Noto Nastaliq Urdu",
+          "fontFamily": "\"Noto Nastaliq Urdu\", \"Noto Sans Arabic\", serif",
+          "fontFace": [
+            {
+              "fontFamily": "Noto Nastaliq Urdu",
+              "fontWeight": "400",
+              "fontStyle": "normal",
+              "fontDisplay": "swap",
+              "src": [
+                "file:./assets/fonts/noto-nastaliq-urdu-arabic-400-normal.woff2"
+              ],
+              "unicodeRange": "U+0600-06FF, U+0750-077F, U+0870-088E, U+0890-0891, U+0898-08E1, U+08E3-08FF, U+200C-200E, U+2010-2011, U+204F, U+2E41, U+FB50-FDFF, U+FE70-FE74, U+FE76-FEFC"
+            },
+            {
+              "fontFamily": "Noto Nastaliq Urdu",
+              "fontWeight": "400",
+              "fontStyle": "normal",
+              "fontDisplay": "swap",
+              "src": [
+                "file:./assets/fonts/noto-nastaliq-urdu-used-400-normal.woff2"
+              ],
+              "unicodeRange": "U+060C, U+061B, U+061F, U+0621, U+0622, U+0623, U+0624, U+0625, U+0626, U+0627, U+0628, U+0629, U+062A, U+062B, U+062C, U+062D, U+062E, U+062F, U+0630, U+0631, U+0632, U+0633, U+0634, U+0635, U+0636, U+0637, U+0638, U+0639, U+063A, U+0640, U+0641, U+0642, U+0643, U+0644, U+0645, U+0646, U+0647, U+0648, U+0649, U+064A, U+064B, U+0651, U+066B, U+066C, U+0679, U+067E, U+0688, U+06A9, U+06AF, U+06BA, U+06BE, U+06C1, U+06CC, U+06D2, U+06D4, U+200C, U+200D, U+200E, U+200F"
+            }
+          ]
+        },
+        {
+          "slug": "devanagari",
+          "name": "Noto Sans Devanagari",
+          "fontFamily": "\"Noto Sans Devanagari\", Figtree, sans-serif",
+          "fontFace": [
+            {
+              "fontFamily": "Noto Sans Devanagari",
+              "fontWeight": "400",
+              "fontStyle": "normal",
+              "fontDisplay": "swap",
+              "src": [
+                "file:./assets/fonts/noto-sans-devanagari-devanagari-400-normal.woff2"
+              ],
+              "unicodeRange": "U+0900-097F, U+1CD0-1CF9, U+200C-200D, U+20A8, U+20B9, U+25CC, U+A830-A839, U+A8E0-A8FF"
+            },
+            {
+              "fontFamily": "Noto Sans Devanagari",
+              "fontWeight": "600",
+              "fontStyle": "normal",
+              "fontDisplay": "swap",
+              "src": [
+                "file:./assets/fonts/noto-sans-devanagari-devanagari-600-normal.woff2"
+              ],
+              "unicodeRange": "U+0900-097F, U+1CD0-1CF9, U+200C-200D, U+20A8, U+20B9, U+25CC, U+A830-A839, U+A8E0-A8FF"
+            },
+            {
+              "fontFamily": "Noto Sans Devanagari",
+              "fontWeight": "400",
+              "fontStyle": "normal",
+              "fontDisplay": "swap",
+              "src": [
+                "file:./assets/fonts/noto-sans-devanagari-used-400-normal.woff2"
+              ],
+              "unicodeRange": "U+0901, U+0902, U+0905, U+0906, U+0907, U+090A, U+090F, U+0914, U+0915, U+0916, U+0917, U+0918, U+091A, U+091C, U+091F, U+0921, U+0924, U+0925, U+0926, U+0928, U+092A, U+092B, U+092C, U+092D, U+092E, U+092F, U+0930, U+0932, U+0935, U+0936, U+0938, U+0939, U+093C, U+093E, U+093F, U+0940, U+0941, U+0942, U+0947, U+0948, U+0949, U+094B, U+094D, U+0964, U+0965, U+200C, U+200D"
+            },
+            {
+              "fontFamily": "Noto Sans Devanagari",
+              "fontWeight": "600",
+              "fontStyle": "normal",
+              "fontDisplay": "swap",
+              "src": [
+                "file:./assets/fonts/noto-sans-devanagari-used-600-normal.woff2"
+              ],
+              "unicodeRange": "U+0901, U+0902, U+0905, U+0906, U+0907, U+090A, U+090F, U+0914, U+0915, U+0916, U+0917, U+0918, U+091A, U+091C, U+091F, U+0921, U+0924, U+0925, U+0926, U+0928, U+092A, U+092B, U+092C, U+092D, U+092E, U+092F, U+0930, U+0932, U+0935, U+0936, U+0938, U+0939, U+093C, U+093E, U+093F, U+0940, U+0941, U+0942, U+0947, U+0948, U+0949, U+094B, U+094D, U+0964, U+0965, U+200C, U+200D"
+            }
+          ]
+        }
+      ],
+      "fontSizes": [
+        {
+          "slug": "xs",
+          "name": "XS",
+          "size": "0.75rem",
+          "fluid": false
+        },
+        {
+          "slug": "sm",
+          "name": "Small",
+          "size": "0.875rem",
+          "fluid": false
+        },
+        {
+          "slug": "base",
+          "name": "Base",
+          "size": "1.0625rem",
+          "fluid": {
+            "min": "1rem",
+            "max": "1.0625rem"
+          }
+        },
+        {
+          "slug": "lg",
+          "name": "Large",
+          "size": "1.125rem",
+          "fluid": {
+            "min": "1.0625rem",
+            "max": "1.1875rem"
+          }
+        },
+        {
+          "slug": "h4",
+          "name": "H4",
+          "size": "1.25rem",
+          "fluid": false
+        },
+        {
+          "slug": "h3",
+          "name": "H3",
+          "size": "1.5rem",
+          "fluid": {
+            "min": "1.3125rem",
+            "max": "1.5rem"
+          }
+        },
+        {
+          "slug": "h2",
+          "name": "H2",
+          "size": "2rem",
+          "fluid": {
+            "min": "1.625rem",
+            "max": "2rem"
+          }
+        },
+        {
+          "slug": "h1",
+          "name": "H1",
+          "size": "2.5rem",
+          "fluid": {
+            "min": "2rem",
+            "max": "2.5rem"
+          }
+        },
+        {
+          "slug": "display",
+          "name": "Display",
+          "size": "3.5rem",
+          "fluid": {
+            "min": "2.5rem",
+            "max": "3.5rem"
+          }
+        }
+      ]
+    },
+    "spacing": {
+      "units": [
+        "px",
+        "rem",
+        "%",
+        "vw"
+      ],
+      "defaultSpacingSizes": false,
+      "spacingSizes": [
+        {
+          "slug": "1",
+          "name": "4px",
+          "size": "4px"
+        },
+        {
+          "slug": "2",
+          "name": "8px",
+          "size": "8px"
+        },
+        {
+          "slug": "3",
+          "name": "12px",
+          "size": "12px"
+        },
+        {
+          "slug": "4",
+          "name": "16px",
+          "size": "16px"
+        },
+        {
+          "slug": "6",
+          "name": "24px",
+          "size": "24px"
+        },
+        {
+          "slug": "8",
+          "name": "32px",
+          "size": "32px"
+        },
+        {
+          "slug": "12",
+          "name": "48px",
+          "size": "clamp(32px, 5vw, 48px)"
+        },
+        {
+          "slug": "18",
+          "name": "72px",
+          "size": "clamp(48px, 7vw, 72px)"
+        },
+        {
+          "slug": "24",
+          "name": "96px",
+          "size": "clamp(56px, 9vw, 96px)"
+        }
+      ]
+    },
+    "shadow": {
+      "defaultPresets": false,
+      "presets": [
+        {
+          "slug": "sm",
+          "name": "Small",
+          "shadow": "0 1px 2px rgba(30, 15, 44, .08), 0 1px 1px rgba(30, 15, 44, .04)"
+        },
+        {
+          "slug": "lg",
+          "name": "Large",
+          "shadow": "0 18px 48px rgba(30, 15, 44, .18)"
+        }
+      ]
+    },
+    "custom": {
+      "radius": {
+        "sm": "8px",
+        "md": "12px",
+        "lg": "20px",
+        "pill": "999px",
+        "bubble": "18px"
+      },
+      "motion": {
+        "ease": "cubic-bezier(.2,.8,.2,1)",
+        "duration": "180ms"
+      },
+      "measure": "68ch"
+    },
+    "border": {
+      "color": true,
+      "radius": true,
+      "style": true,
+      "width": true
+    },
+    "blocks": {
+      "core/button": {
+        "border": {
+          "radius": false
+        }
+      }
+    }
+  },
+  "styles": {
+    "color": {
+      "background": "var(--wp--preset--color--base)",
+      "text": "var(--wp--preset--color--contrast)"
+    },
+    "typography": {
+      "fontFamily": "var(--wp--preset--font-family--body)",
+      "fontSize": "var(--wp--preset--font-size--base)",
+      "lineHeight": "1.6",
+      "fontWeight": "400"
+    },
+    "spacing": {
+      "blockGap": "var(--wp--preset--spacing--6)",
+      "padding": {
+        "left": "var(--wp--preset--spacing--6)",
+        "right": "var(--wp--preset--spacing--6)"
+      }
+    },
+    "elements": {
+      "link": {
+        "color": {
+          "text": "var(--tw-link)"
+        },
+        "typography": {
+          "textDecoration": "underline"
+        },
+        ":hover": {
+          "typography": {
+            "textDecoration": "none"
+          }
+        }
+      },
+      "heading": {
+        "typography": {
+          "fontFamily": "var(--wp--preset--font-family--display)",
+          "fontWeight": "800",
+          "lineHeight": "1.15",
+          "letterSpacing": "-0.01em"
+        },
+        "color": {
+          "text": "var(--wp--preset--color--contrast)"
+        }
+      },
+      "h1": {
+        "typography": {
+          "fontSize": "var(--wp--preset--font-size--h-1)"
+        }
+      },
+      "h2": {
+        "typography": {
+          "fontSize": "var(--wp--preset--font-size--h-2)"
+        }
+      },
+      "h3": {
+        "typography": {
+          "fontSize": "var(--wp--preset--font-size--h-3)",
+          "fontWeight": "700"
+        }
+      },
+      "h4": {
+        "typography": {
+          "fontSize": "var(--wp--preset--font-size--h-4)",
+          "fontWeight": "700"
+        }
+      },
+      "button": {
+        "color": {
+          "background": "var(--wp--preset--color--primary)",
+          "text": "var(--wp--preset--color--on-primary)"
+        },
+        "typography": {
+          "fontFamily": "var(--wp--preset--font-family--body)",
+          "fontWeight": "600",
+          "fontSize": "1rem",
+          "lineHeight": "1.2"
+        },
+        "border": {
+          "radius": "999px",
+          "width": "0"
+        },
+        "spacing": {
+          "padding": {
+            "top": "14px",
+            "bottom": "14px",
+            "left": "24px",
+            "right": "24px"
+          }
+        },
+        ":hover": {
+          "color": {
+            "background": "var(--tw-primary-hover)"
+          }
+        },
+        ":focus": {
+          "outline": {
+            "color": "var(--tw-focus)",
+            "offset": "3px",
+            "style": "solid",
+            "width": "2px"
+          }
+        }
+      },
+      "caption": {
+        "typography": {
+          "fontSize": "var(--wp--preset--font-size--sm)"
+        },
+        "color": {
+          "text": "var(--wp--preset--color--muted)"
+        }
+      }
+    },
+    "blocks": {
+      "core/code": {
+        "typography": {
+          "fontFamily": "var(--wp--preset--font-family--mono)",
+          "fontSize": "0.9375rem"
+        },
+        "color": {
+          "background": "var(--wp--preset--color--panel)"
+        },
+        "border": {
+          "radius": "12px"
+        }
+      },
+      "core/separator": {
+        "color": {
+          "text": "var(--wp--preset--color--border)"
+        }
+      },
+      "core/quote": {
+        "border": {
+          "left": {
+            "color": "var(--wp--preset--color--primary)",
+            "width": "3px"
+          }
+        }
+      },
+      "core/navigation": {
+        "typography": {
+          "fontSize": "var(--wp--preset--font-size--sm)",
+          "fontWeight": "500"
+        }
+      }
+    }
+  },
+  "templateParts": [
+    {
+      "name": "header",
+      "title": "Header",
+      "area": "header"
+    },
+    {
+      "name": "header-checkout",
+      "title": "Header (checkout)",
+      "area": "header"
+    },
+    {
+      "name": "footer",
+      "title": "Footer",
+      "area": "footer"
+    },
+    {
+      "name": "cta-band",
+      "title": "CTA band",
+      "area": "uncategorized"
+    }
+  ],
+  "customTemplates": [
+    {
+      "name": "page-landing",
+      "title": "Landing (full width)",
+      "postTypes": [
+        "page"
+      ]
+    },
+    {
+      "name": "page-pricing",
+      "title": "Pricing",
+      "postTypes": [
+        "page"
+      ]
+    },
+    {
+      "name": "page-no-title",
+      "title": "Page without title",
+      "postTypes": [
+        "page"
+      ]
+    }
+  ]
+}

@@ -100,7 +100,7 @@ final class Dashboard {
 			array( __( 'New this month', 'talkwyn-hub' ), number_format_i18n( $s['new_month'] ), '' ),
 			array( __( 'Expiring in 30 days', 'talkwyn-hub' ), number_format_i18n( $s['expiring_30'] ), '' ),
 			array( __( 'Expired, not renewed', 'talkwyn-hub' ), number_format_i18n( $s['expired'] ), admin_url( 'admin.php?page=twh-licenses&status=expired' ) ),
-			array( __( 'Renewal rate (12 mo)', 'talkwyn-hub' ), null === $s['renewal_rate'] ? '—' : $s['renewal_rate'] . '%', '' ),
+			array( __( 'Renewal rate (12 mo)', 'talkwyn-hub' ), null === $s['renewal_rate'] ? 'n/a' : $s['renewal_rate'] . '%', '' ),
 			array( __( 'Revenue this month', 'talkwyn-hub' ), $money( (float) $s['revenue_month'] ), '' ),
 			array( __( 'Revenue (12 months)', 'talkwyn-hub' ), $money( (float) $s['revenue_12m'] ), '' ),
 			array( __( 'Active sites', 'talkwyn-hub' ), number_format_i18n( $s['active_sites'] ), '' ),

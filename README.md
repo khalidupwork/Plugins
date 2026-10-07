@@ -24,3 +24,25 @@ See [`talkwyn-hub/README.md`](talkwyn-hub/README.md), [`talkwyn-hub/API.md`](tal
 ## Talkwyn License Client SDK (`client-sdk/`)
 
 Drop-in class for the Talkwyn plugin: activation, daily checks, Ed25519 signature verification, a 7-day offline grace period, and automatic updates. See [`client-sdk/README.md`](client-sdk/README.md).
+
+## Talkwyn theme (`talkwyn/`)
+
+The block theme for talkwyn.com:
+
+- homepage, pricing, docs, blog and landing pages
+- WooCommerce checkout styling
+- restyled Hub customer screens and emails
+- SEO with a Rank Math hand-off, schema and analytics
+
+It includes a setup script that creates every page, menu and setting.
+
+See [`talkwyn/README.md`](talkwyn/README.md) for the install order and editing guide, and [`talkwyn/LAUNCH-CHECKLIST.md`](talkwyn/LAUNCH-CHECKLIST.md) before going live.
+
+**Install order:**
+
+1. WooCommerce
+2. Talkwyn Hub
+3. Zip the `talkwyn` folder, then go to Appearance → Themes → Upload
+4. Rank Math
+5. Appearance → Talkwyn Site Settings → **Create or update site pages**
+

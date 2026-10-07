@@ -98,16 +98,16 @@ HTTP 4xx/5xx with:
 
 | Code | HTTP | Meaning | Extra signed `data` |
 |---|---|---|---|
-| `bad_request` | 400 | Missing or invalid field (nonce, instance_id, site_url, product, key) | – |
-| `invalid_key` | 404 | Key unknown or malformed | – |
-| `wrong_product` | 400 | Key belongs to another software product | – |
+| `bad_request` | 400 | Missing or invalid field (nonce, instance_id, site_url, product, key) | none |
+| `invalid_key` | 404 | Key unknown or malformed | none |
+| `wrong_product` | 400 | Key belongs to another software product | none |
 | `expired` | 403 | License expired | `renew_url` |
-| `revoked` | 403 | Refunded, cancelled, charged back or revoked by admin | – |
-| `suspended` | 403 | Suspended (e.g. payment dispute open) | – |
+| `revoked` | 403 | Refunded, cancelled, charged back or revoked by admin | none |
+| `suspended` | 403 | Suspended (e.g. payment dispute open) | none |
 | `limit_reached` | 403 | All production slots used | `activations_used`, `activation_limit`, `manage_url` |
-| `rate_limited` | 429 | Too many requests | – |
-| `not_found` | 404 | `download` only: release or file missing | – |
-| `server_error` | 500 | Unexpected error (temporary) | – |
+| `rate_limited` | 429 | Too many requests | none |
+| `not_found` | 404 | `download` only: release or file missing | none |
+| `server_error` | 500 | Unexpected error (temporary) | none |
 
 ## POST `license/activate`
 

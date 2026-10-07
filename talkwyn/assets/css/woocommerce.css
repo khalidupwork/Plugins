@@ -1,0 +1,67 @@
+/* WooCommerce (block cart, block checkout, My Account) styled with Talkwyn tokens. */
+.wc-block-components-text-input input, .wc-block-components-combobox .wc-block-components-combobox-control input, .wc-blocks-components-select .wc-blocks-components-select__select,
+.wc-block-components-textarea, .woocommerce form .form-row .input-text, .woocommerce form .form-row select {
+	border-radius: var(--tw-r-sm) !important; border-color: var(--tw-n-200) !important; background: var(--tw-surface) !important; color: var(--tw-text) !important;
+}
+.wc-block-components-text-input input:focus, .wc-blocks-components-select .wc-blocks-components-select__select:focus, .woocommerce form .form-row .input-text:focus {
+	outline: 2px solid var(--tw-focus) !important; outline-offset: 1px; box-shadow: none !important;
+}
+.wc-block-components-text-input label, .wc-blocks-components-select__label { color: var(--tw-text-muted) !important; }
+.wc-block-components-button:not(.is-link), .woocommerce a.button, .woocommerce button.button, .woocommerce input.button, .woocommerce .button.alt {
+	background: var(--tw-primary) !important; color: var(--tw-on-primary) !important; border-radius: var(--tw-r-pill) !important; border: 0 !important;
+	font: 600 1rem/1.2 var(--tw-font-body) !important; min-block-size: 48px; padding: 14px 24px !important; text-decoration: none !important;
+}
+.wc-block-components-button:not(.is-link):hover, .woocommerce a.button:hover, .woocommerce button.button:hover { background: var(--tw-primary-hover) !important; }
+.wc-block-components-checkout-place-order-button { inline-size: 100%; }
+.wp-block-woocommerce-checkout-order-summary-block, .wc-block-components-sidebar .wc-block-components-totals-wrapper, .wp-block-woocommerce-cart-order-summary-block {
+	border-color: var(--tw-border) !important;
+}
+.wp-block-woocommerce-checkout-order-summary-block { background: var(--tw-panel); border: 0 !important; border-radius: var(--tw-r-lg); overflow: hidden; }
+.wc-block-components-totals-footer-item .wc-block-components-totals-item__value, .wc-block-components-totals-footer-item .wc-block-components-totals-item__label { font-family: var(--tw-font-display); font-weight: 800; }
+.wc-block-components-checkout-step__title, .wc-block-cart__totals-title, .wp-block-woocommerce-checkout h2 { font-family: var(--tw-font-display) !important; font-weight: 800 !important; }
+.wc-block-components-notice-banner { border-radius: var(--tw-r-md) !important; }
+.wc-block-components-notice-banner.is-error { background: #FADCDA; border-color: var(--tw-error); color: #8E2520; }
+.wc-block-components-notice-banner.is-success { background: #DDF3E8; border-color: var(--tw-success); color: #17603F; }
+.wc-block-components-checkbox .wc-block-components-checkbox__input[type=checkbox] { border-radius: 4px; border-color: var(--tw-n-300); }
+.wc-block-components-checkbox .wc-block-components-checkbox__input[type=checkbox]:checked { background: var(--tw-primary); border-color: var(--tw-primary); }
+.wc-block-components-checkbox .wc-block-components-checkbox__mark { fill: #FFFFFF; }
+.wc-block-components-radio-control__input:checked { border-color: var(--tw-primary) !important; }
+.wc-block-components-radio-control__input:checked::before { background: var(--tw-primary) !important; }
+.wc-block-components-product-name { font-weight: 600; color: var(--tw-text) !important; }
+.wc-block-checkout__add-note { display: none; } /* Software orders need no notes. */
+.wc-block-checkout__terms a, .wc-block-components-checkout-return-to-cart-button { color: var(--tw-link) !important; }
+
+/* Checkout trust line and minimal footer */
+.tw-checkout .tw-trustline { margin-block-end: 24px; }
+.tw-footer--minimal { padding-block: 24px; }
+.tw-footer--minimal p { margin: 0 auto; }
+
+/* My Account (classic shortcode inside block theme) */
+.woocommerce-account .woocommerce { display: grid; gap: 32px; }
+.woocommerce-account .woocommerce::before, .woocommerce-account .woocommerce::after { display: none; } /* WooCommerce clearfix would become grid items. */
+.woocommerce-account .woocommerce > :not(.woocommerce-MyAccount-navigation):not(.woocommerce-MyAccount-content) { grid-column: 1 / -1; }
+@media (min-width: 900px) {
+	.woocommerce-account .woocommerce { grid-template-columns: 220px minmax(0, 1fr); align-items: start; }
+	.woocommerce-account .woocommerce-MyAccount-navigation { grid-column: 1; position: sticky; inset-block-start: 96px; }
+	.woocommerce-account .woocommerce-MyAccount-content { grid-column: 2; }
+}
+.woocommerce-account .woocommerce-MyAccount-navigation, .woocommerce-account .woocommerce-MyAccount-content { float: none !important; inline-size: auto !important; }
+.woocommerce-MyAccount-navigation ul { list-style: none; padding: 0; margin: 0; display: grid; gap: 2px; }
+.woocommerce-MyAccount-navigation a { display: block; padding: 10px 14px; border-radius: var(--tw-r-sm); color: var(--tw-text); text-decoration: none; font-weight: 500; }
+.woocommerce-MyAccount-navigation a:hover { background: var(--tw-panel); }
+.woocommerce-MyAccount-navigation .is-active a { background: var(--tw-panel); color: var(--tw-link); font-weight: 600; }
+.woocommerce table.shop_table { border: 1px solid var(--tw-border) !important; border-radius: var(--tw-r-lg) !important; border-collapse: separate !important; overflow: hidden; background: var(--tw-surface); }
+.woocommerce table.shop_table th { background: var(--tw-bg-soft); font-weight: 700; }
+.woocommerce table.shop_table td, .woocommerce table.shop_table th { border-color: var(--tw-border) !important; padding: 14px 16px !important; }
+.woocommerce-message, .woocommerce-info, .woocommerce-error { border-radius: var(--tw-r-md); border-block-start-color: var(--tw-primary) !important; background: var(--tw-panel) !important; color: var(--tw-text) !important; }
+.woocommerce-error { border-block-start-color: var(--tw-error) !important; background: #FADCDA !important; color: #8E2520 !important; }
+.woocommerce-info::before, .woocommerce-message::before { color: var(--tw-primary) !important; }
+.woocommerce form.login, .woocommerce form.register { border: 1px solid var(--tw-border) !important; border-radius: var(--tw-r-lg) !important; padding: 24px !important; }
+
+/* Order received: the status line sits quietly above the Hub "You're in" panel. */
+.wc-block-order-confirmation-status { margin-block-end: var(--wp--preset--spacing--4); }
+.wc-block-order-confirmation-status p { font-size: var(--wp--preset--font-size--small, 1rem) !important; color: var(--wp--preset--color--muted); margin: 0; }
+
+/* WooCommerce's block theme CSS caps the account title and body at 1000px. Use the wide size for all of the page head so the breadcrumb lines up. */
+.woocommerce-account .tw-page-head > *, .woocommerce-account main .woocommerce, .woocommerce-account .wp-block-post-title { max-inline-size: var(--wp--style--global--wide-size) !important; }
+.woocommerce-account .woocommerce-MyAccount-navigation ul li { margin: 0 !important; padding: 0 !important; border: 0; }

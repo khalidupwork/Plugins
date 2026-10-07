@@ -47,6 +47,6 @@ During a key rotation, list both the `active` and `next` public keys in `public_
 | `{prefix}_key` | License key | no |
 | `{prefix}_state` | status, plan, expires_at, features, sites, last_check, offline_since, last_error, renew_url | no |
 | `{prefix}_instance` | `id` (UUID) and the URL it was created for | no |
-| `_transient_{prefix}_update_info` | Cached `update/check` response (6 h) | – |
+| `_transient_{prefix}_update_info` | Cached `update/check` response (6 h) | n/a |
 
 Delete these in your plugin's `uninstall.php`, and clear the cron hook `{prefix}_daily_check`.

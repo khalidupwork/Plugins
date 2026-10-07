@@ -112,7 +112,7 @@ final class LogsPage {
 							<?php if ( $row['license_id'] ) : ?>
 								<a href="<?php echo esc_url( admin_url( 'admin.php?page=twh-licenses&action=edit&license=' . (int) $row['license_id'] ) ); ?>">#<?php echo (int) $row['license_id']; ?></a>
 							<?php else : ?>
-								—
+								<?php esc_html_e( 'None', 'talkwyn-hub' ); ?>
 							<?php endif; ?>
 						</td>
 					<?php endif; ?>

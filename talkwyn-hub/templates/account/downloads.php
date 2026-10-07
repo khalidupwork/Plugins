@@ -12,25 +12,28 @@ use TWH\Support\Time;
 
 defined( 'ABSPATH' ) || exit;
 
-if ( empty( $items ) ) : ?>
-	<div class="woocommerce-info"><?php esc_html_e( 'Downloads appear here for every active license.', 'talkwyn-hub' ); ?></div>
+if ( empty( $items ) ) :
+	?>
+	<div class="twh-empty"><p><?php esc_html_e( 'Downloads appear here for every active license.', 'talkwyn-hub' ); ?></p></div>
 	<?php
 	return;
 endif;
 ?>
-<p class="twh-muted"><?php esc_html_e( 'Download links are valid for 10 minutes. Reload this page to get a fresh link. Updates are also delivered automatically in your WordPress dashboard.', 'talkwyn-hub' ); ?></p>
+<p class="twh-muted"><?php esc_html_e( 'Download links are valid for 10 minutes. Reload this page to get a fresh link. Updates also arrive automatically in your WordPress dashboard.', 'talkwyn-hub' ); ?></p>
 <?php foreach ( $items as $twh_item ) : ?>
-	<div class="twh-card twh-download">
-		<h3><?php echo esc_html( $twh_item['product'] ); ?> <small><?php echo esc_html( $twh_item['version'] ); ?></small></h3>
-		<p>
-			<a class="button alt" href="<?php echo esc_url( $twh_item['url'] ); ?>"><?php esc_html_e( 'Download ZIP', 'talkwyn-hub' ); ?></a>
+	<article class="twh-license-card twh-download">
+		<header class="twh-license-card__head">
+			<h3 class="twh-license-card__title"><?php echo esc_html( $twh_item['product'] ); ?> <span class="twh-plan"><?php echo esc_html( $twh_item['version'] ); ?></span></h3>
+		</header>
+		<div class="twh-actions">
+			<a class="button twh-btn" href="<?php echo esc_url( $twh_item['url'] ); ?>"><?php esc_html_e( 'Download ZIP', 'talkwyn-hub' ); ?></a>
 			<span class="twh-muted"><?php echo esc_html( Time::human( $twh_item['date'] ) . ( $twh_item['size'] ? ' · ' . size_format( $twh_item['size'] ) : '' ) ); ?></span>
-		</p>
+		</div>
 		<?php if ( '' !== $twh_item['changelog'] ) : ?>
-			<details>
-				<summary><?php esc_html_e( 'Changelog', 'talkwyn-hub' ); ?></summary>
+			<details class="twh-changelog-toggle">
+				<summary><?php esc_html_e( 'What changed', 'talkwyn-hub' ); ?></summary>
 				<div class="twh-changelog"><?php echo wp_kses_post( $twh_item['changelog'] ); ?></div>
 			</details>
 		<?php endif; ?>
-	</div>
+	</article>
 <?php endforeach; ?>

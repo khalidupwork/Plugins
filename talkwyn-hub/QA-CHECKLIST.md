@@ -1,4 +1,4 @@
-# Talkwyn Hub – Manual QA checklist
+# Talkwyn Hub: manual QA checklist
 
 Run this on a staging copy of talkwyn.com with Stripe in **test mode** (card `4242 4242 4242 4242`), plus a separate test WordPress site that runs the Talkwyn plugin with the client SDK. Tick each box.
 

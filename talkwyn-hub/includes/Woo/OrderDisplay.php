@@ -41,6 +41,7 @@ final class OrderDisplay {
 		add_action( 'woocommerce_email_after_order_table', array( self::class, 'email_end' ), 99 );
 		add_action( 'woocommerce_after_order_itemmeta', array( self::class, 'admin_item' ), 10, 2 );
 		add_action( 'woocommerce_thankyou', array( self::class, 'thankyou_notice' ), 5 );
+		add_filter( 'render_block_woocommerce/order-confirmation-status', array( self::class, 'thankyou_after_status' ) );
 	}
 
 	/**
@@ -76,6 +77,10 @@ final class OrderDisplay {
 		}
 		// Only the order owner (or a customer email) may see full keys.
 		if ( ! self::$in_email && ! self::viewer_owns( $order ) ) {
+			return;
+		}
+		// The thank-you page shows keys in the "You're in" panel instead.
+		if ( ! self::$in_email && function_exists( 'is_order_received_page' ) && is_order_received_page() ) {
 			return;
 		}
 
@@ -168,7 +173,7 @@ final class OrderDisplay {
 		}
 		foreach ( $ids as $license ) {
 			printf(
-				'<div class="twh-admin-key"><a href="%s">%s</a> — %s · %s</div>',
+				'<div class="twh-admin-key"><a href="%s">%s</a> · %s · %s</div>',
 				esc_url( admin_url( 'admin.php?page=twh-licenses&action=edit&license=' . (int) $license['id'] ) ),
 				esc_html( KeyGenerator::mask( (string) $license['key_last4'] ) ),
 				esc_html( LicenseService::plan_label( (string) $license['plan_slug'] ) ),
@@ -178,20 +183,67 @@ final class OrderDisplay {
 	}
 
 	/**
-	 * Point customers to their account on the thank-you page.
+	 * "You're in" panel on the thank-you page: keys with copy buttons and three next steps.
 	 *
 	 * @param int $order_id Order id.
 	 */
 	public static function thankyou_notice( $order_id ): void {
-		$order = wc_get_order( $order_id );
-		if ( ! $order instanceof \WC_Order || ! Licenses::for_order( $order->get_id() ) ) {
+		static $done = array();
+		if ( isset( $done[ (int) $order_id ] ) ) {
 			return;
 		}
-		echo '<div class="woocommerce-info twh-thankyou">';
-		esc_html_e( 'Your license key is shown below and has been emailed to you. Paste it into Talkwyn → Settings → License on your website.', 'talkwyn-hub' );
-		if ( is_user_logged_in() ) {
-			echo ' <a href="' . esc_url( wc_get_account_endpoint_url( 'licenses' ) ) . '">' . esc_html__( 'Manage your licenses', 'talkwyn-hub' ) . '</a>';
+		$done[ (int) $order_id ] = true;
+		$order                   = wc_get_order( $order_id );
+		if ( ! $order instanceof \WC_Order || ! self::viewer_owns( $order ) ) {
+			return;
 		}
-		echo '</div>';
+		$licenses = Licenses::for_order( $order->get_id() );
+		if ( ! $licenses ) {
+			if ( $order->has_status( array( 'pending', 'on-hold' ) ) ) {
+				echo '<div class="twh-thanks"><p class="twh-thanks__title">' . esc_html__( 'Thanks for your order.', 'talkwyn-hub' ) . '</p><p class="twh-thanks__lede">' . esc_html__( 'Your license key appears here and in your email as soon as the payment is confirmed.', 'talkwyn-hub' ) . '</p></div>';
+			}
+			return;
+		}
+		$logged_in = is_user_logged_in();
+		$download  = $logged_in ? wc_get_account_endpoint_url( 'software-downloads' ) : home_url( '/download/' );
+		$setup     = (string) apply_filters( 'twh_setup_guide_url', home_url( '/docs/getting-started/' ) );
+		?>
+		<section class="twh-thanks" aria-labelledby="twh-thanks-title">
+			<h2 class="twh-thanks__title" id="twh-thanks-title"><?php esc_html_e( 'You\'re in.', 'talkwyn-hub' ); ?></h2>
+			<p class="twh-thanks__lede"><?php echo esc_html( _n( 'Your license is ready. We\'ve also emailed the key to you.', 'Your licenses are ready. We\'ve also emailed the keys to you.', count( $licenses ), 'talkwyn-hub' ) ); ?></p>
+			<div class="twh-keypanel">
+				<p class="twh-keypanel__label"><?php echo esc_html( _n( 'Your license key', 'Your license keys', count( $licenses ), 'talkwyn-hub' ) ); ?></p>
+				<?php foreach ( $licenses as $license ) : ?>
+					<div class="twh-key twh-key--full" data-license="<?php echo (int) $license['id']; ?>">
+						<code class="twh-key-value"><?php echo esc_html( (string) Licenses::plain_key( $license ) ); ?></code>
+						<button type="button" class="twh-copy-btn twh-copy"><?php esc_html_e( 'Copy', 'talkwyn-hub' ); ?></button>
+					</div>
+				<?php endforeach; ?>
+			</div>
+			<ol class="twh-steps">
+				<li><strong><?php esc_html_e( 'Download Talkwyn', 'talkwyn-hub' ); ?></strong><p><a href="<?php echo esc_url( $download ); ?>"><?php echo esc_html( $logged_in ? __( 'Get the latest version from your account', 'talkwyn-hub' ) : __( 'Get the plugin from the download page', 'talkwyn-hub' ) ); ?></a></p></li>
+				<li><strong><?php esc_html_e( 'Activate your license', 'talkwyn-hub' ); ?></strong><p><?php esc_html_e( 'In WordPress, open Talkwyn, go to the License tab, and paste your key.', 'talkwyn-hub' ); ?></p></li>
+				<li><strong><?php esc_html_e( 'Follow the setup guide', 'talkwyn-hub' ); ?></strong><p><a href="<?php echo esc_url( $setup ); ?>"><?php esc_html_e( 'Scan your site and go live in about five minutes', 'talkwyn-hub' ); ?></a></p></li>
+			</ol>
+			<?php if ( $logged_in ) : ?>
+				<p><a href="<?php echo esc_url( wc_get_account_endpoint_url( 'licenses' ) ); ?>"><?php esc_html_e( 'Manage your licenses and sites', 'talkwyn-hub' ); ?></a></p>
+			<?php endif; ?>
+		</section>
+		<?php
+	}
+
+	/**
+	 * Block themes: show the panel right under the order status heading instead of below the order details.
+	 *
+	 * @param string $html Block output.
+	 */
+	public static function thankyou_after_status( $html ): string {
+		$order_id = absint( get_query_var( 'order-received' ) );
+		if ( ! $order_id ) {
+			return (string) $html;
+		}
+		ob_start();
+		self::thankyou_notice( $order_id );
+		return $html . ob_get_clean();
 	}
 }

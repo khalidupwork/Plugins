@@ -49,7 +49,7 @@ final class ProductTab {
 	 * @return array<string, string>
 	 */
 	private static function software_options(): array {
-		$options = array( '' => __( '— Select —', 'talkwyn-hub' ) );
+		$options = array( '' => __( 'Select a product', 'talkwyn-hub' ) );
 		foreach ( Products::all() as $product ) {
 			$options[ (string) $product['slug'] ] = (string) $product['name'] . ' (' . $product['slug'] . ')';
 		}

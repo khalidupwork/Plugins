@@ -2,7 +2,7 @@
 
 A license, activation and update server for Talkwyn commercial products, built as a WordPress + WooCommerce plugin. It runs on talkwyn.com.
 
-A customer buys on talkwyn.com and gets a license key immediately. They paste the key into Talkwyn on their own site: Pro features unlock and updates arrive in their WordPress dashboard. Licenses, sites, downloads, invoices and renewals are managed from **My Account** on talkwyn.com.
+A customer buys on talkwyn.com and gets a license key immediately. They paste the key into Talkwyn on their own site: Pro features turn on and updates arrive in their WordPress dashboard. Licenses, sites, downloads, invoices and renewals are managed from **My Account** on talkwyn.com.
 
 - **Requirements:** WordPress 6.4+, PHP 8.0+ with `sodium` and `zip`, WooCommerce 8+ (HPOS compatible). MySQL/MariaDB with InnoDB.
 - **Payments:** gateway-agnostic. The hub only reacts to WooCommerce order events. Tested flows assume the official *WooCommerce Stripe Payment Gateway*.
@@ -34,7 +34,7 @@ Docs: [API.md](API.md) · [QA-CHECKLIST.md](QA-CHECKLIST.md) · [client SDK](../
    - registers the My Account endpoints,
    - schedules the daily cron.
 4. Go to **Settings → Permalinks** and click **Save** once if `/my-account/licenses/` returns a 404.
-5. Make sure WP-Cron runs. On low-traffic sites, set a real cron that calls `wp-cron.php` every 5–15 minutes.
+5. Make sure WP-Cron runs. On low-traffic sites, set a real cron that calls `wp-cron.php` every 5 to 15 minutes.
 
 ### Nginx
 
@@ -132,7 +132,17 @@ All screens require `manage_woocommerce` (filter: `twh_admin_capability`).
 
 ## 7. Emails
 
-Emails use the WooCommerce email template (logo, colors, footer from **WooCommerce → Settings → Emails**). Templates and subjects are edited under **Talkwyn Hub → Settings**.
+Emails are branded HTML with a plain-text version for clients that don't show HTML. The layout has:
+
+- a Plum header with the logo
+- the message
+- the key in a Lilac panel
+- one Plum button
+- a footer
+
+Subjects and message text are edited under **Talkwyn Hub → Settings**. They are plain text with placeholders; line breaks become paragraphs.
+
+To change the layout, copy `templates/emails/branded.php` to `yourtheme/talkwyn-hub/emails/branded.php`. To change one email before it is sent, use the `twh_email` filter (subject, HTML, text, recipient).
 
 | Email | When |
 |---|---|

@@ -100,7 +100,17 @@ final class Mailer {
 			$url   = admin_url( 'admin.php?page=twh-licenses&action=edit&license=' . (int) $license['id'] );
 			$body .= '<p><a href="' . esc_url( $url ) . '">' . esc_html__( 'View license', 'talkwyn-hub' ) . '</a></p>';
 		}
-		self::deliver( Settings::admin_email(), '[Talkwyn Hub] ' . $subject, $subject, $body );
+		self::deliver(
+			Settings::admin_email(),
+			'[Talkwyn Hub] ' . $subject,
+			self::render(
+				array(
+					'heading' => $subject,
+					'body'    => $body,
+				)
+			),
+			$subject . "\n\n" . $message . ( $license ? "\n\n" . admin_url( 'admin.php?page=twh-licenses&action=edit&license=' . (int) $license['id'] ) : '' )
+		);
 	}
 
 	/**
@@ -159,34 +169,67 @@ final class Mailer {
 	}
 
 	/**
+	 * Heading and call-to-action per email type.
+	 *
+	 * @param string                $type Type.
+	 * @param array<string, string> $vars Placeholders.
+	 * @return array{heading: string, button: string, url: string}
+	 */
+	private static function layout( string $type, array $vars ): array {
+		$renew   = '' !== $vars['{renew_url}'] ? $vars['{renew_url}'] : $vars['{account_url}'];
+		$layouts = array(
+			'license'  => array( __( 'You\'re in. Here is your license.', 'talkwyn-hub' ), __( 'Manage your license', 'talkwyn-hub' ), $vars['{account_url}'] ),
+			'reminder' => array( __( 'Your license renews soon', 'talkwyn-hub' ), __( 'Renew now', 'talkwyn-hub' ), $renew ),
+			'expired'  => array( __( 'Your license has expired', 'talkwyn-hub' ), __( 'Renew in one click', 'talkwyn-hub' ), $renew ),
+			'renewed'  => array( __( 'Thanks for renewing', 'talkwyn-hub' ), __( 'View your license', 'talkwyn-hub' ), $vars['{account_url}'] ),
+		);
+		$l       = $layouts[ $type ] ?? array( '', '', '' );
+		return array(
+			'heading' => $l[0],
+			'button'  => $l[1],
+			'url'     => $l[2],
+		);
+	}
+
+	/**
 	 * Render and send a template.
 	 *
 	 * @param string                $to    Recipient.
 	 * @param string                $type  license|reminder|expired|renewed.
 	 * @param array<string, string> $vars  Placeholders.
-	 * @param string[]              $keys  Plain keys to highlight.
+	 * @param string[]              $keys  Plain keys shown in the key panel.
 	 */
 	private static function send( string $to, string $type, array $vars, array $keys = array() ): bool {
 		if ( ! is_email( $to ) ) {
 			return false;
 		}
 		$subject = strtr( (string) Settings::get( 'email_' . $type . '_subject' ), $vars );
-		$text    = strtr( (string) Settings::get( 'email_' . $type . '_body' ), $vars );
+		$text    = trim( strtr( (string) Settings::get( 'email_' . $type . '_body' ), $vars ) );
+		$layout  = self::layout( $type, $vars );
 
-		$html = wpautop( esc_html( $text ) );
-		foreach ( $keys as $key ) {
-			$html = str_replace(
-				esc_html( $key ),
-				'<code style="display:inline-block;font-family:Menlo,Consolas,monospace;font-size:16px;letter-spacing:1px;background:#f3f4f6;border:1px solid #e5e7eb;border-radius:6px;padding:8px 12px;user-select:all;">' . esc_html( $key ) . '</code>',
-				$html
-			);
+		$html = self::render(
+			array(
+				'heading' => $layout['heading'],
+				'body'    => make_clickable( wpautop( esc_html( $text ) ) ),
+				'keys'    => $keys,
+				'button'  => $layout['button'],
+				'url'     => $layout['url'],
+				'footer'  => $vars['{site_name}'],
+			)
+		);
+
+		$plain = $layout['heading'] . "\n\n" . $text . "\n";
+		if ( $keys ) {
+			$plain .= "\n" . _n( 'Your license key:', 'Your license keys:', count( $keys ), 'talkwyn-hub' ) . "\n" . implode( "\n", $keys ) . "\n";
 		}
-		$html = make_clickable( $html );
+		if ( '' !== $layout['url'] ) {
+			$plain .= "\n" . $layout['button'] . ': ' . $layout['url'] . "\n";
+		}
 
 		/**
 		 * Filter the email before sending.
 		 *
-		 * @param array{subject: string, html: string, to: string} $email Email.
+		 * @param array{subject: string, html: string, text: string, to: string} $email Email.
 		 * @param string $type Type.
 		 * @param array<string, string> $vars Placeholders.
 		 */
@@ -195,45 +238,67 @@ final class Mailer {
 			array(
 				'subject' => $subject,
 				'html'    => $html,
+				'text'    => $plain,
 				'to'      => $to,
 			),
 			$type,
 			$vars
 		);
 
-		return self::deliver( (string) $email['to'], (string) $email['subject'], (string) $email['subject'], (string) $email['html'] );
+		return self::deliver( (string) $email['to'], (string) $email['subject'], (string) $email['html'], (string) $email['text'] );
 	}
 
 	/**
-	 * Wrap in the WooCommerce template and send.
+	 * Branded HTML email (templates/emails/branded.php, overridable from the theme
+	 * as talkwyn-hub/emails/branded.php).
+	 *
+	 * @param array<string, mixed> $args heading, body (HTML), keys, button, url, footer.
+	 */
+	public static function render( array $args ): string {
+		$args     = array_merge(
+			array(
+				'heading' => '',
+				'body'    => '',
+				'keys'    => array(),
+				'button'  => '',
+				'url'     => '',
+				'footer'  => wp_specialchars_decode( (string) get_bloginfo( 'name' ), ENT_QUOTES ),
+				'logo'    => TWH_URL . 'assets/img/email-logo.png',
+			),
+			$args
+		);
+		$template = locate_template( 'talkwyn-hub/emails/branded.php' );
+		if ( '' === $template ) {
+			$template = TWH_DIR . 'templates/emails/branded.php';
+		}
+		ob_start();
+		include $template;
+		return (string) ob_get_clean();
+	}
+
+	/**
+	 * Send HTML with a plain-text alternative.
 	 *
 	 * @param string $to      Recipient.
 	 * @param string $subject Subject.
-	 * @param string $heading Heading.
-	 * @param string $html    Body HTML.
+	 * @param string $html    Full HTML document.
+	 * @param string $text    Plain-text version.
 	 */
-	private static function deliver( string $to, string $subject, string $heading, string $html ): bool {
+	private static function deliver( string $to, string $subject, string $html, string $text = '' ): bool {
 		$from_name = (string) Settings::get( 'email_from_name' );
-		$filter    = static function () use ( $from_name ) {
-			return $from_name;
+		$name_cb   = static function ( $name ) use ( $from_name ) {
+			return '' !== $from_name ? $from_name : $name;
 		};
-		if ( '' !== $from_name ) {
-			add_filter( 'wp_mail_from_name', $filter, 99 );
-			add_filter( 'woocommerce_email_from_name', $filter, 99 );
-		}
-
-		if ( function_exists( 'WC' ) && WC()->mailer() ) {
-			$mailer = WC()->mailer();
-			$body   = $mailer->wrap_message( $heading, $html );
-			$sent   = (bool) $mailer->send( $to, $subject, $body, array( 'Content-Type: text/html; charset=UTF-8' ) );
-		} else {
-			$sent = wp_mail( $to, $subject, $html, array( 'Content-Type: text/html; charset=UTF-8' ) );
-		}
-
-		if ( '' !== $from_name ) {
-			remove_filter( 'wp_mail_from_name', $filter, 99 );
-			remove_filter( 'woocommerce_email_from_name', $filter, 99 );
-		}
-		return $sent;
+		$alt_cb    = static function ( $phpmailer ) use ( $text ) {
+			if ( '' !== $text ) {
+				$phpmailer->AltBody = $text; // phpcs:ignore WordPress.NamingConventions.ValidVariableName.UsedPropertyNotSnakeCase -- PHPMailer API.
+			}
+		};
+		add_filter( 'wp_mail_from_name', $name_cb, 99 );
+		add_action( 'phpmailer_init', $alt_cb );
+		$sent = wp_mail( $to, $subject, $html, array( 'Content-Type: text/html; charset=UTF-8' ) );
+		remove_action( 'phpmailer_init', $alt_cb );
+		remove_filter( 'wp_mail_from_name', $name_cb, 99 );
+		return (bool) $sent;
 	}
 }

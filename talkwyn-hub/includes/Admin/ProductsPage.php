@@ -53,7 +53,7 @@ final class ProductsPage {
 							<tr>
 								<td><strong><?php echo esc_html( $p['name'] ); ?></strong></td>
 								<td><code><?php echo esc_html( $p['slug'] ); ?></code></td>
-								<td><?php echo esc_html( $p['latest_version'] ? $p['latest_version'] : '—' ); ?></td>
+								<td><?php echo esc_html( $p['latest_version'] ? $p['latest_version'] : __( 'None', 'talkwyn-hub' ) ); ?></td>
 								<td>
 									<a class="button button-small" href="<?php echo esc_url( admin_url( 'admin.php?page=twh-products&product=' . (int) $p['id'] ) ); ?>"><?php esc_html_e( 'Edit', 'talkwyn-hub' ); ?></a>
 									<form method="post" action="<?php echo esc_url( admin_url( 'admin-post.php' ) ); ?>" class="twh-inline twh-confirm-form">

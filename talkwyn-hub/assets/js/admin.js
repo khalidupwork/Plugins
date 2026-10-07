@@ -1,4 +1,4 @@
-/* Talkwyn Hub – admin helpers: click to copy, confirmations. */
+/* Talkwyn Hub admin helpers: click to copy, confirmations. */
 ( function () {
 	'use strict';
 	var cfg = window.twhAdmin || { i18n: {} };

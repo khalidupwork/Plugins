@@ -1,0 +1,51 @@
+<!-- wp:template-part {"slug":"header","tagName":"header"} /-->
+
+<!-- wp:group {"tagName":"main","className":"tw-main","layout":{"type":"default"},"style":{"spacing":{"margin":{"top":"0"}}}} -->
+<main class="wp-block-group tw-main" id="main" style="margin-top:0"><!-- wp:group {"className":"tw-page-head","layout":{"type":"constrained","contentSize":"1200px"}} -->
+<div class="wp-block-group tw-page-head"><!-- wp:shortcode -->
+[tw_breadcrumbs]
+<!-- /wp:shortcode -->
+
+<!-- wp:heading {"level":1} -->
+<h1 class="wp-block-heading">The Talkwyn blog</h1>
+<!-- /wp:heading -->
+
+<!-- wp:paragraph {"className":"tw-lede"} -->
+<p class="tw-lede">Practical guides on AI chatbots, multilingual support, and turning website visitors into customers.</p>
+<!-- /wp:paragraph --></div>
+<!-- /wp:group -->
+
+<!-- wp:group {"layout":{"type":"constrained","contentSize":"1200px"},"style":{"spacing":{"padding":{"top":"var:preset|spacing|8","bottom":"var:preset|spacing|18"}}}} -->
+<div class="wp-block-group" style="padding-top:var(--wp--preset--spacing--8);padding-bottom:var(--wp--preset--spacing--18)"><!-- wp:shortcode -->
+[tw_category_filter]
+<!-- /wp:shortcode -->
+
+<!-- wp:query {"queryId":1,"query":{"perPage":12,"pages":0,"offset":0,"postType":"post","order":"desc","orderBy":"date","inherit":true},"className":"tw-post-grid"} -->
+<div class="wp-block-query tw-post-grid"><!-- wp:post-template {"layout":{"type":"grid","columnCount":3,"minimumColumnWidth":"280px"}} -->
+<!-- wp:post-terms {"term":"category","className":"tw-eyebrow"} /-->
+
+<!-- wp:post-title {"level":2,"isLink":true} /-->
+
+<!-- wp:post-excerpt {"excerptLength":24} /-->
+
+<!-- wp:post-date {"className":"tw-small"} /-->
+<!-- /wp:post-template -->
+
+<!-- wp:query-pagination {"layout":{"type":"flex","justifyContent":"center"}} -->
+<!-- wp:query-pagination-previous /-->
+
+<!-- wp:query-pagination-numbers /-->
+
+<!-- wp:query-pagination-next /-->
+<!-- /wp:query-pagination -->
+
+<!-- wp:query-no-results -->
+<!-- wp:paragraph -->
+<p>New articles are on the way. Meanwhile, the <a href="/docs/getting-started/">setup guide</a> walks you through your first chatbot in about five minutes.</p>
+<!-- /wp:paragraph -->
+<!-- /wp:query-no-results --></div>
+<!-- /wp:query --></div>
+<!-- /wp:group --></main>
+<!-- /wp:group -->
+
+<!-- wp:template-part {"slug":"footer","tagName":"footer"} /-->

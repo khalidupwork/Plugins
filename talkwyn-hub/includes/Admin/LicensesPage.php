@@ -266,7 +266,7 @@ final class LicensesPage {
 										<br><small class="twh-muted"><?php echo esc_html( (string) $a['instance_id'] ); ?></small>
 									</td>
 									<td><small><?php echo esc_html( sprintf( 'Plugin %s · WP %s · PHP %s', $a['plugin_version'], $a['wp_version'], $a['php_version'] ) ); ?></small></td>
-									<td><small><?php echo esc_html( $a['deactivated_at'] ? sprintf( /* translators: %s: date */ __( 'Deactivated %s', 'talkwyn-hub' ), Time::human( $a['deactivated_at'] ) ) : Time::human( $a['last_check_at'], '—' ) ); ?></small></td>
+									<td><small><?php echo esc_html( $a['deactivated_at'] ? sprintf( /* translators: %s: date */ __( 'Deactivated %s', 'talkwyn-hub' ), Time::human( $a['deactivated_at'] ) ) : Time::human( $a['last_check_at'], __( 'Never', 'talkwyn-hub' ) ) ); ?></small></td>
 									<td>
 										<?php if ( ! $a['deactivated_at'] ) : ?>
 											<a class="button button-small twh-confirm" href="<?php echo esc_url( $action( 'deactivate', array( 'activation' => (int) $a['id'] ) ) ); ?>"><?php esc_html_e( 'Deactivate', 'talkwyn-hub' ); ?></a>
@@ -288,8 +288,8 @@ final class LicensesPage {
 							<li>
 								<?php if ( $order ) : ?>
 									<a href="<?php echo esc_url( $order->get_edit_order_url() ); ?>">#<?php echo esc_html( $order->get_order_number() ); ?></a>
-									— <?php echo esc_html( wc_get_order_status_name( $order->get_status() ) ); ?>
-									— <?php echo wp_kses_post( $order->get_formatted_order_total() ); ?>
+									· <?php echo esc_html( wc_get_order_status_name( $order->get_status() ) ); ?>
+									· <?php echo wp_kses_post( $order->get_formatted_order_total() ); ?>
 								<?php else : ?>
 									#<?php echo (int) $order_id; ?> <?php esc_html_e( '(deleted)', 'talkwyn-hub' ); ?>
 								<?php endif; ?>

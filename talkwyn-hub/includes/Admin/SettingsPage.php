@@ -141,7 +141,7 @@ final class SettingsPage {
 			<table class="widefat striped twh-status">
 				<tr><td><?php esc_html_e( 'TWH_SECRET_KEY defined', 'talkwyn-hub' ); ?></td><td><?php echo Secrets::has_constant() ? '✅' : '⚠️ ' . esc_html__( 'Using the WordPress salt fallback', 'talkwyn-hub' ); ?></td></tr>
 				<tr><td><?php esc_html_e( 'Release directory', 'talkwyn-hub' ); ?></td><td><code><?php echo esc_html( Storage::dir() ); ?></code> <?php echo Storage::ensure_dir() ? '✅' : '❌'; ?></td></tr>
-				<tr><td><?php esc_html_e( 'WooCommerce Subscriptions', 'talkwyn-hub' ); ?></td><td><?php echo \TWH\Woo\Subscriptions::active() ? esc_html__( 'Active – automatic renewals', 'talkwyn-hub' ) : esc_html__( 'Not active – manual renewal flow', 'talkwyn-hub' ); ?></td></tr>
+				<tr><td><?php esc_html_e( 'WooCommerce Subscriptions', 'talkwyn-hub' ); ?></td><td><?php echo \TWH\Woo\Subscriptions::active() ? esc_html__( 'Active, automatic renewals', 'talkwyn-hub' ) : esc_html__( 'Not active, manual renewal flow', 'talkwyn-hub' ); ?></td></tr>
 				<tr><td><?php esc_html_e( 'Daily cron scheduled', 'talkwyn-hub' ); ?></td><td><?php echo wp_next_scheduled( 'twh_daily' ) ? esc_html( wp_date( 'Y-m-d H:i', (int) wp_next_scheduled( 'twh_daily' ) ) ) : '❌'; ?></td></tr>
 				<tr><td><?php esc_html_e( 'API base URL', 'talkwyn-hub' ); ?></td><td><code><?php echo esc_html( rest_url( 'talkwyn-hub/v1/' ) ); ?></code></td></tr>
 				<tr><td><?php esc_html_e( 'Default dev patterns', 'talkwyn-hub' ); ?></td><td><small><?php echo esc_html( implode( ', ', Domain::DEFAULT_DEV_PATTERNS ) ); ?></small></td></tr>

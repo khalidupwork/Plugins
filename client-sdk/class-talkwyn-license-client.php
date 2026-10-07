@@ -1,6 +1,6 @@
 <?php
 /**
- * Talkwyn License Client – drop-in SDK for the Talkwyn plugin.
+ * Talkwyn License Client: drop-in SDK for the Talkwyn plugin.
  *
  * Talks to Talkwyn Hub (talkwyn-hub/v1): activation, daily checks, signed
  * responses (Ed25519), a 7-day offline grace period and automatic updates.

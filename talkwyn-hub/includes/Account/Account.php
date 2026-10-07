@@ -107,7 +107,7 @@ final class Account {
 	 * Front-end assets on account pages.
 	 */
 	public static function assets(): void {
-		if ( ! function_exists( 'is_account_page' ) || ! is_account_page() ) {
+		if ( ! function_exists( 'is_account_page' ) || ( ! is_account_page() && ! is_order_received_page() ) ) {
 			return;
 		}
 		wp_enqueue_style( 'twh-account', TWH_URL . 'assets/css/account.css', array(), TWH_VERSION );
@@ -282,6 +282,28 @@ final class Account {
 			wp_send_json_error( null, 500 );
 		}
 		wp_send_json_success( array( 'key' => $key ) );
+	}
+
+	/**
+	 * Badge for a license: Active (success), Expiring soon (warning, within 30 days),
+	 * Expired (error), Lifetime (Plum), plus Suspended and Revoked.
+	 *
+	 * @param array<string, mixed> $license License.
+	 * @return array{0: string, 1: string} [modifier class, label].
+	 */
+	public static function badge( array $license ): array {
+		$status = Licenses::effective_status( $license );
+		if ( 'active' === $status ) {
+			$expires = Licenses::expires_ts( $license );
+			if ( null === $expires ) {
+				return array( 'lifetime', __( 'Lifetime', 'talkwyn-hub' ) );
+			}
+			if ( $expires - time() <= 30 * DAY_IN_SECONDS ) {
+				return array( 'expiring', __( 'Expiring soon', 'talkwyn-hub' ) );
+			}
+			return array( 'active', __( 'Active', 'talkwyn-hub' ) );
+		}
+		return array( $status, LicenseService::status_label( $status ) );
 	}
 
 	/**
