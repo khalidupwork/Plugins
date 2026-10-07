@@ -386,3 +386,73 @@ add_shortcode(
 		return $html . '</div></aside>';
 	}
 );
+
+/**
+ * [tw_post_meta] Author, date and reading time under a post title.
+ */
+add_shortcode(
+	'tw_post_meta',
+	static function () {
+		$post = get_post();
+		if ( ! $post ) {
+			return '';
+		}
+		$words   = str_word_count( wp_strip_all_tags( (string) $post->post_content ) );
+		$minutes = max( 1, (int) round( $words / 220 ) );
+		$author  = get_the_author_meta( 'display_name', (int) $post->post_author );
+		return '<p class="tw-post-meta"><span class="tw-post-meta__mark" aria-hidden="true">' . talkwyn_logo_svg( 'mark', '' ) . '</span>'
+			. '<span>' . esc_html( $author ? $author : __( 'Talkwyn team', 'talkwyn' ) ) . '</span><span aria-hidden="true">·</span>'
+			. '<time datetime="' . esc_attr( get_the_date( 'c', $post ) ) . '">' . esc_html( get_the_date( '', $post ) ) . '</time><span aria-hidden="true">·</span>'
+			/* translators: %d: minutes */
+			. '<span>' . esc_html( sprintf( _n( '%d minute read', '%d minute read', $minutes, 'talkwyn' ), $minutes ) ) . '</span></p>';
+	}
+);
+
+/**
+ * [tw_post_aside] Sticky sidebar for posts: contents (moved in by theme.js) and a trial card.
+ */
+add_shortcode(
+	'tw_post_aside',
+	static function () {
+		$days = talkwyn_trial()['days'];
+		return '<aside class="tw-post-aside" aria-label="' . esc_attr__( 'Article tools', 'talkwyn' ) . '"><div class="tw-post-aside__sticky">'
+			. '<div class="tw-post-aside__toc" data-tw-toc-target></div>'
+			. '<div class="tw-post-aside__cta"><span class="tw-post-aside__icon">' . talkwyn_icon( 'sparkles', 20 ) . '</span>'
+			. '<p class="tw-post-aside__title">' . esc_html__( 'Try it on your own site', 'talkwyn' ) . '</p>'
+			/* translators: %d: trial days */
+			. '<p>' . esc_html( sprintf( __( 'Every Pro feature free for %d days. Live in about five minutes.', 'talkwyn' ), $days ) ) . '</p>'
+			. '<a class="tw-pill tw-pill--red tw-pill--block" href="' . esc_url( home_url( '/pricing/#trial' ) ) . '" data-tw-event="trial_click" data-tw-location="post_aside" data-tw-modal="trial">' . esc_html__( 'Start free trial', 'talkwyn' ) . '</a>'
+			. '<a class="tw-arrow-link" href="' . esc_url( talkwyn_install_url() ) . '" data-tw-event="install_click" data-tw-location="post_aside">' . esc_html__( 'Or install free', 'talkwyn' ) . talkwyn_icon( 'arrow-right', 16 ) . '</a></div>'
+			. '</div></aside>';
+	}
+);
+
+/**
+ * [tw_not_found] The 404 page body: message, search, and the pages people look for most.
+ */
+add_shortcode(
+	'tw_not_found',
+	static function () {
+		$links = array(
+			array( 'wallet', __( 'Pricing', 'talkwyn' ), __( 'Plans, the free trial, and the free plan.', 'talkwyn' ), '/pricing/' ),
+			array( 'rocket', __( 'Setup guide', 'talkwyn' ), __( 'From install to first answer.', 'talkwyn' ), '/docs/getting-started/' ),
+			array( 'plug', __( 'WordPress plugin', 'talkwyn' ), __( 'The chatbot that is live today.', 'talkwyn' ), '/integrations/wordpress/' ),
+			array( 'building-2', __( 'Industries', 'talkwyn' ), __( 'Twelve kinds of business, with examples.', 'talkwyn' ), '/industries/' ),
+			array( 'languages', __( 'Languages', 'talkwyn' ), __( 'Twelve focus languages.', 'talkwyn' ), '/multilingual-chatbot/' ),
+			array( 'newspaper', __( 'Blog', 'talkwyn' ), __( 'Guides for chatbots that bring leads.', 'talkwyn' ), '/blog/' ),
+		);
+		$cards = '';
+		foreach ( $links as $l ) {
+			$cards .= '<a class="tw-nf__card" href="' . esc_url( home_url( $l[3] ) ) . '"><span class="tw-card__icon">' . talkwyn_icon( $l[0], 20 ) . '</span><span><b>' . esc_html( $l[1] ) . '</b><i>' . esc_html( $l[2] ) . '</i></span>' . talkwyn_icon( 'arrow-right', 16 ) . '</a>';
+		}
+		return '<section class="tw-nf tw-blush tw-inset"><div class="tw-nf__grid">'
+			. '<div class="tw-nf__text"><p class="tw-eyebrow"><span class="tw-dot" aria-hidden="true"></span>' . esc_html__( 'Error 404', 'talkwyn' ) . '</p>'
+			. '<h1>' . esc_html__( 'This page did not answer.', 'talkwyn' ) . '</h1>'
+			. '<p class="tw-lede">' . esc_html__( 'The link may be old, or the page moved. Search the site, or pick one of the pages people look for most.', 'talkwyn' ) . '</p>'
+			. '<form class="tw-nf__search" role="search" method="get" action="' . esc_url( home_url( '/' ) ) . '"><label class="screen-reader-text" for="tw-nf-s">' . esc_html__( 'Search the site', 'talkwyn' ) . '</label>'
+			. '<input id="tw-nf-s" type="search" name="s" placeholder="' . esc_attr__( 'Search the site', 'talkwyn' ) . '"><button class="tw-pill tw-pill--red" type="submit">' . esc_html__( 'Search', 'talkwyn' ) . '</button></form>'
+			. '<p class="tw-nf__home"><a class="tw-arrow-link" href="' . esc_url( home_url( '/' ) ) . '">' . esc_html__( 'Back to the homepage', 'talkwyn' ) . talkwyn_icon( 'arrow-right', 16 ) . '</a></p></div>'
+			. '<div class="tw-nf__chat" aria-hidden="true"><div class="tw-vcard"><div class="tw-msg tw-msg--user"><p>' . esc_html__( 'Where did this page go?', 'talkwyn' ) . '</p></div><div class="tw-msg tw-msg--bot"><p>' . esc_html__( 'I could not find it. Here are the pages most people look for.', 'talkwyn' ) . '</p></div><span class="tw-nf__code">404</span></div></div>'
+			. '</div><div class="tw-nf__cards">' . $cards . '</div></section>';
+	}
+);

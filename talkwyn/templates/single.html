@@ -1,28 +1,38 @@
 <!-- wp:template-part {"slug":"header","tagName":"header"} /-->
 
-<!-- wp:group {"tagName":"main","className":"tw-main","layout":{"type":"default"},"style":{"spacing":{"margin":{"top":"0"}}}} -->
-<main class="wp-block-group tw-main" id="main" style="margin-top:0"><!-- wp:group {"tagName":"article","layout":{"type":"constrained"},"style":{"spacing":{"padding":{"top":"var:preset|spacing|12","bottom":"var:preset|spacing|18"}}}} -->
-<article class="wp-block-group" style="padding-top:var(--wp--preset--spacing--12);padding-bottom:var(--wp--preset--spacing--18)"><!-- wp:shortcode -->
+<!-- wp:group {"tagName":"main","className":"tw-main tw-main--post","layout":{"type":"default"},"style":{"spacing":{"margin":{"top":"0"}}}} -->
+<main class="wp-block-group tw-main tw-main--post" id="main" style="margin-top:0"><!-- wp:group {"tagName":"section","className":"tw-post-hero tw-blush tw-inset","layout":{"type":"default"}} -->
+<section class="wp-block-group tw-post-hero tw-blush tw-inset"><!-- wp:group {"className":"tw-post-hero__inner","layout":{"type":"default"}} -->
+<div class="wp-block-group tw-post-hero__inner"><!-- wp:shortcode -->
 [tw_breadcrumbs]
 <!-- /wp:shortcode -->
 
-<!-- wp:post-terms {"term":"category","className":"tw-eyebrow"} /-->
+<!-- wp:post-terms {"term":"category","className":"tw-post-hero__cat"} /-->
 
-<!-- wp:post-title {"level":1} /-->
-
-<!-- wp:group {"className":"tw-small","layout":{"type":"flex","flexWrap":"wrap"}} -->
-<div class="wp-block-group tw-small"><!-- wp:post-author-name /-->
-
-<!-- wp:post-date /--></div>
-<!-- /wp:group -->
-
-<!-- wp:post-featured-image {"aspectRatio":"16/9","style":{"border":{"radius":"20px"}}} /-->
-
-<!-- wp:post-content {"layout":{"type":"constrained"}} /-->
+<!-- wp:post-title {"level":1,"className":"tw-post-hero__title"} /-->
 
 <!-- wp:shortcode -->
+[tw_post_meta]
+<!-- /wp:shortcode --></div>
+<!-- /wp:group --></section>
+<!-- /wp:group -->
+
+<!-- wp:group {"className":"tw-post-layout","layout":{"type":"default"}} -->
+<div class="wp-block-group tw-post-layout"><!-- wp:group {"tagName":"article","className":"tw-post-body","layout":{"type":"default"}} -->
+<article class="wp-block-group tw-post-body"><!-- wp:post-featured-image {"aspectRatio":"16/9","style":{"border":{"radius":"20px"}}} /-->
+
+<!-- wp:post-content {"layout":{"type":"default"}} /--></article>
+<!-- /wp:group -->
+
+<!-- wp:shortcode -->
+[tw_post_aside]
+<!-- /wp:shortcode --></div>
+<!-- /wp:group -->
+
+<!-- wp:group {"className":"tw-post-related","layout":{"type":"default"}} -->
+<div class="wp-block-group tw-post-related"><!-- wp:shortcode -->
 [tw_related_posts]
-<!-- /wp:shortcode --></article>
+<!-- /wp:shortcode --></div>
 <!-- /wp:group -->
 
 <!-- wp:template-part {"slug":"cta-band"} /--></main>

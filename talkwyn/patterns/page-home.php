@@ -26,6 +26,8 @@ defined( 'ABSPATH' ) || exit;
 
 <!-- wp:pattern {"slug":"talkwyn/home-business"} /-->
 
+<!-- wp:pattern {"slug":"talkwyn/home-explore"} /-->
+
 <!-- wp:pattern {"slug":"talkwyn/home-integrations"} /-->
 
 <!-- wp:pattern {"slug":"talkwyn/home-why"} /-->

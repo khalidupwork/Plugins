@@ -685,3 +685,50 @@
 		}
 	} );
 }() );
+
+/* Posts: move the contents box into the sticky sidebar on wide screens and mark the section in view. */
+( function () {
+	var target = document.querySelector( '[data-tw-toc-target]' );
+	var toc = document.querySelector( '.tw-post-body .tw-toc-box' );
+	if ( ! target || ! toc ) {
+		return;
+	}
+	var home = document.createComment( 'toc' );
+	toc.parentNode.insertBefore( home, toc );
+	var mq = window.matchMedia( '(min-width: 1100px)' );
+	function place() {
+		if ( mq.matches && toc.parentNode !== target ) {
+			target.appendChild( toc );
+		} else if ( ! mq.matches && toc.parentNode === target ) {
+			home.parentNode.insertBefore( toc, home.nextSibling );
+		}
+	}
+	place();
+	if ( mq.addEventListener ) {
+		mq.addEventListener( 'change', place );
+	}
+	var links = Array.prototype.slice.call( toc.querySelectorAll( 'a[href^="#"]' ) );
+	if ( ! ( 'IntersectionObserver' in window ) || ! links.length ) {
+		return;
+	}
+	var byId = {};
+	links.forEach( function ( a ) {
+		byId[ decodeURIComponent( a.getAttribute( 'href' ).slice( 1 ) ) ] = a;
+	} );
+	var io = new IntersectionObserver( function ( entries ) {
+		entries.forEach( function ( e ) {
+			if ( e.isIntersecting && byId[ e.target.id ] ) {
+				links.forEach( function ( a ) {
+					a.removeAttribute( 'aria-current' );
+				} );
+				byId[ e.target.id ].setAttribute( 'aria-current', 'true' );
+			}
+		} );
+	}, { rootMargin: '-20% 0px -70% 0px' } );
+	Object.keys( byId ).forEach( function ( id ) {
+		var h = document.getElementById( id );
+		if ( h ) {
+			io.observe( h );
+		}
+	} );
+}() );

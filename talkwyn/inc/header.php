@@ -9,6 +9,59 @@
 defined( 'ABSPATH' ) || exit;
 
 /**
+ * The 12 industries, 12 languages and 12 comparison pages. One list for the mega menu,
+ * the footer and the homepage, so they never drift apart.
+ *
+ * @return array<string, array<int, array<int, string>>> Each item: icon, label, path, native name (languages).
+ */
+function talkwyn_site_lists(): array {
+	return array(
+		'industries' => array(
+			array( 'shopping-bag', __( 'Ecommerce', 'talkwyn' ), '/industries/ecommerce/' ),
+			array( 'building-2', __( 'Real estate', 'talkwyn' ), '/industries/real-estate/' ),
+			array( 'stethoscope', __( 'Healthcare and clinics', 'talkwyn' ), '/industries/healthcare/' ),
+			array( 'graduation-cap', __( 'Schools and education', 'talkwyn' ), '/industries/education/' ),
+			array( 'house', __( 'Small business', 'talkwyn' ), '/industries/small-business/' ),
+			array( 'calendar', __( 'Hotels and travel', 'talkwyn' ), '/industries/hotels/' ),
+			array( 'store', __( 'Restaurants and cafes', 'talkwyn' ), '/industries/restaurants/' ),
+			array( 'scale', __( 'Law firms', 'talkwyn' ), '/industries/law-firms/' ),
+			array( 'house', __( 'Home services', 'talkwyn' ), '/industries/home-services/' ),
+			array( 'heart-pulse', __( 'Gyms and fitness', 'talkwyn' ), '/industries/fitness/' ),
+			array( 'gauge', __( 'Automotive', 'talkwyn' ), '/industries/automotive/' ),
+			array( 'sparkles', __( 'Salons and spas', 'talkwyn' ), '/industries/beauty-salons/' ),
+		),
+		'languages'  => array(
+			array( 'languages', __( 'English', 'talkwyn' ), '/multilingual-chatbot/english/', 'English', 'en' ),
+			array( 'languages', __( 'Spanish', 'talkwyn' ), '/multilingual-chatbot/spanish/', 'Español', 'es' ),
+			array( 'languages', __( 'French', 'talkwyn' ), '/multilingual-chatbot/french/', 'Français', 'fr' ),
+			array( 'languages', __( 'German', 'talkwyn' ), '/multilingual-chatbot/german/', 'Deutsch', 'de' ),
+			array( 'languages', __( 'Portuguese', 'talkwyn' ), '/multilingual-chatbot/portuguese/', 'Português', 'pt' ),
+			array( 'languages', __( 'Italian', 'talkwyn' ), '/multilingual-chatbot/italian/', 'Italiano', 'it' ),
+			array( 'languages', __( 'Arabic', 'talkwyn' ), '/multilingual-chatbot/arabic/', 'العربية', 'ar' ),
+			array( 'languages', __( 'Hindi', 'talkwyn' ), '/multilingual-chatbot/hindi/', 'हिन्दी', 'hi' ),
+			array( 'languages', __( 'Chinese', 'talkwyn' ), '/multilingual-chatbot/chinese/', '中文', 'zh' ),
+			array( 'languages', __( 'Japanese', 'talkwyn' ), '/multilingual-chatbot/japanese/', '日本語', 'ja' ),
+			array( 'languages', __( 'Korean', 'talkwyn' ), '/multilingual-chatbot/korean/', '한국어', 'ko' ),
+			array( 'languages', __( 'Turkish', 'talkwyn' ), '/multilingual-chatbot/turkish/', 'Türkçe', 'tr' ),
+		),
+		'compare'    => array(
+			array( 'scale', __( 'Tidio alternative', 'talkwyn' ), '/compare/tidio-alternative/' ),
+			array( 'scale', __( 'Chatbase alternative', 'talkwyn' ), '/compare/chatbase-alternative/' ),
+			array( 'scale', __( 'Intercom alternative', 'talkwyn' ), '/compare/intercom-alternative/' ),
+			array( 'scale', __( 'Crisp alternative', 'talkwyn' ), '/compare/crisp-alternative/' ),
+			array( 'scale', __( 'tawk.to alternative', 'talkwyn' ), '/compare/tawk-to-alternative/' ),
+			array( 'scale', __( 'LiveChat alternative', 'talkwyn' ), '/compare/livechat-alternative/' ),
+			array( 'scale', __( 'Zendesk alternative', 'talkwyn' ), '/compare/zendesk-alternative/' ),
+			array( 'scale', __( 'Freshchat alternative', 'talkwyn' ), '/compare/freshchat-alternative/' ),
+			array( 'scale', __( 'HubSpot chatbot alternative', 'talkwyn' ), '/compare/hubspot-chatbot-alternative/' ),
+			array( 'scale', __( 'Botpress alternative', 'talkwyn' ), '/compare/botpress-alternative/' ),
+			array( 'scale', __( 'ManyChat alternative', 'talkwyn' ), '/compare/manychat-alternative/' ),
+			array( 'scale', __( 'Olark alternative', 'talkwyn' ), '/compare/olark-alternative/' ),
+		),
+	);
+}
+
+/**
  * Mega menu data (site-plan.md section 3).
  *
  * @return array<int, array<string, mixed>>
@@ -59,13 +112,15 @@ function talkwyn_menu(): array {
 		array(
 			'id'      => 'industries',
 			'label'   => __( 'Industries', 'talkwyn' ),
-			'links'   => array(
-				array( 'shopping-bag', __( 'Ecommerce', 'talkwyn' ), __( 'Sizes, shipping, returns, and products', 'talkwyn' ), '/industries/ecommerce/' ),
-				array( 'building-2', __( 'Real estate', 'talkwyn' ), __( 'Listings, viewings, and areas you cover', 'talkwyn' ), '/industries/real-estate/' ),
-				array( 'stethoscope', __( 'Healthcare and clinics', 'talkwyn' ), __( 'Treatments, insurance, and appointments', 'talkwyn' ), '/industries/healthcare/' ),
-				array( 'graduation-cap', __( 'Education', 'talkwyn' ), __( 'Admissions, fees, and schedules', 'talkwyn' ), '/industries/education/' ),
-				array( 'house', __( 'Small business', 'talkwyn' ), __( 'A front desk that never closes', 'talkwyn' ), '/industries/small-business/' ),
-				array( 'briefcase', __( 'Agencies (white label)', 'talkwyn' ), __( 'One license for every client site', 'talkwyn' ), '/agencies/' ),
+			'compact' => true,
+			'links'   => array_merge(
+				array_map(
+					static function ( $i ) {
+						return array( $i[0], $i[1], '', $i[2] );
+					},
+					talkwyn_site_lists()['industries']
+				),
+				array( array( 'briefcase', __( 'Agencies (white label)', 'talkwyn' ), '', '/agencies/' ) )
 			),
 			'feature' => array(
 				'type'  => 'template',
@@ -77,14 +132,15 @@ function talkwyn_menu(): array {
 		array(
 			'id'      => 'languages',
 			'label'   => __( 'Languages', 'talkwyn' ),
-			'links'   => array(
-				array( 'globe', __( 'All languages', 'talkwyn' ), __( 'How the multilingual chatbot works', 'talkwyn' ), '/multilingual-chatbot/' ),
-				array( 'languages', __( 'Spanish', 'talkwyn' ), __( 'For customers in Spain and Latin America', 'talkwyn' ), '/multilingual-chatbot/spanish/' ),
-				array( 'languages', __( 'French', 'talkwyn' ), __( 'France, Belgium, Canada, and beyond', 'talkwyn' ), '/multilingual-chatbot/french/' ),
-				array( 'languages', __( 'German', 'talkwyn' ), __( 'Germany, Austria, and Switzerland', 'talkwyn' ), '/multilingual-chatbot/german/' ),
-				array( 'languages', __( 'Portuguese', 'talkwyn' ), __( 'Brazil and Portugal', 'talkwyn' ), '/multilingual-chatbot/portuguese/' ),
-				array( 'languages', __( 'Arabic', 'talkwyn' ), __( 'Right to left, with readable fonts', 'talkwyn' ), '/multilingual-chatbot/arabic/' ),
-				array( 'languages', __( 'Hindi', 'talkwyn' ), __( 'Devanagari script', 'talkwyn' ), '/multilingual-chatbot/hindi/' ),
+			'compact' => true,
+			'links'   => array_merge(
+				array_map(
+					static function ( $i ) {
+						return array( $i[0], $i[1], $i[3], $i[2] );
+					},
+					talkwyn_site_lists()['languages']
+				),
+				array( array( 'globe', __( 'All languages', 'talkwyn' ), __( 'How it works', 'talkwyn' ), '/multilingual-chatbot/' ) )
 			),
 			'feature' => array(
 				'type'  => 'languages',
@@ -205,7 +261,7 @@ function talkwyn_menu_link( array $l, string $current ): string {
 	return '<li><a class="tw-mega__link" href="' . esc_url( home_url( $url ) ) . '"' . $here . '>'
 		. '<span class="tw-mega__icon">' . talkwyn_icon( $l[0], 20 ) . '</span>'
 		. '<span class="tw-mega__text"><span class="tw-mega__title">' . esc_html( $l[1] ) . $pill . '</span>'
-		. '<span class="tw-mega__desc">' . esc_html( $l[2] ) . '</span></span></a></li>';
+		. ( '' !== $l[2] ? '<span class="tw-mega__desc">' . esc_html( $l[2] ) . '</span>' : '' ) . '</span></a></li>';
 }
 
 /**
@@ -234,7 +290,7 @@ function talkwyn_header_html(): string {
 			$active = $active || $l[3] === $current;
 		}
 		$id       = 'tw-mega-' . $item['id'];
-		$cols     = count( $item['links'] ) > 6 ? ' tw-mega__links--3' : '';
+		$cols     = ! empty( $item['compact'] ) ? ' tw-mega__links--compact' : ( count( $item['links'] ) > 6 ? ' tw-mega__links--3' : '' );
 		$desktop .= '<li class="tw-mega__item' . ( $active ? ' is-current' : '' ) . '">'
 			. '<button type="button" class="tw-mega__trigger" aria-expanded="false" aria-controls="' . esc_attr( $id ) . '">' . esc_html( $item['label'] ) . talkwyn_icon( 'chevron-down', 16 ) . '</button>'
 			. '<div class="tw-mega__panel" id="' . esc_attr( $id ) . '" hidden><div class="tw-mega__inner">'
@@ -289,27 +345,18 @@ function talkwyn_footer_columns(): array {
 			array( __( 'Any website', 'talkwyn' ), '/integrations/website-embed/' ),
 			array( __( 'All integrations', 'talkwyn' ), '/integrations/' ),
 		),
-		__( 'Industries', 'talkwyn' )   => array(
-			array( __( 'Ecommerce', 'talkwyn' ), '/industries/ecommerce/' ),
-			array( __( 'Real estate', 'talkwyn' ), '/industries/real-estate/' ),
-			array( __( 'Healthcare', 'talkwyn' ), '/industries/healthcare/' ),
-			array( __( 'Education', 'talkwyn' ), '/industries/education/' ),
-			array( __( 'Small business', 'talkwyn' ), '/industries/small-business/' ),
-			array( __( 'Agencies', 'talkwyn' ), '/agencies/' ),
-		),
-		__( 'Languages', 'talkwyn' )    => array(
-			array( __( 'Spanish', 'talkwyn' ), '/multilingual-chatbot/spanish/' ),
-			array( __( 'French', 'talkwyn' ), '/multilingual-chatbot/french/' ),
-			array( __( 'German', 'talkwyn' ), '/multilingual-chatbot/german/' ),
-			array( __( 'Arabic', 'talkwyn' ), '/multilingual-chatbot/arabic/' ),
-			array( __( 'Hindi', 'talkwyn' ), '/multilingual-chatbot/hindi/' ),
+		__( 'Resources', 'talkwyn' )    => array(
+			array( __( 'Blog', 'talkwyn' ), '/blog/' ),
+			array( __( 'Docs', 'talkwyn' ), '/docs/' ),
+			array( __( 'Getting started', 'talkwyn' ), '/docs/getting-started/' ),
+			array( __( 'All comparisons', 'talkwyn' ), '/compare/' ),
+			array( __( 'All industries', 'talkwyn' ), '/industries/' ),
 			array( __( 'All languages', 'talkwyn' ), '/multilingual-chatbot/' ),
 		),
 		__( 'Company', 'talkwyn' )      => array(
 			array( __( 'About', 'talkwyn' ), '/about/' ),
 			array( __( 'Partners', 'talkwyn' ), '/partners/' ),
-			array( __( 'Blog', 'talkwyn' ), '/blog/' ),
-			array( __( 'Docs', 'talkwyn' ), '/docs/' ),
+			array( __( 'Agencies', 'talkwyn' ), '/agencies/' ),
 			array( __( 'Contact', 'talkwyn' ), '/contact/' ),
 			array( __( 'Privacy', 'talkwyn' ), '/privacy/' ),
 			array( __( 'Terms', 'talkwyn' ), '/terms/' ),
@@ -334,6 +381,30 @@ function talkwyn_footer_wordmark(): string {
 }
 
 /**
+ * Footer explore band: every industry, language and comparison page.
+ *
+ * @param string $current Current path.
+ */
+function talkwyn_footer_explore( string $current ): string {
+	$lists  = talkwyn_site_lists();
+	$groups = array(
+		array( __( 'Industries', 'talkwyn' ), $lists['industries'], '/industries/' ),
+		array( __( 'Languages', 'talkwyn' ), $lists['languages'], '/multilingual-chatbot/' ),
+		array( __( 'Compare', 'talkwyn' ), $lists['compare'], '/compare/' ),
+	);
+	$out    = '';
+	foreach ( $groups as $g ) {
+		$items = '';
+		foreach ( $g[1] as $l ) {
+			$here   = $l[2] === $current ? ' aria-current="page"' : '';
+			$items .= '<li><a href="' . esc_url( home_url( $l[2] ) ) . '"' . $here . '>' . esc_html( $l[1] ) . '</a></li>';
+		}
+		$out .= '<div class="tw-ftr__xgroup"><h2 class="tw-ftr__heading"><a href="' . esc_url( home_url( $g[2] ) ) . '">' . esc_html( $g[0] ) . '</a></h2><ul>' . $items . '</ul></div>';
+	}
+	return '<nav class="tw-ftr__explore" aria-label="' . esc_attr__( 'Explore', 'talkwyn' ) . '">' . $out . '</nav>';
+}
+
+/**
  * Footer markup.
  */
 function talkwyn_footer_html(): string {
@@ -354,6 +425,7 @@ function talkwyn_footer_html(): string {
 		. '<a class="tw-pill tw-pill--red tw-pill--sm" href="' . esc_url( home_url( '/pricing/#trial' ) ) . '" data-tw-event="trial_click" data-tw-location="footer">' . esc_html__( 'Start free trial', 'talkwyn' ) . '</a></div>'
 		. '<nav class="tw-ftr__cols" aria-label="' . esc_attr__( 'Footer', 'talkwyn' ) . '">' . $cols . '</nav>'
 		. '</div>'
+		. talkwyn_footer_explore( $current )
 		. '<div class="tw-ftr__bottom">' . do_shortcode( '[tw_social]' )
 		/* translators: %s: year */
 		. '<p>' . esc_html( sprintf( __( '© %s Talkwyn. All rights reserved.', 'talkwyn' ), gmdate( 'Y' ) ) ) . '</p>'

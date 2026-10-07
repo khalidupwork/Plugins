@@ -456,3 +456,28 @@ add_shortcode(
 		return '<div class="tw-vcard"><div class="tw-vcard__head"><span class="tw-vcard__icon">' . talkwyn_icon( 'list-checks', 18 ) . '</span><b>' . esc_html__( 'Status labels', 'talkwyn' ) . '</b></div><ul class="tw-vcard__rows tw-legend">' . $rows . '</ul></div>';
 	}
 );
+
+/**
+ * [tw_explore] Homepage band: all 12 industries and all 12 languages, each a link to its page.
+ */
+add_shortcode(
+	'tw_explore',
+	static function () {
+		$lists = talkwyn_site_lists();
+		$ind   = '';
+		foreach ( $lists['industries'] as $i ) {
+			$ind .= '<li><a href="' . esc_url( home_url( $i[2] ) ) . '"><span class="tw-xp__icon">' . talkwyn_icon( $i[0], 18 ) . '</span>' . esc_html( $i[1] ) . talkwyn_icon( 'arrow-right', 14 ) . '</a></li>';
+		}
+		$lang = '';
+		foreach ( $lists['languages'] as $l ) {
+			$dir   = 'ar' === $l[4] ? ' dir="rtl"' : '';
+			$lang .= '<li><a href="' . esc_url( home_url( $l[2] ) ) . '"><b lang="' . esc_attr( $l[4] ) . '"' . $dir . '>' . esc_html( $l[3] ) . '</b><span>' . esc_html( $l[1] ) . '</span></a></li>';
+		}
+		return '<div class="tw-xp">'
+			. '<div class="tw-xp__panel"><div class="tw-xp__head"><p class="tw-xp__kicker">' . esc_html__( '12 industries', 'talkwyn' ) . '</p><h3>' . esc_html__( 'Set up for the questions your business gets', 'talkwyn' ) . '</h3></div><ul class="tw-xp__ind">' . $ind . '</ul>'
+			. '<a class="tw-arrow-link" href="' . esc_url( home_url( '/industries/' ) ) . '">' . esc_html__( 'All industries', 'talkwyn' ) . talkwyn_icon( 'arrow-right', 16 ) . '</a></div>'
+			. '<div class="tw-xp__panel"><div class="tw-xp__head"><p class="tw-xp__kicker">' . esc_html__( '12 focus languages', 'talkwyn' ) . '</p><h3>' . esc_html__( 'Replies in the language each visitor writes in', 'talkwyn' ) . '</h3></div><ul class="tw-xp__lang">' . $lang . '</ul>'
+			. '<a class="tw-arrow-link" href="' . esc_url( home_url( '/multilingual-chatbot/' ) ) . '">' . esc_html__( 'How the multilingual chatbot works', 'talkwyn' ) . talkwyn_icon( 'arrow-right', 16 ) . '</a></div>'
+			. '</div>';
+	}
+);
