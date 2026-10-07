@@ -17,7 +17,7 @@ defined( 'ABSPATH' ) || exit;
 <!-- /wp:paragraph -->
 
 <!-- wp:html -->
-<h1 class="wp-block-heading tw-hero__title"><span class="screen-reader-text">Your website, answering every visitor in their language.</span><span aria-hidden="true">Your website, answering every visitor in <span class="tw-rotator" data-tw-rotator><span class="tw-rotator__static">their language.</span><span class="tw-rotator__word is-active"><span class="tw-rotator__u" lang="en">English</span>.</span><span class="tw-rotator__word"><span class="tw-rotator__u" lang="ar" dir="rtl">العربية</span>.</span><span class="tw-rotator__word"><span class="tw-rotator__u" lang="ur" dir="rtl">اردو</span>.</span><span class="tw-rotator__word"><span class="tw-rotator__u" lang="es">Español</span>.</span><span class="tw-rotator__word"><span class="tw-rotator__u" lang="hi">हिन्दी</span>.</span><span class="tw-rotator__word"><span class="tw-rotator__u" lang="fr">Français</span>.</span></span></span></h1>
+<h1 class="wp-block-heading tw-hero__title"><span class="screen-reader-text">Your website, answering every visitor in their language.</span><span aria-hidden="true">Your website, answering every visitor in <span class="tw-rotator" data-tw-rotator><span class="tw-rotator__static">their language.</span><span class="tw-rotator__word is-active"><span class="tw-rotator__u" lang="en">English</span>.</span><span class="tw-rotator__word"><span class="tw-rotator__u" lang="es">Español</span>.</span><span class="tw-rotator__word"><span class="tw-rotator__u" lang="fr">Français</span>.</span><span class="tw-rotator__word"><span class="tw-rotator__u" lang="de">Deutsch</span>.</span><span class="tw-rotator__word"><span class="tw-rotator__u" lang="ar" dir="rtl">العربية</span>.</span><span class="tw-rotator__word"><span class="tw-rotator__u" lang="hi">हिन्दी</span>.</span><span class="tw-rotator__word"><span class="tw-rotator__u" lang="zh">中文</span>.</span><span class="tw-rotator__word"><span class="tw-rotator__u" lang="ja">日本語</span>.</span></span></span></h1>
 <!-- /wp:html -->
 
 <!-- wp:paragraph {"className":"tw-lede tw-hero__lede"} -->
@@ -47,7 +47,7 @@ defined( 'ABSPATH' ) || exit;
    <div class="tw-app__row is-active"><span class="tw-app__avatar">S</span><span class="tw-app__who"><b>Sara</b><span>How much is teeth whitening?</span></span><span class="tw-app__tag">EN</span></div>
    <div class="tw-app__row"><span class="tw-app__avatar">O</span><span class="tw-app__who"><b>Omar</b><span lang="ar" dir="rtl">هل تفتحون يوم السبت؟</span></span><span class="tw-app__tag">AR</span></div>
    <div class="tw-app__row"><span class="tw-app__avatar">L</span><span class="tw-app__who"><b>Lucía</b><span lang="es">¿Aceptan mi seguro?</span></span><span class="tw-app__tag">ES</span></div>
-   <div class="tw-app__row"><span class="tw-app__avatar">B</span><span class="tw-app__who"><b>Bilal</b><span lang="ur-Latn">Kal ka appointment mil sakta hai?</span></span><span class="tw-app__tag">UR</span></div>
+   <div class="tw-app__row"><span class="tw-app__avatar">J</span><span class="tw-app__who"><b>Jonas</b><span lang="de">Haben Sie morgen einen Termin frei?</span></span><span class="tw-app__tag">DE</span></div>
   </div>
   <div class="tw-app__convo">
    <div class="tw-chat tw-chat--bare" data-tw-play="loop"><div class="tw-chat__body tw-chat__body--short">

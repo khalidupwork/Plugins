@@ -547,7 +547,7 @@
 	}
 	function detectLang( text ) {
 		if ( /[؀-ۿ]/.test( text ) ) {
-			return /[ٹڈڑںےگکھپچژ]/.test( text ) ? 'ur' : 'ar';
+			return 'ar';
 		}
 		if ( /[ऀ-ॿ]/.test( text ) ) {
 			return 'hi';
@@ -555,8 +555,8 @@
 		if ( /\b(hola|cuánto|cuanto|precio|blanqueamiento|sábado|seguro|cita|mañana)\b/i.test( text ) ) {
 			return 'es';
 		}
-		if ( /\b(kya|hai|kab|kitna|kitne|mein|aap|chahiye|karna)\b/i.test( text ) ) {
-			return 'ur-Latn';
+		if ( /\b(bonjour|combien|samedi|blanchiment|rendez-vous|ouvert|vous|est-ce)\b/i.test( text ) ) {
+			return 'fr';
 		}
 		return 'en';
 	}

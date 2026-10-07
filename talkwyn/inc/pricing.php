@@ -271,7 +271,7 @@ add_shortcode(
 			array( __( 'AI provider', 'talkwyn' ), esc_html__( 'Your choice, including free tiers from Groq, Gemini, OpenRouter, and Cloudflare', 'talkwyn' ), esc_html__( 'Provided by Tidio', 'talkwyn' ) ),
 			array( __( 'Where chats are stored', 'talkwyn' ), esc_html__( 'Your WordPress database', 'talkwyn' ), esc_html__( 'Tidio\'s servers', 'talkwyn' ) ),
 			array( __( 'Answers from your site', 'talkwyn' ), esc_html__( 'Pages, posts, WooCommerce products, Elementor content, with sources', 'talkwyn' ), esc_html__( 'See Tidio\'s documentation', 'talkwyn' ) ),
-			array( __( 'Roman Urdu and mixed language', 'talkwyn' ), esc_html__( 'Built for it', 'talkwyn' ), esc_html__( 'See Tidio\'s documentation', 'talkwyn' ) ),
+			array( __( 'Mixed-language messages', 'talkwyn' ), esc_html__( 'Built for it', 'talkwyn' ), esc_html__( 'See Tidio\'s documentation', 'talkwyn' ) ),
 			array( __( 'Live chat with human agents', 'talkwyn' ), esc_html__( 'Lead capture inside the chat, with email alerts', 'talkwyn' ), esc_html__( 'Yes', 'talkwyn' ) ),
 		);
 		$html    = '<div class="tw-table-wrap" role="region" aria-labelledby="tw-tidio-caption" tabindex="0"><table class="tw-table"><caption id="tw-tidio-caption">' . esc_html__( 'Talkwyn and Tidio side by side', 'talkwyn' ) . '</caption><thead><tr><th scope="col"><span class="screen-reader-text">' . esc_html__( 'Compared', 'talkwyn' ) . '</span></th><th scope="col" class="tw-col-us">Talkwyn</th><th scope="col">Tidio</th></tr></thead><tbody>';

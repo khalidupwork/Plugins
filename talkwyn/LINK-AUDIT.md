@@ -4,14 +4,14 @@ Every page in the v3 site plan, with the number of internal links in its main co
 
 | Page | Links out | Links in |
 |---|---:|---:|
-| `/` | 22 | 43 |
-| `/pricing/` | 13 | 41 |
+| `/` | 22 | 45 |
+| `/pricing/` | 13 | 43 |
 | `/partners/` | 7 | 7 |
 | `/compare/` | 9 | 5 |
 | `/compare/tidio-alternative/` | 10 | 5 |
 | `/compare/chatbase-alternative/` | 10 | 4 |
 | `/compare/intercom-alternative/` | 11 | 3 |
-| `/download/` | 10 | 40 |
+| `/download/` | 10 | 42 |
 | `/about/` | 8 | 4 |
 | `/contact/` | 11 | 6 |
 | `/privacy/` | 7 | 7 |
@@ -19,22 +19,24 @@ Every page in the v3 site plan, with the number of internal links in its main co
 | `/refund-policy/` | 8 | 4 |
 | `/changelog/` | 5 | 3 |
 | `/integrations/` | 12 | 9 |
-| `/integrations/wordpress/` | 9 | 20 |
+| `/integrations/wordpress/` | 9 | 22 |
 | `/integrations/woocommerce/` | 8 | 7 |
 | `/integrations/elementor/` | 7 | 3 |
 | `/integrations/shopify/` | 7 | 4 |
 | `/integrations/website-embed/` | 5 | 3 |
 | `/integrations/whatsapp/` | 5 | 3 |
-| `/industries/ecommerce/` | 9 | 4 |
+| `/industries/ecommerce/` | 10 | 4 |
 | `/industries/real-estate/` | 8 | 5 |
-| `/industries/healthcare/` | 6 | 3 |
+| `/industries/healthcare/` | 7 | 3 |
 | `/industries/education/` | 7 | 3 |
 | `/industries/small-business/` | 9 | 5 |
 | `/agencies/` | 7 | 5 |
-| `/multilingual-chatbot/` | 9 | 11 |
-| `/multilingual-chatbot/arabic/` | 10 | 6 |
-| `/multilingual-chatbot/urdu/` | 8 | 4 |
-| `/multilingual-chatbot/spanish/` | 8 | 4 |
+| `/multilingual-chatbot/` | 11 | 13 |
+| `/multilingual-chatbot/arabic/` | 10 | 5 |
+| `/multilingual-chatbot/spanish/` | 8 | 6 |
+| `/multilingual-chatbot/french/` | 9 | 4 |
+| `/multilingual-chatbot/german/` | 8 | 3 |
+| `/multilingual-chatbot/portuguese/` | 7 | 4 |
 | `/multilingual-chatbot/hindi/` | 8 | 3 |
 | `/features/` | 9 | 4 |
 | `/features/knowledge-base/` | 8 | 4 |
@@ -44,7 +46,7 @@ Every page in the v3 site plan, with the number of internal links in its main co
 | `/blog/add-free-chatbot-to-wordpress/` | 11 | 5 |
 | `/blog/real-estate-chatbot-template/` | 10 | 4 |
 | `/blog/best-wordpress-chatbot-plugins/` | 11 | 3 |
-| `/docs/getting-started/` | 9 | 40 |
+| `/docs/getting-started/` | 9 | 42 |
 | `/docs/ai-providers/` | 7 | 3 |
 | `/industries/` | 12 | 5 |
 | `/blog/` | 13 | 4 |

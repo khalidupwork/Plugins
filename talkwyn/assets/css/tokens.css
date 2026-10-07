@@ -44,7 +44,7 @@
 
   /* Type */
   --tw-font-display: "Plus Jakarta Sans", "Figtree", system-ui, sans-serif;
-  --tw-font-body: "Figtree", system-ui, -apple-system, "Segoe UI", "Noto Sans Arabic", "Noto Nastaliq Urdu", "Noto Sans Devanagari", sans-serif;
+  --tw-font-body: "Figtree", system-ui, -apple-system, "Segoe UI", "Noto Sans Arabic", "Noto Sans Devanagari", sans-serif;
   --tw-font-mono: "JetBrains Mono", ui-monospace, Menlo, monospace;
   --tw-text-hero: clamp(2.75rem, 6.5vw, 4.75rem);   /* 44 to 76px, weight 700, tracking -0.04em */
   --tw-text-h1: clamp(2.25rem, 5vw, 3.5rem);

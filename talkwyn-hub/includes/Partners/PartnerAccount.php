@@ -380,7 +380,7 @@ final class PartnerAccount {
 			/* translators: %s: referral link */
 			sprintf( __( 'I use Talkwyn to answer website visitors in their own language and capture leads overnight. Free plan, no monthly bill: %s', 'talkwyn-hub' ), $link ),
 			/* translators: %s: referral link */
-			sprintf( __( 'Looking for an AI chatbot for your WordPress site that speaks Arabic, Urdu, Hindi and Spanish? Try Talkwyn free: %s', 'talkwyn-hub' ), $link ),
+			sprintf( __( 'Looking for an AI chatbot for your WordPress site that speaks Spanish, French, German, Arabic and more? Try Talkwyn free: %s', 'talkwyn-hub' ), $link ),
 		);
 		?>
 		<section class="twh-panel-card" aria-labelledby="twh-assets-title">

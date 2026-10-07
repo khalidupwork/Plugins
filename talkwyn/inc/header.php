@@ -79,10 +79,12 @@ function talkwyn_menu(): array {
 			'label'   => __( 'Languages', 'talkwyn' ),
 			'links'   => array(
 				array( 'globe', __( 'All languages', 'talkwyn' ), __( 'How the multilingual chatbot works', 'talkwyn' ), '/multilingual-chatbot/' ),
-				array( 'languages', __( 'Arabic', 'talkwyn' ), __( 'Right to left, with readable fonts', 'talkwyn' ), '/multilingual-chatbot/arabic/' ),
-				array( 'languages', __( 'Urdu and Roman Urdu', 'talkwyn' ), __( 'The way people really type', 'talkwyn' ), '/multilingual-chatbot/urdu/' ),
 				array( 'languages', __( 'Spanish', 'talkwyn' ), __( 'For customers in Spain and Latin America', 'talkwyn' ), '/multilingual-chatbot/spanish/' ),
-				array( 'languages', __( 'Hindi', 'talkwyn' ), __( 'Devanagari and Hinglish', 'talkwyn' ), '/multilingual-chatbot/hindi/' ),
+				array( 'languages', __( 'French', 'talkwyn' ), __( 'France, Belgium, Canada, and beyond', 'talkwyn' ), '/multilingual-chatbot/french/' ),
+				array( 'languages', __( 'German', 'talkwyn' ), __( 'Germany, Austria, and Switzerland', 'talkwyn' ), '/multilingual-chatbot/german/' ),
+				array( 'languages', __( 'Portuguese', 'talkwyn' ), __( 'Brazil and Portugal', 'talkwyn' ), '/multilingual-chatbot/portuguese/' ),
+				array( 'languages', __( 'Arabic', 'talkwyn' ), __( 'Right to left, with readable fonts', 'talkwyn' ), '/multilingual-chatbot/arabic/' ),
+				array( 'languages', __( 'Hindi', 'talkwyn' ), __( 'Devanagari script', 'talkwyn' ), '/multilingual-chatbot/hindi/' ),
 			),
 			'feature' => array(
 				'type'  => 'languages',
@@ -173,7 +175,7 @@ function talkwyn_menu_feature( array $f ): string {
 			$visual = '<span class="tw-mini-chat tw-mini-chat--switch" aria-hidden="true">'
 				. '<span class="tw-mini-chat__msg tw-mini-chat__msg--user" lang="ar" dir="rtl">هل تفتحون يوم السبت؟</span>'
 				. '<span class="tw-mini-chat__msg tw-mini-chat__msg--user" lang="es">¿Abren el sábado?</span>'
-				. '<span class="tw-mini-chat__msg tw-mini-chat__msg--user" lang="ur-Latn">Kya aap Saturday ko open hain?</span>'
+				. '<span class="tw-mini-chat__msg tw-mini-chat__msg--user" lang="fr">Vous êtes ouverts samedi ?</span>'
 				. '</span>';
 			break;
 		case 'integrations':
@@ -296,9 +298,10 @@ function talkwyn_footer_columns(): array {
 			array( __( 'Agencies', 'talkwyn' ), '/agencies/' ),
 		),
 		__( 'Languages', 'talkwyn' )    => array(
-			array( __( 'Arabic', 'talkwyn' ), '/multilingual-chatbot/arabic/' ),
-			array( __( 'Urdu', 'talkwyn' ), '/multilingual-chatbot/urdu/' ),
 			array( __( 'Spanish', 'talkwyn' ), '/multilingual-chatbot/spanish/' ),
+			array( __( 'French', 'talkwyn' ), '/multilingual-chatbot/french/' ),
+			array( __( 'German', 'talkwyn' ), '/multilingual-chatbot/german/' ),
+			array( __( 'Arabic', 'talkwyn' ), '/multilingual-chatbot/arabic/' ),
 			array( __( 'Hindi', 'talkwyn' ), '/multilingual-chatbot/hindi/' ),
 			array( __( 'All languages', 'talkwyn' ), '/multilingual-chatbot/' ),
 		),

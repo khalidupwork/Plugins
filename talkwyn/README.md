@@ -5,7 +5,7 @@ Block theme for talkwyn.com (v3, Talkwyn Red). It works with WooCommerce and the
 - Requires WordPress 6.5+, PHP 8.0+.
 - Light only. There is no dark mode and no theme switcher. Colors: Talkwyn Red `#D7263D`, Ink `#1A0F12`, Linen `#F7F3F3`, Blush gradient. Fonts: Plus Jakarta Sans (headings and UI), Figtree (body), JetBrains Mono (keys).
 - Fonts are self-hosted, so the theme makes no Google Fonts requests. Licenses are in `assets/fonts/`.
-- Layouts are RTL-ready: logical CSS properties throughout, and Arabic, Urdu and Hindi fonts are applied by `:lang()`.
+- Layouts are RTL-ready: logical CSS properties throughout, and Arabic and Hindi fonts are applied by `:lang()`. Chinese, Japanese and Korean use system fonts.
 
 ## Install order
 
@@ -196,7 +196,7 @@ Effects live in `assets/css/home.css`, `assets/css/theme.css` and `assets/js/the
 
 ## Performance notes
 
-- **Font subsets.** The fonts ship as small subsets with the full files as fallback. Headings use Plus Jakarta Sans (Latin). The Arabic, Urdu and Hindi fonts are cut to the characters the site uses today. A browser downloads the full file only when a page needs a character outside the subset, so new text always renders. To regenerate the subsets after big copy changes, see `assets/fonts/README.md`.
+- **Font subsets.** The fonts ship as small subsets with the full files as fallback. Headings use Plus Jakarta Sans (Latin). The Arabic and Hindi fonts are cut to the characters the site uses today. A browser downloads the full file only when a page needs a character outside the subset, so new text always renders. To regenerate the subsets after big copy changes, see `assets/fonts/README.md`.
 - **Leaner marketing pages.** WooCommerce's jQuery, cart scripts and shop CSS load only on cart, checkout and My Account. Filter: `talkwyn_trim_woocommerce_assets`.
 - **Hosting.** Use a host with gzip or Brotli, long cache headers for `/wp-content/` and a page cache. The Lighthouse numbers in the launch checklist assume that.
 

@@ -8,7 +8,7 @@ All fonts are under the SIL Open Font License 1.1 (see the LICENSE files). Headi
 
 | Cut | Covers |
 |---|---|
-| `noto-sans-arabic-used-{400,600}`, `noto-nastaliq-urdu-used-400` | The Arabic and Urdu characters the site uses today |
+| `noto-sans-arabic-used-{400,600}` | The Arabic characters the site uses today |
 | `noto-sans-devanagari-used-{400,600}` | The Hindi characters the site uses today |
 
 To rebuild after big copy changes (needs `pip install fonttools brotli`):

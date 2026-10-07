@@ -27,7 +27,7 @@ defined( 'ABSPATH' ) || exit;
 <!-- /wp:paragraph -->
 
 <!-- wp:paragraph -->
-<p>It gets harder when your customers speak more than one language. A visitor from Dubai writes in Arabic. A shopper in Lahore types in Roman Urdu. A family in Madrid asks in Spanish. Most chat tools reply in English, or not at all.</p>
+<p>It gets harder when your customers speak more than one language. A visitor from Dubai writes in Arabic. A shopper in Paris types in French. A family in Madrid asks in Spanish. Most chat tools reply in English, or not at all.</p>
 <!-- /wp:paragraph -->
 
 <!-- wp:paragraph {"className":"tw-problem__punch"} -->
@@ -40,14 +40,15 @@ defined( 'ABSPATH' ) || exit;
 <div class="tw-missed__win" aria-hidden="true">
  <div class="tw-missed__bar"><span class="tw-missed__brand">[tw_icon name="inbox" size="16"] Contact form inbox</span><span class="tw-missed__clock">[tw_icon name="clock" size="14"] 11:04 pm</span></div>
  <ul class="tw-missed__list">
-  <li><span class="tw-app__avatar">D</span><span class="tw-missed__msg"><b>Visitor from Dubai</b><span lang="ar" dir="rtl">كم سعر الباقة العائلية؟</span></span><em>No reply</em></li>
-  <li><span class="tw-app__avatar">L</span><span class="tw-missed__msg"><b>Shopper in Lahore</b><span lang="ur-Latn">delivery Lahore mein kab tak hogi?</span></span><em>No reply</em></li>
-  <li><span class="tw-app__avatar">M</span><span class="tw-missed__msg"><b>Family in Madrid</b><span lang="es">¿Tienen cita el sábado?</span></span><em>No reply</em></li>
+  <li><span class="tw-app__avatar">D</span><span class="tw-missed__msg"><span class="tw-missed__top"><b>Visitor from Dubai</b><time>10:41 pm</time></span><span class="tw-missed__bubble" lang="ar" dir="rtl">كم سعر الباقة العائلية؟</span></span><em>No reply</em></li>
+  <li><span class="tw-app__avatar">P</span><span class="tw-missed__msg"><span class="tw-missed__top"><b>Shopper in Paris</b><time>10:52 pm</time></span><span class="tw-missed__bubble" lang="fr">Vous livrez à Lyon avant vendredi ?</span></span><em>No reply</em></li>
+  <li><span class="tw-app__avatar">M</span><span class="tw-missed__msg"><span class="tw-missed__top"><b>Family in Madrid</b><time>10:58 pm</time></span><span class="tw-missed__bubble" lang="es">¿Tienen cita el sábado?</span></span><em>No reply</em></li>
+  <li><span class="tw-app__avatar">R</span><span class="tw-missed__msg"><span class="tw-missed__top"><b>Student in Delhi</b><time>11:03 pm</time></span><span class="tw-missed__bubble" lang="hi">क्या रविवार को एडमिशन ऑफिस खुला है?</span></span><em>No reply</em></li>
  </ul>
  <div class="tw-missed__auto">[tw_icon name="mail" size="16"] "Thanks! We'll get back to you within 24 hours."</div>
  <div class="tw-missed__gone">[tw_icon name="arrow-right" size="16"] They booked with someone else</div>
 </div>
-<figcaption class="tw-small">Example: three late questions, three languages, and nobody there to answer.</figcaption>
+<figcaption class="tw-small">Example: four late questions, four languages, and nobody there to answer.</figcaption>
 </figure>
 <!-- /wp:html --></div>
 <!-- /wp:group --></div>

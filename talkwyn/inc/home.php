@@ -110,28 +110,28 @@ function talkwyn_demo_data(): array {
 		'typingLabel'  => __( 'Talkwyn is typing', 'talkwyn' ),
 		'intents'      => array(
 			array(
-				'keywords' => array( 'whiten', 'bleach', 'blanque', 'تبييض', 'safaid', 'white', 'सफ़ेद', 'सफेद' ),
+				'keywords' => array( 'whiten', 'bleach', 'blanque', 'تبييض', 'blanchiment', 'white', 'सफ़ेद', 'सफेद' ),
 				'answers'  => array(
 					'en'      => $a( '<p>In-office whitening is <strong>$249</strong> and takes about an hour. A take-home kit with custom trays is <strong>$149</strong>.</p><p>Would you like to book a free consultation first?</p>', 'en', array( 'Whitening', 'Prices' ) ),
 					'ar'      => $a( '<p>سعر تبييض الأسنان في العيادة <strong>249 دولارًا</strong> ويستغرق حوالي ساعة. أما الطقم المنزلي فسعره <strong>149 دولارًا</strong>.</p>', 'ar', array( 'Whitening', 'Prices' ) ),
 					'es'      => $a( '<p>El blanqueamiento en la clínica cuesta <strong>249 dólares</strong> y dura alrededor de una hora. El kit para casa cuesta <strong>149 dólares</strong>.</p>', 'es', array( 'Whitening', 'Prices' ) ),
-					'ur-Latn' => $a( '<p>Clinic mein whitening <strong>$249</strong> ki hai aur takreeban ek ghanta lagta hai. Ghar ke liye kit <strong>$149</strong> ki hai.</p>', 'en', array( 'Whitening', 'Prices' ) ),
+					'fr'      => $a( '<p>Le blanchiment au cabinet coûte <strong>249 $</strong> et dure environ une heure. Le kit à domicile coûte <strong>149 $</strong>.</p>', 'fr', array( 'Whitening', 'Prices' ) ),
 					'hi'      => $a( '<p>क्लिनिक में दांत सफ़ेद करने की कीमत <strong>$249</strong> है और इसमें लगभग एक घंटा लगता है। घर पर इस्तेमाल की किट <strong>$149</strong> की है।</p>', 'hi', array( 'Whitening', 'Prices' ) ),
 				),
 			),
 			array(
-				'keywords' => array( 'saturday', 'sunday', 'hour', 'open', 'close', 'time', 'السبت', 'تفتح', 'مواعيد', 'sábado', 'horario', 'abren', 'khul', 'band', 'شنبه', 'ہفتہ', 'शनिवार', 'खुल' ),
+				'keywords' => array( 'saturday', 'sunday', 'hour', 'open', 'close', 'time', 'السبت', 'تفتح', 'مواعيد', 'sábado', 'horario', 'abren', 'samedi', 'horaire', 'ouvert', 'शनिवार', 'खुल' ),
 				'answers'  => array(
 					'en'      => $a( '<p>Yes, we are open on Saturday from 9 am to 2 pm. On weekdays we are open 9 am to 6 pm, and we are closed on Sunday.</p>', 'en', array( 'Opening hours' ) ),
 					'ar'      => $a( '<p>نعم، نفتح يوم السبت من التاسعة صباحًا حتى الثانية ظهرًا. في أيام الأسبوع نفتح من التاسعة صباحًا حتى السادسة مساءً، ونغلق يوم الأحد.</p>', 'ar', array( 'Opening hours' ) ),
 					'es'      => $a( '<p>Sí, abrimos el sábado de 9 a 14 h. Entre semana abrimos de 9 a 18 h y cerramos los domingos.</p>', 'es', array( 'Opening hours' ) ),
-					'ur-Latn' => $a( '<p>Ji haan, hum Saturday ko subah 9 se dopahar 2 baje tak khule hain. Weekdays mein 9 se 6 baje tak, aur Sunday ko band hain.</p>', 'en', array( 'Opening hours' ) ),
+					'fr'      => $a( '<p>Oui, nous sommes ouverts le samedi de 9 h à 14 h, en semaine de 9 h à 18 h, et fermés le dimanche.</p>', 'fr', array( 'Opening hours' ) ),
 					'ur'      => $a( '<p>جی ہاں، ہم ہفتے کو صبح نو بجے سے دوپہر دو بجے تک کھلے ہیں۔ اتوار کو کلینک بند رہتا ہے۔</p>', 'ur', array( 'Opening hours' ) ),
 					'hi'      => $a( '<p>जी हाँ, हम शनिवार को सुबह 9 बजे से दोपहर 2 बजे तक खुले हैं। रविवार को क्लिनिक बंद रहता है।</p>', 'hi', array( 'Opening hours' ) ),
 				),
 			),
 			array(
-				'keywords' => array( 'insur', 'ppo', 'cover', 'تأمين', 'seguro', 'aseguradora', 'bima', 'बीमा' ),
+				'keywords' => array( 'insur', 'ppo', 'cover', 'تأمين', 'seguro', 'aseguradora', 'assurance', 'mutuelle', 'बीमा' ),
 				'answers'  => array(
 					'en' => $a( '<p>We accept most PPO dental plans and file the claim for you. Bring your insurance card to your first visit. If you tell me your plan, the front desk can confirm your coverage before you book.</p>', 'en', array( 'Insurance and payment' ) ),
 					'ar' => $a( '<p>نقبل معظم خطط التأمين على الأسنان من نوع PPO ونقدّم المطالبة نيابةً عنك. أحضر بطاقة التأمين في زيارتك الأولى.</p>', 'ar', array( 'Insurance and payment' ) ),
@@ -140,16 +140,16 @@ function talkwyn_demo_data(): array {
 				),
 			),
 			array(
-				'keywords' => array( 'book', 'appointment', 'tomorrow', 'schedule', 'slot', 'call me', 'موعد', 'حجز', 'غدا', 'cita', 'mañana', 'reservar', 'appointment', 'kal', 'book karna', 'अपॉइंटमेंट', 'कल' ),
+				'keywords' => array( 'book', 'appointment', 'tomorrow', 'schedule', 'slot', 'call me', 'موعد', 'حجز', 'غدا', 'cita', 'mañana', 'reservar', 'rendez-vous', 'demain', 'अपॉइंटमेंट', 'कल' ),
 				'answers'  => array(
 					'en'      => $a( '<p>Tomorrow we have openings in the morning and late afternoon. I can’t book directly from here, but I can pass your request to the front desk.</p>', 'en', array( 'Book a visit' ), $book_lead['en'] ),
 					'ar'      => $a( '<p>لدينا مواعيد متاحة غدًا في الصباح وبعد العصر. لا أستطيع الحجز من هنا مباشرةً، لكن يمكنني إرسال طلبك إلى الاستقبال.</p>', 'ar', array( 'Book a visit' ), $book_lead['ar'] ),
 					'es'      => $a( '<p>Mañana hay horas libres por la mañana y a última hora de la tarde. No puedo reservar desde aquí, pero puedo pasar tu solicitud a recepción.</p>', 'es', array( 'Book a visit' ), $book_lead['es'] ),
-					'ur-Latn' => $a( '<p>Kal subah aur shaam ko slots available hain. Main yahan se seedha book nahi kar sakta, lekin aap ki request front desk tak pohncha sakta hoon.</p>', 'en', array( 'Book a visit' ), $book_lead['en'] ),
+					'fr'      => $a( '<p>Il reste des créneaux demain matin et en fin de journée. Je ne peux pas réserver ici, mais je peux transmettre votre demande à l\'accueil.</p>', 'fr', array( 'Book an appointment' ) ),
 				),
 			),
 			array(
-				'keywords' => array( 'where', 'address', 'parking', 'located', 'location', 'أين', 'العنوان', 'dónde', 'dirección', 'kahan', 'कहाँ', 'पता' ),
+				'keywords' => array( 'where', 'address', 'parking', 'located', 'location', 'أين', 'العنوان', 'dónde', 'dirección', 'adresse', 'où', 'कहाँ', 'पता' ),
 				'answers'  => array(
 					'en' => $a( '<p>Brightside Dental is at 120 Harbor Street, second floor, with free parking behind the building. It is a two-minute walk from the Central bus stop.</p>', 'en', array( 'Contact and directions' ) ),
 					'ar' => $a( '<p>تقع عيادة برايتسايد في 120 شارع هاربر، الطابق الثاني، مع موقف مجاني خلف المبنى.</p>', 'ar', array( 'Contact and directions' ) ),
@@ -157,12 +157,12 @@ function talkwyn_demo_data(): array {
 				),
 			),
 			array(
-				'keywords' => array( 'hello', 'hi ', 'hey', 'salam', 'مرحبا', 'السلام', 'hola', 'नमस्ते', 'assalam' ),
+				'keywords' => array( 'hello', 'hi ', 'hey', 'salam', 'مرحبا', 'السلام', 'hola', 'bonjour', 'नमस्ते' ),
 				'answers'  => array(
 					'en'      => $a( '<p>Hi! I can help with prices, opening hours, insurance, and booking at Brightside Dental. What would you like to know?</p>', 'en', array() ),
 					'ar'      => $a( '<p>أهلًا وسهلًا! يمكنني مساعدتك في الأسعار ومواعيد العمل والتأمين والحجز. بماذا أستطيع مساعدتك؟</p>', 'ar', array() ),
 					'es'      => $a( '<p>¡Hola! Puedo ayudarte con precios, horarios, seguros y citas en Brightside Dental. ¿Qué te gustaría saber?</p>', 'es', array() ),
-					'ur-Latn' => $a( '<p>Wa alaikum assalam! Main prices, timings, insurance aur booking mein madad kar sakta hoon. Aap kya poochna chahte hain?</p>', 'en', array() ),
+					'fr'      => $a( '<p>Bonjour ! Je peux vous aider pour les tarifs, les horaires, les assurances et les rendez-vous. Que souhaitez-vous savoir ?</p>', 'fr', array() ),
 					'hi'      => $a( '<p>नमस्ते! मैं कीमतों, समय, बीमा और अपॉइंटमेंट में मदद कर सकता हूँ। आप क्या जानना चाहेंगे?</p>', 'hi', array() ),
 				),
 			),
@@ -171,7 +171,7 @@ function talkwyn_demo_data(): array {
 			'en'      => $a( '<p>I couldn’t find that on Brightside Dental’s website, so I won’t guess. I can ask the team to get back to you with the right answer.</p>', 'en', array(), $book_lead['en'] ),
 			'ar'      => $a( '<p>لم أجد هذه المعلومة على موقع العيادة، لذلك لن أخمّن. يمكنني أن أطلب من الفريق التواصل معك بالإجابة الصحيحة.</p>', 'ar', array(), $book_lead['ar'] ),
 			'es'      => $a( '<p>No encontré eso en la web de la clínica, así que no voy a adivinar. Puedo pedir al equipo que te responda.</p>', 'es', array(), $book_lead['es'] ),
-			'ur-Latn' => $a( '<p>Yeh maloomat clinic ki website par nahi mili, is liye main andaza nahi lagaunga. Main team se keh sakta hoon ke woh aap ko sahi jawab dein.</p>', 'en', array(), $book_lead['en'] ),
+			'fr'      => $a( '<p>Je n\'ai pas trouvé cette information sur le site de la clinique, donc je préfère ne pas deviner. Je peux demander à l\'équipe de vous répondre.</p>', 'fr', array(), $book_lead['en'] ),
 			'ur'      => $a( '<p>یہ معلومات کلینک کی ویب سائٹ پر نہیں ملی، اس لیے میں اندازہ نہیں لگاؤں گا۔ میں ٹیم سے آپ کو جواب دینے کا کہہ سکتا ہوں۔</p>', 'ur', array() ),
 			'hi'      => $a( '<p>यह जानकारी क्लिनिक की वेबसाइट पर नहीं मिली, इसलिए मैं अंदाज़ा नहीं लगाऊँगा। मैं टीम से आपको सही जवाब देने के लिए कह सकता हूँ।</p>', 'hi', array() ),
 		),
@@ -323,7 +323,7 @@ add_shortcode(
 	static function () {
 		$items = array(
 			array( 'plug', __( 'Live on WordPress and WooCommerce, with more platforms coming', 'talkwyn' ) ),
-			array( 'languages', __( 'Replies in Arabic, Urdu, Hindi, English, and many more languages', 'talkwyn' ) ),
+			array( 'languages', __( 'Replies in English, Spanish, French, German, Arabic, Hindi, Chinese, and many more languages', 'talkwyn' ) ),
 			array( 'database', __( 'Your chats and leads stay on your own site', 'talkwyn' ) ),
 		);
 		if ( talkwyn_setting( 'founding_enabled' ) ) {

@@ -25,6 +25,7 @@ function talkwyn_legacy_redirects(): array {
 			'/solutions/education/'           => '/industries/education/',
 			'/solutions/'                     => '/industries/',
 			'/compare/ai-engine-alternative/' => '/blog/best-wordpress-chatbot-plugins/',
+			'/multilingual-chatbot/urdu/'     => '/multilingual-chatbot/',
 		)
 	);
 }

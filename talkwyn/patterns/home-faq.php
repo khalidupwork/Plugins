@@ -40,7 +40,7 @@ defined( 'ABSPATH' ) || exit;
 
 <!-- wp:details -->
 <details class="wp-block-details"><summary>Which languages does it support?</summary><!-- wp:paragraph -->
-<p>Talkwyn replies in the language your visitor writes in. That includes Arabic, Urdu, Roman Urdu, Hindi, English, Spanish, French, German, Turkish, Chinese, Japanese, and many more, depending on the AI model you choose. <a href="/multilingual-chatbot/">See the multilingual chatbot</a>.</p>
+<p>Talkwyn replies in the language your visitor writes in. That includes English, Spanish, French, German, Portuguese, Italian, Arabic, Hindi, Chinese, Japanese, Korean, and Turkish, and many more depending on the AI model you choose. <a href="/multilingual-chatbot/">See the multilingual chatbot</a>.</p>
 <!-- /wp:paragraph --></details>
 <!-- /wp:details -->
 

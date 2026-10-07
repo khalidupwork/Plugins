@@ -30,10 +30,11 @@ strong, b { font-weight: 700; }
 .screen-reader-text:focus { background: var(--tw-surface); clip: auto !important; clip-path: none; color: var(--tw-text); display: block; height: auto; inset-inline-start: 8px; inset-block-start: 8px; padding: 12px 16px; width: auto; z-index: 100000; }
 .skip-link.screen-reader-text:focus { background: var(--tw-ink); color: #FFFFFF; border-radius: var(--tw-r-pill); }
 :lang(ar), [lang="ar"] { font-family: "Noto Sans Arabic", var(--tw-font-body); }
-:lang(ur), [lang="ur"] { font-family: "Noto Nastaliq Urdu", "Noto Sans Arabic", serif; line-height: 2; }
 :lang(hi), [lang="hi"] { font-family: "Noto Sans Devanagari", var(--tw-font-body); }
-/* Roman Urdu is Latin script: keep the body font (":lang(ur)" would also match it). */
-:lang(ur-Latn), [lang="ur-Latn"], :lang(hi-Latn), [lang="hi-Latn"] { font-family: var(--tw-font-body); line-height: inherit; }
+/* Chinese, Japanese and Korean use the visitor's system fonts. */
+:lang(zh), [lang="zh"] { font-family: "PingFang SC", "Microsoft YaHei", "Noto Sans SC", var(--tw-font-body); }
+:lang(ja), [lang="ja"] { font-family: "Hiragino Sans", "Yu Gothic", "Noto Sans JP", var(--tw-font-body); }
+:lang(ko), [lang="ko"] { font-family: "Apple SD Gothic Neo", "Malgun Gothic", "Noto Sans KR", var(--tw-font-body); }
 .wp-site-blocks > main { min-block-size: 50vh; }
 .wp-site-blocks > * + * { margin-block-start: 0; }
 .tw-nav-open, .tw-nav-open body { overflow: hidden; }

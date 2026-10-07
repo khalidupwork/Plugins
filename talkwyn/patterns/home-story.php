@@ -79,7 +79,7 @@ defined( 'ABSPATH' ) || exit;
 <!-- /wp:paragraph -->
 
 <!-- wp:paragraph -->
-<p>It is built for the way people really type, including Roman Urdu and mixed messages like "price kya hai for the large one?" Arabic and Urdu flow right to left, with fonts that keep every letter readable.</p>
+<p>It is built for the way people really type, including messages that switch language halfway through a sentence. Arabic flows right to left, with fonts that keep every letter readable, and Chinese, Japanese and Korean display in each visitor's own system font.</p>
 <!-- /wp:paragraph -->
 
 <!-- wp:paragraph -->
@@ -93,7 +93,7 @@ defined( 'ABSPATH' ) || exit;
 
 <!-- wp:group {"className":"tw-glow tw-story__visual","layout":{"type":"default"}} -->
 <div class="wp-block-group tw-glow tw-story__visual"><!-- wp:html -->
-<div class="tw-glow__ui"><div class="tw-chat" data-tw-play><div class="tw-chat__head"><span class="tw-chat__avatar">[tw_icon name="message-circle" size="20"]</span><div><p class="tw-chat__title">Sample clothing store</p><p class="tw-chat__status">Answers in your language</p></div></div><div class="tw-chat__body tw-chat__body--short"><div class="tw-msg tw-msg--user" lang="ur-Latn"><p>price kya hai for the large one?</p></div><div class="tw-msg tw-msg--bot" lang="ur-Latn"><p>Large size ki price Rs 4,500 hai. Delivery 2 se 3 din mein ho jati hai. Order karna hai?</p><div class="tw-msg__sources"><span class="tw-msg__sources-label">Sources</span><span class="tw-chip tw-chip--source">Products</span></div></div><div class="tw-msg tw-msg--user" lang="ar" dir="rtl"><p>هل يوجد مقاس أكبر؟</p></div><div class="tw-msg tw-msg--bot" lang="ar" dir="rtl"><p>نعم، يتوفر مقاس XL باللونين الأسود والأزرق.</p><div class="tw-msg__sources"><span class="tw-msg__sources-label">Sources</span><span class="tw-chip tw-chip--source">Products</span></div></div></div></div></div>
+<div class="tw-glow__ui"><div class="tw-chat" data-tw-play><div class="tw-chat__head"><span class="tw-chat__avatar">[tw_icon name="message-circle" size="20"]</span><div><p class="tw-chat__title">Sample clothing store</p><p class="tw-chat__status">Answers in your language</p></div></div><div class="tw-chat__body tw-chat__body--short"><div class="tw-msg tw-msg--user" lang="es"><p>¿Tienen esta chaqueta en talla L?</p></div><div class="tw-msg tw-msg--bot" lang="es"><p>Sí, la talla L está disponible en negro y azul. El envío tarda de 2 a 3 días. ¿Quieres el enlace?</p><div class="tw-msg__sources"><span class="tw-msg__sources-label">Sources</span><span class="tw-chip tw-chip--source">Products</span></div></div><div class="tw-msg tw-msg--user" lang="de"><p>Gibt es die Jacke auch in Grün?</p></div><div class="tw-msg tw-msg--bot" lang="de"><p>Leider nein. Die Jacke gibt es in Schwarz und Blau.</p><div class="tw-msg__sources"><span class="tw-msg__sources-label">Sources</span><span class="tw-chip tw-chip--source">Products</span></div></div></div></div></div>
 <!-- /wp:html --></div>
 <!-- /wp:group --></div>
 <!-- /wp:group --></div>

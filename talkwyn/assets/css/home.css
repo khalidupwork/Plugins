@@ -261,3 +261,18 @@
 .tw-problem__text > .tw-statement { font: 700 clamp(2rem, 1.3rem + 2.6vw, 3.25rem)/1.08 var(--tw-font-display); letter-spacing: -.04em; color: var(--tw-ink); margin-block-start: 14px; }
 .tw-problem__text > .tw-eyebrow { font: 600 .75rem/1.3 var(--tw-font-display); }
 .tw-problem__text > .tw-problem__punch { color: var(--tw-ink); font-weight: 600; }
+
+/* v3.2 problem: the visual is exactly as tall as the text column */
+.tw-missed__list li { align-items: start; }
+.tw-missed__top { display: flex; justify-content: space-between; gap: 8px; align-items: baseline; }
+.tw-missed__top time { font-size: .75rem; color: var(--tw-text-muted); }
+.tw-missed__bubble { justify-self: start; display: inline-block; margin-block-start: 4px; padding: 7px 12px; border-radius: 14px 14px 14px 4px; background: #FFFFFF; box-shadow: 0 0 0 1px var(--tw-border); font-size: .9375rem !important; color: var(--tw-ink) !important; }
+.tw-missed__bubble[dir="rtl"] { border-radius: 14px 14px 4px 14px; }
+.tw-missed__list li:nth-child(even) .tw-missed__bubble { background: var(--tw-bg-soft); }
+.tw-missed__list em { margin-block-start: 2px; }
+@media (min-width: 900px) {
+	.tw-problem { align-items: stretch !important; }
+	.tw-problem > .tw-missed { display: flex; flex-direction: column; }
+	.tw-missed__win { flex: 1; display: flex; flex-direction: column; }
+	.tw-missed__list { flex: 1; display: flex; flex-direction: column; justify-content: space-between; padding: 12px; gap: 6px; }
+}
