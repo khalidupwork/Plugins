@@ -238,10 +238,10 @@ add_shortcode(
 		}
 		$pct  = (int) round( 100 * ( $total - $remaining ) / $total );
 		$band = 'band' === $atts['style'];
-		return '<div id="founding" class="tw-founding-wrap ' . ( $band ? 'is-style-band tw-founding-wrap--band' : 'is-style-panel' ) . '" data-tw-reveal><div class="tw-founding">'
+		return '<div id="founding" class="tw-founding-wrap ' . ( $band ? 'is-style-band tw-on-ink tw-founding-wrap--band' : 'is-style-panel' ) . '" data-tw-reveal><div class="tw-founding">'
 			. '<div><h2>' . esc_html( sprintf( /* translators: %s: number of founding seats */ __( 'Be one of our first %s.', 'talkwyn' ), number_format_i18n( $total ) ) ) . '</h2>'
 			. '<p>' . esc_html__( 'Talkwyn is a new company, and we’re building it with our first customers. Founding customers get a locked-in price for as long as they renew, direct access to the people building the product, and a say in what we build next.', 'talkwyn' ) . '</p>'
-			. '<p><a class="tw-btn" href="' . esc_url( is_page( 'pricing' ) ? '#plans' : home_url( '/pricing/#founding' ) ) . '" data-tw-event="pricing_cta" data-tw-location="founding">' . esc_html__( 'Claim founding pricing', 'talkwyn' ) . '</a></p></div>'
+			. '<p><a class="tw-pill tw-pill--white" href="' . esc_url( is_page( 'pricing' ) ? '#plans' : home_url( '/pricing/#founding' ) ) . '" data-tw-event="pricing_cta" data-tw-location="founding">' . esc_html__( 'Claim founding pricing', 'talkwyn' ) . '</a></p></div>'
 			. '<div class="tw-seats"><span class="tw-seats__num" data-tw-count="' . (int) $remaining . '">' . esc_html( number_format_i18n( $remaining ) ) . '</span><span class="tw-seats__label">' . esc_html( sprintf( /* translators: %s: total seats */ __( 'of %s founding seats left', 'talkwyn' ), number_format_i18n( $total ) ) ) . '</span>'
 			. '<div class="tw-seats__bar" role="progressbar" aria-valuemin="0" aria-valuemax="' . (int) $total . '" aria-valuenow="' . (int) ( $total - $remaining ) . '" aria-label="' . esc_attr__( 'Founding seats claimed', 'talkwyn' ) . '"><span style="inline-size:' . (int) $pct . '%"></span></div></div>'
 			. '</div></div>';
@@ -322,9 +322,9 @@ add_shortcode(
 	'tw_trust_strip',
 	static function () {
 		$items = array(
-			array( 'layers', __( 'Built for WordPress, WooCommerce, and Shopify', 'talkwyn' ) ),
+			array( 'plug', __( 'Live on WordPress and WooCommerce, with more platforms coming', 'talkwyn' ) ),
 			array( 'languages', __( 'Replies in Arabic, Urdu, Hindi, English, and many more languages', 'talkwyn' ) ),
-			array( 'database', __( 'Your data stays in your WordPress database', 'talkwyn' ) ),
+			array( 'database', __( 'Your chats and leads stay on your own site', 'talkwyn' ) ),
 		);
 		if ( talkwyn_setting( 'founding_enabled' ) ) {
 			/* translators: %s: number of founding seats */
@@ -335,5 +335,62 @@ add_shortcode(
 			$html .= '<li><span class="tw-trust__icon">' . talkwyn_icon( $item[0], 20 ) . '</span><span>' . esc_html( $item[1] ) . '</span></li>';
 		}
 		return $html . '</ul>';
+	}
+);
+
+/**
+ * [tw_logo_mark] The Rising Dots mark (decorative).
+ */
+add_shortcode(
+	'tw_logo_mark',
+	static function () {
+		return talkwyn_logo_svg( 'mark', '' );
+	}
+);
+
+/**
+ * [tw_integrations set="home|all"] Integration cards with live status pills from Site Settings.
+ *
+ * @param array<string, string>|string $atts Attributes.
+ */
+add_shortcode(
+	'tw_integrations',
+	static function ( $atts ) {
+		$atts  = shortcode_atts( array( 'set' => 'home' ), $atts, 'tw_integrations' );
+		$all   = talkwyn_integrations();
+		$cards = array(
+			'wordpress'     => array( 'plug', __( 'Our <a class="tw-card__title-link" href="/integrations/wordpress/">WordPress chatbot plugin</a> installs in one click and understands Elementor pages out of the box.', 'talkwyn' ) ),
+			'woocommerce'   => array( 'store', __( 'Answers about products, prices, stock, and shipping.', 'talkwyn' ) ),
+			'elementor'     => array( 'layout-template', __( 'Reads the text inside your Elementor pages, sections, and widgets.', 'talkwyn' ) ),
+			'shopify'       => array( 'shopping-bag', __( 'Product answers, order questions, and lead capture.', 'talkwyn' ) ),
+			'website_embed' => array( 'code-xml', __( 'One line of code for any site builder or custom site.', 'talkwyn' ) ),
+			'whatsapp'      => array( 'smartphone', __( 'New leads straight to your phone.', 'talkwyn' ) ),
+		);
+		if ( 'home' === $atts['set'] ) {
+			unset( $cards['elementor'] );
+		}
+		$html = '<div class="tw-integrations" data-tw-reveal data-tw-stagger>';
+		foreach ( $cards as $slug => $card ) {
+			$row   = $all[ $slug ];
+			$title = 'wordpress' === $slug
+				? esc_html( $row['name'] )
+				: '<a class="tw-card__title-link" href="' . esc_url( home_url( $row['url'] ) ) . '">' . esc_html( $row['name'] ) . '</a>';
+			$desc  = 'wordpress' === $slug ? wp_kses_post( str_replace( 'href="/', 'href="' . esc_url( home_url( '/' ) ), $card[1] ) ) : esc_html( $card[1] );
+			$html .= '<article class="tw-integration tw-spot"><div class="tw-integration__top"><span class="tw-integration__logo">' . talkwyn_icon( $card[0], 24 ) . '</span>' . talkwyn_status_pill( $row['status'] ) . '</div>'
+				. '<h3>' . $title . '</h3><p>' . $desc . '</p>'
+				. '<span class="tw-card__more" aria-hidden="true">' . esc_html( 'available' === $row['status'] ? __( 'See how it works', 'talkwyn' ) : __( 'Join the waitlist', 'talkwyn' ) ) . talkwyn_icon( 'arrow-right', 16 ) . '</span></article>';
+		}
+		$planned = array();
+		foreach ( array( 'wix', 'webflow', 'squarespace', 'hubspot', 'zapier' ) as $slug ) {
+			if ( 'planned' === $all[ $slug ]['status'] ) {
+				$planned[] = $all[ $slug ]['name'];
+			}
+		}
+		if ( $planned ) {
+			$html .= '<article class="tw-integration tw-integration--planned tw-spot"><div class="tw-integration__top"><span class="tw-integration__logo">' . talkwyn_icon( 'vote', 24 ) . '</span>' . talkwyn_status_pill( 'planned' ) . '</div>'
+				. '<h3><a class="tw-card__title-link" href="' . esc_url( home_url( '/integrations/#planned' ) ) . '">' . esc_html( implode( ', ', $planned ) ) . '</a></h3><p>' . esc_html__( 'Vote for yours.', 'talkwyn' ) . '</p>'
+				. '<span class="tw-card__more" aria-hidden="true">' . esc_html__( 'Vote for the next one', 'talkwyn' ) . talkwyn_icon( 'arrow-right', 16 ) . '</span></article>';
+		}
+		return $html . '</div>';
 	}
 );

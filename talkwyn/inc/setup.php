@@ -1,6 +1,6 @@
 <?php
 /**
- * Theme setup: supports, assets, head tags, theme mode.
+ * Theme setup: supports, assets, head tags. The site is light only.
  *
  * @package Talkwyn
  */
@@ -58,11 +58,11 @@ add_action(
 add_action(
 	'wp_head',
 	static function () {
-		// Apply the saved light/dark choice before first paint (no flash).
-		echo "<script>(function(){var d=document.documentElement;d.className+=' js';if('IntersectionObserver' in window&&!(window.matchMedia&&matchMedia('(prefers-reduced-motion: reduce)').matches)){d.className+=' tw-motion';setTimeout(function(){if(!window.twReady){d.classList.remove('tw-motion');}},3000);}try{var m=localStorage.getItem('tw-theme');if(m==='light'||m==='dark'){d.setAttribute('data-theme',m);}}catch(e){}})();</script>\n";
+		// Motion is opt-in from JS (so content is never hidden without it) and skipped for reduced motion.
+		echo "<script>(function(){var d=document.documentElement;d.className+=' js';if('IntersectionObserver' in window&&!(window.matchMedia&&matchMedia('(prefers-reduced-motion: reduce)').matches)){d.className+=' tw-motion';setTimeout(function(){if(!window.twReady){d.classList.remove('tw-motion');}},3000);}})();</script>\n";
 
 		$fonts = TALKWYN_THEME_URL . '/assets/fonts/';
-		printf( '<link rel="preload" href="%s" as="font" type="font/woff2" crossorigin>' . "\n", esc_url( $fonts . 'bricolage-grotesque-basic-800-normal.woff2' ) );
+		printf( '<link rel="preload" href="%s" as="font" type="font/woff2" crossorigin>' . "\n", esc_url( $fonts . 'plus-jakarta-sans-latin-700-normal.woff2' ) );
 		printf( '<link rel="preload" href="%s" as="font" type="font/woff2" crossorigin>' . "\n", esc_url( $fonts . 'figtree-latin-400-normal.woff2' ) );
 
 		$brand = TALKWYN_THEME_URL . '/assets/brand/';
@@ -72,8 +72,7 @@ add_action(
 			printf( '<link rel="apple-touch-icon" href="%s">' . "\n", esc_url( $brand . 'icons/apple-touch-icon.png' ) );
 		}
 		printf( '<link rel="manifest" href="%s">' . "\n", esc_url( home_url( '/site.webmanifest' ) ) );
-		echo '<meta name="theme-color" content="#5B2A86" media="(prefers-color-scheme: light)">' . "\n";
-		echo '<meta name="theme-color" content="#120A1A" media="(prefers-color-scheme: dark)">' . "\n";
+		echo '<meta name="theme-color" content="#FFFFFF">' . "\n";
 	},
 	1
 );
@@ -106,7 +105,7 @@ add_action(
 						'type'  => 'image/png',
 					),
 				),
-				'theme_color'      => '#5B2A86',
+				'theme_color'      => '#D7263D',
 				'background_color' => '#FFFFFF',
 				'display'          => 'standalone',
 				'start_url'        => '/',
@@ -131,7 +130,7 @@ add_action(
 			'core/group',
 			array(
 				'name'  => 'band',
-				'label' => __( 'Plum band', 'talkwyn' ),
+				'label' => __( 'Ink band', 'talkwyn' ),
 			)
 		);
 		register_block_style(
@@ -145,21 +144,21 @@ add_action(
 			'core/group',
 			array(
 				'name'  => 'panel',
-				'label' => __( 'Lilac panel', 'talkwyn' ),
+				'label' => __( 'Linen card', 'talkwyn' ),
 			)
 		);
 		register_block_style(
 			'core/button',
 			array(
 				'name'  => 'secondary',
-				'label' => __( 'Secondary', 'talkwyn' ),
+				'label' => __( 'White pill', 'talkwyn' ),
 			)
 		);
 		register_block_style(
 			'core/button',
 			array(
 				'name'  => 'on-band',
-				'label' => __( 'On Plum band', 'talkwyn' ),
+				'label' => __( 'On Ink band', 'talkwyn' ),
 			)
 		);
 	}

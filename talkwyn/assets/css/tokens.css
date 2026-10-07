@@ -1,82 +1,74 @@
-/* Talkwyn design tokens v1.1 (Royal Plum & Electric Aqua). Light is the default; dark mode is opt-in via system preference. */
+/* Talkwyn design tokens v3.0 (Talkwyn Red). The site is light only: there is no dark mode and no theme switcher. */
 :root {
   /* Brand */
-  --tw-plum: #5B2A86;
-  --tw-aqua: #3DD9EB;
-  --tw-ink: #1E0F2C;
-  --tw-lilac: #F4EEFA;
+  --tw-red: #D7263D;         /* the brand: logo, links, user bubbles, brand buttons */
+  --tw-ink: #1A0F12;         /* text, primary pill buttons, dark bands, footer, "lead saved" chips */
+  --tw-blush: #FFF1F2;       /* soft brand background */
+  --tw-blush-gradient: linear-gradient(180deg, #FFD3D9 0%, #FFE8EB 48%, #FFF8F9 100%); /* hero and big feature moments */
 
-  /* Plum ramp */
-  --tw-plum-50: #F1EAF8; --tw-plum-100: #E6D9F2; --tw-plum-200: #CDB3E5; --tw-plum-300: #B08AD4; --tw-plum-400: #7B4BB0;
-  --tw-plum-500: #5B2A86; --tw-plum-600: #4C2271; --tw-plum-700: #3D1B5C; --tw-plum-800: #2E1446; --tw-plum-900: #1E0F2C;
+  /* Red ramp (500 = brand) */
+  --tw-red-50: #FFF1F2; --tw-red-100: #FFE0E3; --tw-red-200: #FFC2C9; --tw-red-300: #FF95A2; --tw-red-400: #F05A6E;
+  --tw-red-500: #D7263D; --tw-red-600: #B81D33; --tw-red-700: #96172A; --tw-red-800: #731221; --tw-red-900: #4D0C16;
 
-  /* Aqua ramp (never use 50 to 600 for text on light backgrounds) */
-  --tw-aqua-50: #E8FBFD; --tw-aqua-100: #C6F4F9; --tw-aqua-200: #9AEDF5; --tw-aqua-300: #6EE4F0; --tw-aqua-400: #52DEEE;
-  --tw-aqua-500: #3DD9EB; --tw-aqua-600: #1FB8CA; --tw-aqua-700: #1792A1; --tw-aqua-800: #116D78; --tw-aqua-900: #0B4950;
+  /* Neutrals (warm) */
+  --tw-n-0: #FFFFFF; --tw-n-25: #FCFAFA; --tw-n-50: #F7F3F3; --tw-n-100: #EEE7E8; --tw-n-200: #DDD3D5; --tw-n-300: #BFB2B5;
+  --tw-n-400: #94878A; --tw-n-500: #6B5E61; --tw-n-600: #4A3E41; --tw-n-800: #2A1E21; --tw-n-900: #1A0F12;
 
-  /* Neutrals (plum-tinted) */
-  --tw-n-0: #FFFFFF; --tw-n-25: #FAF8FC; --tw-n-50: #F4EEFA; --tw-n-100: #E9E3EF; --tw-n-200: #D3CADB; --tw-n-300: #ADA2B8;
-  --tw-n-400: #847A90; --tw-n-500: #625871; --tw-n-600: #463D53; --tw-n-900: #1E0F2C; --tw-n-950: #120A1A;
-
-  /* Semantic */
-  --tw-success: #23905F; --tw-warning: #D98E1F; --tw-error: #D2453D; --tw-info: #5B2A86;
+  /* Semantic. Errors are burnt orange, never brand red, and always come with an icon and words. */
+  --tw-success: #1F8A5B; --tw-warning: #B7791F; --tw-error: #C2410C; --tw-info: #1A0F12;
 
   /* Roles (light) */
   --tw-bg: #FFFFFF;
-  --tw-bg-soft: #FAF8FC;
+  --tw-section: #F7F3F3;     /* "Linen": soft section cards, bot bubbles */
   --tw-surface: #FFFFFF;
-  --tw-panel: #F4EEFA;
-  --tw-text: #1E0F2C;
-  --tw-text-muted: #625871;
-  --tw-border: #E9E3EF;
-  --tw-primary: #5B2A86;
+  --tw-text: #1A0F12;
+  --tw-text-muted: #6B5E61;
+  --tw-border: #EEE7E8;
+  --tw-primary: #1A0F12;     /* primary pill button = ink */
   --tw-on-primary: #FFFFFF;
-  --tw-accent: #3DD9EB;
-  --tw-on-accent: #1E0F2C;
-  --tw-link: #5B2A86;
-  --tw-focus: #5B2A86;
+  --tw-brand: #D7263D;
+  --tw-on-brand: #FFFFFF;
+  --tw-link: #D7263D;
+  --tw-focus: #D7263D;
+  --tw-glow: radial-gradient(closest-side, rgba(215, 38, 61, .18), rgba(215, 38, 61, 0));
+
+  /* Derived roles used by the theme and by Talkwyn Hub screens */
+  --tw-panel: var(--tw-section);       /* Linen */
+  --tw-bg-soft: #FCFAFA;
+  --tw-primary-hover: #2A1E21;
+  --tw-brand-hover: #B81D33;
+  --tw-band: #1A0F12;                  /* Ink bands and footer */
+  --tw-on-band: #FFFFFF;
+  --tw-on-band-muted: #CFC4C6;
+  --tw-text-display: var(--tw-text-hero);
 
   /* Type */
-  --tw-font-display: "Bricolage Grotesque", "Figtree", system-ui, sans-serif;
+  --tw-font-display: "Plus Jakarta Sans", "Figtree", system-ui, sans-serif;
   --tw-font-body: "Figtree", system-ui, -apple-system, "Segoe UI", "Noto Sans Arabic", "Noto Nastaliq Urdu", "Noto Sans Devanagari", sans-serif;
   --tw-font-mono: "JetBrains Mono", ui-monospace, Menlo, monospace;
-  --tw-text-display: clamp(2.5rem, 6vw, 3.5rem);
-  --tw-text-h1: clamp(2rem, 5vw, 2.5rem);
-  --tw-text-h2: clamp(1.625rem, 4vw, 2rem);
+  --tw-text-hero: clamp(2.75rem, 6.5vw, 4.75rem);   /* 44 to 76px, weight 700, tracking -0.04em */
+  --tw-text-h1: clamp(2.25rem, 5vw, 3.5rem);
+  --tw-text-h2: clamp(1.875rem, 4vw, 2.75rem);
   --tw-text-h3: 1.5rem;
   --tw-text-h4: 1.25rem;
-  --tw-text-lg: 1.125rem;
-  --tw-text-base: 1rem;
-  --tw-text-sm: 0.875rem;
-  --tw-text-xs: 0.75rem;
+  --tw-text-lg: 1.1875rem;
+  --tw-text-base: 1.0625rem;
+  --tw-text-sm: 0.9375rem;
+  --tw-text-xs: 0.8125rem;
 
   /* Space (4px base) */
-  --tw-s-1: 4px; --tw-s-2: 8px; --tw-s-3: 12px; --tw-s-4: 16px; --tw-s-6: 24px; --tw-s-8: 32px; --tw-s-12: 48px; --tw-s-18: 72px; --tw-s-24: 96px;
+  --tw-s-1: 4px; --tw-s-2: 8px; --tw-s-3: 12px; --tw-s-4: 16px; --tw-s-6: 24px; --tw-s-8: 32px; --tw-s-12: 48px; --tw-s-16: 64px; --tw-s-24: 96px; --tw-s-32: 128px;
 
-  /* Shape and depth */
-  --tw-r-sm: 8px; --tw-r-md: 12px; --tw-r-lg: 20px; --tw-r-pill: 999px;
+  /* Shape */
+  --tw-r-sm: 10px; --tw-r-md: 16px; --tw-r-lg: 24px; --tw-r-xl: 32px; --tw-r-pill: 999px;
   --tw-bubble-radius: 18px; --tw-bubble-tail: 6px;
-  --tw-shadow-sm: 0 1px 2px rgba(30, 15, 44, .08), 0 1px 1px rgba(30, 15, 44, .04);
-  --tw-shadow-lg: 0 18px 48px rgba(30, 15, 44, .18);
+  --tw-inset: clamp(12px, 2vw, 24px);
+  --tw-shadow-sm: 0 1px 2px rgba(26, 15, 18, .06), 0 1px 1px rgba(26, 15, 18, .04);
+  --tw-shadow-md: 0 8px 24px rgba(26, 15, 18, .08);
+  --tw-shadow-lg: 0 24px 60px rgba(26, 15, 18, .16);
 
   /* Motion */
   --tw-ease: cubic-bezier(.2, .8, .2, 1);
-  --tw-dur: 180ms;
-}
-
-@media (prefers-color-scheme: dark) {
-  :root:not([data-theme="light"]) {
-    --tw-bg: #120A1A; --tw-bg-soft: #17101F; --tw-surface: #1F1629; --tw-panel: #251B31;
-    --tw-text: #EDE7F3; --tw-text-muted: #ADA2B8; --tw-border: #352A42;
-    --tw-primary: #7B4BB0; --tw-on-primary: #FFFFFF; --tw-link: #CDB3E5; --tw-focus: #B08AD4;
-    --tw-accent: #52DEEE; --tw-on-accent: #120A1A;
-    color-scheme: dark;
-  }
-}
-:root[data-theme="dark"] {
-  --tw-bg: #120A1A; --tw-bg-soft: #17101F; --tw-surface: #1F1629; --tw-panel: #251B31;
-  --tw-text: #EDE7F3; --tw-text-muted: #ADA2B8; --tw-border: #352A42;
-  --tw-primary: #7B4BB0; --tw-on-primary: #FFFFFF; --tw-link: #CDB3E5; --tw-focus: #B08AD4;
-  --tw-accent: #52DEEE; --tw-on-accent: #120A1A;
-  color-scheme: dark;
+  --tw-dur: 200ms;
+  --tw-dur-reveal: 600ms;
 }

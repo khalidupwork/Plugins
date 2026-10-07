@@ -1,8 +1,9 @@
 <!-- wp:template-part {"slug":"header","tagName":"header"} /-->
 
 <!-- wp:group {"tagName":"main","className":"tw-main","layout":{"type":"default"},"style":{"spacing":{"margin":{"top":"0"}}}} -->
-<main class="wp-block-group tw-main" id="main" style="margin-top:0"><!-- wp:group {"className":"tw-page-head","layout":{"type":"constrained"}} -->
-<div class="wp-block-group tw-page-head"><!-- wp:shortcode -->
+<main class="wp-block-group tw-main" id="main" style="margin-top:0"><!-- wp:group {"className":"tw-page-head","layout":{"type":"constrained","wideSize":"1300px"}} -->
+<div class="wp-block-group tw-page-head"><!-- wp:group {"align":"wide","className":"tw-page-head__card","layout":{"type":"constrained","contentSize":"860px"}} -->
+<div class="wp-block-group alignwide tw-page-head__card"><!-- wp:shortcode -->
 [tw_breadcrumbs]
 <!-- /wp:shortcode -->
 
@@ -13,13 +14,16 @@
 <!-- wp:paragraph {"className":"tw-lede"} -->
 <p class="tw-lede">Step-by-step guides for installing Talkwyn, connecting AI providers, and getting the most out of your chatbot.</p>
 <!-- /wp:paragraph --></div>
+<!-- /wp:group --></div>
 <!-- /wp:group -->
 
 <!-- wp:group {"layout":{"type":"constrained","contentSize":"1300px"},"style":{"spacing":{"padding":{"top":"var:preset|spacing|12","bottom":"var:preset|spacing|18"}}}} -->
 <div class="wp-block-group" style="padding-top:var(--wp--preset--spacing--12);padding-bottom:var(--wp--preset--spacing--18)"><!-- wp:shortcode -->
 [tw_docs_index]
 <!-- /wp:shortcode --></div>
-<!-- /wp:group --></main>
+<!-- /wp:group -->
+
+<!-- wp:template-part {"slug":"cta-band"} /--></main>
 <!-- /wp:group -->
 
 <!-- wp:template-part {"slug":"footer","tagName":"footer"} /-->

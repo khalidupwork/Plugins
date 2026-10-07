@@ -25,66 +25,195 @@
 		}
 	} );
 
-	/* ---------- Theme toggle (light / dark / system) ---------- */
-	var labels = { system: 'Theme: system', light: 'Theme: light', dark: 'Theme: dark' };
-	function currentMode() {
-		try {
-			return localStorage.getItem( 'tw-theme' ) || 'system';
-		} catch ( e ) {
-			return 'system';
-		}
-	}
-	function applyMode( mode ) {
-		if ( mode === 'light' || mode === 'dark' ) {
-			doc.setAttribute( 'data-theme', mode );
-		} else {
-			doc.removeAttribute( 'data-theme' );
-		}
-		document.querySelectorAll( '[data-tw-theme-toggle]' ).forEach( function ( btn ) {
-			btn.setAttribute( 'data-mode', mode );
-			btn.setAttribute( 'title', labels[ mode ] );
-			var label = btn.querySelector( '[data-tw-theme-label]' );
-			if ( label ) {
-				label.textContent = labels[ mode ];
+	/* ---------- Header: mega menu (desktop) ---------- */
+	var header = document.querySelector( '[data-tw-header]' );
+	if ( header ) {
+		var triggers = Array.prototype.slice.call( header.querySelectorAll( '.tw-mega__trigger[aria-controls]' ) );
+		var openItem = null;
+		var hoverTimer = null;
+		var canHover = window.matchMedia && window.matchMedia( '(hover: hover) and (pointer: fine)' ).matches;
+
+		var closeMega = function ( focusTrigger ) {
+			if ( ! openItem ) {
+				return;
+			}
+			var t = openItem.querySelector( '.tw-mega__trigger' );
+			t.setAttribute( 'aria-expanded', 'false' );
+			openItem.querySelector( '.tw-mega__panel' ).hidden = true;
+			openItem.classList.remove( 'is-open' );
+			header.classList.remove( 'has-open-panel' );
+			openItem = null;
+			if ( focusTrigger ) {
+				t.focus();
+			}
+		};
+		var openMega = function ( item ) {
+			if ( openItem === item ) {
+				return;
+			}
+			closeMega( false );
+			item.querySelector( '.tw-mega__trigger' ).setAttribute( 'aria-expanded', 'true' );
+			item.querySelector( '.tw-mega__panel' ).hidden = false;
+			item.classList.add( 'is-open' );
+			header.classList.add( 'has-open-panel' );
+			openItem = item;
+		};
+
+		triggers.forEach( function ( t ) {
+			var item = t.parentNode;
+			t.addEventListener( 'click', function () {
+				if ( openItem === item ) {
+					closeMega( false );
+				} else {
+					openMega( item );
+				}
+			} );
+			t.addEventListener( 'keydown', function ( e ) {
+				if ( e.key === 'ArrowDown' ) {
+					e.preventDefault();
+					openMega( item );
+					var first = item.querySelector( '.tw-mega__panel a' );
+					if ( first ) {
+						first.focus();
+					}
+				} else if ( e.key === 'ArrowRight' || e.key === 'ArrowLeft' ) {
+					var all = Array.prototype.slice.call( header.querySelectorAll( '.tw-mega__trigger' ) );
+					var dir = ( e.key === 'ArrowRight' ) === ( document.dir !== 'rtl' ) ? 1 : -1;
+					var next = all[ ( all.indexOf( t ) + dir + all.length ) % all.length ];
+					e.preventDefault();
+					next.focus();
+				}
+			} );
+			if ( canHover ) {
+				item.addEventListener( 'mouseenter', function () {
+					clearTimeout( hoverTimer );
+					hoverTimer = setTimeout( function () {
+						openMega( item );
+					}, openItem ? 0 : 90 );
+				} );
+				item.addEventListener( 'mouseleave', function () {
+					clearTimeout( hoverTimer );
+					hoverTimer = setTimeout( function () {
+						if ( openItem === item && ! item.contains( document.activeElement ) ) {
+							closeMega( false );
+						}
+					}, 220 );
+				} );
 			}
 		} );
-	}
-	applyMode( currentMode() );
-	document.addEventListener( 'click', function ( e ) {
-		var btn = e.target.closest( '[data-tw-theme-toggle]' );
-		if ( ! btn ) {
-			return;
-		}
-		var order = [ 'system', 'light', 'dark' ];
-		var next = order[ ( order.indexOf( currentMode() ) + 1 ) % order.length ];
-		try {
-			if ( next === 'system' ) {
-				localStorage.removeItem( 'tw-theme' );
-			} else {
-				localStorage.setItem( 'tw-theme', next );
+		document.addEventListener( 'keydown', function ( e ) {
+			if ( e.key === 'Escape' && openItem ) {
+				closeMega( openItem.contains( document.activeElement ) );
 			}
-		} catch ( err ) {}
-		applyMode( next );
-	} );
+		} );
+		// Close when focus or a click leaves the open panel.
+		header.addEventListener( 'focusout', function ( e ) {
+			if ( openItem && e.relatedTarget && ! openItem.contains( e.relatedTarget ) ) {
+				closeMega( false );
+			}
+		} );
+		document.addEventListener( 'click', function ( e ) {
+			if ( openItem && ! openItem.contains( e.target ) ) {
+				closeMega( false );
+			}
+		} );
+
+		/* ---------- Header: full-screen menu (mobile) ---------- */
+		var burger = header.querySelector( '.tw-hdr__burger' );
+		var mnav = document.getElementById( 'tw-mnav' );
+		var lastFocus = null;
+		var focusables = function () {
+			return Array.prototype.filter.call( mnav.querySelectorAll( 'a[href], button:not([disabled])' ), function ( el ) {
+				return el.offsetParent !== null;
+			} );
+		};
+		var closeNav = function () {
+			mnav.hidden = true;
+			burger.setAttribute( 'aria-expanded', 'false' );
+			doc.classList.remove( 'tw-nav-open' );
+			if ( lastFocus ) {
+				lastFocus.focus();
+			}
+		};
+		if ( burger && mnav ) {
+			burger.addEventListener( 'click', function () {
+				lastFocus = burger;
+				mnav.hidden = false;
+				burger.setAttribute( 'aria-expanded', 'true' );
+				doc.classList.add( 'tw-nav-open' );
+				var close = mnav.querySelector( '[data-tw-mnav-close]' );
+				if ( close ) {
+					close.focus();
+				}
+			} );
+			mnav.addEventListener( 'click', function ( e ) {
+				if ( e.target.closest( '[data-tw-mnav-close]' ) ) {
+					closeNav();
+					return;
+				}
+				var toggle = e.target.closest( '.tw-mnav__toggle' );
+				if ( toggle ) {
+					var sub = document.getElementById( toggle.getAttribute( 'aria-controls' ) );
+					var open = toggle.getAttribute( 'aria-expanded' ) === 'true';
+					toggle.setAttribute( 'aria-expanded', open ? 'false' : 'true' );
+					sub.hidden = open;
+					return;
+				}
+				// Same-page anchors (like /#live-demo) close the menu.
+				if ( e.target.closest( 'a[href*="#"]' ) ) {
+					closeNav();
+				}
+			} );
+			mnav.addEventListener( 'keydown', function ( e ) {
+				if ( e.key === 'Escape' ) {
+					closeNav();
+				} else if ( e.key === 'Tab' ) {
+					var f = focusables();
+					if ( ! f.length ) {
+						return;
+					}
+					if ( e.shiftKey && document.activeElement === f[ 0 ] ) {
+						e.preventDefault();
+						f[ f.length - 1 ].focus();
+					} else if ( ! e.shiftKey && document.activeElement === f[ f.length - 1 ] ) {
+						e.preventDefault();
+						f[ 0 ].focus();
+					}
+				}
+			} );
+			window.addEventListener( 'resize', function () {
+				if ( ! mnav.hidden && window.innerWidth >= 1024 ) {
+					closeNav();
+				}
+			} );
+		}
+
+		// A thin shadow once the page scrolls under the sticky header.
+		var onScroll = function () {
+			header.classList.toggle( 'is-scrolled', window.scrollY > 8 );
+		};
+		window.addEventListener( 'scroll', onScroll, { passive: true } );
+		onScroll();
+	}
 
 	/* ---------- Hero word rotator ---------- */
 	document.querySelectorAll( '[data-tw-rotator]' ).forEach( function ( rotator ) {
 		var words = rotator.querySelectorAll( '.tw-rotator__word' );
-		if ( words.length < 2 || reduceMotion || window.innerWidth < 782 ) {
+		if ( words.length < 2 || reduceMotion ) {
 			return;
 		}
 		var i = 0;
-		var timer = setInterval( function () {
+		var timer = null;
+		var tick = function () {
 			words[ i ].classList.remove( 'is-active' );
 			i = ( i + 1 ) % words.length;
 			words[ i ].classList.add( 'is-active' );
-		}, 3000 );
-		// Pause when the hero is not visible.
+		};
+		// Rotate only while the hero is on screen.
 		if ( 'IntersectionObserver' in window ) {
 			new IntersectionObserver( function ( entries ) {
-				if ( ! entries[ 0 ].isIntersecting ) {
-					clearInterval( timer );
-				}
+				clearInterval( timer );
+				timer = entries[ 0 ].isIntersecting ? setInterval( tick, 2600 ) : null;
 			} ).observe( rotator );
 		}
 	} );

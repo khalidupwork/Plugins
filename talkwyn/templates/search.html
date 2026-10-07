@@ -1,10 +1,12 @@
 <!-- wp:template-part {"slug":"header","tagName":"header"} /-->
 
 <!-- wp:group {"tagName":"main","className":"tw-main","layout":{"type":"default"},"style":{"spacing":{"margin":{"top":"0"}}}} -->
-<main class="wp-block-group tw-main" id="main" style="margin-top:0"><!-- wp:group {"className":"tw-page-head","layout":{"type":"constrained"}} -->
-<div class="wp-block-group tw-page-head"><!-- wp:query-title {"type":"search","level":1} /-->
+<main class="wp-block-group tw-main" id="main" style="margin-top:0"><!-- wp:group {"className":"tw-page-head","layout":{"type":"constrained","wideSize":"1300px"}} -->
+<div class="wp-block-group tw-page-head"><!-- wp:group {"align":"wide","className":"tw-page-head__card","layout":{"type":"constrained","contentSize":"860px"}} -->
+<div class="wp-block-group alignwide tw-page-head__card"><!-- wp:query-title {"type":"search","level":1} /-->
 
 <!-- wp:search {"label":"Search","showLabel":false,"buttonText":"Search","buttonUseIcon":false} /--></div>
+<!-- /wp:group --></div>
 <!-- /wp:group -->
 
 <!-- wp:query {"queryId":2,"query":{"perPage":20,"pages":0,"offset":0,"postType":"post","inherit":true},"layout":{"type":"constrained"}} -->
@@ -25,7 +27,9 @@
 <p>Nothing matched that search. Try different words, or start with the <a href="/docs/">docs</a> or the <a href="/features/">features overview</a>.</p>
 <!-- /wp:paragraph -->
 <!-- /wp:query-no-results --></div>
-<!-- /wp:query --></main>
+<!-- /wp:query -->
+
+<!-- wp:template-part {"slug":"cta-band"} /--></main>
 <!-- /wp:group -->
 
 <!-- wp:template-part {"slug":"footer","tagName":"footer"} /-->

@@ -18,21 +18,6 @@ add_shortcode(
 );
 
 /**
- * [tw_theme_toggle] Cycles light, dark, system. State lives in localStorage("tw-theme").
- */
-add_shortcode(
-	'tw_theme_toggle',
-	static function () {
-		return '<button type="button" class="tw-theme-toggle" data-tw-theme-toggle aria-live="polite">'
-			. '<span class="tw-theme-toggle__icon tw-theme-toggle__icon--system">' . talkwyn_icon( 'monitor', 18 ) . '</span>'
-			. '<span class="tw-theme-toggle__icon tw-theme-toggle__icon--light">' . talkwyn_icon( 'sun', 18 ) . '</span>'
-			. '<span class="tw-theme-toggle__icon tw-theme-toggle__icon--dark">' . talkwyn_icon( 'moon', 18 ) . '</span>'
-			. '<span class="screen-reader-text" data-tw-theme-label>' . esc_html__( 'Theme: system', 'talkwyn' ) . '</span>'
-			. '</button>';
-	}
-);
-
-/**
  * [tw_social] Social profile links from Site Settings (hidden when empty).
  */
 add_shortcode(
@@ -118,3 +103,17 @@ function talkwyn_install_href( $html, $block ) {
 	}
 	return (string) $out;
 }
+
+/**
+ * Raw "Install free" links in patterns point at /download/ until a WordPress.org URL is set.
+ *
+ * @param string $html Content.
+ */
+function talkwyn_install_links( $html ) {
+	$url = talkwyn_install_url();
+	if ( false === strpos( (string) $html, 'data-tw-event="install_click"' ) || home_url( '/download/' ) === $url ) {
+		return $html;
+	}
+	return (string) preg_replace( '#href="(?:' . preg_quote( home_url( '/download/' ), '#' ) . '|/download/)"(\s+data-tw-event="install_click")#', 'href="' . esc_url( $url ) . '" rel="noopener"$1', (string) $html );
+}
+add_filter( 'the_content', 'talkwyn_install_links', 20 );

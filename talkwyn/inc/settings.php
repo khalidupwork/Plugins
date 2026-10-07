@@ -50,7 +50,166 @@ function talkwyn_settings_defaults(): array {
 		'demo_shortcode'     => '',
 		'tidio_checked_on'   => '',
 		'tidio_price_note'   => '',
+		'chatbase_checked_on' => '',
+		'chatbase_price_note' => '',
+		'intercom_checked_on' => '',
+		'intercom_price_note' => '',
+		'trial_days'         => 15,
+		'trial_card_policy'  => 'none',
+		'hub_url'            => '',
+		'partner_rate'       => 20,
+		'partner_cookie_days' => 60,
+		'partner_threshold'  => 50,
+		'partner_methods'    => 'PayPal, Wise, bank transfer, Payoneer',
+		'waitlist_show_count' => 0,
+	) + talkwyn_integration_status_defaults();
+}
+
+/**
+ * Integrations with their default status (Available, In development, Planned).
+ *
+ * @return array<string, array{name: string, url: string, status: string}>
+ */
+function talkwyn_integrations(): array {
+	$list = array(
+		'wordpress'     => array( 'WordPress', '/integrations/wordpress/', 'available' ),
+		'woocommerce'   => array( 'WooCommerce', '/integrations/woocommerce/', 'available' ),
+		'elementor'     => array( 'Elementor', '/integrations/elementor/', 'available' ),
+		'shopify'       => array( 'Shopify', '/integrations/shopify/', 'in_development' ),
+		'website_embed' => array( 'Any website', '/integrations/website-embed/', 'in_development' ),
+		'whatsapp'      => array( 'WhatsApp lead alerts', '/integrations/whatsapp/', 'in_development' ),
+		'wix'           => array( 'Wix', '/integrations/#wix', 'planned' ),
+		'webflow'       => array( 'Webflow', '/integrations/#webflow', 'planned' ),
+		'squarespace'   => array( 'Squarespace', '/integrations/#squarespace', 'planned' ),
+		'hubspot'       => array( 'HubSpot', '/integrations/#hubspot', 'planned' ),
+		'zapier'        => array( 'Zapier', '/integrations/#zapier', 'planned' ),
 	);
+	$out  = array();
+	foreach ( $list as $slug => $row ) {
+		$stored       = function_exists( 'talkwyn_settings' ) ? (string) ( talkwyn_settings()[ 'status_' . $slug ] ?? '' ) : '';
+		$out[ $slug ] = array(
+			'name'   => $row[0],
+			'url'    => $row[1],
+			'status' => in_array( $stored, array( 'available', 'in_development', 'planned' ), true ) ? $stored : $row[2],
+		);
+	}
+	return $out;
+}
+
+/**
+ * Default integration statuses as settings.
+ *
+ * @return array<string, string>
+ */
+function talkwyn_integration_status_defaults(): array {
+	return array(
+		'status_wordpress'     => 'available',
+		'status_woocommerce'   => 'available',
+		'status_elementor'     => 'available',
+		'status_shopify'       => 'in_development',
+		'status_website_embed' => 'in_development',
+		'status_whatsapp'      => 'in_development',
+		'status_wix'           => 'planned',
+		'status_webflow'       => 'planned',
+		'status_squarespace'   => 'planned',
+		'status_hubspot'       => 'planned',
+		'status_zapier'        => 'planned',
+	);
+}
+
+/**
+ * Status label.
+ *
+ * @param string $status available|in_development|planned.
+ */
+function talkwyn_status_label( string $status ): string {
+	$labels = array(
+		'available'      => __( 'Available', 'talkwyn' ),
+		'in_development' => __( 'In development', 'talkwyn' ),
+		'planned'        => __( 'Planned', 'talkwyn' ),
+	);
+	return $labels[ $status ] ?? $labels['planned'];
+}
+
+/**
+ * Trial facts: from Talkwyn Hub when it runs on this site, otherwise from Site Settings.
+ *
+ * @return array{days: int, card: bool, policy: string}
+ */
+function talkwyn_trial(): array {
+	if ( class_exists( '\\TWH\\Trial\\Trial' ) ) {
+		$card = 'card' === \TWH\Trial\Trial::card_mode() && \TWH\Trial\Trial::card_mode_ready();
+		return array(
+			'days'   => \TWH\Trial\Trial::days(),
+			'card'   => $card,
+			'policy' => \TWH\Trial\Trial::card_policy_text(),
+		);
+	}
+	$days = max( 1, (int) talkwyn_setting( 'trial_days' ) );
+	$card = 'card' === talkwyn_setting( 'trial_card_policy' );
+	return array(
+		'days'   => $days,
+		'card'   => $card,
+		/* translators: %d: trial days */
+		'policy' => $card ? sprintf( __( 'Cancel anytime before day %d and you won\'t be charged.', 'talkwyn' ), $days ) : __( 'No credit card needed.', 'talkwyn' ),
+	);
+}
+
+/**
+ * Partner program terms: Talkwyn Hub on this site, the Hub's public endpoint, or Site Settings.
+ *
+ * @return array{rate: float, renewal_rate: float, cookie_days: int, threshold: float, currency: string, methods: string, approval_days: int}
+ */
+function talkwyn_partner_terms(): array {
+	$terms = null;
+	if ( class_exists( '\\TWH\\Partners\\Program' ) ) {
+		$terms = \TWH\Partners\Program::terms();
+	} elseif ( '' !== (string) talkwyn_setting( 'hub_url' ) ) {
+		$terms = get_transient( 'talkwyn_partner_terms' );
+		if ( ! is_array( $terms ) ) {
+			$res   = wp_remote_get( trailingslashit( (string) talkwyn_setting( 'hub_url' ) ) . 'wp-json/talkwyn-hub/v1/partners/terms', array( 'timeout' => 5 ) );
+			$terms = ! is_wp_error( $res ) && 200 === wp_remote_retrieve_response_code( $res ) ? json_decode( wp_remote_retrieve_body( $res ), true ) : null;
+			set_transient( 'talkwyn_partner_terms', is_array( $terms ) ? $terms : array(), is_array( $terms ) ? 12 * HOUR_IN_SECONDS : 15 * MINUTE_IN_SECONDS );
+		}
+		$terms = is_array( $terms ) && $terms ? $terms : null;
+	}
+	if ( $terms ) {
+		return array(
+			'rate'          => (float) $terms['commission_rate'],
+			'renewal_rate'  => (float) $terms['renewal_rate'],
+			'cookie_days'   => (int) $terms['cookie_days'],
+			'threshold'     => (float) $terms['payout_threshold'],
+			'currency'      => (string) $terms['currency'],
+			'methods'       => implode( ', ', (array) $terms['payout_methods'] ),
+			'approval_days' => (int) $terms['approval_days'],
+		);
+	}
+	return array(
+		'rate'          => (float) talkwyn_setting( 'partner_rate' ),
+		'renewal_rate'  => 0.0,
+		'cookie_days'   => (int) talkwyn_setting( 'partner_cookie_days' ),
+		'threshold'     => (float) talkwyn_setting( 'partner_threshold' ),
+		'currency'      => function_exists( 'get_woocommerce_currency' ) ? get_woocommerce_currency() : 'USD',
+		'methods'       => (string) talkwyn_setting( 'partner_methods' ),
+		'approval_days' => 30,
+	);
+}
+
+/**
+ * Money in the store currency.
+ *
+ * @param float  $amount   Amount.
+ * @param string $currency Currency code.
+ */
+function talkwyn_money( float $amount, string $currency = '' ): string {
+	if ( function_exists( 'wc_price' ) ) {
+		$args = array( 'decimals' => floor( $amount ) === $amount ? 0 : 2 );
+		if ( '' !== $currency ) {
+			$args['currency'] = $currency;
+		}
+		return trim( wp_strip_all_tags( html_entity_decode( wc_price( $amount, $args ) ) ) );
+	}
+	return ( 'USD' === $currency || '' === $currency ? '$' : $currency . ' ' ) . number_format_i18n( $amount, floor( $amount ) === $amount ? 0 : 2 );
 }
 
 /**
@@ -152,6 +311,31 @@ function talkwyn_value( string $key ): string {
 		case 'contact_email':
 			$email = (string) talkwyn_setting( 'contact_email' );
 			return '' !== $email ? $email : (string) get_option( 'admin_email' );
+		case 'trial_days':
+			return number_format_i18n( talkwyn_trial()['days'] );
+		case 'trial_card_policy':
+			return talkwyn_trial()['policy'];
+		case 'partner_rate':
+			return rtrim( rtrim( number_format( talkwyn_partner_terms()['rate'], 2, '.', '' ), '0' ), '.' ) . '%';
+		case 'partner_cookie_days':
+			return number_format_i18n( talkwyn_partner_terms()['cookie_days'] );
+		case 'partner_threshold':
+			$t = talkwyn_partner_terms();
+			return talkwyn_money( $t['threshold'], $t['currency'] );
+		case 'partner_methods':
+			return talkwyn_partner_terms()['methods'];
+		case 'partner_approval_days':
+			return number_format_i18n( talkwyn_partner_terms()['approval_days'] );
+		case 'tidio_checked_on':
+		case 'chatbase_checked_on':
+		case 'intercom_checked_on':
+			$date = (string) talkwyn_setting( $key );
+			return '' !== $date ? date_i18n( get_option( 'date_format' ), (int) strtotime( $date ) ) : __( 'not yet checked', 'talkwyn' );
+	}
+	if ( 0 === strpos( $key, 'status_' ) ) {
+		$all = talkwyn_integrations();
+		$slug = substr( $key, 7 );
+		return isset( $all[ $slug ] ) ? talkwyn_status_label( $all[ $slug ]['status'] ) : '';
 	}
 	return '';
 }
@@ -248,11 +432,36 @@ function talkwyn_settings_fields(): array {
 			array( 'free_zip_url', __( 'Direct ZIP download of the free plugin', 'talkwyn' ), 'url' ),
 			array( 'waitlist_action', __( 'Shopify waitlist form target URL (empty = store sign-ups here and email you)', 'talkwyn' ), 'url' ),
 			array( 'contact_email', __( 'Contact form recipient (empty = site admin email)', 'talkwyn' ), 'email' ),
+			array( 'waitlist_show_count', __( 'Show the live waitlist count on integration pages', 'talkwyn' ), 'checkbox' ),
 			array( 'demo_shortcode', __( 'Live demo shortcode (when the Talkwyn plugin runs on this site), e.g. [talkwyn_chat mode="inline" profile="demo-clinic"]', 'talkwyn' ), 'text' ),
 		),
+		__( 'Free trial', 'talkwyn' )         => array(
+			array( 'trial_days', __( 'Trial length in days (Talkwyn Hub on this site overrides this)', 'talkwyn' ), 'number' ),
+			array(
+				'trial_card_policy',
+				__( 'Card policy', 'talkwyn' ),
+				'select',
+				array(
+					'none' => __( 'No credit card needed', 'talkwyn' ),
+					'card' => __( 'Card on file, cancel before the trial ends', 'talkwyn' ),
+				),
+			),
+		),
+		__( 'Partners', 'talkwyn' )           => array(
+			array( 'hub_url', __( 'Talkwyn Hub site URL, if the Hub runs on another site (terms are read from its /partners/terms endpoint)', 'talkwyn' ), 'url' ),
+			array( 'partner_rate', __( 'Fallback commission percent (used only without the Hub)', 'talkwyn' ), 'number' ),
+			array( 'partner_cookie_days', __( 'Fallback cookie days', 'talkwyn' ), 'number' ),
+			array( 'partner_threshold', __( 'Fallback minimum payout', 'talkwyn' ), 'number' ),
+			array( 'partner_methods', __( 'Fallback payout methods', 'talkwyn' ), 'text' ),
+		),
+		__( 'Integrations', 'talkwyn' )       => talkwyn_integration_fields(),
 		__( 'Comparisons', 'talkwyn' )        => array(
 			array( 'tidio_price_note', __( 'Tidio pricing summary from tidio.com/pricing', 'talkwyn' ), 'text' ),
 			array( 'tidio_checked_on', __( 'Tidio pricing checked on (date)', 'talkwyn' ), 'date' ),
+			array( 'chatbase_price_note', __( 'Chatbase pricing summary from chatbase.co/pricing', 'talkwyn' ), 'text' ),
+			array( 'chatbase_checked_on', __( 'Chatbase pricing checked on (date)', 'talkwyn' ), 'date' ),
+			array( 'intercom_price_note', __( 'Intercom pricing summary from intercom.com/pricing', 'talkwyn' ), 'text' ),
+			array( 'intercom_checked_on', __( 'Intercom pricing checked on (date)', 'talkwyn' ), 'date' ),
 		),
 		__( 'Social profiles', 'talkwyn' )    => array(
 			array( 'social_x', 'X (Twitter)', 'url' ),
@@ -278,6 +487,24 @@ function talkwyn_settings_fields(): array {
 			array( 'plausible_src', __( 'Plausible script URL', 'talkwyn' ), 'url' ),
 		),
 	);
+}
+
+/**
+ * One status select per integration.
+ *
+ * @return array<int, array<int, mixed>>
+ */
+function talkwyn_integration_fields(): array {
+	$options = array(
+		'available'      => __( 'Available', 'talkwyn' ),
+		'in_development' => __( 'In development', 'talkwyn' ),
+		'planned'        => __( 'Planned', 'talkwyn' ),
+	);
+	$fields  = array();
+	foreach ( talkwyn_integrations() as $slug => $row ) {
+		$fields[] = array( 'status_' . $slug, $row['name'], 'select', $options );
+	}
+	return $fields;
 }
 
 /**
