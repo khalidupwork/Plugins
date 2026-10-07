@@ -142,6 +142,12 @@ Partners see clicks, trials, referrals, pending, approved and paid totals, a cha
 
 If a consent plugin that supports the WP Consent API is active, the cookie is only set with marketing consent (the WooCommerce session still keeps the referral for that visit). Filter: `twh_referral_cookie_consent`.
 
+## 5c. Invoices (since 1.2.0)
+
+Every paid order gets the next invoice number (prefix plus five digits, for example `TW-00001`) when it moves to Processing or Completed. Set the prefix and your company name, address, tax or VAT ID, billing email and a footer note under **Talkwyn Hub, Settings, Invoices**.
+
+Customers open a printable invoice from **My Account, Orders and invoices** (the Invoice button), from the order page, and from the link in their order email. The page has a "Print or save as PDF" button. A link only opens for the customer, a shop manager, or someone holding the order key from the email. Older `/my-account/twh-invoice/ID/` links redirect to the new invoice. If a dedicated PDF invoice plugin is active, Talkwyn Hub leaves invoices to it.
+
 ## 6. Admin
 
 | Screen | What you can do |

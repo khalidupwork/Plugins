@@ -50,6 +50,7 @@ final class Plugin {
 			Trial\Trial::init();
 			Partners\Program::init();
 			Woo\OrderDisplay::init();
+			Woo\Invoices::init();
 			Account\Account::init();
 		} else {
 			add_action( 'admin_notices', array( self::class, 'notice_woocommerce' ) );

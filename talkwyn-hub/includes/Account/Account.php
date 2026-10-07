@@ -383,13 +383,8 @@ final class Account {
 	 * @return array<string, array<string, string>>
 	 */
 	public static function invoice_action( $actions, $order ) {
-		if ( self::has_invoice_plugin() || ! $order instanceof \WC_Order || ! $order->is_paid() ) {
-			return $actions;
-		}
-		$actions['twh_invoice'] = array(
-			'url'  => wc_get_endpoint_url( self::EP_INVOICE, (string) $order->get_id(), wc_get_page_permalink( 'myaccount' ) ),
-			'name' => __( 'Invoice', 'talkwyn-hub' ),
-		);
+		// Woo\Invoices adds the numbered invoice action. This filter stays so old hooks keep working.
+		unset( $order );
 		return $actions;
 	}
 
@@ -406,7 +401,8 @@ final class Account {
 		if ( ! $owner || ! $order->is_paid() ) {
 			wp_die( esc_html__( 'Invoice not found.', 'talkwyn-hub' ), '', array( 'response' => 404 ) );
 		}
-		self::template( 'account/invoice.php', array( 'order' => $order ) );
+		// Old /my-account/twh-invoice/ID/ links open the numbered invoice.
+		wp_safe_redirect( \TWH\Woo\Invoices::url( $order ) );
 		exit;
 	}
 

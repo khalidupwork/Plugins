@@ -307,8 +307,10 @@ function talkwyn_header_html(): string {
 		. '<a class="tw-logo-link" href="' . esc_url( home_url( '/' ) ) . '" rel="home">' . talkwyn_logo_svg( 'full', __( 'Talkwyn home', 'talkwyn' ) ) . '</a>'
 		. '<nav class="tw-mega" aria-label="' . esc_attr__( 'Main', 'talkwyn' ) . '"><ul class="tw-mega__list">' . $desktop . '</ul></nav>'
 		. '<div class="tw-hdr__actions">'
-		. '<a class="tw-hdr__login" href="' . $login . '">' . esc_html__( 'Log in', 'talkwyn' ) . '</a>'
-		. '<a class="tw-pill tw-pill--red tw-pill--sm" href="' . $trial . '" data-tw-event="trial_click" data-tw-location="header">' . esc_html__( 'Start free trial', 'talkwyn' ) . '</a>'
+		. ( is_user_logged_in()
+			? '<a class="tw-hdr__login" href="' . $login . '">' . esc_html__( 'My account', 'talkwyn' ) . '</a>'
+			: '<a class="tw-hdr__login" href="' . $login . '" data-tw-modal="login" aria-haspopup="dialog">' . esc_html__( 'Log in', 'talkwyn' ) . '</a>' )
+		. '<a class="tw-pill tw-pill--red tw-pill--sm" href="' . $trial . '" data-tw-event="trial_click" data-tw-location="header" data-tw-modal="trial" aria-haspopup="dialog">' . esc_html__( 'Start free trial', 'talkwyn' ) . '</a>'
 		. '<a class="tw-pill tw-pill--ink tw-pill--sm tw-hdr__install" href="' . $install . '" data-tw-event="install_click" data-tw-location="header">' . esc_html__( 'Install free', 'talkwyn' ) . '</a>'
 		. '<button type="button" class="tw-hdr__burger" aria-expanded="false" aria-controls="tw-mnav">' . talkwyn_icon( 'menu', 24 ) . '<span class="screen-reader-text">' . esc_html__( 'Open menu', 'talkwyn' ) . '</span></button>'
 		. '</div></div>'
@@ -317,9 +319,9 @@ function talkwyn_header_html(): string {
 		. '<button type="button" class="tw-mnav__close" data-tw-mnav-close>' . talkwyn_icon( 'x', 24 ) . '<span class="screen-reader-text">' . esc_html__( 'Close menu', 'talkwyn' ) . '</span></button></div>'
 		. '<nav class="tw-mnav__body" aria-label="' . esc_attr__( 'Main', 'talkwyn' ) . '"><ul class="tw-mnav__list">' . $mobile . '</ul></nav>'
 		. '<div class="tw-mnav__foot">'
-		. '<a class="tw-pill tw-pill--red" href="' . $trial . '" data-tw-event="trial_click" data-tw-location="mobile_menu">' . esc_html__( 'Start free trial', 'talkwyn' ) . '</a>'
+		. '<a class="tw-pill tw-pill--red" href="' . $trial . '" data-tw-event="trial_click" data-tw-location="mobile_menu" data-tw-modal="trial" aria-haspopup="dialog">' . esc_html__( 'Start free trial', 'talkwyn' ) . '</a>'
 		. '<a class="tw-pill tw-pill--ink" href="' . $install . '" data-tw-event="install_click" data-tw-location="mobile_menu">' . esc_html__( 'Install free', 'talkwyn' ) . '</a>'
-		. '<a class="tw-mnav__login" href="' . $login . '">' . esc_html__( 'Log in', 'talkwyn' ) . '</a>'
+		. '<a class="tw-mnav__login" href="' . $login . '"' . ( is_user_logged_in() ? '>' . esc_html__( 'My account', 'talkwyn' ) : ' data-tw-modal="login" aria-haspopup="dialog">' . esc_html__( 'Log in', 'talkwyn' ) ) . '</a>'
 		. '</div></div>'
 		. '</div>';
 }

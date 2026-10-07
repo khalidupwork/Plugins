@@ -132,6 +132,25 @@ final class SettingsPage {
 						<label><input name="partner_respect_consent" type="checkbox" value="1" <?php checked( (int) $s['partner_respect_consent'], 1 ); ?>> <?php esc_html_e( 'Only set the referral cookie after cookie consent when a consent plugin is active', 'talkwyn-hub' ); ?></label></td></tr>
 				</table>
 
+				<h2 id="invoices"><?php esc_html_e( 'Invoices', 'talkwyn-hub' ); ?></h2>
+				<p class="description"><?php esc_html_e( 'Every paid order gets the next invoice number. Customers open a printable invoice from My Account, Orders and from their order email, and can save it as a PDF.', 'talkwyn-hub' ); ?></p>
+				<table class="form-table" role="presentation">
+					<tr><th><label for="twh-inv-prefix"><?php esc_html_e( 'Number prefix', 'talkwyn-hub' ); ?></label></th>
+						<td><input id="twh-inv-prefix" name="invoice_prefix" type="text" value="<?php echo esc_attr( (string) $s['invoice_prefix'] ); ?>" class="small-text">
+						<p class="description"><?php echo esc_html( sprintf( /* translators: %s: example number */ __( 'Next number looks like %s.', 'talkwyn-hub' ), \TWH\Woo\Invoices::format_number( (int) get_option( \TWH\Woo\Invoices::COUNTER, 0 ) + 1, (string) $s['invoice_prefix'] ) ) ); ?></p></td></tr>
+					<tr><th><label for="twh-inv-company"><?php esc_html_e( 'Company name', 'talkwyn-hub' ); ?></label></th>
+						<td><input id="twh-inv-company" name="invoice_company" type="text" value="<?php echo esc_attr( (string) $s['invoice_company'] ); ?>" class="regular-text" placeholder="<?php echo esc_attr( get_bloginfo( 'name' ) ); ?>"></td></tr>
+					<tr><th><label for="twh-inv-address"><?php esc_html_e( 'Company address', 'talkwyn-hub' ); ?></label></th>
+						<td><textarea id="twh-inv-address" name="invoice_address" rows="3" class="large-text"><?php echo esc_textarea( (string) $s['invoice_address'] ); ?></textarea></td></tr>
+					<tr><th><label for="twh-inv-tax"><?php esc_html_e( 'Tax or VAT ID', 'talkwyn-hub' ); ?></label></th>
+						<td><input id="twh-inv-tax" name="invoice_tax_id" type="text" value="<?php echo esc_attr( (string) $s['invoice_tax_id'] ); ?>" class="regular-text"></td></tr>
+					<tr><th><label for="twh-inv-email"><?php esc_html_e( 'Billing email', 'talkwyn-hub' ); ?></label></th>
+						<td><input id="twh-inv-email" name="invoice_email" type="email" value="<?php echo esc_attr( (string) $s['invoice_email'] ); ?>" class="regular-text" placeholder="<?php echo esc_attr( (string) get_option( 'admin_email' ) ); ?>"></td></tr>
+					<tr><th><label for="twh-inv-note"><?php esc_html_e( 'Note at the bottom', 'talkwyn-hub' ); ?></label></th>
+						<td><textarea id="twh-inv-note" name="invoice_note" rows="2" class="large-text"><?php echo esc_textarea( (string) $s['invoice_note'] ); ?></textarea>
+						<p class="description"><?php esc_html_e( 'For example payment terms or a thank-you line.', 'talkwyn-hub' ); ?></p></td></tr>
+				</table>
+
 				<h2><?php esc_html_e( 'API', 'talkwyn-hub' ); ?></h2>
 				<table class="form-table" role="presentation">
 					<tr><th><?php esc_html_e( 'Rate limit', 'talkwyn-hub' ); ?></th>
@@ -255,6 +274,12 @@ final class SettingsPage {
 				'partner_methods'          => implode( ',', $methods ),
 				'partner_pretty_links'     => empty( $_POST['partner_pretty_links'] ) ? 0 : 1,
 				'partner_respect_consent'  => empty( $_POST['partner_respect_consent'] ) ? 0 : 1,
+				'invoice_prefix'           => substr( preg_replace( '/[^A-Za-z0-9\-\/_.]/', '', sanitize_text_field( wp_unslash( $_POST['invoice_prefix'] ?? 'TW-' ) ) ), 0, 12 ),
+				'invoice_company'          => sanitize_text_field( wp_unslash( $_POST['invoice_company'] ?? '' ) ),
+				'invoice_address'          => sanitize_textarea_field( wp_unslash( $_POST['invoice_address'] ?? '' ) ),
+				'invoice_tax_id'           => sanitize_text_field( wp_unslash( $_POST['invoice_tax_id'] ?? '' ) ),
+				'invoice_email'            => sanitize_email( wp_unslash( $_POST['invoice_email'] ?? '' ) ),
+				'invoice_note'             => sanitize_textarea_field( wp_unslash( $_POST['invoice_note'] ?? '' ) ),
 			)
 		);
 		foreach ( array_keys( self::email_types() ) as $type ) {

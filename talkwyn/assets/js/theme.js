@@ -732,3 +732,76 @@
 		}
 	} );
 }() );
+
+/* Header popups: Log in and Start free trial open as dialogs. Real links stay as the fallback. */
+( function () {
+	function dialogFor( name ) {
+		var d = document.getElementById( 'tw-modal-' + name );
+		return d && typeof d.showModal === 'function' ? d : null;
+	}
+	function fill( d ) {
+		var body = d.querySelector( '[data-tw-modal-body]' );
+		var tpl = d.querySelector( 'template[data-tw-modal-tpl]' );
+		if ( body && tpl && ! body.childNodes.length ) {
+			body.appendChild( tpl.content.cloneNode( true ) );
+		}
+	}
+	function open( name, opener ) {
+		var d = dialogFor( name );
+		if ( ! d ) {
+			return false;
+		}
+		var mnav = document.getElementById( 'tw-mnav' );
+		if ( mnav && ! mnav.hidden ) {
+			var c = mnav.querySelector( '[data-tw-mnav-close]' );
+			if ( c ) {
+				c.click();
+			}
+		}
+		fill( d );
+		d.twOpener = opener || null;
+		d.showModal();
+		var first = d.querySelector( 'input:not([type="hidden"]):not([tabindex="-1"]), button[type="submit"], a.tw-pill' );
+		if ( first ) {
+			first.focus();
+		}
+		return true;
+	}
+	document.addEventListener( 'click', function ( e ) {
+		var t = e.target.closest( '[data-tw-modal]' );
+		if ( t ) {
+			var name = t.getAttribute( 'data-tw-modal' );
+			// On the pricing page the trial form is already on the page: scroll to it instead.
+			if ( 'trial' === name && document.getElementById( 'trial' ) ) {
+				return;
+			}
+			if ( e.metaKey || e.ctrlKey || e.shiftKey ) {
+				return;
+			}
+			if ( open( name, t ) ) {
+				e.preventDefault();
+			}
+			return;
+		}
+		if ( e.target.closest( '[data-tw-modal-close]' ) ) {
+			e.target.closest( 'dialog' ).close();
+		}
+	} );
+	document.querySelectorAll( 'dialog.tw-modal' ).forEach( function ( d ) {
+		// Click on the backdrop closes the dialog.
+		d.addEventListener( 'click', function ( e ) {
+			if ( e.target === d ) {
+				d.close();
+			}
+		} );
+		d.addEventListener( 'close', function () {
+			if ( d.twOpener && document.contains( d.twOpener ) ) {
+				d.twOpener.focus();
+			}
+		} );
+	} );
+	// After a trial form submit on any page, show the result in the popup.
+	if ( /[?&]twh_trial=/.test( window.location.search ) && ! document.getElementById( 'trial' ) ) {
+		open( 'trial' );
+	}
+}() );

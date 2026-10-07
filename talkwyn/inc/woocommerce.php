@@ -18,7 +18,11 @@ add_shortcode(
 			/* translators: %d: refund window in days */
 			? sprintf( __( '%d-day refund policy. Cancel renewal anytime.', 'talkwyn' ), $days )
 			: __( 'Cancel renewal anytime.', 'talkwyn' );
-		return '<p class="tw-trustline">' . talkwyn_icon( 'shield-check', 18 ) . ' <span>' . esc_html( $text ) . '</span> <a href="' . esc_url( home_url( '/refund-policy/' ) ) . '">' . esc_html__( 'Read the policy', 'talkwyn' ) . '</a></p>';
+		return '<ul class="tw-trustline">'
+			. '<li>' . talkwyn_icon( 'shield-check', 18 ) . '<span>' . esc_html( $text ) . ' <a href="' . esc_url( home_url( '/refund-policy/' ) ) . '">' . esc_html__( 'Read the policy', 'talkwyn' ) . '</a></span></li>'
+			. '<li>' . talkwyn_icon( 'mail', 18 ) . '<span>' . esc_html__( 'Your license key arrives by email right after payment.', 'talkwyn' ) . '</span></li>'
+			. '<li>' . talkwyn_icon( 'file-text', 18 ) . '<span>' . esc_html__( 'A numbered invoice for every order, in your account.', 'talkwyn' ) . '</span></li>'
+			. '</ul>';
 	}
 );
 
@@ -130,5 +134,96 @@ add_action(
 			wp_safe_redirect( $target, 301 );
 			exit;
 		}
+	}
+);
+
+/**
+ * My Account, logged out: the login form in a card, with what the account holds beside it.
+ */
+add_action(
+	'woocommerce_before_customer_login_form',
+	static function () {
+		echo '<div class="tw-acct-login"><div class="tw-acct-login__main">';
+	}
+);
+add_action(
+	'woocommerce_after_customer_login_form',
+	static function () {
+		$items = array(
+			array( 'key-round', __( 'Licenses and sites', 'talkwyn' ), __( 'Your keys, plans, and the sites they run on.', 'talkwyn' ) ),
+			array( 'download', __( 'Downloads', 'talkwyn' ), __( 'The latest Talkwyn Pro version.', 'talkwyn' ) ),
+			array( 'file-text', __( 'Orders and invoices', 'talkwyn' ), __( 'Every order with a printable invoice.', 'talkwyn' ) ),
+			array( 'handshake', __( 'Partner dashboard', 'talkwyn' ), __( 'Your link, referrals, and payouts.', 'talkwyn' ) ),
+		);
+		$list  = '';
+		foreach ( $items as $i ) {
+			$list .= '<li><span class="tw-card__icon">' . talkwyn_icon( $i[0], 18 ) . '</span><span><b>' . esc_html( $i[1] ) . '</b><i>' . esc_html( $i[2] ) . '</i></span></li>';
+		}
+		echo '</div><aside class="tw-acct-login__aside"><p class="tw-acct-login__kicker">' . esc_html__( 'Your Talkwyn account', 'talkwyn' ) . '</p><ul>' . $list . '</ul>' // phpcs:ignore WordPress.Security.EscapingOutput.OutputNotEscaped -- escaped above.
+			. '<div class="tw-acct-login__new"><p>' . esc_html__( 'New to Talkwyn?', 'talkwyn' ) . '</p>'
+			. '<a class="tw-pill tw-pill--red" href="' . esc_url( home_url( '/pricing/#trial' ) ) . '" data-tw-modal="trial" data-tw-event="trial_click" data-tw-location="account_login">' . esc_html__( 'Start free trial', 'talkwyn' ) . '</a>'
+			. '<a class="tw-arrow-link" href="' . esc_url( talkwyn_install_url() ) . '">' . esc_html__( 'Or install free', 'talkwyn' ) . talkwyn_icon( 'arrow-right', 16 ) . '</a></div></aside></div>';
+	}
+);
+
+/**
+ * Clearer account wording.
+ */
+add_filter(
+	'gettext',
+	static function ( $text, $original, $domain ) {
+		if ( 'woocommerce' !== $domain ) {
+			return $text;
+		}
+		if ( 'Login' === $original ) {
+			return __( 'Log in to your account', 'talkwyn' );
+		}
+		if ( 'Lost your password?' === $original ) {
+			return __( 'Forgot your password?', 'talkwyn' );
+		}
+		return $text;
+	},
+	10,
+	3
+);
+add_filter(
+	'woocommerce_account_menu_items',
+	static function ( $items ) {
+		if ( isset( $items['orders'] ) ) {
+			$items['orders'] = __( 'Orders and invoices', 'talkwyn' );
+		}
+		if ( isset( $items['downloads'], $items['software-downloads'] ) ) {
+			unset( $items['downloads'] ); // Software downloads already lists every file a customer owns.
+		}
+		return $items;
+	},
+	50
+);
+
+/**
+ * My Account dashboard: one card per section.
+ */
+add_action(
+	'woocommerce_account_dashboard',
+	static function () {
+		$icons = array(
+			'orders'             => array( 'file-text', __( 'Orders, receipts, and printable invoices.', 'talkwyn' ) ),
+			'licenses'           => array( 'key-round', __( 'Your keys, plans, and active sites.', 'talkwyn' ) ),
+			'software-downloads' => array( 'download', __( 'The latest Talkwyn Pro version.', 'talkwyn' ) ),
+			'downloads'          => array( 'download', __( 'Files from your orders.', 'talkwyn' ) ),
+			'partners'           => array( 'handshake', __( 'Your partner link, referrals, and payouts.', 'talkwyn' ) ),
+			'edit-address'       => array( 'house', __( 'Billing details for your invoices.', 'talkwyn' ) ),
+			'edit-account'       => array( 'user-check', __( 'Name, email, and password.', 'talkwyn' ) ),
+		);
+		$cards = '';
+		foreach ( wc_get_account_menu_items() as $key => $label ) {
+			if ( ! isset( $icons[ $key ] ) ) {
+				continue;
+			}
+			$cards .= '<a class="tw-acct-card" href="' . esc_url( wc_get_account_endpoint_url( $key ) ) . '"><span class="tw-card__icon">' . talkwyn_icon( $icons[ $key ][0], 20 ) . '</span>'
+				. '<span><b>' . esc_html( $label ) . '</b><i>' . esc_html( $icons[ $key ][1] ) . '</i></span>' . talkwyn_icon( 'arrow-right', 16 ) . '</a>';
+		}
+		echo '<div class="tw-acct-cards">' . $cards . '</div>'; // phpcs:ignore WordPress.Security.EscapingOutput.OutputNotEscaped -- escaped above.
+		echo '<div class="tw-acct-help"><span class="tw-card__icon">' . talkwyn_icon( 'circle-help', 20 ) . '</span><p>' . esc_html__( 'Need a hand with setup or billing?', 'talkwyn' ) . ' <a href="' . esc_url( home_url( '/docs/getting-started/' ) ) . '">' . esc_html__( 'Read the setup guide', 'talkwyn' ) . '</a> ' . esc_html__( 'or', 'talkwyn' ) . ' <a href="' . esc_url( home_url( '/contact/' ) ) . '">' . esc_html__( 'contact us', 'talkwyn' ) . '</a>.</p></div>'; // phpcs:ignore WordPress.Security.EscapingOutput.OutputNotEscaped -- escaped above.
 	}
 );

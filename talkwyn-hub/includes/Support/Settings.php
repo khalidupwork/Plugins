@@ -50,6 +50,14 @@ final class Settings {
 			'email_renewed_subject'             => __( 'Your Talkwyn license was renewed', 'talkwyn-hub' ),
 			'email_renewed_body'                => __( "Hi {customer_name},\n\nThanks for renewing. Your {product_name} license (key ending {key_last4}) is now valid until {expires_at}. Nothing to do on your sites, updates keep coming.\n\nThe {site_name} team", 'talkwyn-hub' ),
 
+			// Invoices.
+			'invoice_prefix'                    => 'TW-',
+			'invoice_company'                   => '',
+			'invoice_address'                   => '',
+			'invoice_tax_id'                    => '',
+			'invoice_email'                     => '',
+			'invoice_note'                      => '',
+
 			// Trial.
 			'trial_enabled'                     => 1,
 			'trial_days'                        => 15,
