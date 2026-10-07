@@ -757,3 +757,26 @@ ol.tw-steps-list li + li { margin-block-start: 10px; }
 .tw-mega__feature .tw-status--planned { background: rgba(255, 255, 255, .16); color: #FFFFFF; }
 .tw-mega__item.is-open .tw-mega__inner { animation: tw-drop-solid 200ms var(--tw-ease-out); }
 @keyframes tw-drop-solid { from { transform: translateY(-6px); } to { transform: none; } }
+
+/* v3.3 FAQ: breathing room under answers, icon drawn as bars so it sits dead center */
+.tw-faq details[open] { padding-block-end: 22px; }
+.tw-faq details > :not(summary) { margin-block: 0 !important; }
+.tw-faq details > :not(summary) + :not(summary) { margin-block-start: 10px !important; }
+.tw-faq summary::after {
+	content: "";
+	inline-size: 28px; block-size: 28px;
+	background:
+		linear-gradient(currentColor, currentColor) center / 12px 2px no-repeat,
+		linear-gradient(currentColor, currentColor) center / 2px 12px no-repeat,
+		#FFFFFF;
+	box-shadow: 0 0 0 1px var(--tw-border);
+}
+.tw-faq details[open] summary::after {
+	content: "";
+	background:
+		linear-gradient(currentColor, currentColor) center / 12px 2px no-repeat,
+		var(--tw-red);
+	box-shadow: none;
+	color: #FFFFFF;
+}
+.tw-faq-section .tw-section-head .tw-lede { max-inline-size: 620px; margin-inline: auto; }

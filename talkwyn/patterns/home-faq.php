@@ -15,7 +15,11 @@ defined( 'ABSPATH' ) || exit;
 <div class="wp-block-group alignwide"><!-- wp:group {"className":"tw-section-head tw-center","layout":{"type":"default"}} -->
 <div class="wp-block-group tw-section-head tw-center"><!-- wp:heading {"textAlign":"center"} -->
 <h2 class="wp-block-heading has-text-align-center">Questions people ask before installing.</h2>
-<!-- /wp:heading --></div>
+<!-- /wp:heading -->
+
+<!-- wp:paragraph {"className":"tw-lede"} -->
+<p class="tw-lede">Short answers about price, setup, languages, and your data. If your question is not here, <a href="/contact/">ask us directly</a> and a person will reply.</p>
+<!-- /wp:paragraph --></div>
 <!-- /wp:group -->
 
 <!-- wp:group {"className":"tw-faq-cols","layout":{"type":"default"}} -->
