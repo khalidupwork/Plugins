@@ -15,7 +15,11 @@ defined( 'ABSPATH' ) || exit;
 <div class="wp-block-group alignwide"><!-- wp:group {"className":"tw-section-head tw-center","layout":{"type":"default"}} -->
 <div class="wp-block-group tw-section-head tw-center"><!-- wp:heading {"textAlign":"center"} -->
 <h2 class="wp-block-heading has-text-align-center">Made for businesses that live on inquiries.</h2>
-<!-- /wp:heading --></div>
+<!-- /wp:heading -->
+
+<!-- wp:paragraph {"className":"tw-lede"} -->
+<p class="tw-lede">Talkwyn learns your own pages, so it answers the questions your customers really ask, in the words your business uses.</p>
+<!-- /wp:paragraph --></div>
 <!-- /wp:group -->
 
 <!-- wp:html -->

@@ -254,27 +254,41 @@ add_shortcode(
 add_shortcode(
 	'tw_pricing_teaser',
 	static function () {
-		$tiers = array(
-			array( 'free', __( 'Free', 'talkwyn' ), '', '', __( 'Site scan, multilingual answers, lead capture, chat history, free AI providers.', 'talkwyn' ) ),
-			array( 'personal', __( 'Personal', 'talkwyn' ), talkwyn_plan_price( 'personal' ), __( '1 site', 'talkwyn' ), '' ),
-			array( 'business', __( 'Business', 'talkwyn' ), talkwyn_plan_price( 'business' ), __( '5 sites', 'talkwyn' ), '' ),
-			array( 'agency', __( 'Agency', 'talkwyn' ), talkwyn_plan_price( 'agency' ), __( 'unlimited sites', 'talkwyn' ), '' ),
+		$plans = talkwyn_plans();
+		$icons = array(
+			'free'     => 'gift',
+			'personal' => 'user-check',
+			'business' => 'building-2',
+			'agency'   => 'briefcase',
 		);
 		$html  = '<ul class="tw-tiers" data-tw-reveal data-tw-stagger>';
-		foreach ( $tiers as $tier ) {
-			list( $slug, $name, $price, $sites, $desc ) = $tier;
-			$html                                      .= '<li class="tw-tier tw-spot tw-tier--' . esc_attr( $slug ) . '">';
-			if ( 'free' === $slug ) {
-				$html .= '<h3 class="tw-tier__name"><a href="' . esc_url( talkwyn_install_url() ) . '" data-tw-event="install_click" data-tw-location="pricing_teaser">' . esc_html( $name ) . '</a></h3>'
-					. '<p class="tw-tier__desc">' . esc_html( $desc ) . '</p>';
-			} elseif ( '' !== $price ) {
-				$html .= '<h3 class="tw-tier__name">' . esc_html( $name ) . '</h3>'
-					/* translators: 1: price, 2: number of sites */
-					. '<p class="tw-tier__line">' . sprintf( esc_html__( '%1$s per year for %2$s', 'talkwyn' ), '<span class="tw-tier__price">' . esc_html( $price ) . '</span><span class="tw-tier__per">', esc_html( $sites ) ) . '</span></p>';
+		foreach ( $icons as $slug => $icon ) {
+			if ( empty( $plans[ $slug ] ) ) {
+				continue;
+			}
+			$plan  = $plans[ $slug ];
+			$price = 'free' === $slug ? '$0' : talkwyn_plan_price( $slug );
+			$html .= '<li class="tw-tier tw-tier--' . esc_attr( $slug ) . '">';
+			if ( ! empty( $plan['featured'] ) ) {
+				$html .= '<span class="tw-tier__flag">' . esc_html__( 'Most popular', 'talkwyn' ) . '</span>';
+			}
+			$html .= '<div class="tw-tier__top"><span class="tw-tier__icon">' . talkwyn_icon( $icon, 22 ) . '</span><h3 class="tw-tier__name">' . esc_html( $plan['name'] ) . '</h3></div>';
+			if ( '' !== $price ) {
+				$per   = 'free' === $slug ? __( 'forever', 'talkwyn' ) : __( 'per year', 'talkwyn' );
+				$html .= '<p class="tw-tier__line"><span class="tw-tier__price">' . esc_html( $price ) . '</span> <span class="tw-tier__per">' . esc_html( $per ) . '</span></p>';
 			} else {
-				$html .= '<h3 class="tw-tier__name">' . esc_html( $name ) . '</h3>'
-					/* translators: %s: number of sites */
-					. '<p class="tw-tier__line"><span class="tw-tier__per">' . esc_html( sprintf( __( 'Yearly license for %s', 'talkwyn' ), $sites ) ) . '</span></p>';
+				$html .= '<p class="tw-tier__line"><span class="tw-tier__price tw-tier__price--text">' . esc_html__( 'Yearly license', 'talkwyn' ) . '</span></p>';
+			}
+			$html .= '<p class="tw-tier__sites">' . esc_html( $plan['sites'] ) . '</p><ul class="tw-tier__feats">';
+			foreach ( array_slice( (array) $plan['features'], 0, 3 ) as $feat ) {
+				$html .= '<li>' . talkwyn_icon( 'check', 16 ) . esc_html( $feat ) . '</li>';
+			}
+			$html .= '</ul>';
+			if ( 'free' === $slug ) {
+				$html .= '<a class="tw-tier__cta" href="' . esc_url( talkwyn_install_url() ) . '" data-tw-event="install_click" data-tw-location="pricing_teaser">' . esc_html__( 'Install free', 'talkwyn' ) . talkwyn_icon( 'arrow-right', 16 ) . '</a>';
+			} else {
+				/* translators: %s: plan name */
+				$html .= '<a class="tw-tier__cta" href="' . esc_url( home_url( '/pricing/#plans' ) ) . '">' . esc_html( sprintf( __( 'See %s', 'talkwyn' ), $plan['name'] ) ) . talkwyn_icon( 'arrow-right', 16 ) . '</a>';
 			}
 			$html .= '</li>';
 		}
@@ -372,10 +386,10 @@ add_shortcode(
 		$html = '<div class="tw-integrations" data-tw-reveal data-tw-stagger>';
 		foreach ( $cards as $slug => $card ) {
 			$row   = $all[ $slug ];
-			$title = 'WordPress' === $slug
+			$title = 'wordpress' === $slug
 				? esc_html( $row['name'] )
 				: '<a class="tw-card__title-link" href="' . esc_url( home_url( $row['url'] ) ) . '">' . esc_html( $row['name'] ) . '</a>';
-			$desc  = 'WordPress' === $slug ? wp_kses_post( str_replace( 'href="/', 'href="' . esc_url( home_url( '/' ) ), $card[1] ) ) : esc_html( $card[1] );
+			$desc  = 'wordpress' === $slug ? wp_kses_post( str_replace( 'href="/', 'href="' . esc_url( home_url( '/' ) ), $card[1] ) ) : esc_html( $card[1] );
 			$html .= '<article class="tw-integration tw-spot"><div class="tw-integration__top"><span class="tw-integration__logo">' . talkwyn_icon( $card[0], 24 ) . '</span>' . talkwyn_status_pill( $row['status'] ) . '</div>'
 				. '<h3>' . $title . '</h3><p>' . $desc . '</p>'
 				. '<span class="tw-card__more" aria-hidden="true">' . esc_html( 'available' === $row['status'] ? __( 'See how it works', 'talkwyn' ) : __( 'Join the waitlist', 'talkwyn' ) ) . talkwyn_icon( 'arrow-right', 16 ) . '</span></article>';

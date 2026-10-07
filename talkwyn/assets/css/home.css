@@ -284,3 +284,96 @@
 .tw-night-section.tw-red .tw-night-card:last-child { background: var(--tw-ink); }
 .tw-night-section.tw-red .tw-night-card:last-child p { color: #FFFFFF; }
 .tw-night-section.tw-red .tw-night__close { color: #FFFFFF; }
+
+/* ===================== v3.4 contrast pass ===================== */
+
+/* How it works: ink band, cards one step lighter, white product UIs pop */
+.tw-how-section { background: var(--tw-band) radial-gradient(rgba(255, 255, 255, .06) 1px, transparent 1.6px) 0 0 / 22px 22px; }
+.tw-how-section .tw-eyebrow--plain { color: #FF95A2; }
+.tw-how-section .tw-step { background: #261A1E; box-shadow: inset 0 0 0 1px rgba(255, 255, 255, .08); color: #FFFFFF; }
+.tw-how-section .tw-step h3 { color: #FFFFFF; }
+.tw-how-section .tw-step p { color: var(--tw-on-band-muted); }
+.tw-how-section .tw-step p strong { color: #FFFFFF; }
+.tw-how-section .tw-step .tw-arrow-link { color: #FF95A2; }
+.tw-how-section .tw-step__num { background: var(--tw-red); inline-size: 40px; block-size: 40px; font-size: 1rem; box-shadow: 0 0 0 6px rgba(215, 38, 61, .18); }
+.tw-how-section .tw-mini-ui { box-shadow: none; }
+.tw-how-section .tw-spot::after { box-shadow: inset 0 0 0 1.5px rgba(255, 149, 162, .5); }
+.tw-how-section { padding-inline: clamp(16px, 4vw, 48px); }
+.tw-how-section .tw-mini-ui { color: var(--tw-ink); }
+.tw-how-section .tw-mini-ui :where(p, li, span, i, b) { color: inherit; }
+.tw-how-section .tw-keys__row i { color: var(--tw-n-600); }
+.tw-how-section .tw-keys__row.is-on i { color: #146345; }
+.tw-how-section .tw-scan li { color: var(--tw-ink); }
+
+/* Story: product UIs sit on ink panels with a soft red light */
+body.home .tw-story-section .tw-glow { background-color: var(--tw-band); background-image: radial-gradient(70% 60% at 50% 0%, rgba(215, 38, 61, .35), rgba(215, 38, 61, 0) 70%), radial-gradient(rgba(255, 255, 255, .07) 1px, transparent 1.6px); background-size: auto, 20px 20px; }
+.tw-story-section .tw-glow .tw-chat { box-shadow: 0 24px 60px rgba(0, 0, 0, .35); }
+.tw-story-section .tw-fallback__list .is-local { color: #FFFFFF; box-shadow: inset 0 0 0 1.5px rgba(255, 255, 255, .28); }
+.tw-story-section .tw-fallback__list .is-local span { color: var(--tw-on-band-muted); }
+.tw-story-section .tw-fallback__list .is-busy { opacity: .82; }
+
+/* Night: a timeline across the top, icon chips, and an outcome tag on every card */
+.tw-night-section .tw-night { padding-block-start: 0; }
+.tw-night-card { display: flex !important; flex-direction: column; gap: 14px; padding: 26px 24px 22px; }
+.tw-night-card__top { display: flex; align-items: center; gap: 12px; }
+.tw-night-card__icon { inline-size: 42px; block-size: 42px; border-radius: 14px; display: grid; place-items: center; background: var(--tw-red-50); color: var(--tw-red); flex: none; }
+.tw-night-card__tag { margin-block-start: auto; align-self: flex-start; display: inline-flex; align-items: center; gap: 6px; padding: 6px 12px; border-radius: var(--tw-r-pill); background: #E8F6EF; color: #146345; font: 600 .8125rem/1.2 var(--tw-font-display); }
+.tw-night-card__dot { display: none; }
+.tw-night-section.tw-red .tw-night-card:last-child .tw-night-card__icon { background: rgba(255, 255, 255, .1); color: #FFD27A; }
+.tw-night-section.tw-red .tw-night-card:last-child .tw-night-card__time { color: #FFFFFF; }
+.tw-night-section.tw-red .tw-night-card:last-child .tw-night-card__tag { background: var(--tw-red); color: #FFFFFF; }
+@media (min-width: 1100px) {
+	.tw-night-section .tw-night { position: relative; padding-block-start: 34px; }
+	.tw-night-section .tw-night::before { content: ""; position: absolute; inset-block-start: 6px; inset-inline: 24px; border-block-start: 2px dashed rgba(255, 255, 255, .45); }
+	.tw-night-card__dot { display: block; position: absolute; inset-block-start: -34px; inset-inline-start: 24px; inline-size: 14px; block-size: 14px; border-radius: 50%; background: #FFFFFF; box-shadow: 0 0 0 5px rgba(255, 255, 255, .25); }
+	.tw-night-card:last-child .tw-night-card__dot { background: #FFD27A; box-shadow: 0 0 0 5px rgba(255, 210, 122, .3); }
+}
+
+/* Why: balanced row, three proof points on the left, equal cards below */
+.tw-row--cost { align-items: center; }
+.tw-why-points { list-style: none; margin: 4px 0 0 !important; padding: 0; display: grid; gap: 12px; }
+.tw-why-points li { display: flex; gap: 14px; align-items: center; margin: 0; padding: 14px 16px; border-radius: 16px; background: #FFFFFF; box-shadow: 0 0 0 1px var(--tw-border); }
+.tw-why-points__icon { inline-size: 40px; block-size: 40px; border-radius: 12px; display: grid; place-items: center; background: var(--tw-red); color: #FFFFFF; flex: none; }
+.tw-why-points b { font-family: var(--tw-font-display); color: var(--tw-ink); }
+.tw-why-points span:last-child { color: var(--tw-n-600); font-size: .9375rem; line-height: 1.45; }
+.tw-why-bento .tw-why__card { padding: clamp(26px, 3.5vw, 40px); }
+.tw-why-bento .tw-why__card:not(.tw-on-ink) { background: #FFFFFF; }
+.tw-why-bento .tw-why__card p:last-child { margin-block-start: auto !important; }
+
+/* Pricing teaser: real plan cards, Business in ink */
+.tw-pricing-section .tw-tiers { gap: 16px; align-items: stretch; margin-block-start: 8px; }
+.tw-tier { position: relative; display: flex !important; flex-direction: column; gap: 10px; padding: 26px 24px 22px; background: #FFFFFF !important; box-shadow: 0 0 0 1px var(--tw-border), var(--tw-shadow-sm); transition: transform var(--tw-dur) var(--tw-ease), box-shadow var(--tw-dur) var(--tw-ease); }
+.tw-tier:hover { transform: translateY(-4px); box-shadow: 0 0 0 1px var(--tw-border), 0 18px 40px rgba(26, 15, 18, .10); }
+.tw-tier__top { display: flex; align-items: center; gap: 12px; }
+.tw-tier__icon { inline-size: 42px; block-size: 42px; border-radius: 14px; display: grid; place-items: center; background: var(--tw-red-50); color: var(--tw-red); flex: none; }
+.tw-tier__name { margin: 0; font-size: 1.1875rem; }
+.tw-tier__line { display: flex; align-items: baseline; gap: 6px; margin-block-start: 6px !important; }
+.tw-tier__price { display: inline; font: 800 2.5rem/1 var(--tw-font-display); }
+.tw-tier__price--text { font-size: 1.375rem; }
+.tw-tier__sites { color: var(--tw-n-600); font-size: .9375rem; padding-block-end: 12px; border-block-end: 1px solid var(--tw-border); }
+.tw-tier__feats { list-style: none; margin: 4px 0 0; padding: 0; display: grid; gap: 8px; font-size: .9375rem; }
+.tw-tier__feats li { display: flex; gap: 8px; align-items: flex-start; margin: 0; }
+.tw-tier__feats .tw-icon { color: var(--tw-red); flex: none; margin-block-start: 3px; }
+.tw-tier__cta { margin-block-start: auto; padding-block-start: 14px; display: inline-flex; align-items: center; gap: 6px; font: 600 .9375rem var(--tw-font-display); color: var(--tw-red-700); text-decoration: none; }
+.tw-tier__cta .tw-icon { transition: transform var(--tw-dur) var(--tw-ease); }
+.tw-tier:hover .tw-tier__cta .tw-icon { transform: translateX(3px); }
+.tw-tier__flag { position: absolute; inset-block-start: -12px; inset-inline-end: 20px; padding: 4px 12px; border-radius: var(--tw-r-pill); background: var(--tw-red); color: #FFFFFF; font: 700 .75rem/1.4 var(--tw-font-display); letter-spacing: .02em; }
+.tw-tier--business { background: var(--tw-band) !important; color: #FFFFFF; box-shadow: 0 24px 50px rgba(26, 15, 18, .25); }
+.tw-tier--business .tw-tier__name, .tw-tier--business .tw-tier__price { color: #FFFFFF; }
+.tw-tier--business .tw-tier__per, .tw-tier--business .tw-tier__sites, .tw-tier--business .tw-tier__feats li { color: var(--tw-on-band-muted); }
+.tw-tier--business .tw-tier__sites { border-color: rgba(255, 255, 255, .12); }
+.tw-tier--business .tw-tier__icon { background: var(--tw-red); color: #FFFFFF; }
+.tw-tier--business .tw-tier__feats .tw-icon, .tw-tier--business .tw-tier__cta { color: #FF95A2; }
+@media (min-width: 1100px) { .tw-tier--business { transform: translateY(-10px); } .tw-tier--business:hover { transform: translateY(-14px); } }
+
+/* Business tiles on white cards: visuals get the linen panel */
+.tw-tile__visual { background: var(--tw-section); }
+.tw-how-section .tw-scan__btn { color: #FFFFFF; }
+body.home .tw-card.tw-on-ink, body.home .tw-tile--ink { background: var(--tw-band); box-shadow: none; }
+.tw-integrations-section.tw-linen, .tw-pricing-section.tw-linen { padding-inline: clamp(16px, 4vw, 48px); }
+.tw-why-points { margin-block-start: 22px !important; }
+.tw-row--cost .tw-row__text > p:last-child { margin-block-start: 18px !important; }
+body.home .tw-tile { display: flex; flex-direction: column; gap: 10px; }
+body.home .tw-tile .tw-card__icon { margin-block-start: 6px !important; }
+body.home .tw-tile--ink { display: grid !important; }
+body.home .tw-tile--ink .tw-card__icon { background: var(--tw-red); color: #FFFFFF; margin: 0 !important; }

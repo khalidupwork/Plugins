@@ -10,8 +10,8 @@
 
 defined( 'ABSPATH' ) || exit;
 ?>
-<!-- wp:group {"tagName":"section","align":"full","className":"tw-section tw-pricing-section","layout":{"type":"constrained"}} -->
-<section class="wp-block-group alignfull tw-section tw-pricing-section"><!-- wp:group {"align":"wide","layout":{"type":"default"}} -->
+<!-- wp:group {"tagName":"section","align":"full","className":"tw-section tw-pricing-section tw-linen tw-inset","layout":{"type":"constrained"}} -->
+<section class="wp-block-group alignfull tw-section tw-pricing-section tw-linen tw-inset"><!-- wp:group {"align":"wide","layout":{"type":"default"}} -->
 <div class="wp-block-group alignwide"><!-- wp:group {"className":"tw-section-head tw-center","layout":{"type":"default"}} -->
 <div class="wp-block-group tw-section-head tw-center"><!-- wp:heading {"textAlign":"center"} -->
 <h2 class="wp-block-heading has-text-align-center">Try Pro free for [tw_value key="trial_days"] days. Keep the free plan forever.</h2>

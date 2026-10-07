@@ -780,3 +780,15 @@ ol.tw-steps-list li + li { margin-block-start: 10px; }
 	color: #FFFFFF;
 }
 .tw-faq-section .tw-section-head .tw-lede { max-inline-size: 620px; margin-inline: auto; }
+
+/* v3.4 Homepage cards: clean white with a hairline, no pink wash. Hover gets a red edge instead of a gradient. */
+body.home .is-style-card, body.home .tw-card { background: #FFFFFF; box-shadow: 0 0 0 1px var(--tw-border), var(--tw-shadow-sm); }
+body.home .tw-linen .tw-card, body.home .tw-section--soft .tw-card { box-shadow: 0 0 0 1px var(--tw-border), var(--tw-shadow-sm); }
+body.home .tw-card.tw-on-ink { box-shadow: none; }
+body.home .tw-card__icon { background: var(--tw-red-50); color: var(--tw-red); box-shadow: none; }
+body.home .tw-spot::after { background: none; box-shadow: inset 0 0 0 1.5px rgba(215, 38, 61, .45); }
+body.home .tw-card--link:hover { box-shadow: 0 0 0 1px var(--tw-border), 0 18px 40px rgba(26, 15, 18, .10); }
+body.home .tw-integration { background: #FFFFFF; box-shadow: 0 0 0 1px var(--tw-border), var(--tw-shadow-sm); }
+body.home .tw-integration__logo { background: var(--tw-red-50); color: var(--tw-red); box-shadow: none; }
+body.home .tw-glow { background-color: var(--tw-section); background-image: radial-gradient(rgba(26, 15, 18, .07) 1px, transparent 1.6px); background-size: 18px 18px; }
+body.home .tw-glow::before { display: none; }

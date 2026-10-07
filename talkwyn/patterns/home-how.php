@@ -10,12 +10,20 @@
 
 defined( 'ABSPATH' ) || exit;
 ?>
-<!-- wp:group {"tagName":"section","align":"full","className":"tw-section","layout":{"type":"constrained"}} -->
-<section class="wp-block-group alignfull tw-section"><!-- wp:group {"align":"wide","layout":{"type":"default"}} -->
+<!-- wp:group {"tagName":"section","align":"full","className":"tw-section tw-how-section tw-on-ink tw-inset","layout":{"type":"constrained"}} -->
+<section class="wp-block-group alignfull tw-section tw-how-section tw-on-ink tw-inset"><!-- wp:group {"align":"wide","layout":{"type":"default"}} -->
 <div class="wp-block-group alignwide"><!-- wp:group {"className":"tw-section-head tw-center","layout":{"type":"default"}} -->
-<div class="wp-block-group tw-section-head tw-center"><!-- wp:heading {"textAlign":"center"} -->
+<div class="wp-block-group tw-section-head tw-center"><!-- wp:paragraph {"className":"tw-eyebrow tw-eyebrow--plain"} -->
+<p class="tw-eyebrow tw-eyebrow--plain">How it works</p>
+<!-- /wp:paragraph -->
+
+<!-- wp:heading {"textAlign":"center"} -->
 <h2 class="wp-block-heading has-text-align-center">Live in about five minutes.</h2>
-<!-- /wp:heading --></div>
+<!-- /wp:heading -->
+
+<!-- wp:paragraph {"className":"tw-lede"} -->
+<p class="tw-lede">Three steps and no code. Install it, connect a free AI key, and turn it on.</p>
+<!-- /wp:paragraph --></div>
 <!-- /wp:group -->
 
 <!-- wp:html -->
