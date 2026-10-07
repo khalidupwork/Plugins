@@ -61,7 +61,8 @@ add_shortcode(
 			. '<span class="tw-chip tw-chip--saved">✓ ' . esc_html__( 'Lead saved', 'talkwyn' ) . '</span>'
 			. '</div>';
 		$extra = '<p class="tw-chat__note"><a href="#live-demo">' . esc_html__( 'Ask your own question below', 'talkwyn' ) . '</a></p>';
-		return talkwyn_chat_frame( $body, $extra );
+		$chat  = str_replace( '<div class="tw-chat ', '<div data-tw-play="loop" class="tw-chat ', talkwyn_chat_frame( $body, $extra, '', 'tw-chat--hero' ) );
+		return '<div class="tw-hero__card" data-tw-tilt>' . $chat . '</div>';
 	}
 );
 
@@ -237,11 +238,11 @@ add_shortcode(
 		}
 		$pct  = (int) round( 100 * ( $total - $remaining ) / $total );
 		$band = 'band' === $atts['style'];
-		return '<div id="founding" class="tw-founding-wrap ' . ( $band ? 'is-style-band tw-founding-wrap--band' : 'is-style-panel' ) . '"><div class="tw-founding">'
+		return '<div id="founding" class="tw-founding-wrap ' . ( $band ? 'is-style-band tw-founding-wrap--band' : 'is-style-panel' ) . '" data-tw-reveal><div class="tw-founding">'
 			. '<div><h2>' . esc_html( sprintf( /* translators: %s: number of founding seats */ __( 'Be one of our first %s.', 'talkwyn' ), number_format_i18n( $total ) ) ) . '</h2>'
 			. '<p>' . esc_html__( 'Talkwyn is a new company, and we’re building it with our first customers. Founding customers get a locked-in price for as long as they renew, direct access to the people building the product, and a say in what we build next.', 'talkwyn' ) . '</p>'
 			. '<p><a class="tw-btn" href="' . esc_url( is_page( 'pricing' ) ? '#plans' : home_url( '/pricing/#founding' ) ) . '" data-tw-event="pricing_cta" data-tw-location="founding">' . esc_html__( 'Claim founding pricing', 'talkwyn' ) . '</a></p></div>'
-			. '<div class="tw-seats"><span class="tw-seats__num">' . esc_html( number_format_i18n( $remaining ) ) . '</span><span class="tw-seats__label">' . esc_html( sprintf( /* translators: %s: total seats */ __( 'of %s founding seats left', 'talkwyn' ), number_format_i18n( $total ) ) ) . '</span>'
+			. '<div class="tw-seats"><span class="tw-seats__num" data-tw-count="' . (int) $remaining . '">' . esc_html( number_format_i18n( $remaining ) ) . '</span><span class="tw-seats__label">' . esc_html( sprintf( /* translators: %s: total seats */ __( 'of %s founding seats left', 'talkwyn' ), number_format_i18n( $total ) ) ) . '</span>'
 			. '<div class="tw-seats__bar" role="progressbar" aria-valuemin="0" aria-valuemax="' . (int) $total . '" aria-valuenow="' . (int) ( $total - $remaining ) . '" aria-label="' . esc_attr__( 'Founding seats claimed', 'talkwyn' ) . '"><span style="inline-size:' . (int) $pct . '%"></span></div></div>'
 			. '</div></div>';
 	}
@@ -253,24 +254,29 @@ add_shortcode(
 add_shortcode(
 	'tw_pricing_teaser',
 	static function () {
-		$line  = static function ( string $plan, string $sites ): string {
-			$price = talkwyn_plan_price( $plan );
-			return '' !== $price
-				/* translators: 1: price, 2: number of sites */
-				? sprintf( __( '%1$s per year for %2$s', 'talkwyn' ), $price, $sites )
-				/* translators: %s: number of sites */
-				: sprintf( __( 'Yearly license for %s', 'talkwyn' ), $sites );
-		};
-		$items = array(
-			array( __( 'Free', 'talkwyn' ), __( 'Site scan, multilingual answers, lead capture, chat history, free AI providers.', 'talkwyn' ), talkwyn_install_url() ),
-			array( __( 'Personal', 'talkwyn' ), $line( 'personal', __( '1 site', 'talkwyn' ) ), '' ),
-			array( __( 'Business', 'talkwyn' ), $line( 'business', __( '5 sites', 'talkwyn' ) ), '' ),
-			array( __( 'Agency', 'talkwyn' ), $line( 'agency', __( 'unlimited sites', 'talkwyn' ) ), '' ),
+		$tiers = array(
+			array( 'free', __( 'Free', 'talkwyn' ), '', '', __( 'Site scan, multilingual answers, lead capture, chat history, free AI providers.', 'talkwyn' ) ),
+			array( 'personal', __( 'Personal', 'talkwyn' ), talkwyn_plan_price( 'personal' ), __( '1 site', 'talkwyn' ), '' ),
+			array( 'business', __( 'Business', 'talkwyn' ), talkwyn_plan_price( 'business' ), __( '5 sites', 'talkwyn' ), '' ),
+			array( 'agency', __( 'Agency', 'talkwyn' ), talkwyn_plan_price( 'agency' ), __( 'unlimited sites', 'talkwyn' ), '' ),
 		);
-		$html  = '<ul class="tw-pricing-teaser">';
-		foreach ( $items as $item ) {
-			$name  = $item[2] ? '<a href="' . esc_url( $item[2] ) . '" data-tw-event="install_click" data-tw-location="pricing_teaser">' . esc_html( $item[0] ) . '</a>' : esc_html( $item[0] );
-			$html .= '<li><strong>' . $name . '</strong>' . esc_html( $item[1] ) . '</li>';
+		$html  = '<ul class="tw-tiers" data-tw-reveal data-tw-stagger>';
+		foreach ( $tiers as $tier ) {
+			list( $slug, $name, $price, $sites, $desc ) = $tier;
+			$html                                      .= '<li class="tw-tier tw-spot tw-tier--' . esc_attr( $slug ) . '">';
+			if ( 'free' === $slug ) {
+				$html .= '<h3 class="tw-tier__name"><a href="' . esc_url( talkwyn_install_url() ) . '" data-tw-event="install_click" data-tw-location="pricing_teaser">' . esc_html( $name ) . '</a></h3>'
+					. '<p class="tw-tier__desc">' . esc_html( $desc ) . '</p>';
+			} elseif ( '' !== $price ) {
+				$html .= '<h3 class="tw-tier__name">' . esc_html( $name ) . '</h3>'
+					/* translators: 1: price, 2: number of sites */
+					. '<p class="tw-tier__line">' . sprintf( esc_html__( '%1$s per year for %2$s', 'talkwyn' ), '<span class="tw-tier__price">' . esc_html( $price ) . '</span><span class="tw-tier__per">', esc_html( $sites ) ) . '</span></p>';
+			} else {
+				$html .= '<h3 class="tw-tier__name">' . esc_html( $name ) . '</h3>'
+					/* translators: %s: number of sites */
+					. '<p class="tw-tier__line"><span class="tw-tier__per">' . esc_html( sprintf( __( 'Yearly license for %s', 'talkwyn' ), $sites ) ) . '</span></p>';
+			}
+			$html .= '</li>';
 		}
 		return $html . '</ul>';
 	}
@@ -324,9 +330,9 @@ add_shortcode(
 			/* translators: %s: number of founding seats */
 			$items[] = array( 'badge-check', sprintf( __( 'Founding pricing for our first %s customers', 'talkwyn' ), talkwyn_value( 'founding_seats' ) ) );
 		}
-		$html = '<ul class="tw-trust">';
+		$html = '<ul class="tw-trust" data-tw-reveal data-tw-stagger>';
 		foreach ( $items as $item ) {
-			$html .= '<li>' . talkwyn_icon( $item[0], 20 ) . esc_html( $item[1] ) . '</li>';
+			$html .= '<li><span class="tw-trust__icon">' . talkwyn_icon( $item[0], 20 ) . '</span><span>' . esc_html( $item[1] ) . '</span></li>';
 		}
 		return $html . '</ul>';
 	}

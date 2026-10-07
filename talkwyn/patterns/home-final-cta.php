@@ -11,7 +11,15 @@
 defined( 'ABSPATH' ) || exit;
 ?>
 <!-- wp:group {"tagName":"section","align":"full","className":"is-style-band tw-section tw-cta-band","ariaLabel":"Get started","layout":{"type":"constrained"}} -->
-<section class="wp-block-group alignfull is-style-band tw-section tw-cta-band" aria-label="Get started"><!-- wp:heading {"textAlign":"center"} -->
+<section class="wp-block-group alignfull is-style-band tw-section tw-cta-band" aria-label="Get started"><!-- wp:html -->
+<div class="tw-aurora tw-aurora--cta" aria-hidden="true" data-tw-live><span></span><span></span><span></span><i class="tw-aurora__grid"></i></div>
+<!-- /wp:html -->
+
+<!-- wp:html -->
+<div class="tw-deco" aria-hidden="true"><div class="tw-cta-bubbles" data-tw-live><span lang="ar" dir="rtl">العربية</span><span>English</span><span lang="es">Español</span><span lang="fr">Français</span></div></div>
+<!-- /wp:html -->
+
+<!-- wp:heading {"textAlign":"center"} -->
 <h2 class="wp-block-heading has-text-align-center">Let your website do the talking.</h2>
 <!-- /wp:heading -->
 

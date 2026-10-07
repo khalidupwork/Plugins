@@ -10,13 +10,19 @@
 defined( 'ABSPATH' ) || exit;
 ?>
 <!-- wp:group {"tagName":"section","align":"full","className":"tw-section","layout":{"type":"constrained"}} -->
-<section class="wp-block-group alignfull tw-section"><!-- wp:group {"className":"tw-section-head","layout":{"type":"default"}} -->
-<div class="wp-block-group tw-section-head"><!-- wp:heading -->
+<section class="wp-block-group alignfull tw-section"><!-- wp:group {"align":"wide","className":"tw-split tw-split--sticky","layout":{"type":"default"}} -->
+<div class="wp-block-group alignwide tw-split tw-split--sticky"><!-- wp:group {"className":"tw-split__head","layout":{"type":"default"}} -->
+<div class="wp-block-group tw-split__head"><!-- wp:heading -->
 <h2 class="wp-block-heading">Questions people ask before installing.</h2>
-<!-- /wp:heading --></div>
+<!-- /wp:heading -->
+
+<!-- wp:html -->
+<div class="tw-deco" aria-hidden="true"><span class="tw-faq-mark">[tw_icon name="message-circle" size="56"]</span></div>
+<!-- /wp:html --></div>
 <!-- /wp:group -->
 
-<!-- wp:group {"className":"tw-faq","layout":{"type":"default"}} -->
+<!-- wp:group {"className":"tw-split__body","layout":{"type":"default"}} -->
+<div class="wp-block-group tw-split__body"><!-- wp:group {"className":"tw-faq","layout":{"type":"default"}} -->
 <div class="wp-block-group tw-faq"><!-- wp:details -->
 <details class="wp-block-details"><summary>Is Talkwyn really free?</summary><!-- wp:paragraph -->
 <p>Yes. The free plan includes site scanning, multilingual answers, lead capture, and chat history. You only pay if you want <a href="/pricing/">Pro features</a> like advanced search, analytics, and white-label.</p>
@@ -70,5 +76,7 @@ defined( 'ABSPATH' ) || exit;
 <p>We're building it now. <a href="/shopify-ai-chatbot/">Join the waitlist</a> and we'll email you when it launches.</p>
 <!-- /wp:paragraph --></details>
 <!-- /wp:details --></div>
+<!-- /wp:group --></div>
+<!-- /wp:group --></div>
 <!-- /wp:group --></section>
 <!-- /wp:group -->

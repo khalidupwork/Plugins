@@ -120,27 +120,231 @@
 		}
 	} );
 
-	/* ---------- Reveal on scroll (one gentle moment per section) ---------- */
-	var reveals = document.querySelectorAll( '.tw-reveal' );
-	if ( reveals.length ) {
-		if ( reduceMotion || ! ( 'IntersectionObserver' in window ) ) {
-			reveals.forEach( function ( el ) {
-				el.classList.add( 'is-visible' );
+	/* ---------- Motion ----------
+	 * Every effect starts from the finished, static page: without JS or with reduced
+	 * motion nothing is hidden. Hidden states keep their space, so nothing shifts.
+	 */
+	var canMove = ! reduceMotion && 'IntersectionObserver' in window;
+	window.twReady = true;
+	doc.classList.toggle( 'tw-motion', canMove );
+	function onVisible( els, fn, options ) {
+		if ( ! els.length ) {
+			return;
+		}
+		if ( ! canMove ) {
+			els.forEach( fn );
+			return;
+		}
+		var obs = new IntersectionObserver( function ( entries ) {
+			entries.forEach( function ( entry ) {
+				if ( entry.isIntersecting ) {
+					obs.unobserve( entry.target );
+					fn( entry.target );
+				}
 			} );
-		} else {
-			var io = new IntersectionObserver( function ( entries ) {
-				entries.forEach( function ( entry ) {
-					if ( entry.isIntersecting ) {
-						entry.target.classList.add( 'is-visible' );
-						io.unobserve( entry.target );
-					}
-				} );
-			}, { rootMargin: '0px 0px -10% 0px' } );
-			reveals.forEach( function ( el ) {
-				io.observe( el );
+		}, options || { rootMargin: '0px 0px -12% 0px' } );
+		els.forEach( function ( el ) {
+			obs.observe( el );
+		} );
+	}
+
+	// Stagger: children of [data-tw-stagger] get an index for transition delays.
+	document.querySelectorAll( '[data-tw-stagger]' ).forEach( function ( parent ) {
+		Array.prototype.forEach.call( parent.children, function ( child, i ) {
+			child.style.setProperty( '--tw-i', i );
+		} );
+	} );
+
+	// Reveal on scroll.
+	onVisible( Array.prototype.slice.call( document.querySelectorAll( '.tw-reveal, [data-tw-reveal]' ) ), function ( el ) {
+		el.classList.add( 'is-visible' );
+	} );
+
+	// Looping decoration only runs while on screen.
+	var live = document.querySelectorAll( '[data-tw-live]' );
+	if ( canMove && live.length ) {
+		var liveObs = new IntersectionObserver( function ( entries ) {
+			entries.forEach( function ( entry ) {
+				entry.target.classList.toggle( 'is-live', entry.isIntersecting );
+			} );
+		} );
+		live.forEach( function ( el ) {
+			liveObs.observe( el );
+		} );
+	}
+
+	// Counters: the real number is in the HTML; it counts up once when seen.
+	onVisible( Array.prototype.slice.call( document.querySelectorAll( '[data-tw-count]' ) ), function ( el ) {
+		var target = parseInt( el.getAttribute( 'data-tw-count' ), 10 );
+		if ( ! canMove || ! target ) {
+			return;
+		}
+		var start = null;
+		var dur = 1200;
+		function frame( t ) {
+			start = start || t;
+			var k = Math.min( 1, ( t - start ) / dur );
+			var eased = 1 - Math.pow( 1 - k, 3 );
+			el.textContent = Math.round( target * eased ).toLocaleString();
+			if ( k < 1 ) {
+				requestAnimationFrame( frame );
+			}
+		}
+		requestAnimationFrame( frame );
+	} );
+
+	// Chat playback: messages appear one by one, bot replies "type" first.
+	function playChat( chat ) {
+		var body = chat.querySelector( '.tw-chat__body' );
+		if ( ! body ) {
+			return;
+		}
+		var items = Array.prototype.filter.call( body.children, function ( el ) {
+			return el.matches( '.tw-msg, .tw-chip--saved, .tw-lead-card' );
+		} );
+		if ( ! items.length ) {
+			return;
+		}
+		var loop = chat.getAttribute( 'data-tw-play' ) === 'loop';
+		var timers = [];
+		items.forEach( function ( el ) {
+			if ( el.classList.contains( 'tw-msg--bot' ) && ! el.querySelector( '.tw-msg__dots' ) ) {
+				el.insertAdjacentHTML( 'afterbegin', '<span class="tw-msg__dots" aria-hidden="true"><i></i><i></i><i></i></span>' );
+			}
+		} );
+		function reset() {
+			items.forEach( function ( el ) {
+				el.classList.remove( 'is-shown', 'is-typing' );
+				el.classList.add( 'is-pending' );
 			} );
 		}
+		function run() {
+			reset();
+			var t = 200;
+			items.forEach( function ( el ) {
+				if ( el.classList.contains( 'tw-msg--bot' ) ) {
+					timers.push( setTimeout( function () {
+						el.classList.remove( 'is-pending' );
+						el.classList.add( 'is-typing' );
+					}, t ) );
+					t += 850;
+					timers.push( setTimeout( function () {
+						el.classList.remove( 'is-typing' );
+						el.classList.add( 'is-shown' );
+					}, t ) );
+					t += 550;
+				} else {
+					timers.push( setTimeout( function () {
+						el.classList.remove( 'is-pending' );
+						el.classList.add( 'is-shown' );
+					}, t ) );
+					t += 550;
+				}
+			} );
+			if ( loop ) {
+				timers.push( setTimeout( function () {
+					chat.classList.add( 'is-resetting' );
+					timers.push( setTimeout( function () {
+						chat.classList.remove( 'is-resetting' );
+						run();
+					}, 500 ) );
+				}, t + 4500 ) );
+			}
+		}
+		reset();
+		run();
+		if ( loop ) {
+			// Stop the loop off screen; restart from the top when it comes back.
+			new IntersectionObserver( function ( entries ) {
+				if ( entries[ 0 ].isIntersecting ) {
+					if ( ! timers.length ) {
+						run();
+					}
+				} else {
+					timers.forEach( clearTimeout );
+					timers = [];
+					items.forEach( function ( el ) {
+						el.classList.remove( 'is-pending', 'is-typing' );
+						el.classList.add( 'is-shown' );
+					} );
+				}
+			} ).observe( chat );
+		}
 	}
+	if ( canMove ) {
+		var chats = Array.prototype.slice.call( document.querySelectorAll( '.tw-chat[data-tw-play]' ) );
+		chats.forEach( function ( chat ) {
+			chat.classList.add( 'is-armed' );
+		} );
+		onVisible( chats, playChat, { rootMargin: '0px 0px -20% 0px' } );
+	}
+
+	// Spotlight: cards light up under the pointer.
+	if ( canMove && window.matchMedia( '(pointer: fine)' ).matches ) {
+		var spotEl = null;
+		var spotEvt = null;
+		document.addEventListener( 'pointermove', function ( e ) {
+			spotEvt = e;
+			if ( spotEl === null ) {
+				spotEl = requestAnimationFrame( function () {
+					spotEl = null;
+					var card = spotEvt.target.closest && spotEvt.target.closest( '.tw-spot' );
+					if ( card ) {
+						var r = card.getBoundingClientRect();
+						card.style.setProperty( '--mx', ( spotEvt.clientX - r.left ) + 'px' );
+						card.style.setProperty( '--my', ( spotEvt.clientY - r.top ) + 'px' );
+					}
+				} );
+			}
+		}, { passive: true } );
+
+		// Gentle tilt on the hero chat.
+		document.querySelectorAll( '[data-tw-tilt]' ).forEach( function ( el ) {
+			var area = el.closest( 'section' ) || el;
+			area.addEventListener( 'pointermove', function ( e ) {
+				var r = area.getBoundingClientRect();
+				var x = ( e.clientX - r.left ) / r.width - 0.5;
+				var y = ( e.clientY - r.top ) / r.height - 0.5;
+				el.style.setProperty( '--tw-rx', ( -y * 5 ).toFixed( 2 ) + 'deg' );
+				el.style.setProperty( '--tw-ry', ( x * 7 ).toFixed( 2 ) + 'deg' );
+			}, { passive: true } );
+			area.addEventListener( 'pointerleave', function () {
+				el.style.setProperty( '--tw-rx', '0deg' );
+				el.style.setProperty( '--tw-ry', '0deg' );
+			} );
+		} );
+	}
+
+	// Night timeline: the step in the middle of the screen drives the chat on the right.
+	document.querySelectorAll( '[data-tw-night]' ).forEach( function ( night ) {
+		var steps = night.querySelectorAll( '.tw-night__item' );
+		function activate( i ) {
+			steps.forEach( function ( s, j ) {
+				s.classList.toggle( 'is-active', j === i );
+				s.classList.toggle( 'is-past', j < i );
+			} );
+			night.style.setProperty( '--tw-progress', ( ( i + 1 ) / steps.length ).toFixed( 3 ) );
+		}
+		activate( 0 );
+		if ( ! canMove ) {
+			return;
+		}
+		night.classList.add( 'is-scrolly' );
+		// Observe the text blocks: on wide screens the list items are display: contents and have no box.
+		var texts = Array.prototype.map.call( steps, function ( s ) {
+			return s.querySelector( '.tw-night__text' ) || s;
+		} );
+		var obs = new IntersectionObserver( function ( entries ) {
+			entries.forEach( function ( entry ) {
+				if ( entry.isIntersecting ) {
+					activate( texts.indexOf( entry.target ) );
+				}
+			} );
+		}, { rootMargin: '-40% 0px -40% 0px' } );
+		texts.forEach( function ( t ) {
+			obs.observe( t );
+		} );
+	} );
 
 	/* ---------- Docs: "Was this helpful?" ---------- */
 	document.querySelectorAll( '[data-tw-helpful]' ).forEach( function ( box ) {

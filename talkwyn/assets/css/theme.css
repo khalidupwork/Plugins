@@ -34,6 +34,8 @@ hr, .wp-block-separator { border-color: var(--tw-border); opacity: 1; }
 :lang(ar), [lang="ar"] { font-family: "Noto Sans Arabic", var(--tw-font-body); }
 :lang(ur), [lang="ur"] { font-family: "Noto Nastaliq Urdu", "Noto Sans Arabic", serif; line-height: 2; }
 :lang(hi), [lang="hi"] { font-family: "Noto Sans Devanagari", var(--tw-font-body); }
+/* Roman Urdu is Latin script: keep the body font (":lang(ur)" would also match it). */
+:lang(ur-Latn), [lang="ur-Latn"] { font-family: var(--tw-font-body); line-height: inherit; }
 h1, h2, h3, h4 { text-wrap: balance; }
 p { text-wrap: pretty; }
 
@@ -249,8 +251,8 @@ button.tw-chip[disabled] { opacity: .55; cursor: default; }
 .tw-rotator { display: inline-grid; vertical-align: baseline; }
 .tw-rotator__word { grid-area: 1 / 1; transition: opacity 400ms var(--tw-ease), transform 400ms var(--tw-ease); color: #FFFFFF; white-space: nowrap; text-decoration: underline; text-decoration-color: #3DD9EB; text-decoration-thickness: .07em; text-underline-offset: .14em; text-decoration-skip-ink: none; }
 .tw-rotator__word:not(.is-active) { opacity: 0; transform: translateY(.25em); }
-.tw-rotator__word:lang(ar), .tw-rotator__word:lang(ur), .tw-rotator__word:lang(hi) { font-weight: 600; }
-.tw-rotator__word:lang(ur) { font-size: .8em; line-height: 1.3; }
+.tw-rotator__u:lang(ar), .tw-rotator__u:lang(ur), .tw-rotator__u:lang(hi) { font-weight: 600; }
+.tw-rotator__u:lang(ur) { font-size: .8em; line-height: 1.3; }
 @media (max-width: 781px) { .tw-rotator__word:not(:first-child) { display: none; } .tw-rotator__word:first-child { opacity: 1; transform: none; } }
 
 /* ---------- Trust strip ---------- */
@@ -459,8 +461,49 @@ button.tw-chip[disabled] { opacity: .55; cursor: default; }
 	.tw-rotator__word:not(:first-child) { display: none; }
 	.tw-rotator__word:first-child { opacity: 1; transform: none; }
 }
-.js .tw-reveal { opacity: 0; transform: translateY(12px); transition: opacity 600ms var(--tw-ease), transform 600ms var(--tw-ease); }
-.js .tw-reveal.is-visible { opacity: 1; transform: none; }
+/* Reveal: .tw-motion is set by theme.js only when motion is allowed, so nothing is ever hidden without it. */
+:root { --tw-ease-out: cubic-bezier(.16, 1, .3, 1); --tw-spring: cubic-bezier(.34, 1.56, .64, 1); }
+.tw-motion :is(.tw-reveal, [data-tw-reveal]) { opacity: 0; transform: translateY(28px); transition: opacity 800ms var(--tw-ease-out), transform 900ms var(--tw-ease-out); transition-delay: calc(var(--tw-i, 0) * 90ms); }
+.tw-motion [data-tw-reveal="left"] { transform: translateX(-40px); }
+.tw-motion [data-tw-reveal="right"] { transform: translateX(40px); }
+.tw-motion [data-tw-reveal="zoom"] { transform: scale(.94) translateY(16px); }
+.tw-motion :is(.tw-reveal, [data-tw-reveal]).is-visible { opacity: 1; transform: none; }
+/* Staggered children reveal with their parent. */
+.tw-motion [data-tw-reveal][data-tw-stagger] { opacity: 1; transform: none; }
+.tw-motion [data-tw-reveal][data-tw-stagger] > * { opacity: 0; transform: translateY(32px); transition: opacity 700ms var(--tw-ease-out), transform 800ms var(--tw-ease-out); transition-delay: calc(var(--tw-i, 0) * 110ms); }
+.tw-motion [data-tw-reveal][data-tw-stagger].is-visible > * { opacity: 1; transform: none; }
+
+/* Chat playback (keeps every bubble's space, so nothing below moves). */
+.tw-chat.is-armed .tw-chat__body > :is(.tw-msg, .tw-chip--saved, .tw-lead-card) { transition: opacity 420ms var(--tw-ease-out), transform 520ms var(--tw-spring), clip-path 560ms var(--tw-ease-out); }
+.tw-chat.is-armed .tw-chat__body > .is-pending { opacity: 0; transform: translateY(14px) scale(.96); }
+.tw-chat.is-armed .tw-msg--user { transform-origin: 100% 100%; }
+.tw-chat.is-armed .tw-msg--bot { transform-origin: 0 100%; position: relative; }
+.tw-chat.is-armed .tw-msg--bot.is-typing { opacity: 1; transform: none; clip-path: inset(0 calc(100% - 66px) calc(100% - 42px) 0 round 18px 18px 18px 6px); }
+.tw-chat.is-armed .tw-msg--bot.is-typing > :not(.tw-msg__dots) { visibility: hidden; }
+.tw-chat.is-armed .tw-msg--bot.is-shown { clip-path: inset(0 0 0 0 round 0); }
+.tw-msg__dots { position: absolute; inset-block-start: 0; inset-inline-start: 0; inline-size: 66px; block-size: 42px; display: none; align-items: center; justify-content: center; gap: 5px; }
+[dir="rtl"].tw-msg .tw-msg__dots { inset-inline-start: auto; inset-inline-end: 0; }
+.tw-msg.is-typing .tw-msg__dots { display: flex; }
+.tw-msg__dots i { inline-size: 7px; block-size: 7px; border-radius: 50%; background: var(--tw-plum-300); animation: tw-rise 1s var(--tw-ease) infinite; }
+.tw-msg__dots i:nth-child(2) { animation-delay: .15s; }
+.tw-msg__dots i:nth-child(3) { animation-delay: .3s; background: var(--tw-aqua); }
+.tw-chat.is-armed .tw-chip--saved.is-shown { animation: tw-pop 600ms var(--tw-spring); }
+.tw-chat.is-resetting .tw-chat__body > * { opacity: 0 !important; transition: opacity 400ms var(--tw-ease) !important; }
+@keyframes tw-pop { 0% { transform: scale(.6); } 60% { transform: scale(1.08); } 100% { transform: scale(1); } }
+
+/* Spotlight cards: a soft glow follows the pointer. */
+.tw-spot { position: relative; isolation: isolate; }
+.tw-spot::before { content: ""; position: absolute; inset: 0; border-radius: inherit; z-index: -1; opacity: 0; transition: opacity 300ms var(--tw-ease); background: radial-gradient(420px circle at var(--mx, 50%) var(--my, 0%), color-mix(in srgb, var(--tw-plum-200) 45%, transparent), transparent 60%); pointer-events: none; }
+.tw-spot:hover::before { opacity: 1; }
+
+/* Buttons: a light sweep on hover. */
+.wp-block-button__link, .tw-btn { position: relative; overflow: hidden; isolation: isolate; }
+.wp-block-button__link::after, .tw-btn::after { content: ""; position: absolute; inset: 0; z-index: -1; background: linear-gradient(105deg, transparent 35%, rgba(255, 255, 255, .35) 50%, transparent 65%); transform: translateX(-120%); transition: transform 700ms var(--tw-ease-out); pointer-events: none; }
+.wp-block-button__link:hover::after, .tw-btn:hover::after { transform: translateX(120%); }
+.wp-block-button__link:hover, .tw-btn:hover { box-shadow: 0 10px 30px -10px color-mix(in srgb, var(--tw-plum) 60%, transparent); }
+
+/* Infinite decoration pauses off screen. */
+.tw-motion [data-tw-live]:not(.is-live), .tw-motion [data-tw-live]:not(.is-live) * { animation-play-state: paused !important; }
 
 /* ---------- Utilities ---------- */
 .tw-center { text-align: center; }

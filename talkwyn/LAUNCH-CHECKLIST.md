@@ -124,7 +124,7 @@ Results on the test site (mobile, simulated slow 4G, gzip and caching on). Each 
 
 | Page | Perf | A11y | Best Pr. | SEO | LCP | CLS |
 |---|---|---|---|---|---|---|
-| `/` (3 runs) | 95 | 100 | 100 | 100 | 2.4 s | 0 |
+| `/` (3 runs) | 96 to 97 | 100 | 100 | 100 | 1.9 to 2.3 s | 0.02 |
 | `/pricing/` | 99 | 100 | 100 | 100 | 1.9 s | 0 |
 | `/download/` | 99 | 100 | 100 | 100 | 1.9 s | 0.055 |
 | `/features/` | 99 | 100 | 100 | 100 | 1.7 s | 0 |

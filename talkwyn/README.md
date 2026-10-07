@@ -157,6 +157,44 @@ Category archives with fewer than 3 posts are noindex until they fill up.
   3. Remove the placeholder notice.
 - **WooCommerce pages:** the shop, product and product category pages redirect to `/pricing/` (filter `talkwyn_shop_redirect`, return false to keep them). Cart, checkout and My Account are noindex.
 
+## Motion and visual effects
+
+The homepage (and any page using its patterns or the CTA band) uses the effects below. They live in `assets/css/home.css` and the "Motion" block in `assets/js/theme.js`.
+
+**Hero and backgrounds**
+
+- The hero and the final call to action have drifting light and floating language bubbles.
+- The rotating hero word draws an underline under each new language.
+- The hero chat plays itself on a loop, and bot replies "type" first.
+
+**On scroll**
+
+- Sections fade and rise in as they enter the screen. Cards and steps stagger.
+- The night section is a scroll story: the chat on the right follows the time on the left, and the rail fills as you go.
+- The other sample chats play once when scrolled into view.
+- The founding seats count up.
+
+**Pointer and buttons**
+
+- Cards light up under the pointer.
+- Buttons get a light sweep on hover.
+
+**Hooks for your own blocks** (add these attributes in a Custom HTML block):
+
+| Attribute | Effect |
+|---|---|
+| `data-tw-reveal` | Fade in on scroll. Values `left`, `right` and `zoom` change the direction. |
+| `data-tw-stagger` | Reveals the children one after another. |
+| `data-tw-play` on a `.tw-chat` | Plays the chat once. Use `loop` to repeat it. |
+| `data-tw-count="100"` | Counts up to the number. |
+| `.tw-spot` | Pointer glow on a card. |
+
+**Safety rules**
+
+- With reduced motion turned on, or without JavaScript, everything is shown immediately and nothing moves.
+- Looping effects pause when off screen.
+- Hidden states keep their space, so nothing shifts the layout.
+
 ## Performance notes
 
 - **Font subsets.** The fonts ship as small subsets with the full files as fallback. Headings use an English-only cut of Bricolage. The Arabic, Urdu and Hindi fonts are cut to the characters the site uses today. A browser downloads the full file only when a page needs a character outside the subset, so new text always renders. To regenerate the subsets after big copy changes, see `assets/fonts/README.md`.

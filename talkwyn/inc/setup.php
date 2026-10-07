@@ -17,7 +17,7 @@ add_action(
 		add_theme_support( 'woocommerce' );
 		add_theme_support( 'html5', array( 'search-form', 'gallery', 'caption', 'style', 'script' ) );
 		remove_theme_support( 'core-block-patterns' );
-		add_editor_style( array( 'assets/css/tokens.css', 'assets/css/theme.css' ) );
+		add_editor_style( array( 'assets/css/tokens.css', 'assets/css/theme.css', 'assets/css/home.css' ) );
 		register_nav_menus(
 			array(
 				'primary' => __( 'Primary', 'talkwyn' ),
@@ -36,6 +36,7 @@ add_action(
 		$v = TALKWYN_THEME_VERSION;
 		wp_enqueue_style( 'talkwyn-tokens', TALKWYN_THEME_URL . '/assets/css/tokens.css', array(), $v );
 		wp_enqueue_style( 'talkwyn', TALKWYN_THEME_URL . '/assets/css/theme.css', array( 'talkwyn-tokens' ), $v );
+		wp_enqueue_style( 'talkwyn-home', TALKWYN_THEME_URL . '/assets/css/home.css', array( 'talkwyn' ), $v );
 		// Small enough to inline: saves a render-blocking request on first paint.
 		wp_style_add_data( 'talkwyn-tokens', 'path', TALKWYN_THEME_DIR . '/assets/css/tokens.css' );
 		wp_enqueue_script(
@@ -58,7 +59,7 @@ add_action(
 	'wp_head',
 	static function () {
 		// Apply the saved light/dark choice before first paint (no flash).
-		echo "<script>(function(){var d=document.documentElement;d.className+=' js';try{var m=localStorage.getItem('tw-theme');if(m==='light'||m==='dark'){d.setAttribute('data-theme',m);}}catch(e){}})();</script>\n";
+		echo "<script>(function(){var d=document.documentElement;d.className+=' js';if('IntersectionObserver' in window&&!(window.matchMedia&&matchMedia('(prefers-reduced-motion: reduce)').matches)){d.className+=' tw-motion';setTimeout(function(){if(!window.twReady){d.classList.remove('tw-motion');}},3000);}try{var m=localStorage.getItem('tw-theme');if(m==='light'||m==='dark'){d.setAttribute('data-theme',m);}}catch(e){}})();</script>\n";
 
 		$fonts = TALKWYN_THEME_URL . '/assets/fonts/';
 		printf( '<link rel="preload" href="%s" as="font" type="font/woff2" crossorigin>' . "\n", esc_url( $fonts . 'bricolage-grotesque-basic-800-normal.woff2' ) );
