@@ -156,7 +156,7 @@ jQuery( function ( $ ) {
 			frame.on( 'select', function () {
 				var a = frame.state().get( 'selection' ).first().toJSON();
 				$( '#twa-avatar_url' ).val( a.url );
-				$( '#twa-avatar_type' ).val( 'custom' );
+				$( '#twa-avatar_type' ).val( 'custom' ).trigger( 'change' );
 			} );
 		}
 		frame.open();
@@ -204,34 +204,179 @@ jQuery( function ( $ ) {
 		} );
 	}
 
-	/* Live preview on the Appearance tab */
+	/* Live preview on the Appearance tab: redrawn from the form on every change. */
 	var preview = $( '.twa-preview__chat' );
 	if ( preview.length ) {
+		var P = preview.data( 'twa-preview' ) || {};
 		var esc = function ( t ) {
-			return $( '<div>' ).text( t ).html();
+			return $( '<div>' ).text( null == t ? '' : String( t ) ).html();
 		};
-		$( '[data-preview]' ).on( 'input', function () {
-			var key = $( this ).data( 'preview' );
-			var val = $( this ).val();
-			var target = preview.find( '[data-twa-p="' + key + '"]' );
-			if ( 'suggestions' === key ) {
-				target.html( val.split( /\r?\n/ ).filter( function ( l ) {
-					return l.trim();
-				} ).slice( 0, 4 ).map( function ( l ) {
-					return '<span class="twc-chip">' + esc( l.trim() ) + '</span>';
-				} ).join( '' ) );
-			} else if ( 'launcher' === key ) {
-				target.text( val ).prop( 'hidden', ! val.trim() );
-			} else {
-				target.text( val );
+		var get = function ( key ) {
+			var f = $( '[name="talkwyn[' + key + ']"]' ).first();
+			if ( ! f.length ) {
+				return '';
 			}
+			return f.is( ':checkbox' ) ? f.is( ':checked' ) : String( f.val() || '' );
+		};
+		var svg = function ( paths ) {
+			return '<svg viewBox="0 0 24 24" aria-hidden="true" focusable="false">' + paths + '</svg>';
+		};
+		var ICON = {
+			menu: '<circle cx="5" cy="12" r="1.6"/><circle cx="12" cy="12" r="1.6"/><circle cx="19" cy="12" r="1.6"/>',
+			reset: '<path d="M4 4v6h6"/><path d="M5.5 15a7.5 7.5 0 1 0 .8-7.7L4 10"/>',
+			sound: '<path d="M11 5 6 9H3v6h3l5 4V5Z"/><path d="M15 9.5a4 4 0 0 1 0 5"/><path d="M17.5 7a7.5 7.5 0 0 1 0 10"/>',
+			expand: '<path d="M8 3H3v5"/><path d="M16 3h5v5"/><path d="M8 21H3v-5"/><path d="M16 21h5v-5"/>',
+			minimize: '<path d="M5 12h14"/>',
+			close: '<path d="m6 6 12 12"/><path d="M18 6 6 18"/>',
+			name: '<circle cx="12" cy="8" r="4"/><path d="M4 21a8 8 0 0 1 16 0"/>',
+			transcript: '<rect x="3" y="5" width="18" height="14" rx="2"/><path d="m3 7 9 6 9-6"/>',
+			language: '<circle cx="12" cy="12" r="9"/><path d="M3 12h18"/><path d="M12 3a14 14 0 0 1 0 18a14 14 0 0 1 0-18"/>',
+			popout: '<path d="M14 4h6v6"/><path d="M20 4 11 13"/><path d="M19 14v5a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1V6a1 1 0 0 1 1-1h5"/>',
+			add_chat: '<path d="M12 5v14"/><path d="M5 12h14"/>',
+			copy: '<rect x="8" y="8" width="11" height="11" rx="2"/><path d="M16 8V6a2 2 0 0 0-2-2H6a2 2 0 0 0-2 2v8a2 2 0 0 0 2 2h2"/>',
+			up: '<path d="M7 10v10H4V10h3ZM7 19h9.5a2 2 0 0 0 1.9-1.4l1.4-5A2 2 0 0 0 17.9 10H14l.6-3.2A2.3 2.3 0 0 0 12.4 4L7 10"/>',
+			down: '<path d="M7 14V4H4v10h3ZM7 5h9.5a2 2 0 0 1 1.9 1.4l1.4 5A2 2 0 0 1 17.9 14H14l.6 3.2a2.3 2.3 0 0 1-2.2 2.8L7 14"/>'
+		};
+		var icons = P.icons || {};
+		var now = ( function () {
+			try {
+				return new Intl.DateTimeFormat( undefined, { hour: 'numeric', minute: '2-digit' } ).format( new Date() );
+			} catch ( e ) {
+				return '';
+			}
+		}() );
+
+		var renderPreview = function () {
+			var name = get( 'bot_name' ) || 'Talkwyn';
+			var menuOn = get( 'widget_menu' );
+
+			// Header: avatar, name, status, buttons.
+			var type = get( 'avatar_type' );
+			var url = $.trim( get( 'avatar_url' ) );
+			var avatar = preview.find( '.twc-avatar' ).empty();
+			if ( 'custom' === type && url ) {
+				avatar.append( $( '<img alt="" width="36" height="36">' ).attr( 'src', url ) );
+			} else if ( 'initials' === type ) {
+				avatar.html( '<span class="twc-avatar__text">' + esc( ( $.trim( name ).charAt( 0 ) || 'T' ).toUpperCase() ) + '</span>' );
+			} else {
+				avatar.html( icons[ 'chat' === type ? 'chat_dots' : ( 'headset' === type ? 'headset' : 'talkwyn' ) ] || '' );
+			}
+			preview.find( '.twc-name' ).text( name );
+			preview.find( '.twc-status' ).text( get( 'online_label' ) );
+			var tools = '';
+			var btn = function ( cls, label, icon ) {
+				return '<span class="twc-head-btn ' + cls + '" title="' + esc( label ) + '">' + svg( icon ) + '</span>';
+			};
+			if ( menuOn ) {
+				tools += '<button type="button" class="twc-head-btn twc-menu-btn" aria-expanded="false" aria-label="' + esc( P.chatMenu ) + '">' + svg( ICON.menu ) + '</button>';
+			} else {
+				if ( get( 'show_reset_button' ) ) {
+					tools += btn( 'twc-reset', get( 'reset_label' ), ICON.reset );
+				}
+				if ( get( 'show_sound_button' ) ) {
+					tools += btn( 'twc-sound', get( 'sound_label' ), ICON.sound );
+				}
+			}
+			if ( get( 'full_screen_enabled' ) ) {
+				tools += btn( 'twc-expand', get( 'expand_label' ), ICON.expand );
+			}
+			if ( get( 'show_minimize_button' ) ) {
+				tools += btn( 'twc-minimize', get( 'minimize_label' ), ICON.minimize );
+			}
+			tools += btn( 'twc-close', get( 'close_label' ), ICON.close );
+			preview.find( '.twc-tools' ).html( tools );
+
+			// Menu (opens from the three dots).
+			var items = [ [ 'name', P.changeName ] ];
+			if ( get( 'transcript_enabled' ) ) {
+				items.push( [ 'transcript', P.transcript ] );
+			}
+			if ( get( 'show_sound_button' ) ) {
+				items.push( [ 'sound', get( 'sound_label' ) ] );
+			}
+			if ( get( 'language_menu' ) ) {
+				items.push( [ 'language', P.language ] );
+			}
+			items.push( [ 'popout', P.popout ] );
+			if ( get( 'show_reset_button' ) ) {
+				items.push( [ 'reset', get( 'reset_label' ) ] );
+			}
+			if ( get( 'show_badge' ) ) {
+				items.push( [ 'add_chat', P.addChat ] );
+			}
+			var menu = preview.find( '.twc-menu' );
+			menu.html( items.map( function ( it ) {
+				return '<span class="twc-menu__item" data-id="' + it[ 0 ] + '">' + svg( ICON[ it[ 0 ] ] ) + '<span>' + esc( it[ 1 ] ) + '</span></span>';
+			} ).join( '' ) );
+			if ( ! menuOn ) {
+				menu.prop( 'hidden', true );
+			}
+
+			// Messages.
+			var meta = '';
+			if ( get( 'show_timestamps' ) && now ) {
+				meta += '<time class="twc-time">' + esc( now ) + '</time>';
+			}
+			if ( get( 'show_message_tools' ) || get( 'feedback_enabled' ) ) {
+				meta += '<div class="twc-msg-tools">';
+				if ( get( 'show_message_tools' ) ) {
+					meta += '<span class="twc-tool" title="' + esc( get( 'copy_label' ) ) + '">' + svg( ICON.copy ) + '</span>';
+				}
+				if ( get( 'feedback_enabled' ) ) {
+					meta += '<span class="twc-tool twc-fb" title="' + esc( get( 'helpful_label' ) ) + '">' + svg( ICON.up ) + '</span><span class="twc-tool twc-fb" title="' + esc( get( 'not_helpful_label' ) ) + '">' + svg( ICON.down ) + '</span>';
+				}
+				meta += '</div>';
+			}
+			var answer = '<div class="twc-msg twc-msg--bot"><div class="twc-bubble">' + esc( P.answer ) + '</div>';
+			if ( get( 'show_sources' ) ) {
+				answer += '<div class="twc-sources"><span class="twc-sources__label">' + esc( get( 'sources_label' ) ) + '</span><a>' + esc( P.source ) + '</a></div>';
+			}
+			answer += meta ? '<div class="twc-meta">' + meta + '</div>' : '';
+			answer += '</div>';
+			var typingText = get( 'typing_label' ).split( '{bot}' ).join( name );
+			preview.find( '.twc-messages' ).html(
+				'<div class="twc-msg twc-msg--bot"><div class="twc-bubble">' + esc( get( 'welcome_message' ) ) + '</div></div>' +
+				'<div class="twc-msg twc-msg--user"><div class="twc-bubble">' + esc( P.question ) + '</div></div>' +
+				answer +
+				'<div class="twc-msg twc-msg--bot twc-typing"><div class="twc-bubble"><span class="twc-dots" aria-hidden="true"><i></i><i></i><i></i></span>' + ( typingText ? '<span class="twc-typing__label">' + esc( typingText ) + '</span>' : '' ) + '</div></div>'
+			);
+			preview.find( '.twc-suggestions' ).html( get( 'suggested_questions' ).split( /\r?\n/ ).filter( function ( l ) {
+				return $.trim( l );
+			} ).slice( 0, 4 ).map( function ( l ) {
+				return '<span class="twc-chip">' + esc( $.trim( l ) ) + '</span>';
+			} ).join( '' ) );
+			preview.find( '.twa-preview__ph' ).text( get( 'placeholder' ) );
+
+			// Footer: privacy note and the optional badge.
+			var foot = P.privacy ? '<p class="twc-privacy">' + esc( P.privacy ) + '</p>' : '';
+			if ( get( 'show_badge' ) ) {
+				foot += '<span class="twc-badge">' + '<svg viewBox="0 0 32 32" aria-hidden="true"><path d="M8 4.5h16A5.5 5.5 0 0 1 29.5 10v10A5.5 5.5 0 0 1 24 25.5H13.5L7.5 30v-4.6A5.5 5.5 0 0 1 2.5 20V10A5.5 5.5 0 0 1 8 4.5Z"/></svg><span>' + esc( P.poweredBy ) + '</span></span>';
+			}
+			preview.find( '.twc-foot' ).html( foot );
+
+			// Launcher, position, header style, pulse.
+			var label = $.trim( get( 'launcher_label' ) );
+			preview.find( '.twc-launcher-label' ).text( label ).prop( 'hidden', ! label );
+			preview.find( '.twc-launcher' ).html( icons[ get( 'launcher_icon' ) ] || icons.talkwyn || '' );
+			preview.toggleClass( 'twc--left', 'left' === get( 'position' ) );
+			preview.toggleClass( 'twc--gradient', 'gradient' === get( 'header_style' ) );
+			var pulse = !! get( 'launcher_pulse' );
+			if ( pulse !== preview.hasClass( 'twc--pulse' ) ) {
+				preview.toggleClass( 'twc--pulse', pulse );
+			}
+			var w = get( 'chat_width' );
+			var h = get( 'chat_height' );
+			$( '.twa-preview__size' ).text( w && h && P.size ? P.size.replace( '%1$s', w ).replace( '%2$s', h ) : '' );
+		};
+
+		preview.on( 'click', '.twc-menu-btn', function () {
+			var menu = preview.find( '.twc-menu' );
+			menu.prop( 'hidden', ! menu.prop( 'hidden' ) );
+			$( this ).attr( 'aria-expanded', menu.prop( 'hidden' ) ? 'false' : 'true' );
 		} );
-		$( '#twa-position' ).on( 'change', function () {
-			preview.toggleClass( 'twc--left', 'left' === $( this ).val() );
-		} ).trigger( 'change' );
-		$( '#twa-header_style' ).on( 'change', function () {
-			preview.toggleClass( 'twc--gradient', 'gradient' === $( this ).val() );
-		} ).trigger( 'change' );
+		preview.closest( 'form' ).on( 'input change', renderPreview );
+		$( document ).on( 'input change', '#twa-avatar_url, #twa-avatar_type', renderPreview );
+		renderPreview();
 	}
 
 	/* Copy email */

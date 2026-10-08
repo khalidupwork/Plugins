@@ -1,4 +1,4 @@
-# Talkwyn 2.1.0 test checklist
+# Talkwyn 2.1.1 test checklist
 
 The full run, including Pro and migration, is in `../QA-CHECKLIST.md`. This list covers what changed in 2.1.0.
 
@@ -15,7 +15,8 @@ The full run, including Pro and migration, is in `../QA-CHECKLIST.md`. This list
 - [ ] Every tab loads without notices: Dashboard, Knowledge, AI providers, Appearance, Answers and leads, Leads, Conversations, Privacy.
 - [ ] Start free trial opens talkwyn.com/pricing/#trial. With Pro active, both trial and upgrade buttons hide.
 - [ ] Drag providers to reorder, save, reload: order kept. Arrow buttons work with the keyboard.
-- [ ] Appearance preview follows colour, name, welcome text and header style without saving.
+- [ ] Appearance preview follows every setting without saving: launcher icon, avatar type and image, name, status, welcome, placeholder, suggestions, typing text, colour, position, header style, pulse, header buttons, menu items (click the three dots), message times, copy and feedback buttons, source links and badge.
+- [ ] Click a tab or button: no blue ring. Press Tab: a red outline shows.
 - [ ] Only one Pro prompt per screen; Dismiss keeps it hidden for that user only.
 - [ ] Review request: set `talkwyn_installed_at` to 15 days ago and log 20 chats; the card shows. Maybe later hides it for 30 days.
 

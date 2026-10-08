@@ -1785,3 +1785,64 @@ label.twa-toggle {
 		align-items: flex-start;
 	}
 }
+
+/* Focus: no WordPress blue ring after a click. Keyboard users get the brand red outline. */
+.twa a:focus,
+.twa button:focus,
+.twa summary:focus,
+.twa .twa-toggle input[type=checkbox]:focus,
+.twa input[type=radio]:focus,
+.twa input[type=color]:focus {
+	box-shadow: none;
+	outline: 0;
+}
+
+.twa a:focus-visible,
+.twa button:focus-visible,
+.twa summary:focus-visible,
+.twa .twa-toggle input[type=checkbox]:focus-visible,
+.twa input[type=radio]:focus-visible,
+.twa input[type=color]:focus-visible {
+	outline: 2px solid var(--red);
+	outline-offset: 2px;
+	box-shadow: none;
+}
+
+/* Live preview */
+.twa-preview__label {
+	display: flex;
+	justify-content: space-between;
+	gap: 8px;
+}
+
+.twa-preview__size {
+	font-weight: 600;
+	letter-spacing: 0;
+	text-transform: none;
+}
+
+.twa-preview__chat .twc-messages {
+	max-height: none;
+}
+
+.twa-preview__chat .twc-head-btn,
+.twa-preview__chat .twc-tool,
+.twa-preview__chat .twc-menu__item,
+.twa-preview__chat .twc-badge,
+.twa-preview__chat .twc-sources a {
+	cursor: default;
+}
+
+.twa-preview__chat .twc-menu-btn {
+	cursor: pointer;
+}
+
+.twa-preview__chat.twc--pulse .twc-launcher {
+	animation-iteration-count: infinite;
+}
+
+.twa-preview__note {
+	margin: 12px 4px 0;
+	font-size: 12px;
+	color: var(--muted);
+}

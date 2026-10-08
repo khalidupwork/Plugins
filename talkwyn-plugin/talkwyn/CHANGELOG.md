@@ -1,5 +1,11 @@
 # Talkwyn changelog
 
+## 2.1.1
+
+### Fixed
+- Appearance live preview follows every setting as you change it: launcher icon, avatar (your image or the first letter), header buttons, chat menu (opens from the three dots), message times, copy and feedback buttons, source links, typing text, badge, colours, position, header style and launcher pulse.
+- No blue WordPress focus ring on Talkwyn tabs and buttons after a click. Keyboard focus shows a red outline.
+
 ## 2.1.0
 
 ### Added

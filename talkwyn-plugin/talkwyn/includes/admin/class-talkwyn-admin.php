@@ -928,17 +928,36 @@ class Talkwyn_Admin {
 	 * @return string HTML.
 	 */
 	private static function preview( array $s, $on ) {
-		$suggest = array_slice( array_filter( array_map( 'trim', preg_split( '/\r\n|\r|\n/', (string) $s['suggested_questions'] ) ) ), 0, 4 );
-		$chips   = '';
-		foreach ( $suggest as $q ) {
-			$chips .= '<span class="twc-chip">' . esc_html( $q ) . '</span>';
+		$icons = array();
+		foreach ( array( 'talkwyn', 'chat_dots', 'spark_chat', 'headset', 'question' ) as $icon ) {
+			$icons[ $icon ] = Talkwyn_Frontend::icon( $icon );
 		}
+		// Everything below is drawn by admin.js from the form, so every change shows at once.
+		$data  = array(
+			'icons'      => $icons,
+			'poweredBy'  => __( 'Powered by Talkwyn', 'talkwyn' ),
+			'question'   => __( 'Do you deliver on Saturdays?', 'talkwyn' ),
+			'answer'     => __( 'Yes. Saturday delivery runs from 9 am to 2 pm in the city area.', 'talkwyn' ),
+			'source'     => __( 'Delivery', 'talkwyn' ),
+			'chatMenu'   => __( 'Chat menu', 'talkwyn' ),
+			'changeName' => __( 'Change name', 'talkwyn' ),
+			'transcript' => __( 'Email transcript', 'talkwyn' ),
+			'language'   => __( 'Language', 'talkwyn' ),
+			'popout'     => __( 'Pop out', 'talkwyn' ),
+			'addChat'    => __( 'Add chat to your website', 'talkwyn' ),
+			'privacy'    => (string) $s['privacy_notice'],
+			/* translators: 1: width in pixels, 2: height in pixels */
+			'size'       => __( 'Desktop size: %1$s x %2$s px', 'talkwyn' ),
+		);
 		$style = '--twc-brand:' . esc_attr( (string) $s['brand_color'] ) . ';--twc-on-brand:' . esc_attr( $on );
-		return '<div class="twa-preview"><div class="twa-preview__label">' . esc_html__( 'Live preview', 'talkwyn' ) . '</div>'
-			. '<div class="twc twa-preview__chat" style="' . $style . '"><div class="twc-panel"><header class="twc-header"><div class="twc-avatar">' . Talkwyn_Frontend::icon( 'talkwyn' ) . '</div><div class="twc-identity"><strong class="twc-name" data-twa-p="name">' . esc_html( (string) $s['bot_name'] ) . '</strong><span class="twc-status" data-twa-p="status">' . esc_html( (string) $s['online_label'] ) . '</span></div><div class="twc-tools"><span class="twc-head-btn"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="5" cy="12" r="1.6"/><circle cx="12" cy="12" r="1.6"/><circle cx="19" cy="12" r="1.6"/></svg></span></div></header>'
-			. '<div class="twc-messages"><div class="twc-msg twc-msg--bot"><div class="twc-bubble" data-twa-p="welcome">' . esc_html( (string) $s['welcome_message'] ) . '</div></div><div class="twc-msg twc-msg--user"><div class="twc-bubble">' . esc_html__( 'Do you deliver on Saturdays?', 'talkwyn' ) . '</div></div><div class="twc-msg twc-msg--bot twc-typing"><div class="twc-bubble"><span class="twc-dots" aria-hidden="true"><i></i><i></i><i></i></span><span class="twc-typing__label">' . esc_html( str_replace( '{bot}', (string) $s['bot_name'], (string) $s['typing_label'] ) ) . '</span></div></div></div>'
-			. '<div class="twc-suggestions" data-twa-p="suggestions">' . $chips . '</div><div class="twc-compose"><span class="twa-preview__ph" data-twa-p="placeholder">' . esc_html( (string) $s['placeholder'] ) . '</span><span class="twc-send"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h13"/><path d="m13 6 6 6-6 6"/></svg></span></div></div>'
-			. '<div class="twc-launcher-wrap"><span class="twc-launcher-label" data-twa-p="launcher"' . ( '' === trim( (string) $s['launcher_label'] ) ? ' hidden' : '' ) . '>' . esc_html( (string) $s['launcher_label'] ) . '</span><span class="twc-launcher">' . Talkwyn_Frontend::icon( (string) $s['launcher_icon'] ) . '</span></div></div></div>';
+		return '<div class="twa-preview"><div class="twa-preview__label">' . esc_html__( 'Live preview', 'talkwyn' ) . '<span class="twa-preview__size"></span></div>'
+			. '<div class="twc twa-preview__chat" style="' . $style . '" data-twa-preview="' . esc_attr( (string) wp_json_encode( $data ) ) . '">'
+			. '<div class="twc-panel"><header class="twc-header"><div class="twc-avatar"></div><div class="twc-identity"><strong class="twc-name"></strong><span class="twc-status"></span></div><div class="twc-tools"></div></header>'
+			. '<div class="twc-menu" role="menu" hidden></div>'
+			. '<div class="twc-messages"></div><div class="twc-suggestions"></div>'
+			. '<div class="twc-compose"><span class="twa-preview__ph"></span><span class="twc-send"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h13"/><path d="m13 6 6 6-6 6"/></svg></span></div><div class="twc-foot"></div></div>'
+			. '<div class="twc-launcher-wrap"><span class="twc-launcher-label"></span><span class="twc-launcher"></span></div></div>'
+			. '<p class="twa-preview__note">' . esc_html__( 'Updates as you type. Save to put it live.', 'talkwyn' ) . '</p></div>';
 	}
 
 	/**

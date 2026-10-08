@@ -2,14 +2,14 @@
 # This file is distributed under the GPLv2 or later.
 msgid ""
 msgstr ""
-"Project-Id-Version: Talkwyn 2.1.0\n"
+"Project-Id-Version: Talkwyn 2.1.1\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/talkwyn\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2026-10-08T17:53:34+00:00\n"
+"POT-Creation-Date: 2026-10-08T18:01:40+00:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "X-Generator: WP-CLI 2.12.0\n"
 "X-Domain: talkwyn\n"
@@ -57,12 +57,12 @@ msgstr ""
 
 #: includes/admin/class-talkwyn-admin.php:113
 #: includes/admin/class-talkwyn-admin.php:637
-#: includes/admin/class-talkwyn-admin.php:1090
+#: includes/admin/class-talkwyn-admin.php:1109
 msgid "Leads"
 msgstr ""
 
 #: includes/admin/class-talkwyn-admin.php:114
-#: includes/admin/class-talkwyn-admin.php:1123
+#: includes/admin/class-talkwyn-admin.php:1142
 msgid "Conversations"
 msgstr ""
 
@@ -127,12 +127,12 @@ msgid "Do not ask again"
 msgstr ""
 
 #: includes/admin/class-talkwyn-admin.php:506
-#: includes/admin/class-talkwyn-admin.php:1168
-#: includes/admin/class-talkwyn-admin.php:1206
-#: includes/admin/class-talkwyn-admin.php:1224
-#: includes/admin/class-talkwyn-admin.php:1241
-#: includes/admin/class-talkwyn-admin.php:1275
-#: includes/admin/class-talkwyn-admin.php:1295
+#: includes/admin/class-talkwyn-admin.php:1187
+#: includes/admin/class-talkwyn-admin.php:1225
+#: includes/admin/class-talkwyn-admin.php:1243
+#: includes/admin/class-talkwyn-admin.php:1260
+#: includes/admin/class-talkwyn-admin.php:1294
+#: includes/admin/class-talkwyn-admin.php:1314
 #: includes/admin/class-talkwyn-onboarding.php:304
 #: includes/class-talkwyn-indexer.php:40
 #: includes/class-talkwyn-migration.php:218
@@ -633,6 +633,7 @@ msgid "Sound on by default"
 msgstr ""
 
 #: includes/admin/class-talkwyn-admin.php:860
+#: includes/admin/class-talkwyn-admin.php:942
 #: includes/class-talkwyn-frontend.php:317
 #: includes/class-talkwyn-frontend.php:501
 #: includes/class-talkwyn-frontend.php:541
@@ -648,6 +649,7 @@ msgid "Show the chat menu"
 msgstr ""
 
 #: includes/admin/class-talkwyn-admin.php:863
+#: includes/admin/class-talkwyn-admin.php:944
 #: includes/class-talkwyn-frontend.php:112
 msgid "Email transcript"
 msgstr ""
@@ -670,6 +672,7 @@ msgid "New chat"
 msgstr ""
 
 #: includes/admin/class-talkwyn-admin.php:869
+#: includes/admin/class-talkwyn-admin.php:938
 #: includes/admin/class-talkwyn-onboarding.php:225
 #: includes/class-talkwyn-frontend.php:316
 msgid "Powered by Talkwyn"
@@ -793,12 +796,12 @@ msgid "Copied"
 msgstr ""
 
 #: includes/admin/class-talkwyn-admin.php:900
-#: includes/admin/class-talkwyn-admin.php:1146
+#: includes/admin/class-talkwyn-admin.php:1165
 msgid "Helpful"
 msgstr ""
 
 #: includes/admin/class-talkwyn-admin.php:901
-#: includes/admin/class-talkwyn-admin.php:1146
+#: includes/admin/class-talkwyn-admin.php:1165
 msgid "Not helpful"
 msgstr ""
 
@@ -854,341 +857,379 @@ msgstr ""
 msgid "Save appearance"
 msgstr ""
 
-#: includes/admin/class-talkwyn-admin.php:937
-msgid "Live preview"
-msgstr ""
-
 #: includes/admin/class-talkwyn-admin.php:939
 msgid "Do you deliver on Saturdays?"
 msgstr ""
 
-#: includes/admin/class-talkwyn-admin.php:952
+#: includes/admin/class-talkwyn-admin.php:940
+msgid "Yes. Saturday delivery runs from 9 am to 2 pm in the city area."
+msgstr ""
+
+#: includes/admin/class-talkwyn-admin.php:941
+msgid "Delivery"
+msgstr ""
+
+#: includes/admin/class-talkwyn-admin.php:943
+#: includes/class-talkwyn-frontend.php:106
+msgid "Change name"
+msgstr ""
+
+#: includes/admin/class-talkwyn-admin.php:945
+#: includes/class-talkwyn-frontend.php:124
+msgid "Language"
+msgstr ""
+
+#: includes/admin/class-talkwyn-admin.php:946
+#: includes/class-talkwyn-frontend.php:129
+msgid "Pop out"
+msgstr ""
+
+#: includes/admin/class-talkwyn-admin.php:947
+#: includes/class-talkwyn-frontend.php:140
+msgid "Add chat to your website"
+msgstr ""
+
+#. translators: 1: width in pixels, 2: height in pixels
+#: includes/admin/class-talkwyn-admin.php:950
+#, php-format
+msgid "Desktop size: %1$s x %2$s px"
+msgstr ""
+
+#: includes/admin/class-talkwyn-admin.php:953
+msgid "Live preview"
+msgstr ""
+
+#: includes/admin/class-talkwyn-admin.php:960
+msgid "Updates as you type. Save to put it live."
+msgstr ""
+
+#: includes/admin/class-talkwyn-admin.php:971
 msgid "Answers"
 msgstr ""
 
-#: includes/admin/class-talkwyn-admin.php:953
+#: includes/admin/class-talkwyn-admin.php:972
 msgid "Reply in the visitor's language"
 msgstr ""
 
-#: includes/admin/class-talkwyn-admin.php:953
+#: includes/admin/class-talkwyn-admin.php:972
 msgid "Detects the language of each message, follows switches, and supports right-to-left scripts and Roman Urdu."
 msgstr ""
 
-#: includes/admin/class-talkwyn-admin.php:954
+#: includes/admin/class-talkwyn-admin.php:973
 msgid "Instructions for the assistant"
 msgstr ""
 
-#: includes/admin/class-talkwyn-admin.php:954
+#: includes/admin/class-talkwyn-admin.php:973
 msgid "Tone, what to focus on, what to avoid. Website facts come from the scan."
 msgstr ""
 
-#: includes/admin/class-talkwyn-admin.php:955
+#: includes/admin/class-talkwyn-admin.php:974
 msgid "Reply when no provider answers"
 msgstr ""
 
-#: includes/admin/class-talkwyn-admin.php:959
+#: includes/admin/class-talkwyn-admin.php:978
 msgid "Messages remembered"
 msgstr ""
 
-#: includes/admin/class-talkwyn-admin.php:969
+#: includes/admin/class-talkwyn-admin.php:988
 msgid "Knowledge chunks per answer"
 msgstr ""
 
-#: includes/admin/class-talkwyn-admin.php:979
+#: includes/admin/class-talkwyn-admin.php:998
 msgid "Lead capture"
 msgstr ""
 
-#: includes/admin/class-talkwyn-admin.php:979
+#: includes/admin/class-talkwyn-admin.php:998
 msgid "The assistant answers first, then offers a follow-up after a few real questions, or sooner when the visitor asks for prices, a call or a quote."
 msgstr ""
 
-#: includes/admin/class-talkwyn-admin.php:980
+#: includes/admin/class-talkwyn-admin.php:999
 msgid "Offer to collect contact details"
 msgstr ""
 
-#: includes/admin/class-talkwyn-admin.php:981
+#: includes/admin/class-talkwyn-admin.php:1000
 msgid "Ask before showing the form"
 msgstr ""
 
-#: includes/admin/class-talkwyn-admin.php:982
+#: includes/admin/class-talkwyn-admin.php:1001
 msgid "Offer sooner when the visitor shows buying or contact intent"
 msgstr ""
 
-#: includes/admin/class-talkwyn-admin.php:985
+#: includes/admin/class-talkwyn-admin.php:1004
 msgid "Offer after this many questions"
 msgstr ""
 
-#: includes/admin/class-talkwyn-admin.php:993
+#: includes/admin/class-talkwyn-admin.php:1012
 msgid "Offer question"
 msgstr ""
 
-#: includes/admin/class-talkwyn-admin.php:995
+#: includes/admin/class-talkwyn-admin.php:1014
 msgid "Yes button"
 msgstr ""
 
-#: includes/admin/class-talkwyn-admin.php:996
+#: includes/admin/class-talkwyn-admin.php:1015
 msgid "No button"
 msgstr ""
 
-#: includes/admin/class-talkwyn-admin.php:998
+#: includes/admin/class-talkwyn-admin.php:1017
 msgid "Reply after \"No\""
 msgstr ""
 
-#: includes/admin/class-talkwyn-admin.php:999
+#: includes/admin/class-talkwyn-admin.php:1018
 msgid "Reply before the form"
 msgstr ""
 
-#: includes/admin/class-talkwyn-admin.php:1001
+#: includes/admin/class-talkwyn-admin.php:1020
 msgid "Form title"
 msgstr ""
 
-#: includes/admin/class-talkwyn-admin.php:1002
+#: includes/admin/class-talkwyn-admin.php:1021
 msgid "Form button"
 msgstr ""
 
-#: includes/admin/class-talkwyn-admin.php:1004
+#: includes/admin/class-talkwyn-admin.php:1023
 msgid "Thank you message"
 msgstr ""
 
-#: includes/admin/class-talkwyn-admin.php:1006
+#: includes/admin/class-talkwyn-admin.php:1025
 msgid "Name is required"
 msgstr ""
 
-#: includes/admin/class-talkwyn-admin.php:1007
+#: includes/admin/class-talkwyn-admin.php:1026
 msgid "Email is required"
 msgstr ""
 
-#: includes/admin/class-talkwyn-admin.php:1008
+#: includes/admin/class-talkwyn-admin.php:1027
 msgid "Phone is required"
 msgstr ""
 
-#: includes/admin/class-talkwyn-admin.php:1010
+#: includes/admin/class-talkwyn-admin.php:1029
 msgid "Send new leads to"
 msgstr ""
 
-#: includes/admin/class-talkwyn-admin.php:1013
+#: includes/admin/class-talkwyn-admin.php:1032
 msgid "Spam protection"
 msgstr ""
 
-#: includes/admin/class-talkwyn-admin.php:1013
+#: includes/admin/class-talkwyn-admin.php:1032
 msgid "Every form has a hidden honeypot field, a time trap that rejects forms sent faster than a person can type, a rate limit and email validation. Cloudflare Turnstile is optional."
 msgstr ""
 
-#: includes/admin/class-talkwyn-admin.php:1014
+#: includes/admin/class-talkwyn-admin.php:1033
 msgid "Ask for consent with a checkbox"
 msgstr ""
 
-#: includes/admin/class-talkwyn-admin.php:1015
+#: includes/admin/class-talkwyn-admin.php:1034
 msgid "Consent text"
 msgstr ""
 
-#: includes/admin/class-talkwyn-admin.php:1018
+#: includes/admin/class-talkwyn-admin.php:1037
 msgid "Forms per visitor per hour"
 msgstr ""
 
-#: includes/admin/class-talkwyn-admin.php:1026
+#: includes/admin/class-talkwyn-admin.php:1045
 msgid "Turnstile site key (optional)"
 msgstr ""
 
-#: includes/admin/class-talkwyn-admin.php:1027
+#: includes/admin/class-talkwyn-admin.php:1046
 msgid "Turnstile secret key (optional)"
 msgstr ""
 
-#: includes/admin/class-talkwyn-admin.php:1027
+#: includes/admin/class-talkwyn-admin.php:1046
 msgid "When both keys are set, the lead form shows a Turnstile check and Talkwyn verifies it with Cloudflare."
 msgstr ""
 
-#: includes/admin/class-talkwyn-admin.php:1030
+#: includes/admin/class-talkwyn-admin.php:1049
 msgid "Talk to a person"
 msgstr ""
 
-#: includes/admin/class-talkwyn-admin.php:1031
+#: includes/admin/class-talkwyn-admin.php:1050
 msgid "Show a link to a person"
 msgstr ""
 
-#: includes/admin/class-talkwyn-admin.php:1032
+#: includes/admin/class-talkwyn-admin.php:1051
 msgid "Link text"
 msgstr ""
 
-#: includes/admin/class-talkwyn-admin.php:1033
+#: includes/admin/class-talkwyn-admin.php:1052
 msgid "Link"
 msgstr ""
 
-#: includes/admin/class-talkwyn-admin.php:1033
+#: includes/admin/class-talkwyn-admin.php:1052
 msgid "A WhatsApp, booking, contact or support link."
 msgstr ""
 
-#: includes/admin/class-talkwyn-admin.php:1047
+#: includes/admin/class-talkwyn-admin.php:1066
 msgid "Chat logs"
 msgstr ""
 
-#: includes/admin/class-talkwyn-admin.php:1048
+#: includes/admin/class-talkwyn-admin.php:1067
 msgid "Store conversations"
 msgstr ""
 
-#: includes/admin/class-talkwyn-admin.php:1048
+#: includes/admin/class-talkwyn-admin.php:1067
 msgid "Needed for Conversations, feedback and email transcripts."
 msgstr ""
 
-#: includes/admin/class-talkwyn-admin.php:1051
+#: includes/admin/class-talkwyn-admin.php:1070
 msgid "Delete conversations after (days)"
 msgstr ""
 
-#: includes/admin/class-talkwyn-admin.php:1059
+#: includes/admin/class-talkwyn-admin.php:1078
 msgid "Notice under the chat"
 msgstr ""
 
 #. translators: 1: export link, 2: erase link
-#: includes/admin/class-talkwyn-admin.php:1060
+#: includes/admin/class-talkwyn-admin.php:1079
 #, php-format
 msgid "Visitors can ask for their data. Use <a href=\"%1$s\">Export Personal Data</a> or <a href=\"%2$s\">Erase Personal Data</a> with their email."
 msgstr ""
 
-#: includes/admin/class-talkwyn-admin.php:1062
+#: includes/admin/class-talkwyn-admin.php:1081
 msgid "Protection"
 msgstr ""
 
-#: includes/admin/class-talkwyn-admin.php:1065
+#: includes/admin/class-talkwyn-admin.php:1084
 msgid "Messages per visitor per hour"
 msgstr ""
 
-#: includes/admin/class-talkwyn-admin.php:1073
+#: includes/admin/class-talkwyn-admin.php:1092
 msgid "My site is behind Cloudflare or a proxy"
 msgstr ""
 
-#: includes/admin/class-talkwyn-admin.php:1073
+#: includes/admin/class-talkwyn-admin.php:1092
 msgid "Reads the visitor IP from proxy headers. Turn it on only if your site really is behind a proxy, because visitors can fake these headers otherwise."
 msgstr ""
 
-#: includes/admin/class-talkwyn-admin.php:1075
+#: includes/admin/class-talkwyn-admin.php:1094
 msgid "When you uninstall"
 msgstr ""
 
-#: includes/admin/class-talkwyn-admin.php:1076
+#: includes/admin/class-talkwyn-admin.php:1095
 msgid "Delete all Talkwyn data when the plugin is deleted"
 msgstr ""
 
-#: includes/admin/class-talkwyn-admin.php:1076
+#: includes/admin/class-talkwyn-admin.php:1095
 msgid "Removes knowledge, leads, conversations and settings. Leave it off to keep your data."
 msgstr ""
 
-#: includes/admin/class-talkwyn-admin.php:1090
+#: includes/admin/class-talkwyn-admin.php:1109
 msgid "People who asked the team to follow up, newest first."
 msgstr ""
 
-#: includes/admin/class-talkwyn-admin.php:1092
+#: includes/admin/class-talkwyn-admin.php:1111
 msgid "No leads yet"
 msgstr ""
 
-#: includes/admin/class-talkwyn-admin.php:1092
+#: includes/admin/class-talkwyn-admin.php:1111
 msgid "When a visitor shares their details in the chat, they show up here and you get an email."
 msgstr ""
 
-#: includes/admin/class-talkwyn-admin.php:1092
-#: includes/admin/class-talkwyn-admin.php:1125
+#: includes/admin/class-talkwyn-admin.php:1111
+#: includes/admin/class-talkwyn-admin.php:1144
 msgid "Open your site to test the chat"
 msgstr ""
 
-#: includes/admin/class-talkwyn-admin.php:1094
-#: includes/admin/class-talkwyn-admin.php:1111
+#: includes/admin/class-talkwyn-admin.php:1113
+#: includes/admin/class-talkwyn-admin.php:1130
 msgid "Get leads in Slack or Telegram"
 msgstr ""
 
-#: includes/admin/class-talkwyn-admin.php:1094
-#: includes/admin/class-talkwyn-admin.php:1111
+#: includes/admin/class-talkwyn-admin.php:1113
+#: includes/admin/class-talkwyn-admin.php:1130
 msgid "Talkwyn Pro sends every new lead to Slack and Telegram the moment it arrives."
 msgstr ""
 
-#: includes/admin/class-talkwyn-admin.php:1097
+#: includes/admin/class-talkwyn-admin.php:1116
 msgid "Export CSV"
 msgstr ""
 
-#: includes/admin/class-talkwyn-admin.php:1098
+#: includes/admin/class-talkwyn-admin.php:1117
 msgid "Person"
 msgstr ""
 
-#: includes/admin/class-talkwyn-admin.php:1098
+#: includes/admin/class-talkwyn-admin.php:1117
 #: includes/class-talkwyn-privacy.php:106
 msgid "Question"
 msgstr ""
 
-#: includes/admin/class-talkwyn-admin.php:1098
+#: includes/admin/class-talkwyn-admin.php:1117
 msgid "Source"
 msgstr ""
 
-#: includes/admin/class-talkwyn-admin.php:1098
+#: includes/admin/class-talkwyn-admin.php:1117
 msgid "Date"
 msgstr ""
 
-#: includes/admin/class-talkwyn-admin.php:1098
+#: includes/admin/class-talkwyn-admin.php:1117
 msgid "Actions"
 msgstr ""
 
-#: includes/admin/class-talkwyn-admin.php:1103
+#: includes/admin/class-talkwyn-admin.php:1122
 msgid "Copy email"
 msgstr ""
 
-#: includes/admin/class-talkwyn-admin.php:1108
+#: includes/admin/class-talkwyn-admin.php:1127
 msgid "Transcript"
 msgstr ""
 
-#: includes/admin/class-talkwyn-admin.php:1108
+#: includes/admin/class-talkwyn-admin.php:1127
 msgid "Chat"
 msgstr ""
 
-#: includes/admin/class-talkwyn-admin.php:1108
+#: includes/admin/class-talkwyn-admin.php:1127
 msgid "Delete this lead?"
 msgstr ""
 
-#: includes/admin/class-talkwyn-admin.php:1108
+#: includes/admin/class-talkwyn-admin.php:1127
 msgid "Delete"
 msgstr ""
 
-#: includes/admin/class-talkwyn-admin.php:1123
+#: includes/admin/class-talkwyn-admin.php:1142
 msgid "The latest 100 conversations, stored in your WordPress database."
 msgstr ""
 
-#: includes/admin/class-talkwyn-admin.php:1125
+#: includes/admin/class-talkwyn-admin.php:1144
 msgid "No conversations yet"
 msgstr ""
 
-#: includes/admin/class-talkwyn-admin.php:1125
+#: includes/admin/class-talkwyn-admin.php:1144
 msgid "Chats with visitors show up here with the answers and the provider that replied."
 msgstr ""
 
-#: includes/admin/class-talkwyn-admin.php:1129
+#: includes/admin/class-talkwyn-admin.php:1148
 msgid "Delete all conversations?"
 msgstr ""
 
-#: includes/admin/class-talkwyn-admin.php:1129
+#: includes/admin/class-talkwyn-admin.php:1148
 msgid "Delete all conversations"
 msgstr ""
 
-#: includes/admin/class-talkwyn-admin.php:1141
+#: includes/admin/class-talkwyn-admin.php:1160
 msgid "(no question)"
 msgstr ""
 
 #. translators: %d: message count
-#: includes/admin/class-talkwyn-admin.php:1141
+#: includes/admin/class-talkwyn-admin.php:1160
 #, php-format
 msgid "%d message"
 msgid_plural "%d messages"
 msgstr[0] ""
 msgstr[1] ""
 
-#: includes/admin/class-talkwyn-admin.php:1149
+#: includes/admin/class-talkwyn-admin.php:1168
 msgid "Provider fallback:"
 msgstr ""
 
-#: includes/admin/class-talkwyn-admin.php:1156
+#: includes/admin/class-talkwyn-admin.php:1175
 msgid "See what visitors ask most"
 msgstr ""
 
-#: includes/admin/class-talkwyn-admin.php:1156
+#: includes/admin/class-talkwyn-admin.php:1175
 msgid "Talkwyn Pro adds analytics and an inbox of unanswered questions with one-click answers."
 msgstr ""
 
-#: includes/admin/class-talkwyn-admin.php:1229
+#: includes/admin/class-talkwyn-admin.php:1248
 msgid "No models came back. Check the key, then try again."
 msgstr ""
 
@@ -1342,22 +1383,6 @@ msgstr ""
 
 #: includes/class-talkwyn-chat.php:59
 msgid "this website"
-msgstr ""
-
-#: includes/class-talkwyn-frontend.php:106
-msgid "Change name"
-msgstr ""
-
-#: includes/class-talkwyn-frontend.php:124
-msgid "Language"
-msgstr ""
-
-#: includes/class-talkwyn-frontend.php:129
-msgid "Pop out"
-msgstr ""
-
-#: includes/class-talkwyn-frontend.php:140
-msgid "Add chat to your website"
 msgstr ""
 
 #: includes/class-talkwyn-frontend.php:314
