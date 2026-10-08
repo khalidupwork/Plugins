@@ -1,5 +1,10 @@
 # Talkwyn changelog
 
+## 2.1.2
+
+### Changed
+- Save button is a tall tab stuck to the right edge of the screen on desktop, so it never covers settings or the live preview. On phones it stays at the bottom. A red dot shows when there are unsaved changes.
+
 ## 2.1.1
 
 ### Fixed

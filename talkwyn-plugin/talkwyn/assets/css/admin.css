@@ -627,6 +627,66 @@ label.twa-toggle {
 .twa-savebar .twa-btn {
 	pointer-events: auto;
 	box-shadow: 0 12px 30px rgba(26, 15, 18, .25);
+	gap: 10px;
+}
+
+.twa-savebar .twa-btn svg {
+	width: 18px;
+	height: 18px;
+	fill: none;
+	stroke: currentColor;
+	stroke-width: 2;
+	stroke-linecap: round;
+	stroke-linejoin: round;
+	flex: none;
+}
+
+.twa-savebar__dot {
+	width: 8px;
+	height: 8px;
+	border-radius: 50%;
+	background: var(--red);
+	box-shadow: 0 0 0 3px rgba(255, 255, 255, .9);
+	display: none;
+	flex: none;
+}
+
+.twa-savebar.is-dirty .twa-savebar__dot {
+	display: block;
+}
+
+/* Desktop: a tall tab stuck to the right edge of the screen, so it never covers the content or the preview. */
+@media (min-width: 783px) {
+	.twa-savebar {
+		position: fixed;
+		inset-inline-end: 0;
+		inset-block-start: 50%;
+		bottom: auto;
+		margin: 0;
+		transform: translateY(-50%);
+	}
+
+	.twa .twa-savebar .twa-btn {
+		writing-mode: vertical-rl;
+		transform: rotate(180deg);
+		padding: 22px 14px;
+		min-height: 0;
+		border-radius: 0 18px 18px 0;
+		box-shadow: 8px 0 30px rgba(26, 15, 18, .22);
+		letter-spacing: .01em;
+	}
+
+	.twa .twa-savebar .twa-btn:hover {
+		transform: rotate(180deg) translateX(2px);
+	}
+
+	.twa .twa-savebar .twa-btn svg {
+		transform: rotate(90deg);
+	}
+
+	.wrap.twa:has(.twa-savebar) {
+		padding-inline-end: 40px;
+	}
 }
 
 /* Stats */

@@ -321,7 +321,7 @@ class Talkwyn_Admin {
 		foreach ( array_unique( self::$bools ) as $key ) {
 			echo '<input type="hidden" name="talkwyn_bools[]" value="' . esc_attr( $key ) . '">';
 		}
-		echo '<div class="twa-savebar"><button class="twa-btn twa-btn--ink twa-btn--lg">' . esc_html( '' !== $button ? $button : __( 'Save changes', 'talkwyn' ) ) . '</button></div></form>';
+		echo '<div class="twa-savebar"><button class="twa-btn twa-btn--ink twa-btn--lg"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M5 3h11l3 3v13a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2Z"/><path d="M8 3v5h7V3"/><path d="M8 21v-7h8v7"/></svg><span>' . esc_html( '' !== $button ? $button : __( 'Save changes', 'talkwyn' ) ) . '</span><span class="twa-savebar__dot" title="' . esc_attr__( 'Unsaved changes', 'talkwyn' ) . '"></span></button></div></form>';
 	}
 
 	/**

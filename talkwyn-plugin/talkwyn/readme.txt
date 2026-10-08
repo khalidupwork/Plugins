@@ -4,7 +4,7 @@ Tags: chatbot, ai chatbot, lead generation, multilingual, live chat
 Requires at least: 6.4
 Tested up to: 6.8
 Requires PHP: 8.0
-Stable tag: 2.1.1
+Stable tag: 2.1.2
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
@@ -109,6 +109,9 @@ In your WordPress database. Chats, leads and knowledge stay on your site. Messag
 
 == Changelog ==
 
+= 2.1.2 =
+* Changed: the Save button is a tall tab on the right edge of the screen on desktop, so it no longer covers settings or the live preview. A red dot shows when there are unsaved changes.
+
 = 2.1.1 =
 * Fixed: the Appearance live preview now follows every setting as you change it: launcher icon, avatar (including your image and first letter), header buttons, chat menu, message times, copy and feedback buttons, source links, typing text, badge, colours, position and header style.
 * Fixed: no blue focus ring on Talkwyn tabs and buttons after a click. Keyboard focus shows a red outline.
@@ -143,6 +146,9 @@ In your WordPress database. Chats, leads and knowledge stay on your site. Messag
 * Fixed: a full scan removes knowledge of posts that no longer exist.
 
 == Upgrade Notice ==
+
+= 2.1.2 =
+Save button moved to the right edge so it never covers settings.
 
 = 2.1.1 =
 Live preview fixes on the Appearance tab.

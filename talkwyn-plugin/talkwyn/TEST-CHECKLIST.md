@@ -1,4 +1,4 @@
-# Talkwyn 2.1.1 test checklist
+# Talkwyn 2.1.2 test checklist
 
 The full run, including Pro and migration, is in `../QA-CHECKLIST.md`. This list covers what changed in 2.1.0.
 
@@ -16,6 +16,7 @@ The full run, including Pro and migration, is in `../QA-CHECKLIST.md`. This list
 - [ ] Start free trial opens talkwyn.com/pricing/#trial. With Pro active, both trial and upgrade buttons hide.
 - [ ] Drag providers to reorder, save, reload: order kept. Arrow buttons work with the keyboard.
 - [ ] Appearance preview follows every setting without saving: launcher icon, avatar type and image, name, status, welcome, placeholder, suggestions, typing text, colour, position, header style, pulse, header buttons, menu items (click the three dots), message times, copy and feedback buttons, source links and badge.
+- [ ] Desktop: the Save tab sits on the right edge, centred, and covers nothing. Change any field: a red dot appears on it. Phone width: the Save button sits at the bottom.
 - [ ] Click a tab or button: no blue ring. Press Tab: a red outline shows.
 - [ ] Only one Pro prompt per screen; Dismiss keeps it hidden for that user only.
 - [ ] Review request: set `talkwyn_installed_at` to 15 days ago and log 20 chats; the card shows. Maybe later hides it for 30 days.

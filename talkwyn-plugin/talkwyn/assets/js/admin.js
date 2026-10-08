@@ -379,6 +379,14 @@ jQuery( function ( $ ) {
 		renderPreview();
 	}
 
+	/* Save tab shows a dot once something on the form changed. */
+	$( '.twa-savebar' ).each( function () {
+		var bar = $( this );
+		bar.closest( 'form' ).one( 'input change', function () {
+			bar.addClass( 'is-dirty' );
+		} );
+	} );
+
 	/* Copy email */
 	$( document ).on( 'click', '.twa-copy', function () {
 		var btn = $( this );
