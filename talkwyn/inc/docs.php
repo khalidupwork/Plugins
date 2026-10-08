@@ -155,9 +155,12 @@ add_shortcode(
 add_shortcode(
 	'tw_docs_index',
 	static function () {
-		$html = '';
-		foreach ( talkwyn_docs_grouped() as $group ) {
-			$html .= '<section class="tw-docs-group"><h2>' . esc_html( $group['term'] ? $group['term']->name : __( 'Guides', 'talkwyn' ) ) . '</h2><div class="tw-cards">';
+		$html   = '';
+		$groups = talkwyn_docs_grouped();
+		foreach ( $groups as $group ) {
+			// With a single group the page title already says what these are, so no group heading.
+			$head  = count( $groups ) > 1 ? '<h2>' . esc_html( $group['term'] ? $group['term']->name : __( 'Guides', 'talkwyn' ) ) . '</h2>' : '';
+			$html .= '<section class="tw-docs-group">' . $head . '<div class="tw-cards">';
 			foreach ( $group['docs'] as $doc ) {
 				$html .= '<article class="tw-card"><span class="tw-card__icon">' . talkwyn_icon( 'file-text' ) . '</span><h3>' . esc_html( get_the_title( $doc ) ) . '</h3>';
 				if ( has_excerpt( $doc ) ) {

@@ -469,14 +469,23 @@ add_shortcode(
 			$ind .= '<li><a href="' . esc_url( home_url( $i[2] ) ) . '"><span class="tw-xp__icon">' . talkwyn_icon( $i[0], 18 ) . '</span>' . esc_html( $i[1] ) . talkwyn_icon( 'arrow-right', 14 ) . '</a></li>';
 		}
 		$lang = '';
+		// Each language gets a small script mark: the code for Latin scripts, a native character otherwise.
+		$glyphs = array(
+			'ar' => 'ع',
+			'hi' => 'हि',
+			'zh' => '中',
+			'ja' => '日',
+			'ko' => '한',
+		);
 		foreach ( $lists['languages'] as $l ) {
 			$dir   = 'ar' === $l[4] ? ' dir="rtl"' : '';
-			$lang .= '<li><a href="' . esc_url( home_url( $l[2] ) ) . '"><b lang="' . esc_attr( $l[4] ) . '"' . $dir . '>' . esc_html( $l[3] ) . '</b><span>' . esc_html( $l[1] ) . '</span></a></li>';
+			$mark  = $glyphs[ $l[4] ] ?? strtoupper( $l[4] );
+			$lang .= '<li><a href="' . esc_url( home_url( $l[2] ) ) . '"><span class="tw-xp__icon tw-xp__icon--lang" lang="' . esc_attr( $l[4] ) . '" aria-hidden="true">' . esc_html( $mark ) . '</span><span class="tw-xp__name">' . esc_html( $l[1] ) . ( $l[3] !== $l[1] ? '<small lang="' . esc_attr( $l[4] ) . '"' . $dir . '>' . esc_html( $l[3] ) . '</small>' : '' ) . '</span>' . talkwyn_icon( 'arrow-right', 14 ) . '</a></li>';
 		}
 		return '<div class="tw-xp">'
 			. '<div class="tw-xp__panel"><div class="tw-xp__head"><p class="tw-xp__kicker">' . esc_html__( '12 industries', 'talkwyn' ) . '</p><h3>' . esc_html__( 'Set up for the questions your business gets', 'talkwyn' ) . '</h3></div><ul class="tw-xp__ind">' . $ind . '</ul>'
 			. '<a class="tw-arrow-link" href="' . esc_url( home_url( '/industries/' ) ) . '">' . esc_html__( 'All industries', 'talkwyn' ) . talkwyn_icon( 'arrow-right', 16 ) . '</a></div>'
-			. '<div class="tw-xp__panel"><div class="tw-xp__head"><p class="tw-xp__kicker">' . esc_html__( '12 focus languages', 'talkwyn' ) . '</p><h3>' . esc_html__( 'Replies in the language each visitor writes in', 'talkwyn' ) . '</h3></div><ul class="tw-xp__lang">' . $lang . '</ul>'
+			. '<div class="tw-xp__panel"><div class="tw-xp__head"><p class="tw-xp__kicker">' . esc_html__( '12 focus languages', 'talkwyn' ) . '</p><h3>' . esc_html__( 'Replies in the language each visitor writes in', 'talkwyn' ) . '</h3></div><ul class="tw-xp__ind tw-xp__lang">' . $lang . '</ul>'
 			. '<a class="tw-arrow-link" href="' . esc_url( home_url( '/multilingual-chatbot/' ) ) . '">' . esc_html__( 'How the multilingual chatbot works', 'talkwyn' ) . talkwyn_icon( 'arrow-right', 16 ) . '</a></div>'
 			. '</div>';
 	}

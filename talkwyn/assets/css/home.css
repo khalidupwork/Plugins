@@ -380,16 +380,16 @@ body.home .tw-tile--ink .tw-card__icon { background: var(--tw-red); color: #FFFF
 .tw-xp__head h3 { margin: 6px 0 0; color: #FFFFFF; font-size: clamp(1.25rem, 1rem + .8vw, 1.5rem); letter-spacing: -.02em; }
 .tw-xp ul { list-style: none; margin: 0; padding: 0; display: grid; gap: 8px; }
 .tw-xp__ind { grid-template-columns: repeat(2, minmax(0, 1fr)); }
-.tw-xp__lang { grid-template-columns: repeat(3, minmax(0, 1fr)); }
-@media (max-width: 520px) { .tw-xp__lang { grid-template-columns: repeat(2, minmax(0, 1fr)); } .tw-xp__ind { grid-template-columns: 1fr; } }
+@media (max-width: 520px) { .tw-xp__ind { grid-template-columns: 1fr; } .tw-xp__ind.tw-xp__lang { grid-template-columns: repeat(2, minmax(0, 1fr)); } .tw-xp__lang small, .tw-xp__lang a > .tw-icon:last-child { display: none; } }
 .tw-xp li { margin: 0; max-inline-size: none; }
 .tw-xp a:not(.tw-arrow-link) { display: flex; align-items: center; gap: 10px; padding: 10px 12px; border-radius: 12px; background: rgba(255, 255, 255, .05); color: #FFFFFF; text-decoration: none; font-weight: 500; font-size: .9375rem; transition: background var(--tw-dur) var(--tw-ease), transform var(--tw-dur) var(--tw-ease); }
 .tw-xp a:not(.tw-arrow-link):hover { background: var(--tw-red); transform: translateY(-2px); }
-.tw-xp__ind a > .tw-icon:last-child { margin-inline-start: auto; opacity: .5; }
+.tw-xp__ind a > .tw-icon:last-child, .tw-xp__lang a > .tw-icon:last-child { margin-inline-start: auto; opacity: .5; }
 .tw-xp__icon { inline-size: 30px; block-size: 30px; border-radius: 9px; display: grid; place-items: center; background: rgba(255, 149, 162, .14); color: #FF95A2; flex: none; }
 .tw-xp a:hover .tw-xp__icon { background: rgba(255, 255, 255, .2); color: #FFFFFF; }
-.tw-xp__lang a { flex-direction: column; align-items: flex-start !important; gap: 2px !important; }
-.tw-xp__lang b { font: 700 1.0625rem/1.2 var(--tw-font-display); }
-.tw-xp__lang span { font-size: .8125rem; color: var(--tw-on-band-muted); }
-.tw-xp__lang a:hover span { color: #FFFFFF; }
+.tw-xp__icon--lang { font: 800 .75rem/1 var(--tw-font-display); letter-spacing: .02em; }
+.tw-xp__icon--lang:is([lang="ar"], [lang="hi"], [lang="zh"], [lang="ja"], [lang="ko"]) { font-size: .9375rem; font-family: var(--tw-font-body, inherit); letter-spacing: 0; }
+.tw-xp__name { display: flex; align-items: baseline; gap: 8px; min-inline-size: 0; }
+.tw-xp__name small { font-size: .8125rem; font-weight: 400; color: var(--tw-on-band-muted); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.tw-xp a:hover .tw-xp__name small { color: #FFFFFF; }
 .tw-xp .tw-arrow-link { color: #FF95A2; margin-block-start: auto; }

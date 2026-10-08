@@ -1276,3 +1276,24 @@ main > .wp-block-post-content:first-child > :first-child, .tw-main--landing > .w
 .tw-post-body .wp-block-post-featured-image { margin: 0 0 32px !important; }
 .tw-post-body .wp-block-post-featured-image img { border-radius: 20px; box-shadow: 0 0 0 1px var(--tw-border); }
 .tw-post-body .wp-block-post-content > p.tw-lede:first-child { margin-block-start: 0; }
+/* "Pro adds": one full-width band. Label and items sit in a row of pills, "Compare plans" sits on the right. */
+.tw-flist--wide:has(> .tw-flist__group--pro) { grid-template-columns: minmax(0, 1fr) auto; column-gap: 24px; align-items: center; }
+.tw-flist--wide:has(> .tw-flist__group--pro) > :not(.tw-flist__group--pro):not(.tw-flist__foot) { grid-column: 1 / -1; }
+.tw-flist--wide > .tw-flist__group--pro { display: flex; flex-wrap: wrap; align-items: center; gap: 10px 14px; padding: 14px 18px; border: 0; border-radius: 16px; background: var(--tw-red-50); }
+.tw-flist--wide > .tw-flist__group--pro > .tw-flist__label { margin: 0; flex: 0 0 auto; }
+.tw-flist--wide > .tw-flist__group--pro > .tw-vcard__rows { margin: 0; padding: 0; display: flex; flex-wrap: wrap; gap: 8px; }
+.tw-flist--wide > .tw-flist__group--pro .tw-vcard__rows li { align-items: center; gap: 8px; padding: 6px 14px 6px 6px; border: 1px solid rgba(215, 38, 61, .16); border-radius: 999px; background: #FFFFFF; font-size: .9375rem; line-height: 1.35; }
+.tw-flist--wide:has(> .tw-flist__group--pro) > .tw-flist__foot { text-align: end; white-space: nowrap; }
+@media (max-width: 760px) {
+	.tw-flist--wide:has(> .tw-flist__group--pro) { grid-template-columns: minmax(0, 1fr); }
+	.tw-flist--wide:has(> .tw-flist__group--pro) > .tw-flist__foot { text-align: center; }
+	.tw-flist--wide > .tw-flist__group--pro .tw-vcard__rows li { border-radius: 14px; }
+}
+/* Pricing: "Compare every Talkwyn plan" gets a short gap above and room between the intro and the table. */
+.tw-section.tw-section--lead + .tw-section.tw-section--joined { padding-block-start: clamp(24px, 3vw, 36px) !important; }
+.tw-section:has(+ .tw-section.tw-section--lead) { padding-block-end: clamp(32px, 3.5vw, 48px) !important; }
+/* Feature lists whose count does not fill rows of three (4, 8, 10 items) use two even columns, so no row is left half empty. */
+@media (min-width: 761px) {
+	.tw-flist--wide .tw-flist__group:not(.tw-flist__group--pro) > .tw-vcard__rows:has(> li:last-child:is(:nth-child(4), :nth-child(8), :nth-child(10))) { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+}
+.tw-flist--wide > .tw-flist__foot { max-inline-size: none; }
