@@ -11,5 +11,5 @@
 defined( 'ABSPATH' ) || exit;
 
 return array(
-	// 'BASE64_PUBLIC_KEY_FROM_HUB=',
+	'1eJS/pueeRY6U41DFb/D+swOdoJUgSvuhl+Uca3r1J0=',
 );

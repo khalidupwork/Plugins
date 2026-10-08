@@ -1,5 +1,9 @@
 # Talkwyn Pro changelog
 
+## 1.2.2
+
+- Includes the active talkwyn.com Hub public key in `includes/hub-keys.php`. License responses and updates are verified without any wp-config setting.
+
 ## 1.2.1
 
 - License tab: key field and Activate button are 44px, matching the Talkwyn admin buttons.
