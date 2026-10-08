@@ -1,4 +1,4 @@
-# Talkwyn 2.1.2 test checklist
+# Talkwyn 2.1.3 test checklist
 
 The full run, including Pro and migration, is in `../QA-CHECKLIST.md`. This list covers what changed in 2.1.0.
 
@@ -30,6 +30,9 @@ The full run, including Pro and migration, is in `../QA-CHECKLIST.md`. This list
 - [ ] Devices and logged in rules hide the chat as set.
 - [ ] Gradient header is readable with a light brand colour (text switches to dark).
 - [ ] Launcher pulse runs a few times, stops after the first open, and does not run with reduced motion.
+
+## Leads
+- [ ] Ask about a quote in the chat, choose "Yes, contact me", fill name, email, phone and consent, send: "Lead saved" shows with a reference, and the lead appears under Leads with Source "Chat".
 
 ## Spam
 - [ ] Lead or transcript form sent in under 2.5 seconds is ignored; a normal fill is saved.

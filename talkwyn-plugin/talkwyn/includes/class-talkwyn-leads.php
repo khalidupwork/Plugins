@@ -99,8 +99,9 @@ class Talkwyn_Leads {
 	 */
 	public static function save( array $lead ) {
 		global $wpdb;
-		$t    = Talkwyn_DB::tables();
-		$row  = array(
+		$t      = Talkwyn_DB::tables();
+		$source = (string) ( $lead['source'] ?? 'chat' );
+		$row    = array(
 			'created_gmt' => current_time( 'mysql', true ),
 			'session_id'  => (string) ( $lead['session_id'] ?? '' ),
 			'name'        => sanitize_text_field( (string) ( $lead['name'] ?? '' ) ),
@@ -109,7 +110,7 @@ class Talkwyn_Leads {
 			'message'     => sanitize_textarea_field( (string) ( $lead['message'] ?? '' ) ),
 			'page_url'    => esc_url_raw( (string) ( $lead['page_url'] ?? '' ) ),
 			'consent'     => empty( $lead['consent'] ) ? 0 : 1,
-			'source'      => in_array( $lead['source'] ?? 'chat', array( 'chat', 'transcript' ), true ) ? $lead['source'] : 'chat',
+			'source'      => in_array( $source, array( 'chat', 'transcript' ), true ) ? $source : 'chat',
 			'status'      => 'new',
 		);
 		$ok = $wpdb->insert( $t['leads'], $row, array( '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%d', '%s', '%s' ) ); // phpcs:ignore WordPress.DB.DirectDatabaseQuery

@@ -1,5 +1,10 @@
 # Talkwyn changelog
 
+## 2.1.3
+
+### Fixed
+- The chat lead form showed "We could not save your details. Please try again." and no lead was stored. Chat leads had an empty source value that the database refused. Introduced in 2.1.0.
+
 ## 2.1.2
 
 ### Changed

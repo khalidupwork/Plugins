@@ -4,7 +4,7 @@ Tags: chatbot, ai chatbot, lead generation, multilingual, live chat
 Requires at least: 6.4
 Tested up to: 6.8
 Requires PHP: 8.0
-Stable tag: 2.1.2
+Stable tag: 2.1.3
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
@@ -109,6 +109,9 @@ In your WordPress database. Chats, leads and knowledge stay on your site. Messag
 
 == Changelog ==
 
+= 2.1.3 =
+* Fixed: the lead form in the chat showed "We could not save your details" and did not save the lead. Introduced in 2.1.0.
+
 = 2.1.2 =
 * Changed: the Save button is a tall tab on the right edge of the screen on desktop, so it no longer covers settings or the live preview. A red dot shows when there are unsaved changes.
 
@@ -146,6 +149,9 @@ In your WordPress database. Chats, leads and knowledge stay on your site. Messag
 * Fixed: a full scan removes knowledge of posts that no longer exist.
 
 == Upgrade Notice ==
+
+= 2.1.3 =
+Important: fixes leads not saving from the chat form. Update now.
 
 = 2.1.2 =
 Save button moved to the right edge so it never covers settings.
