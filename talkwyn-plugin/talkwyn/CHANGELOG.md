@@ -1,5 +1,10 @@
 # Talkwyn changelog
 
+## 2.2.1
+
+### Changed
+- Admin tab bar: no scrollbar. Left and right arrow buttons with soft fades appear only when the tabs do not fit, and the open tab scrolls into view. The admin area is 1320px wide (was 1240px), so all tabs fit on most desktop screens.
+
 ## 2.2.0
 
 ### Added

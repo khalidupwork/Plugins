@@ -4,7 +4,7 @@ Tags: chatbot, ai chatbot, lead generation, multilingual, live chat
 Requires at least: 6.4
 Tested up to: 6.8
 Requires PHP: 8.0
-Stable tag: 2.2.0
+Stable tag: 2.2.1
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
@@ -109,6 +109,9 @@ In your WordPress database. Chats, leads and knowledge stay on your site. Messag
 
 == Changelog ==
 
+= 2.2.1 =
+* Changed: the admin tab bar has no scrollbar. When the tabs do not fit, left and right arrow buttons appear and the open tab is kept in view. The admin area is a little wider, so all tabs fit on most desktop screens.
+
 = 2.2.0 =
 * New: a "Pro features" tab that lists what Talkwyn Pro adds, grouped by area, plus what is on the roadmap. It is information only: nothing in the free plugin is locked. The tab hides once Pro is licensed.
 * New: Pro tips link to the full list.
@@ -153,6 +156,9 @@ In your WordPress database. Chats, leads and knowledge stay on your site. Messag
 * Fixed: a full scan removes knowledge of posts that no longer exist.
 
 == Upgrade Notice ==
+
+= 2.2.1 =
+Cleaner admin tab bar.
 
 = 2.2.0 =
 Adds a Pro features overview tab.

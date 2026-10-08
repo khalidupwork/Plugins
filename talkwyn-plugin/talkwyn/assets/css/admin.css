@@ -17,7 +17,7 @@ body.talkwyn-admin,
 	--error: #C2410C;
 	--display: "Plus Jakarta Sans", "Figtree", system-ui, sans-serif;
 	--body: "Figtree", system-ui, -apple-system, "Segoe UI", sans-serif;
-	max-width: 1240px;
+	max-width: 1320px;
 	margin: 16px 20px 0 0;
 	font-family: var(--body);
 	font-size: 14.5px;
@@ -278,23 +278,108 @@ body.talkwyn-admin,
 }
 
 /* Tabs: one line of pills */
-.twa-tabs {
-	display: flex;
-	gap: 6px;
+.twa-tabbar {
+	position: relative;
 	margin: 20px 0 0;
-	padding: 6px;
 	background: #fff;
 	border: 1px solid var(--border);
 	border-radius: 999px;
+	overflow: hidden;
+}
+
+.twa-tabs {
+	display: flex;
+	gap: 4px;
+	padding: 6px;
 	overflow-x: auto;
-	scrollbar-width: thin;
+	scroll-behavior: smooth;
+	scrollbar-width: none;
+}
+
+.twa-tabs::-webkit-scrollbar {
+	display: none;
+}
+
+/* Fades and arrow buttons appear only when tabs do not fit. */
+.twa-tabbar::before,
+.twa-tabbar::after {
+	content: "";
+	position: absolute;
+	inset-block: 0;
+	width: 72px;
+	pointer-events: none;
+	opacity: 0;
+	transition: opacity .15s ease;
+	z-index: 1;
+}
+
+.twa-tabbar::before {
+	inset-inline-start: 0;
+	background: linear-gradient(to right, #fff 45%, rgba(255, 255, 255, 0));
+}
+
+.twa-tabbar::after {
+	inset-inline-end: 0;
+	background: linear-gradient(to left, #fff 45%, rgba(255, 255, 255, 0));
+}
+
+.twa-tabbar.can-prev::before,
+.twa-tabbar.can-next::after {
+	opacity: 1;
+}
+
+.twa .twa-tabbar__btn {
+	position: absolute;
+	inset-block-start: 50%;
+	transform: translateY(-50%);
+	z-index: 2;
+	display: grid;
+	place-items: center;
+	width: 34px;
+	height: 34px;
+	padding: 0;
+	border: 1px solid var(--border);
+	border-radius: 50%;
+	background: #fff;
+	color: var(--ink);
+	cursor: pointer;
+	box-shadow: 0 4px 14px rgba(26, 15, 18, .12);
+}
+
+.twa .twa-tabbar__btn[hidden] {
+	display: none;
+}
+
+.twa .twa-tabbar__btn:hover {
+	background: var(--ink);
+	color: #fff;
+	border-color: var(--ink);
+}
+
+.twa-tabbar__btn--prev {
+	inset-inline-start: 8px;
+}
+
+.twa-tabbar__btn--next {
+	inset-inline-end: 8px;
+}
+
+.twa-tabbar__btn svg {
+	width: 18px;
+	height: 18px;
+	fill: none;
+	stroke: currentColor;
+	stroke-width: 2.2;
+	stroke-linecap: round;
+	stroke-linejoin: round;
 }
 
 .twa .twa-tab {
 	display: inline-flex;
+	flex: none;
 	align-items: center;
-	gap: 8px;
-	padding: 9px 16px;
+	gap: 7px;
+	padding: 9px 13px;
 	border-radius: 999px;
 	color: var(--muted);
 	font-weight: 600;

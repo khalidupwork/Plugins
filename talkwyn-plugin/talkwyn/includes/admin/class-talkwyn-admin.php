@@ -291,12 +291,16 @@ class Talkwyn_Admin {
 		}
 		self::review_request();
 
+		$chevron = static function ( $d ) {
+			return '<svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="' . $d . '"/></svg>';
+		};
+		echo '<div class="twa-tabbar"><button type="button" class="twa-tabbar__btn twa-tabbar__btn--prev" aria-label="' . esc_attr__( 'Show earlier tabs', 'talkwyn' ) . '" tabindex="-1" hidden>' . $chevron( 'm15 6-6 6 6 6' ) . '</button>'; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- static SVG.
 		echo '<nav class="twa-tabs" aria-label="' . esc_attr__( 'Talkwyn sections', 'talkwyn' ) . '">';
 		foreach ( self::tabs() as $key => $label ) {
 			$url = admin_url( 'admin.php?page=' . self::SLUG . ( 'dashboard' === $key ? '' : '&tab=' . $key ) );
 			echo '<a class="twa-tab' . ( $tab === $key ? ' is-active' : '' ) . ( 'profeatures' === $key ? ' twa-tab--pro' : '' ) . '" href="' . esc_url( $url ) . '"' . ( $tab === $key ? ' aria-current="page"' : '' ) . '>' . self::icon( $key ) . '<span>' . esc_html( $label ) . '</span></a>'; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- icon() returns static SVG.
 		}
-		echo '</nav><div class="twa-body">';
+		echo '</nav><button type="button" class="twa-tabbar__btn twa-tabbar__btn--next" aria-label="' . esc_attr__( 'Show more tabs', 'talkwyn' ) . '" tabindex="-1" hidden>' . $chevron( 'm9 6 6 6-6 6' ) . '</button></div><div class="twa-body">'; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- static SVG.
 		if ( method_exists( __CLASS__, 'tab_' . $tab ) ) {
 			call_user_func( array( __CLASS__, 'tab_' . $tab ) );
 		} else {

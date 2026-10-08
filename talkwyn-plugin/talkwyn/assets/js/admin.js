@@ -387,6 +387,42 @@ jQuery( function ( $ ) {
 		} );
 	} );
 
+	/* Tab bar: arrows and fades when the tabs do not fit, active tab kept in view. */
+	$( '.twa-tabbar' ).each( function () {
+		var bar = $( this );
+		var nav = bar.find( '.twa-tabs' )[ 0 ];
+		var prev = bar.find( '.twa-tabbar__btn--prev' );
+		var next = bar.find( '.twa-tabbar__btn--next' );
+		var rtl = 'rtl' === getComputedStyle( nav ).direction;
+		var update = function () {
+			var max = nav.scrollWidth - nav.clientWidth;
+			var pos = Math.abs( nav.scrollLeft );
+			var start = pos > 2;
+			var end = pos < max - 2;
+			bar.toggleClass( 'can-prev', start ).toggleClass( 'can-next', end );
+			prev.prop( 'hidden', ! start );
+			next.prop( 'hidden', ! end );
+		};
+		var step = function ( dir ) {
+			nav.scrollBy( { left: dir * nav.clientWidth * 0.6 * ( rtl ? -1 : 1 ), behavior: 'smooth' } );
+		};
+		prev.on( 'click', function () {
+			step( -1 );
+		} );
+		next.on( 'click', function () {
+			step( 1 );
+		} );
+		$( nav ).on( 'scroll', update );
+		$( window ).on( 'resize', update );
+		var active = bar.find( '.twa-tab.is-active' )[ 0 ];
+		if ( active && ( active.offsetLeft + active.offsetWidth > nav.clientWidth || active.offsetLeft < nav.scrollLeft ) ) {
+			nav.style.scrollBehavior = 'auto';
+			nav.scrollLeft = active.offsetLeft - ( nav.clientWidth - active.offsetWidth ) / 2;
+			nav.style.scrollBehavior = '';
+		}
+		update();
+	} );
+
 	/* Copy email */
 	$( document ).on( 'click', '.twa-copy', function () {
 		var btn = $( this );
