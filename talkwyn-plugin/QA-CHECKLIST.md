@@ -1,21 +1,29 @@
 # Talkwyn and Talkwyn Pro: manual QA checklist
 
-Run on a clean WordPress 6.4 or later site with PHP 7.4 (free) and PHP 8.0 (Pro). Tick each line.
+Run on a clean WordPress 6.4 or later site with PHP 8.0 or later (both plugins). Tick each line.
 
 ## 1. Fresh install (free)
 
 - [ ] Activate Talkwyn. The setup wizard opens once.
-- [ ] Step 1: **Scan my site** reaches 100% and shows a chunk count.
-- [ ] Step 2: add a Groq key. Step 3: **Test** shows "Connected".
-- [ ] Step 4: pick a light colour such as `#FFE066`. The sample switches to dark text. Pick `#797979`: the "hard to read" warning shows.
-- [ ] Step 5: turn the chat on, **Finish**. The dashboard shows all four getting-started steps done once a second key is added.
+- [ ] Step 1: add a Groq key, **Test** shows "Connected".
+- [ ] Step 2: **Scan my site** reaches 100% and shows a chunk count.
+- [ ] Step 3: pick a light colour such as `#FFE066`. The sample switches to dark text. Pick `#797979`: the "hard to read" warning shows.
+- [ ] Step 4: the "Powered by Talkwyn" badge switch is off and the email updates box is unticked. Leave both off: nothing is sent to talkwyn.com. Tick the email box on a second run: the address appears under Talkwyn Hub, Subscribers.
+- [ ] Step 5: turn the chat on. Step 6 shows "Your chat is live". The dashboard checklist shows the steps done.
 - [ ] Front end: the launcher shows bottom right. The panel opens with the welcome message and suggested questions.
 - [ ] Ask a question your site answers. The reply is formatted (bold, lists, links) and shows source links.
 - [ ] Ask "hi" and "thanks". Small talk is answered without source links.
 - [ ] Write in Spanish, then Arabic. Replies follow the language; Arabic bubbles read right to left.
 - [ ] Open another page. The conversation is still there.
 - [ ] Ask about prices. The lead offer appears. **Yes, contact me**, submit without consent: an error shows. Tick consent and submit: the "Lead saved" chip shows and the admin email arrives.
-- [ ] Leads tab lists the lead; **Export CSV** downloads it.
+- [ ] Leads tab lists the lead with Source "Chat"; the copy button copies the email; **Export CSV** downloads it with a Source column.
+- [ ] Submit the lead form within 2 seconds of it opening (for example with a script): it is treated as spam and not saved.
+- [ ] Chat menu (three dots): **Change name** is used in the next reply; **Email transcript** with consent saves a lead with Source "Transcript" and sends the email; **Language** forces replies in that language (Arabic and Urdu switch the chat to right to left); **Sound** toggles; **Pop out** opens the chat alone in a new window; **New chat** clears it.
+- [ ] Appearance: the preview updates live. Turn the badge on with a referral code: the badge and the "Add chat to your website" menu item link to talkwyn.com with `ref` and `utm_source`, and have `rel="nofollow noopener"`.
+- [ ] Appearance: "Brand gradient" header and the launcher pulse show; the pulse stops after the first open and with reduced motion.
+- [ ] Visitors: "Logged out visitors only" hides the chat for an admin; "Phones and tablets only" hides it on desktop.
+- [ ] After 14 days and 20 chats the review request shows once; **Maybe later** hides it for 30 days. Only one Pro prompt shows per screen and **Dismiss** keeps it hidden for that user.
+- [ ] Without Pro, the header shows **Start free trial** (talkwyn.com/pricing/#trial) and **Upgrade to Pro**, and no Pro tabs.
 - [ ] Conversations tab shows the chat with provider and reply time. Mark an answer "Not helpful": it shows on the log.
 - [ ] Unpublish a page, then ask about it: it is no longer used. Add a password to a page: same.
 - [ ] Remove all keys: questions get answers built from your pages, not an error.
@@ -49,14 +57,17 @@ Run on a clean WordPress 6.4 or later site with PHP 7.4 (free) and PHP 8.0 (Pro)
 - [ ] Business hours: outside hours the status shows the away text and the chat asks for contact details.
 - [ ] White label: "Powered by Talkwyn" is hidden; a custom menu name replaces "Talkwyn".
 - [ ] Export settings without keys, import on a second site: settings and custom answers arrive, keys do not.
-- [ ] End the trial on the Hub (or wait). After the daily check: Pro tabs show "Pro features are paused", paid providers and Pro features stop, the chat keeps answering with free providers, and no data is lost.
+- [ ] White label: admin logo URL replaces the Talkwyn mark; a chat menu link text and URL replace "Add chat to your website".
+- [ ] Pro settings shows the "Coming soon" card with six roadmap items.
+- [ ] End the trial on the Hub (or wait). After the daily check: only the License tab remains, paid providers and Pro features stop, the chat keeps answering with free providers, and no data is lost.
+- [ ] Let a paid license expire on the Hub. After the daily check: Pro features keep working, the notice says updates and support stopped, and a new version shows "Renew your license to get this update".
 
 ## 4. Paid activation
 
 - [ ] Upgrade the trial on talkwyn.com. **Check now** on the License tab: status Active, plan shown, trial banner gone, Pro features back with the same key and data.
 - [ ] A new paid key on a second site within the site limit activates; one over the limit is refused with a clear message. A staging domain does not use a slot.
 - [ ] Deactivate on the License tab: the site slot is released in My Account.
-- [ ] Block talkwyn.com from the site: Pro stays on with a grace notice for 7 days, then pauses.
+- [ ] Block talkwyn.com from the site: Pro stays on with a grace notice for 7 days, then pauses until the next good check.
 
 ## 5. Updates
 

@@ -33,7 +33,7 @@ Use a clean WordPress 6.4+ site on PHP 8.0+ with Talkwyn 2.0.0 active.
 - [ ] Hide "Powered by Talkwyn" hides the badge even when the free badge setting is on.
 - [ ] Admin menu name changes the menu and screen title.
 - [ ] Admin logo URL shows in the admin header.
-- [ ] Chat menu link text and URL replace "Add a chat like this". With either field empty the default item stays.
+- [ ] Chat menu link text and URL replace "Add chat to your website". With either field empty the default item stays.
 
 ## Other
 - [ ] Coming soon card lists 6 roadmap items, none clickable.

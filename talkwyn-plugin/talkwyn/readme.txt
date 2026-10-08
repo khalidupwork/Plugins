@@ -29,7 +29,10 @@ You bring your own AI key. Groq, OpenRouter, Google Gemini and Cloudflare Worker
 * **Chat logs** with a retention setting (30 days by default), helpful or not helpful feedback, and copy buttons.
 * **Your look.** Brand colour with Smart Contrast (readable text picked for you, with a warning for colours that are hard to read), avatar, launcher icon and text, position, size, full screen, full screen on phones, and rules for pages where the chat is hidden.
 * **Privacy tools.** A notice under the chat, rate limiting by session and IP, personal data export and erase by email, and data removal on uninstall only when you choose it.
-* **Setup wizard.** Scan, add a key, test it, pick a colour, go live.
+* **Chat menu.** Visitors can set their name, email themselves the transcript, pick a reply language, turn sound off, open the chat in its own window, or start a new chat.
+* **Who sees it.** Show the chat to everyone, only logged in or only logged out visitors, and on all devices, desktop only or phones only.
+* **Weekly summary** on the dashboard: chats, leads and unanswered questions compared with the week before.
+* **Setup wizard.** Add a key and test it, scan, pick a colour, go live.
 * **Shortcode and block.** `[talkwyn_chat]` or the Talkwyn Chat block to place the chat inside a page.
 
 = Talkwyn Pro =
@@ -49,7 +52,9 @@ Talkwyn sends data to an outside service only when you configure it.
 
 **Cloudflare Turnstile (optional spam check).** If you add Turnstile keys, the lead form loads the Turnstile script from challenges.cloudflare.com and Talkwyn sends the visitor's check token and IP address to Cloudflare to verify it. [Privacy](https://www.cloudflare.com/turnstile-privacy-policy/)
 
-Talkwyn does not contact talkwyn.com. The "Upgrade to Pro" link in the admin and the optional "Powered by Talkwyn" link in the chat (off by default) are plain links.
+**talkwyn.com (optional email updates).** The setup wizard has an unchecked box for product news and tips. Only if you tick it, Talkwyn sends your email address, site URL and site language to talkwyn.com once. [Privacy](https://talkwyn.com/privacy/)
+
+Otherwise Talkwyn does not contact talkwyn.com. The "Start free trial" and "Upgrade to Pro" links in the admin, and the optional "Powered by Talkwyn" badge and "Add chat to your website" menu item in the chat (both off by default), are plain links that send nothing until someone clicks them.
 
 == Installation ==
 
@@ -107,6 +112,12 @@ In your WordPress database. Chats, leads and knowledge stay on your site. Messag
 = 2.0.0 =
 * Renamed from Nabia AI Chatbot to Talkwyn, with a one-time migration of settings, knowledge, leads and logs.
 * New: setup wizard, Gutenberg block, `[talkwyn_chat]` shortcode.
+* New: admin screens in the Talkwyn style, with a dashboard checklist, weekly summary and live appearance preview.
+* New: chat menu with name, email transcript, language picker, sound, pop out and new chat.
+* New: show the chat by device and by logged in state; optional gradient header and launcher pulse.
+* New: "Powered by Talkwyn" badge is off by default and asked about in the wizard, with an optional referral code.
+* New: a time check on the lead and transcript forms to stop bots that submit instantly.
+* New: hooks `talkwyn_widget_menu`, `talkwyn_languages`, `talkwyn_admin_logo` and `talkwyn_hub_url`. See HOOKS.md for hooks renamed in this version.
 * New: chat endpoints moved to the REST API with a fresh token on open, so cached pages work.
 * New: conversation history stored on the server by session; the chat continues across pages. Browser-sent history is no longer trusted.
 * New: Markdown answers rendered with an allow-list sanitizer.

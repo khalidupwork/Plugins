@@ -13,7 +13,7 @@ Talkwyn Pro never edits the free plugin. Everything below goes through a hook th
 | `talkwyn_pro_active` | filter | Plugin.php | Tells the free admin Pro is licensed, so the trial and upgrade buttons hide. |
 | `talkwyn_admin_logo` | filter | WhiteLabel.php | Swaps the admin header logo for the agency logo. |
 | `talkwyn_show_badge` | filter | WhiteLabel.php | Hides "Powered by Talkwyn" when white label is on. |
-| `talkwyn_widget_menu` | filter | WhiteLabel.php | Replaces the "Add a chat like this" item with the agency link when both link fields are set. |
+| `talkwyn_widget_menu` | filter | WhiteLabel.php | Replaces the "Add chat to your website" item with the agency link when both link fields are set. |
 | `talkwyn_providers` | filter | Providers.php | Registers OpenAI, Anthropic, Mistral and DeepSeek. |
 | `talkwyn_sources` | filter | Search.php | Mixes embedding results with keyword results. |
 | `talkwyn_scan_complete` | action | Search.php | Queues new embeddings after a scan. |

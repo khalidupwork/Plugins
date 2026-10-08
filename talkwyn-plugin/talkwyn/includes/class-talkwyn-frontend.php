@@ -323,6 +323,7 @@ class Talkwyn_Frontend {
 				'transcriptConsent' => __( 'Send me this chat and let the team contact me about my questions.', 'talkwyn' ),
 				'transcriptSend' => __( 'Send transcript', 'talkwyn' ),
 				'autoLanguage'   => __( 'Auto (match my messages)', 'talkwyn' ),
+				/* translators: %s: language name */
 				'languageSet'    => __( 'Replies will be in %s.', 'talkwyn' ),
 				'soundOn'        => __( 'Sound on', 'talkwyn' ),
 				'soundOff'       => __( 'Sound off', 'talkwyn' ),

@@ -229,6 +229,9 @@ jQuery( function ( $ ) {
 		$( '#twa-position' ).on( 'change', function () {
 			preview.toggleClass( 'twc--left', 'left' === $( this ).val() );
 		} ).trigger( 'change' );
+		$( '#twa-header_style' ).on( 'change', function () {
+			preview.toggleClass( 'twc--gradient', 'gradient' === $( this ).val() );
+		} ).trigger( 'change' );
 	}
 
 	/* Copy email */

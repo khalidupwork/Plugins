@@ -2,6 +2,16 @@
 
 Talkwyn Pro adds every Pro feature through these actions and filters. You can use them too.
 
+## Renamed in 2.0.0
+
+| Old | New |
+|---|---|
+| `talkwyn_retrieve` | `talkwyn_sources` |
+| `talkwyn_pre_reply` | `talkwyn_before_answer` |
+| `talkwyn_after_reply` | `talkwyn_after_answer` |
+| `talkwyn_lead_saved` | `talkwyn_lead_created` |
+| `talkwyn_show_powered_by` | `talkwyn_show_badge` |
+
 ## Lifecycle
 
 | Hook | Type | Arguments | Use |
@@ -68,6 +78,8 @@ Talkwyn Pro adds every Pro feature through these actions and filters. You can us
 | `talkwyn_enqueue_widget` | action | | The widget assets were enqueued. Enqueue yours here. |
 | `talkwyn_show_widget` | filter | `bool $show` | Hide the floating widget on a request. |
 | `talkwyn_show_badge` | filter | `bool $show` | Show or hide the "Powered by Talkwyn" link. |
+| `talkwyn_widget_menu` | filter | `array $items` | Items in the chat menu. Each item: `id`, `label`, optional `url`. Built-in ids: `name`, `transcript`, `sound`, `language`, `popout`, `reset`, `add_chat`. An item with `url` opens that link; other unknown ids fire the `menu` event in JavaScript. |
+| `talkwyn_languages` | filter | `array $languages` | Languages in the chat menu picker, keyed by code: `native`, `en`, `rtl`. |
 
 ### JavaScript API
 
@@ -89,6 +101,8 @@ Talkwyn Pro adds every Pro feature through these actions and filters. You can us
 | `talkwyn_admin_tabs` | filter | `array $tabs` | Add tabs to the Talkwyn screen. |
 | `talkwyn_admin_tab_{$tab}` | action | | Render a tab you added. |
 | `talkwyn_admin_menu_title` | filter | `string $title` | Rename the admin menu (Pro: white label). |
+| `talkwyn_admin_logo` | filter | `string $url` | Logo in the admin header (Pro: white label). |
+| `talkwyn_hub_url` | filter | `string $url` | Base URL for the optional email opt-in in the setup wizard. |
 | `talkwyn_admin_dashboard`, `talkwyn_admin_knowledge`, `talkwyn_admin_providers`, `talkwyn_admin_appearance`, `talkwyn_admin_behavior` | action | | Add content to a built-in tab. |
 
 `Talkwyn_Admin::form_open()`, `form_close()`, `card()`, `field()`, `toggle()` and `select()` render settings that save through Talkwyn's own handler.
