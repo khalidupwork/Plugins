@@ -1,6 +1,6 @@
 # Free plugin hooks used by Talkwyn Pro
 
-Talkwyn Pro never edits the free plugin. Everything below goes through a hook the free plugin (2.0.0 or newer) fires. Pro also fires `talkwyn_pro_active` through the free admin to hide upgrade buttons.
+Talkwyn Pro never edits the free plugin. Everything below goes through a hook the free plugin (2.1.0 or newer) fires. Pro also fires `talkwyn_pro_active` through the free admin to hide upgrade buttons.
 
 | Hook | Type | Pro file | What Pro does with it |
 | --- | --- | --- | --- |
@@ -26,7 +26,7 @@ Talkwyn Pro never edits the free plugin. Everything below goes through a hook th
 | `talkwyn_enqueue_widget` | action | Frontend.php | Loads the Pro widget script. |
 | `talkwyn_widget_config` | filter | Frontend.php, Engage.php | Adds stream, proactive messages and business hours to the widget config. |
 
-## Hook names changed in Talkwyn 2.0.0
+## Hook names changed in Talkwyn 2.1.0
 
 | Old | New |
 | --- | --- |
@@ -36,4 +36,4 @@ Talkwyn Pro never edits the free plugin. Everything below goes through a hook th
 | `talkwyn_lead_saved` | `talkwyn_lead_created` |
 | `talkwyn_show_powered_by` | `talkwyn_show_badge` |
 
-Pro 1.1.0 uses only the new names and shows a notice if Talkwyn is older than 2.0.0.
+Pro 1.2.0 uses only the new names and shows a notice if Talkwyn is older than 2.1.0.

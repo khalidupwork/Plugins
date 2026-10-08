@@ -12,7 +12,7 @@ defined( 'ABSPATH' ) || exit;
  */
 class Talkwyn_DB {
 
-	const DB_VERSION = '2.0.1';
+	const DB_VERSION = '2.1.0';
 
 	/**
 	 * Table names.

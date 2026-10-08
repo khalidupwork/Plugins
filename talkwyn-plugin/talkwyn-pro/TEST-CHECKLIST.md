@@ -1,11 +1,11 @@
 # Talkwyn Pro test checklist
 
-Use a clean WordPress 6.4+ site on PHP 8.0+ with Talkwyn 2.0.0 active.
+Use a clean WordPress 6.4+ site on PHP 8.0+ with Talkwyn 2.1.0 active.
 
 ## Install and dependency
 - [ ] Activate Pro without Talkwyn: notice "Talkwyn Pro needs the free Talkwyn plugin." and nothing breaks.
-- [ ] Activate Pro with Talkwyn older than 2.0.0: notice "Talkwyn Pro needs Talkwyn 2.0.0 or newer."
-- [ ] Activate with Talkwyn 2.0.0: no PHP notices on any Talkwyn tab.
+- [ ] Activate Pro with Talkwyn older than 2.1.0 (for example 2.0.0): notice "Talkwyn Pro needs Talkwyn 2.1.0 or newer."
+- [ ] Activate with Talkwyn 2.1.0: no PHP notices on any Talkwyn tab.
 
 ## License states
 - [ ] No key: only the License tab is added. "Start a free 15-day trial" opens talkwyn.com/pricing/#trial.

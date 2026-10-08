@@ -2,7 +2,7 @@
 
 Talkwyn Pro adds every Pro feature through these actions and filters. You can use them too.
 
-## Renamed in 2.0.0
+## Renamed in 2.1.0
 
 | Old | New |
 |---|---|

@@ -4,7 +4,7 @@ Tags: chatbot, ai chatbot, lead generation, multilingual, live chat
 Requires at least: 6.4
 Tested up to: 6.8
 Requires PHP: 8.0
-Stable tag: 2.0.0
+Stable tag: 2.1.0
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
@@ -109,15 +109,21 @@ In your WordPress database. Chats, leads and knowledge stay on your site. Messag
 
 == Changelog ==
 
-= 2.0.0 =
-* Renamed from Nabia AI Chatbot to Talkwyn, with a one-time migration of settings, knowledge, leads and logs.
-* New: setup wizard, Gutenberg block, `[talkwyn_chat]` shortcode.
+= 2.1.0 =
 * New: admin screens in the Talkwyn style, with a dashboard checklist, weekly summary and live appearance preview.
 * New: chat menu with name, email transcript, language picker, sound, pop out and new chat.
 * New: show the chat by device and by logged in state; optional gradient header and launcher pulse.
 * New: "Powered by Talkwyn" badge is off by default and asked about in the wizard, with an optional referral code.
 * New: a time check on the lead and transcript forms to stop bots that submit instantly.
-* New: hooks `talkwyn_widget_menu`, `talkwyn_languages`, `talkwyn_admin_logo` and `talkwyn_hub_url`. See HOOKS.md for hooks renamed in this version.
+* New: hooks `talkwyn_widget_menu`, `talkwyn_languages`, `talkwyn_admin_logo` and `talkwyn_hub_url`.
+* New: Start free trial links in the admin and wizard (hidden when Pro is active). Pro tabs are no longer shown in the free plugin.
+* Changed: requires PHP 8.0.
+* Changed: hooks renamed: `talkwyn_retrieve` to `talkwyn_sources`, `talkwyn_pre_reply` to `talkwyn_before_answer`, `talkwyn_after_reply` to `talkwyn_after_answer`, `talkwyn_lead_saved` to `talkwyn_lead_created`, `talkwyn_show_powered_by` to `talkwyn_show_badge`.
+* Changed: leads get a Source column (chat or transcript). The database updates on its own.
+
+= 2.0.0 =
+* Renamed from Nabia AI Chatbot to Talkwyn, with a one-time migration of settings, knowledge, leads and logs.
+* New: setup wizard, Gutenberg block, `[talkwyn_chat]` shortcode.
 * New: chat endpoints moved to the REST API with a fresh token on open, so cached pages work.
 * New: conversation history stored on the server by session; the chat continues across pages. Browser-sent history is no longer trusted.
 * New: Markdown answers rendered with an allow-list sanitizer.
@@ -133,6 +139,9 @@ In your WordPress database. Chats, leads and knowledge stay on your site. Messag
 * Fixed: a full scan removes knowledge of posts that no longer exist.
 
 == Upgrade Notice ==
+
+= 2.1.0 =
+New admin design, chat menu and visibility rules. Needs PHP 8.0. If you use Talkwyn Pro, update it to 1.2.0 too.
 
 = 2.0.0 =
 Nabia AI Chatbot is now Talkwyn. Your data is copied over automatically. Deactivate Nabia afterwards so visitors see one chat.

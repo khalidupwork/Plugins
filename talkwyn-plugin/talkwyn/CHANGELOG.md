@@ -1,8 +1,6 @@
 # Talkwyn changelog
 
-## 2.0.0
-
-First release under the Talkwyn name (formerly Nabia AI Chatbot).
+## 2.1.0
 
 ### Added
 - Setup wizard: AI key with a Test button, site scan, colours, badge choice and optional email updates, go live, and a "Your chat is live" screen.
@@ -22,5 +20,8 @@ First release under the Talkwyn name (formerly Nabia AI Chatbot).
 - Requires PHP 8.0.
 - Hooks renamed: `talkwyn_retrieve` to `talkwyn_sources`, `talkwyn_pre_reply` to `talkwyn_before_answer`, `talkwyn_after_reply` to `talkwyn_after_answer`, `talkwyn_lead_saved` to `talkwyn_lead_created`, `talkwyn_show_powered_by` to `talkwyn_show_badge`.
 
-### Carried over from the rename
+## 2.0.0
+
+First release under the Talkwyn name (formerly Nabia AI Chatbot).
+
 - One-time migration from Nabia AI Chatbot, REST chat endpoints with a fresh token on open, server-side history, Markdown allow list, Smart Contrast, consent, honeypot, rate limits, optional Turnstile, model lists, privacy exporter and eraser, opt-in data removal on uninstall. See readme.txt for the full list.

@@ -2,7 +2,7 @@
 Requires at least: 6.4
 Requires PHP: 8.0
 Requires Plugins: talkwyn
-Stable tag: 1.1.0
+Stable tag: 1.2.0
 License: GPLv2 or later
 
 Pro add-on for the free Talkwyn plugin. Sold and delivered from talkwyn.com with a free 15-day trial.
@@ -41,12 +41,12 @@ Before building a release, put the active Hub public key in `includes/hub-keys.p
 
 == Changelog ==
 
-= 1.1.0 =
+= 1.2.0 =
 * A paid license that expires keeps Pro features on. Only updates and support stop.
 * Without a license only the License tab is shown, with a free trial link.
 * White label: admin logo and chat menu link.
 * Coming soon card in Pro settings.
-* Uses the renamed free plugin hooks (Talkwyn 2.0.0).
+* Uses the renamed free plugin hooks. Needs Talkwyn 2.1.0 or newer.
 
 = 1.0.0 =
 * First release.

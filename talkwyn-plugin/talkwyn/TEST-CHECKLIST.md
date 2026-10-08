@@ -1,6 +1,6 @@
-# Talkwyn 2.0.0 test checklist
+# Talkwyn 2.1.0 test checklist
 
-The full run, including Pro and migration, is in `../QA-CHECKLIST.md`. This list covers what changed in 2.0.0.
+The full run, including Pro and migration, is in `../QA-CHECKLIST.md`. This list covers what changed in 2.1.0.
 
 ## Install
 - [ ] PHP 7.4 site: WordPress refuses to activate (needs PHP 8.0).
@@ -32,8 +32,9 @@ The full run, including Pro and migration, is in `../QA-CHECKLIST.md`. This list
 ## Spam
 - [ ] Lead or transcript form sent in under 2.5 seconds is ignored; a normal fill is saved.
 
-## Upgrade from an earlier 2.0.0 build
-- [ ] The leads table gets the `source` column; existing leads read "Chat".
+## Update from 2.0.0
+- [ ] Install 2.0.0, add a lead, then upload 2.1.0 (Plugins, Add New, Upload, Replace current). Plugins shows 2.1.0, the leads table gets the `source` column, existing leads read "Chat", settings stay.
+- [ ] New admin CSS and widget JS load without a hard refresh (file URLs end in `ver=2.1.0`).
 
 ## Tests
 - [ ] `phpunit` in this folder passes.

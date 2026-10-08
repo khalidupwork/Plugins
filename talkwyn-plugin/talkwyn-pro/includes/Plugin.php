@@ -17,7 +17,7 @@ final class Plugin {
 	/**
 	 * Lowest free plugin version with the hooks Pro uses.
 	 */
-	const MIN_FREE = '2.0.0';
+	const MIN_FREE = '2.1.0';
 
 	/**
 	 * Boot on plugins_loaded.
