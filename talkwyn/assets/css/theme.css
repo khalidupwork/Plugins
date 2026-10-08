@@ -1165,3 +1165,64 @@ body .tw-page-head > .tw-page-head__card, .woocommerce-account .tw-page-head > .
 .tw-page-head__card > * { max-inline-size: var(--tw-wide) !important; margin-inline: auto !important; }
 .tw-cart-head { max-inline-size: none !important; margin-inline: var(--tw-inset) !important; }
 .tw-cart-head > * { max-inline-size: var(--tw-wide); margin-inline: auto !important; inline-size: 100%; }
+
+/* ===================== v3.8 Rhythm: no clipped visuals, even spacing ===================== */
+/* Visuals are never cut. The visual panel stretches to the row height and centers its content;
+   if the content is taller than the text, the row grows instead of hiding part of it. */
+@media (min-width: 900px) {
+	.tw-tv__visual, .tw-conv__visual { contain: none !important; overflow: visible !important; min-block-size: 0 !important; }
+	.tw-tv__inner, .tw-conv__visual > * { max-block-size: none !important; }
+}
+.tw-tv .tw-chat, .tw-conv .tw-chat { max-block-size: none !important; }
+.tw-tv .tw-chat__body, .tw-conv .tw-chat__body { min-block-size: 0 !important; max-block-size: none !important; overflow: visible !important; }
+.tw-conv__visual { display: flex; align-items: center; justify-content: center; padding: clamp(20px, 3vw, 36px); border-radius: var(--tw-r-lg); background-color: #FFFFFF; background-image: radial-gradient(rgba(26, 15, 18, .06) 1px, transparent 1.6px); background-size: 18px 18px; }
+.tw-conv__visual > * { inline-size: 100%; max-inline-size: 460px; }
+
+/* One vertical rhythm. Every section gets the same padding; two plain white sections in a row
+   share one gap instead of stacking two; bands keep a small gap from their neighbours. */
+.tw-section { padding-block: clamp(48px, 6vw, 88px); }
+.tw-section:not(.tw-inset):not(.tw-red):not(.tw-on-ink) + .tw-section:not(.tw-inset):not(.tw-red):not(.tw-on-ink) { padding-block-start: 0; }
+.tw-section.tw-inset { margin-block: clamp(16px, 2vw, 24px) !important; }
+.tw-section.tw-inset + .tw-section.tw-inset { margin-block-start: 0 !important; }
+.tw-section.tw-section--joined { padding-block-start: 0 !important; }
+.tw-section-head { margin-block-end: clamp(28px, 3vw, 44px); }
+.tw-cta-band--inline { margin-inline: 0 !important; }
+/* Short notes (callouts) line up with the page content instead of floating in the middle. */
+.wp-block-post-content > .tw-section--tight .tw-callout { max-inline-size: var(--tw-wide); margin-inline: auto; box-sizing: border-box; }
+.wp-block-post-content > .tw-section--tight { padding-block: clamp(8px, 1vw, 16px) !important; }
+/* Features: one wide card, items in columns, Pro group below */
+.tw-flist--wide { max-inline-size: var(--tw-wide); margin-inline: auto; padding: clamp(22px, 3vw, 36px); display: grid; gap: 20px; }
+.tw-flist--wide > * { margin: 0 !important; }
+.tw-flist--wide .tw-flist__group > .tw-vcard__rows { margin-block-start: 12px; display: grid; grid-template-columns: repeat(auto-fill, minmax(min(100%, 320px), 1fr)); gap: 0 28px; }
+.tw-flist--wide .tw-vcard__rows li + li { border-block-start: 0; }
+.tw-flist--wide .tw-vcard__rows li { border-block-end: 1px dashed var(--tw-border); }
+.tw-flist--wide .tw-flist__group--pro { padding: 18px 20px; border-radius: 16px; background: var(--tw-red-50); }
+.tw-flist--wide .tw-flist__label--pro { padding: 0; border: 0; }
+.tw-flist--wide .tw-flist__group--pro .tw-vcard__rows li { border-block-end-color: rgba(215, 38, 61, .15); }
+.tw-flist__foot { text-align: center; }
+/* Waitlist rows: points under the intro */
+.tw-row--waitlist .tw-checklist { margin-block-start: 18px !important; }
+.tw-row--waitlist { align-items: center !important; }
+/* Band transitions: a plain section next to a band only needs a short gap on that side */
+.tw-section:not(.tw-inset):not(.tw-red):not(.tw-on-ink):has(+ .tw-section.tw-inset) { padding-block-end: clamp(24px, 3vw, 40px); }
+.tw-section.tw-inset + .tw-section:not(.tw-inset):not(.tw-red):not(.tw-on-ink) { padding-block-start: clamp(32px, 4vw, 56px); }
+.wp-block-post-content > .tw-section:last-child:not(.tw-inset) { padding-block-end: clamp(16px, 2vw, 24px); }
+.tw-cta-band { padding-block: clamp(44px, 5vw, 80px); }
+.tw-inset + .tw-section:not(.tw-inset):not(.tw-red):not(.tw-on-ink) { padding-block-start: clamp(32px, 4vw, 56px) !important; }
+.tw-section:not(.tw-inset):not(.tw-red):not(.tw-on-ink):has(+ .tw-inset) { padding-block-end: clamp(24px, 3vw, 40px) !important; }
+.tw-section.tw-inset { padding-block: clamp(40px, 5vw, 72px); }
+.tw-phero { padding-block: clamp(32px, 5vw, 64px) !important; }
+.has-global-padding > .wp-block-template-part > .tw-cta-band, .has-global-padding > .tw-cta-band {
+	margin-inline: calc(var(--tw-inset) - var(--wp--style--root--padding-left, 0px)) calc(var(--tw-inset) - var(--wp--style--root--padding-right, 0px));
+}
+.has-global-padding > .wp-block-template-part:has(> .tw-cta-band) { max-inline-size: none !important; margin-inline: calc(-1 * var(--wp--style--root--padding-left, 0px)) calc(-1 * var(--wp--style--root--padding-right, 0px)) !important; }
+.has-global-padding > .wp-block-template-part > .tw-cta-band { margin-inline: var(--tw-inset); }
+/* The waitlist row already has its own heading: the form card drops its duplicate title. */
+.tw-waitlist-col .tw-waitlist__title { display: none; }
+.tw-waitlist-col .tw-waitlist { gap: 14px; }
+.tw-chat[data-time] .tw-chat__head { padding-inline-end: 92px; } .tw-chat[data-time] .tw-chat__title { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.tw-flist--wide .tw-flist__group--pro { padding: 18px 0 0; border-radius: 0; background: none; border-block-start: 1px solid var(--tw-border); }
+.tw-flist--wide .tw-flist__group--pro .tw-vcard__rows li { border-block-end-color: var(--tw-border); }
+.tw-conv .tw-row__text, .tw-tv .tw-tv__text { align-self: center; }
+.tw-section--tight + .tw-section:not(.tw-inset) { padding-block-start: clamp(32px, 4vw, 56px) !important; }
+.tw-section + .tw-section--tight, .tw-section--tight + .tw-section--tight { margin-block-start: 0; }
