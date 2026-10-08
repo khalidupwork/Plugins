@@ -882,7 +882,7 @@ if ( ! class_exists( 'Talkwyn_License_Client' ) ) :
 		 */
 		private function error_message( string $code ): string {
 			$messages = array(
-				'expired'       => __( 'Your license has expired. Renew it to keep Pro features and updates.', 'talkwyn' ),
+				'expired'       => __( 'Your license has expired. Pro features keep working; renew to get updates and support again.', 'talkwyn' ),
 				'revoked'       => __( 'Your license has been revoked.', 'talkwyn' ),
 				'suspended'     => __( 'Your license is suspended. Please contact support.', 'talkwyn' ),
 				'invalid_key'   => __( 'Your license key is not valid.', 'talkwyn' ),

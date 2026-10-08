@@ -478,7 +478,8 @@ class Talkwyn_REST {
 		$body    = implode( "\n\n", $lines ) . "\n\n" . home_url( '/' );
 		$sent    = wp_mail( $in['email'], $subject, $body );
 		if ( ! $sent ) {
-			return self::error( 'talkwyn_transcript_mail', __( 'We could not send the email. Please try again later.', 'talkwyn' ), 500 );
+			// The request is saved as a lead, so the team still sees it.
+			return self::response( array( 'message' => __( 'We saved your request, but the email could not be sent right now. The team has your address and can send it.', 'talkwyn' ) ) );
 		}
 		return self::response( array( 'message' => __( 'Transcript sent. Check your inbox.', 'talkwyn' ) ) );
 	}

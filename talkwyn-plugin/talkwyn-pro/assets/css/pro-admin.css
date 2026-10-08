@@ -36,3 +36,15 @@
 .twp-hours__row { display: grid; grid-template-columns: 160px 120px 24px 120px; gap: 8px; align-items: center; }
 .twp-embed { display: flex; align-items: center; gap: 10px; flex-wrap: wrap; }
 @media (max-width: 960px) { .twp-rules__head { display: none; } .twp-rules__row { grid-template-columns: 1fr 1fr; padding-bottom: 8px; border-bottom: 1px solid #EEE7E8; } .twp-rules__row input[type=text]:first-child { grid-column: 1 / -1; } }
+
+.twp-soon-list { list-style: none; margin: 0; padding: 0; display: grid; gap: 8px; }
+.twp-soon-list li { display: flex; align-items: center; gap: 10px; margin: 0; padding: 10px 12px; border-radius: 14px; background: #F7F3F3; font-weight: 600; }
+.twp-bar i { background: linear-gradient(180deg, #F05A6E, #D7263D); }
+.twp-inbox { border-radius: 18px; padding: 16px 18px; }
+.twp-rank li { border-bottom: 1px dashed #EEE7E8; }
+/* License box from the SDK, in the Talkwyn style */
+.twa .talkwyn-license-box { max-width: none !important; border-radius: 24px !important; border-color: #EEE7E8 !important; padding: 22px 26px !important; }
+.twa .talkwyn-license-box .button { display: inline-flex; align-items: center; min-height: 40px; padding: 0 18px; border-radius: 999px; border: 1px solid #DDD3D5; background: #fff; color: #1A0F12; font-weight: 700; box-shadow: none; }
+.twa .talkwyn-license-box .button-primary { background: #1A0F12; border-color: #1A0F12; color: #fff; }
+.twa .talkwyn-license-box .button:hover { border-color: #1A0F12; }
+.twa .talkwyn-license-box input[type=text] { max-width: 420px; }

@@ -62,9 +62,28 @@ final class License {
 	}
 
 	/**
-	 * Whether Pro features run (paid license, running trial or grace period).
+	 * Whether Pro features run.
+	 *
+	 * On: an active paid license, a running trial, or the 7-day grace period
+	 * while the Hub cannot be reached. A paid license that expired keeps its
+	 * features (only updates and support stop), so a lapsed renewal never
+	 * breaks a site. Off: no key, a trial that ended, or a key that was
+	 * revoked, refunded or suspended.
 	 */
 	public static function active(): bool {
-		return (bool) apply_filters( 'talkwyn_pro_license_active', self::client()->is_pro() );
+		$client = self::client();
+		$on     = $client->is_pro() || self::expired_paid();
+		return (bool) apply_filters( 'talkwyn_pro_license_active', $on );
+	}
+
+	/**
+	 * A paid (non-trial) license that has expired.
+	 */
+	public static function expired_paid(): bool {
+		$state = self::client()->state();
+		return '' !== (string) get_option( 'talkwyn_license_key', '' )
+			&& 'expired' === ( $state['status'] ?? '' )
+			&& empty( $state['trial_ended'] )
+			&& empty( $state['is_trial'] );
 	}
 }

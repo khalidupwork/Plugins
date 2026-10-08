@@ -1,4 +1,5 @@
 /* Talkwyn admin, in the talkwyn.com style (Talkwyn Red, light UI only). */
+body.talkwyn-admin,
 .talkwyn-admin #wpcontent {
 	background: #FCFAFA;
 }
@@ -453,7 +454,14 @@
 }
 
 .twa select {
-	padding-right: 36px;
+	padding-right: 38px;
+	-webkit-appearance: none;
+	appearance: none;
+	background: #fff url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%231A0F12' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='m6 9 6 6 6-6'/%3E%3C/svg%3E") no-repeat right 12px center / 16px 16px;
+}
+
+.twa select[multiple] {
+	background-image: none;
 }
 
 .twa select[multiple] {
@@ -503,7 +511,8 @@
 	margin: 0 0 14px;
 }
 
-.twa-toggle label {
+.twa-toggle label,
+label.twa-toggle {
 	display: flex;
 	gap: 12px;
 	align-items: flex-start;
@@ -604,20 +613,20 @@
 	background: var(--linen);
 }
 
-/* Save bar */
+/* Save bar: a floating button that stays in reach */
 .twa-savebar {
 	display: flex;
 	justify-content: flex-end;
-	gap: 10px;
 	margin: 6px 0 24px;
-	padding: 14px 18px;
-	background: #fff;
-	border: 1px solid var(--border);
-	border-radius: 999px;
 	position: sticky;
-	bottom: 12px;
+	bottom: 16px;
 	z-index: 5;
-	box-shadow: 0 12px 32px rgba(26, 15, 18, .08);
+	pointer-events: none;
+}
+
+.twa-savebar .twa-btn {
+	pointer-events: auto;
+	box-shadow: 0 12px 30px rgba(26, 15, 18, .25);
 }
 
 /* Stats */
@@ -1592,6 +1601,11 @@
 
 .twa-wizard__card {
 	padding: 34px 38px;
+}
+
+.twa-hero + .wp-header-end + .twa-wizard__card,
+.twa-wizard > .twa-card:first-of-type {
+	margin-top: 24px;
 }
 
 .twa-wizard__head {

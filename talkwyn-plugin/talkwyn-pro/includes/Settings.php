@@ -59,6 +59,9 @@ final class Settings {
 				'pro_away_lead_only'  => 1,
 				'pro_hide_powered'    => 1,
 				'pro_menu_name'       => '',
+				'pro_brand_logo'      => '',
+				'pro_menu_item_label' => '',
+				'pro_menu_item_url'   => '',
 			)
 		);
 	}
@@ -90,7 +93,7 @@ final class Settings {
 		$schema['bool']     = array_merge( $schema['bool'], array( 'pro_stream', 'pro_woo_cards', 'pro_woo_orders', 'pro_hours_enabled', 'pro_away_lead_only', 'pro_hide_powered' ) );
 		$schema['int']      = array_merge( $schema['int'], array( 'pro_semantic_weight' ) );
 		$schema['key']      = array_merge( $schema['key'], array( 'openai_key', 'anthropic_key', 'mistral_key', 'deepseek_key', 'pro_telegram_token', 'pro_telegram_chat' ) );
-		$schema['url']      = array_merge( $schema['url'], array( 'pro_slack_webhook' ) );
+		$schema['url']      = array_merge( $schema['url'], array( 'pro_slack_webhook', 'pro_brand_logo', 'pro_menu_item_url' ) );
 		$schema['textarea'] = array_merge( $schema['textarea'], array( 'pro_away_message' ) );
 		return $schema;
 	}

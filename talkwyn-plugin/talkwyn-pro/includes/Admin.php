@@ -36,6 +36,11 @@ final class Admin {
 	 * @return array
 	 */
 	public static function tabs( array $tabs ): array {
+		if ( ! License::active() ) {
+			// Without a license, only the License tab is added. No locked features are shown.
+			$tabs['license'] = __( 'License', 'talkwyn-pro' );
+			return $tabs;
+		}
 		$privacy = $tabs['privacy'] ?? null;
 		unset( $tabs['privacy'] );
 		$tabs['extra']     = __( 'Extra knowledge', 'talkwyn-pro' );
@@ -70,7 +75,7 @@ final class Admin {
 			return false;
 		}
 		A::card( __( 'Pro features are paused', 'talkwyn-pro' ), __( 'Activate a license or start a free 15-day trial to use this. Your Pro data and settings are kept.', 'talkwyn-pro' ) );
-		echo '<p><a class="button button-primary" href="' . esc_url( admin_url( 'admin.php?page=talkwyn&tab=license' ) ) . '">' . esc_html__( 'Activate license', 'talkwyn-pro' ) . '</a> <a class="button" href="https://talkwyn.com/pricing/" target="_blank" rel="noopener">' . esc_html__( 'Start a free trial', 'talkwyn-pro' ) . '</a></p></section>';
+		echo '<p><a class="twa-btn twa-btn--ink" href="' . esc_url( admin_url( 'admin.php?page=talkwyn&tab=license' ) ) . '">' . esc_html__( 'Activate license', 'talkwyn-pro' ) . '</a> <a class="twa-btn twa-btn--light twa-btn--sm" href="https://talkwyn.com/pricing/" target="_blank" rel="noopener">' . esc_html__( 'Start a free trial', 'talkwyn-pro' ) . '</a></p></section>';
 		return true;
 	}
 
@@ -85,7 +90,7 @@ final class Admin {
 		$client = License::client();
 		if ( $client->is_trial() ) {
 			$days = $client->trial_days_left();
-			echo '<div class="notice twp-trial"><p><strong>' . esc_html( sprintf( /* translators: %d: days */ _n( 'Pro trial: %d day left', 'Pro trial: %d days left', $days, 'talkwyn-pro' ), $days ) ) . '</strong> ' . esc_html__( 'Upgrade any time with the same key. Your settings and knowledge stay.', 'talkwyn-pro' ) . ' <a class="button button-primary" href="https://talkwyn.com/pricing/" target="_blank" rel="noopener">' . esc_html__( 'Upgrade', 'talkwyn-pro' ) . '</a></p></div>';
+			echo '<div class="notice twp-trial"><p><strong>' . esc_html( sprintf( /* translators: %d: days */ _n( 'Pro trial: %d day left', 'Pro trial: %d days left', $days, 'talkwyn-pro' ), $days ) ) . '</strong> ' . esc_html__( 'Upgrade any time with the same key. Your settings and knowledge stay.', 'talkwyn-pro' ) . ' <a class="twa-btn twa-btn--red twa-btn--sm" href="https://talkwyn.com/pricing/" target="_blank" rel="noopener">' . esc_html__( 'Upgrade', 'talkwyn-pro' ) . '</a></p></div>';
 		}
 		$code = isset( $_GET['talkwyn_notice'] ) ? sanitize_key( wp_unslash( $_GET['talkwyn_notice'] ) ) : ''; // phpcs:ignore WordPress.Security.NonceVerification.Recommended
 		if ( '' === $code ) {
@@ -158,15 +163,15 @@ final class Admin {
 		echo '<div class="twa-field"><label for="twp-q">' . esc_html__( 'Question', 'talkwyn-pro' ) . '</label><input id="twp-q" type="text" name="question" required value="' . esc_attr( $edit ? (string) $edit['question'] : '' ) . '"></div>';
 		echo '<div class="twa-field"><label for="twp-a">' . esc_html__( 'Answer', 'talkwyn-pro' ) . '</label><textarea id="twp-a" name="answer" rows="5" required>' . esc_textarea( $edit ? (string) $edit['answer'] : '' ) . '</textarea><p class="description">' . esc_html__( 'Markdown works: **bold**, lists and [links](https://example.com).', 'talkwyn-pro' ) . '</p></div>';
 		echo '<div class="twa-field"><label for="twp-k">' . esc_html__( 'Also match these words (optional)', 'talkwyn-pro' ) . '</label><input id="twp-k" type="text" name="keywords" value="' . esc_attr( $edit ? (string) $edit['keywords'] : '' ) . '" placeholder="refund, money back"></div>';
-		echo '<p><button class="button button-primary">' . esc_html__( 'Save answer', 'talkwyn-pro' ) . '</button></p></form></section>';
+		echo '<p><button class="twa-btn twa-btn--ink">' . esc_html__( 'Save answer', 'talkwyn-pro' ) . '</button></p></form></section>';
 
 		A::card( __( 'Add files and pages', 'talkwyn-pro' ), __( 'PDF, DOCX and TXT files, or any public page or sitemap. Talkwyn reads the text and adds it to the knowledge.', 'talkwyn-pro' ) );
 		echo '<form method="post" enctype="multipart/form-data" action="' . esc_url( admin_url( 'admin-post.php' ) ) . '" class="twp-inline-form"><input type="hidden" name="action" value="talkwyn_pro_upload">';
 		wp_nonce_field( 'talkwyn_pro_upload' );
-		echo '<label for="twp-file" class="twp-label">' . esc_html__( 'File (PDF, DOCX or TXT)', 'talkwyn-pro' ) . '</label><input id="twp-file" type="file" name="file" accept=".pdf,.docx,.txt" required> <button class="button">' . esc_html__( 'Upload', 'talkwyn-pro' ) . '</button></form>';
+		echo '<label for="twp-file" class="twp-label">' . esc_html__( 'File (PDF, DOCX or TXT)', 'talkwyn-pro' ) . '</label><input id="twp-file" type="file" name="file" accept=".pdf,.docx,.txt" required> <button class="twa-btn twa-btn--light twa-btn--sm">' . esc_html__( 'Upload', 'talkwyn-pro' ) . '</button></form>';
 		echo '<form method="post" action="' . esc_url( admin_url( 'admin-post.php' ) ) . '" class="twp-inline-form"><input type="hidden" name="action" value="talkwyn_pro_crawl">';
 		wp_nonce_field( 'talkwyn_pro_crawl' );
-		echo '<label for="twp-url" class="twp-label">' . esc_html__( 'Page or sitemap URL', 'talkwyn-pro' ) . '</label><input id="twp-url" type="url" name="url" placeholder="https://example.com/sitemap.xml" required> <button class="button">' . esc_html__( 'Read', 'talkwyn-pro' ) . '</button></form>';
+		echo '<label for="twp-url" class="twp-label">' . esc_html__( 'Page or sitemap URL', 'talkwyn-pro' ) . '</label><input id="twp-url" type="url" name="url" placeholder="https://example.com/sitemap.xml" required> <button class="twa-btn twa-btn--light twa-btn--sm">' . esc_html__( 'Read', 'talkwyn-pro' ) . '</button></form>';
 		$queue = (array) get_option( Knowledge::CRAWL_QUEUE, array() );
 		if ( $queue ) {
 			echo '<p class="description">' . esc_html( sprintf( /* translators: %d: pages */ _n( '%d page waiting to be read.', '%d pages waiting to be read.', count( $queue ), 'talkwyn-pro' ), count( $queue ) ) ) . '</p>';
@@ -305,9 +310,9 @@ final class Admin {
 				echo ' <a href="' . esc_url( $item['page'] ) . '" target="_blank" rel="noopener">' . esc_html( (string) wp_parse_url( $item['page'], PHP_URL_PATH ) ) . '</a>';
 			}
 			echo '</header><p class="twp-inbox__q" dir="auto"><strong>' . esc_html( $item['question'] ) . '</strong></p><p class="twp-inbox__a" dir="auto">' . esc_html( wp_trim_words( $item['reply'], 40 ) ) . '</p>';
-			echo '<details><summary class="button button-primary">' . esc_html__( 'Add answer', 'talkwyn-pro' ) . '</summary><form method="post" action="' . esc_url( admin_url( 'admin-post.php' ) ) . '"><input type="hidden" name="action" value="talkwyn_pro_qa_save"><input type="hidden" name="resolve_log" value="' . esc_attr( (string) $item['id'] ) . '">';
+			echo '<details><summary class="twa-btn twa-btn--ink twa-btn--sm">' . esc_html__( 'Add answer', 'talkwyn-pro' ) . '</summary><form method="post" action="' . esc_url( admin_url( 'admin-post.php' ) ) . '"><input type="hidden" name="action" value="talkwyn_pro_qa_save"><input type="hidden" name="resolve_log" value="' . esc_attr( (string) $item['id'] ) . '">';
 			wp_nonce_field( 'talkwyn_pro_qa_save' );
-			echo '<div class="twa-field"><label>' . esc_html__( 'Question', 'talkwyn-pro' ) . '<input type="text" name="question" value="' . esc_attr( $item['question'] ) . '" required></label></div><div class="twa-field"><label>' . esc_html__( 'Answer', 'talkwyn-pro' ) . '<textarea name="answer" rows="4" required></textarea></label></div><p><button class="button button-primary">' . esc_html__( 'Save answer', 'talkwyn-pro' ) . '</button></p></form></details> <a class="button" href="' . esc_url( $dismiss ) . '">' . esc_html__( 'Dismiss', 'talkwyn-pro' ) . '</a></article>';
+			echo '<div class="twa-field"><label>' . esc_html__( 'Question', 'talkwyn-pro' ) . '<input type="text" name="question" value="' . esc_attr( $item['question'] ) . '" required></label></div><div class="twa-field"><label>' . esc_html__( 'Answer', 'talkwyn-pro' ) . '<textarea name="answer" rows="4" required></textarea></label></div><p><button class="twa-btn twa-btn--ink">' . esc_html__( 'Save answer', 'talkwyn-pro' ) . '</button></p></form></details> <a class="twa-btn twa-btn--light twa-btn--sm" href="' . esc_url( $dismiss ) . '">' . esc_html__( 'Dismiss', 'talkwyn-pro' ) . '</a></article>';
 		}
 		echo '</section>';
 	}
@@ -337,7 +342,7 @@ final class Admin {
 		A::field( 'pro_embed_model', __( 'Embedding model (optional)', 'talkwyn-pro' ), 'text', __( 'Leave empty for the provider default.', 'talkwyn-pro' ) );
 		A::field( 'pro_semantic_weight', __( 'Meaning vs keywords (0 to 100)', 'talkwyn-pro' ), 'number', __( 'Higher trusts meaning more. 60 works well for most sites.', 'talkwyn-pro' ), array( 'min' => 0, 'max' => 100 ) );
 		$st = Search::stats();
-		echo '<div class="twp-embed"><button type="button" class="button" id="twp-embed">' . esc_html__( 'Build smart search now', 'talkwyn-pro' ) . '</button> <span id="twp-embed-status" aria-live="polite">' . esc_html( sprintf( /* translators: 1: vectors, 2: chunks */ __( '%1$s of %2$s chunks ready', 'talkwyn-pro' ), number_format_i18n( $st['vectors'] ), number_format_i18n( $st['chunks'] ) ) ) . '</span></div><p class="description">' . esc_html__( 'New and changed content is added in the background every 10 minutes.', 'talkwyn-pro' ) . '</p>';
+		echo '<div class="twp-embed"><button type="button" class="twa-btn twa-btn--light twa-btn--sm" id="twp-embed">' . esc_html__( 'Build smart search now', 'talkwyn-pro' ) . '</button> <span id="twp-embed-status" aria-live="polite">' . esc_html( sprintf( /* translators: 1: vectors, 2: chunks */ __( '%1$s of %2$s chunks ready', 'talkwyn-pro' ), number_format_i18n( $st['vectors'] ), number_format_i18n( $st['chunks'] ) ) ) . '</span></div><p class="description">' . esc_html__( 'New and changed content is added in the background every 10 minutes.', 'talkwyn-pro' ) . '</p>';
 		echo '</section>';
 
 		A::card( __( 'Replies and WooCommerce', 'talkwyn-pro' ) );
@@ -353,14 +358,33 @@ final class Admin {
 		A::field( 'pro_slack_webhook', __( 'Slack incoming webhook URL', 'talkwyn-pro' ), 'url', '', array( 'placeholder' => 'https://hooks.slack.com/services/...' ) );
 		A::field( 'pro_telegram_token', __( 'Telegram bot token', 'talkwyn-pro' ), 'password', '', array( 'autocomplete' => 'off' ) );
 		A::field( 'pro_telegram_chat', __( 'Telegram chat ID', 'talkwyn-pro' ) );
-		echo '<p><button type="button" class="button" id="twp-test-alert">' . esc_html__( 'Send a test alert', 'talkwyn-pro' ) . '</button> <span id="twp-alert-status" aria-live="polite"></span></p>';
+		echo '<p><button type="button" class="twa-btn twa-btn--light twa-btn--sm" id="twp-test-alert">' . esc_html__( 'Send a test alert', 'talkwyn-pro' ) . '</button> <span id="twp-alert-status" aria-live="polite"></span></p>';
 		echo '<p class="twp-soon"><span class="twa-badge">' . esc_html__( 'Coming soon', 'talkwyn-pro' ) . '</span> ' . esc_html__( 'WhatsApp alerts', 'talkwyn-pro' ) . '</p>';
 		echo '</section>';
 
 		A::card( __( 'White label', 'talkwyn-pro' ) );
 		A::toggle( 'pro_hide_powered', __( 'Hide "Powered by Talkwyn" in the chat', 'talkwyn-pro' ) );
-		A::field( 'pro_menu_name', __( 'Admin menu name', 'talkwyn-pro' ), 'text', __( 'For client sites, for example "Website chat". Leave empty for Talkwyn.', 'talkwyn-pro' ) );
+		A::field( 'pro_menu_name', __( 'Admin menu and screen name', 'talkwyn-pro' ), 'text', __( 'For client sites, for example "Website chat". Leave empty for Talkwyn.', 'talkwyn-pro' ) );
+		A::field( 'pro_brand_logo', __( 'Admin logo URL', 'talkwyn-pro' ), 'url', __( 'Square image shown in the admin header instead of the Talkwyn mark.', 'talkwyn-pro' ) );
+		echo '<div class="twa-row">';
+		A::field( 'pro_menu_item_label', __( 'Chat menu link text', 'talkwyn-pro' ), 'text', __( 'For example "Website by Your Agency".', 'talkwyn-pro' ) );
+		A::field( 'pro_menu_item_url', __( 'Chat menu link', 'talkwyn-pro' ), 'url' );
+		echo '</div>';
 		echo '</section>';
+
+		A::card( __( 'Coming soon', 'talkwyn-pro' ), __( 'On the roadmap. Not available yet.', 'talkwyn-pro' ), '', 'rocket' );
+		echo '<ul class="twp-soon-list">';
+		foreach ( array(
+			__( 'Live human takeover', 'talkwyn-pro' ),
+			__( 'Booking integrations', 'talkwyn-pro' ),
+			__( 'WhatsApp channel', 'talkwyn-pro' ),
+			__( 'Multiple bots', 'talkwyn-pro' ),
+			__( 'Lead scoring', 'talkwyn-pro' ),
+			__( 'AI conversation summaries', 'talkwyn-pro' ),
+		) as $soon ) {
+			echo '<li><span class="twa-badge">' . esc_html__( 'Coming soon', 'talkwyn-pro' ) . '</span> ' . esc_html( $soon ) . '</li>';
+		}
+		echo '</ul></section>';
 
 		A::card( __( 'Proactive messages', 'talkwyn-pro' ), __( 'Greet visitors with a short message near the chat button. Each message shows once per visit.', 'talkwyn-pro' ), 'twa-card--wide' );
 		$rules = array_values( (array) $s['pro_proactive'] );
@@ -415,9 +439,9 @@ final class Admin {
 		A::card( __( 'Export and import settings', 'talkwyn-pro' ), __( 'Move a setup to another site. Exports include settings and custom answers. API keys are left out unless you tick the box.', 'talkwyn-pro' ) );
 		echo '<form method="post" action="' . esc_url( admin_url( 'admin-post.php' ) ) . '" class="twp-inline-form"><input type="hidden" name="action" value="talkwyn_pro_export">';
 		wp_nonce_field( 'talkwyn_pro_export' );
-		echo '<label><input type="checkbox" name="with_secrets" value="1"> ' . esc_html__( 'Include API keys', 'talkwyn-pro' ) . '</label> <button class="button">' . esc_html__( 'Download export', 'talkwyn-pro' ) . '</button></form>';
+		echo '<label><input type="checkbox" name="with_secrets" value="1"> ' . esc_html__( 'Include API keys', 'talkwyn-pro' ) . '</label> <button class="twa-btn twa-btn--light twa-btn--sm">' . esc_html__( 'Download export', 'talkwyn-pro' ) . '</button></form>';
 		echo '<form method="post" enctype="multipart/form-data" action="' . esc_url( admin_url( 'admin-post.php' ) ) . '" class="twp-inline-form"><input type="hidden" name="action" value="talkwyn_pro_import">';
 		wp_nonce_field( 'talkwyn_pro_import' );
-		echo '<input type="file" name="file" accept=".json,application/json" required aria-label="' . esc_attr__( 'Settings file', 'talkwyn-pro' ) . '"> <label><input type="checkbox" name="with_answers" value="1" checked> ' . esc_html__( 'Also import custom answers', 'talkwyn-pro' ) . '</label> <button class="button">' . esc_html__( 'Import', 'talkwyn-pro' ) . '</button></form></section>';
+		echo '<input type="file" name="file" accept=".json,application/json" required aria-label="' . esc_attr__( 'Settings file', 'talkwyn-pro' ) . '"> <label><input type="checkbox" name="with_answers" value="1" checked> ' . esc_html__( 'Also import custom answers', 'talkwyn-pro' ) . '</label> <button class="twa-btn twa-btn--light twa-btn--sm">' . esc_html__( 'Import', 'talkwyn-pro' ) . '</button></form></section>';
 	}
 }

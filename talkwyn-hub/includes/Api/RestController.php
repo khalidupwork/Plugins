@@ -230,7 +230,7 @@ final class RestController {
 				}
 				throw new ApiError(
 					'expired',
-					__( 'This license has expired. Renew it to keep Pro features and updates.', 'talkwyn-hub' ),
+					__( 'This license has expired. Pro features keep working; renew to get updates and support again.', 'talkwyn-hub' ),
 					array( 'renew_url' => Cart::can_renew( $license ) ? Cart::renew_url( $license ) : '' )
 				);
 		}

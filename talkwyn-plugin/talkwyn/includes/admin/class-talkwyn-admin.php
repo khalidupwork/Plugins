@@ -237,7 +237,13 @@ class Talkwyn_Admin {
 	 * @return void
 	 */
 	public static function hero( $title, $subtitle, $actions = '' ) {
-		echo '<header class="twa-hero"><div class="twa-hero__brand"><span class="twa-hero__mark"><img src="' . esc_url( TALKWYN_URL . 'assets/img/talkwyn-mark.svg' ) . '" alt="" width="44" height="44"></span><div><h1>' . esc_html( $title ) . '</h1><p>' . esc_html( $subtitle ) . '</p></div></div>';
+		/**
+		 * Filters the logo in the admin header (white label).
+		 *
+		 * @param string $url Logo URL.
+		 */
+		$logo = (string) apply_filters( 'talkwyn_admin_logo', TALKWYN_URL . 'assets/img/talkwyn-mark.svg' );
+		echo '<header class="twa-hero"><div class="twa-hero__brand"><span class="twa-hero__mark"><img src="' . esc_url( $logo ) . '" alt="" width="44" height="44"></span><div><h1>' . esc_html( $title ) . '</h1><p>' . esc_html( $subtitle ) . '</p></div></div>';
 		if ( '' !== $actions ) {
 			echo '<div class="twa-hero__actions">' . $actions . '</div>'; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- built from escaped parts.
 		}
