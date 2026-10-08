@@ -1,5 +1,11 @@
 # Talkwyn changelog
 
+## 2.2.0
+
+### Added
+- "Pro features" tab: what Talkwyn Pro adds (better answers, more knowledge, insights, WooCommerce, engage visitors, alerts and branding) and the roadmap, with trial and plan links. Information only; nothing in the free plugin is locked or disabled, as WordPress.org requires. The tab hides once a Pro license is active.
+- Pro tips on Knowledge, AI providers, Leads and Conversations link to the full list.
+
 ## 2.1.3
 
 ### Fixed

@@ -23,7 +23,7 @@ Run on a clean WordPress 6.4 or later site with PHP 8.0 or later (both plugins).
 - [ ] Appearance: "Brand gradient" header and the launcher pulse show; the pulse stops after the first open and with reduced motion.
 - [ ] Visitors: "Logged out visitors only" hides the chat for an admin; "Phones and tablets only" hides it on desktop.
 - [ ] After 14 days and 20 chats the review request shows once; **Maybe later** hides it for 30 days. Only one Pro prompt shows per screen and **Dismiss** keeps it hidden for that user.
-- [ ] Without Pro, the header shows **Start free trial** (talkwyn.com/pricing/#trial) and **Upgrade to Pro**, and no Pro tabs.
+- [ ] Without Pro, the header shows **Start free trial** (talkwyn.com/pricing/#trial) and **Upgrade to Pro**, and a "Pro features" tab that only lists what Pro adds (no locked controls).
 - [ ] Conversations tab shows the chat with provider and reply time. Mark an answer "Not helpful": it shows on the log.
 - [ ] Unpublish a page, then ask about it: it is no longer used. Add a password to a page: same.
 - [ ] Remove all keys: questions get answers built from your pages, not an error.

@@ -4,7 +4,7 @@ Tags: chatbot, ai chatbot, lead generation, multilingual, live chat
 Requires at least: 6.4
 Tested up to: 6.8
 Requires PHP: 8.0
-Stable tag: 2.1.3
+Stable tag: 2.2.0
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
@@ -109,6 +109,10 @@ In your WordPress database. Chats, leads and knowledge stay on your site. Messag
 
 == Changelog ==
 
+= 2.2.0 =
+* New: a "Pro features" tab that lists what Talkwyn Pro adds, grouped by area, plus what is on the roadmap. It is information only: nothing in the free plugin is locked. The tab hides once Pro is licensed.
+* New: Pro tips link to the full list.
+
 = 2.1.3 =
 * Fixed: the lead form in the chat showed "We could not save your details" and did not save the lead. Introduced in 2.1.0.
 
@@ -149,6 +153,9 @@ In your WordPress database. Chats, leads and knowledge stay on your site. Messag
 * Fixed: a full scan removes knowledge of posts that no longer exist.
 
 == Upgrade Notice ==
+
+= 2.2.0 =
+Adds a Pro features overview tab.
 
 = 2.1.3 =
 Important: fixes leads not saving from the chat form. Update now.

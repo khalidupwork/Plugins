@@ -114,6 +114,10 @@ class Talkwyn_Admin {
 			'conversations' => __( 'Conversations', 'talkwyn' ),
 			'privacy'       => __( 'Privacy', 'talkwyn' ),
 		);
+		if ( ! self::pro_active() ) {
+			// A plain list of what Pro adds. Nothing in the free plugin is locked or disabled.
+			$tabs['profeatures'] = __( 'Pro features', 'talkwyn' );
+		}
 
 		/**
 		 * Filters admin tabs. Render a new tab with the `talkwyn_admin_tab_{$key}` action.
@@ -139,6 +143,11 @@ class Talkwyn_Admin {
 			'leads'         => '<path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M19 8v6M22 11h-6"/>',
 			'conversations' => '<path d="M14 9a2 2 0 0 1-2 2H6l-4 4V4a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2z"/><path d="M18 9h2a2 2 0 0 1 2 2v11l-4-4h-6a2 2 0 0 1-2-2v-1"/>',
 			'privacy'       => '<path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10Z"/><path d="m9 12 2 2 4-4"/>',
+			'profeatures'   => '<path d="M12 3c.4 2.9 2.1 4.6 5 5-2.9.4-4.6 2.1-5 5-.4-2.9-2.1-4.6-5-5 2.9-.4 4.6-2.1 5-5Z"/><path d="M18.5 14c.2 1.4 1 2.2 2.5 2.5-1.5.3-2.3 1.1-2.5 2.5-.2-1.4-1-2.2-2.5-2.5 1.5-.3 2.3-1.1 2.5-2.5Z"/><path d="M6 15.5c.2 1.1.8 1.8 2 2-1.2.2-1.8.9-2 2-.2-1.1-.8-1.8-2-2 1.2-.2 1.8-.9 2-2Z"/>',
+			'chart'         => '<path d="M4 20V10M10 20V4M16 20v-7M22 20H2"/>',
+			'cart'          => '<circle cx="9" cy="20" r="1.5"/><circle cx="18" cy="20" r="1.5"/><path d="M2 3h3l2.7 12.4a2 2 0 0 0 2 1.6h8.2a2 2 0 0 0 2-1.5L22 8H6"/>',
+			'bell'          => '<path d="M6 8a6 6 0 0 1 12 0c0 7 3 9 3 9H3s3-2 3-9"/><path d="M10.3 21a1.9 1.9 0 0 0 3.4 0"/>',
+			'files'         => '<path d="M14 3H7a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V8Z"/><path d="M14 3v5h5M9 13h6M9 17h4"/>',
 			'license'       => '<circle cx="7.5" cy="15.5" r="5.5"/><path d="m21 2-9.6 9.6M15.5 7.5l3 3L22 7l-3-3"/>',
 			'extra'         => '<path d="M14.5 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7.5Z"/><path d="M14 2v6h6M12 18v-6M9 15h6"/>',
 			'analytics'     => '<path d="M3 3v18h18"/><path d="M7 16v-4M12 16V8M17 16v-7"/>',
@@ -285,7 +294,7 @@ class Talkwyn_Admin {
 		echo '<nav class="twa-tabs" aria-label="' . esc_attr__( 'Talkwyn sections', 'talkwyn' ) . '">';
 		foreach ( self::tabs() as $key => $label ) {
 			$url = admin_url( 'admin.php?page=' . self::SLUG . ( 'dashboard' === $key ? '' : '&tab=' . $key ) );
-			echo '<a class="twa-tab' . ( $tab === $key ? ' is-active' : '' ) . '" href="' . esc_url( $url ) . '"' . ( $tab === $key ? ' aria-current="page"' : '' ) . '>' . self::icon( $key ) . '<span>' . esc_html( $label ) . '</span></a>'; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- icon() returns static SVG.
+			echo '<a class="twa-tab' . ( $tab === $key ? ' is-active' : '' ) . ( 'profeatures' === $key ? ' twa-tab--pro' : '' ) . '" href="' . esc_url( $url ) . '"' . ( $tab === $key ? ' aria-current="page"' : '' ) . '>' . self::icon( $key ) . '<span>' . esc_html( $label ) . '</span></a>'; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- icon() returns static SVG.
 		}
 		echo '</nav><div class="twa-body">';
 		if ( method_exists( __CLASS__, 'tab_' . $tab ) ) {
@@ -463,7 +472,95 @@ class Talkwyn_Admin {
 		}
 		self::$prompt_shown = true;
 		$dismiss            = wp_nonce_url( admin_url( 'admin-post.php?action=talkwyn_dismiss&id=pro_' . $id ), 'talkwyn_dismiss' );
-		echo '<aside class="twa-prompt"><span class="twa-prompt__badge">PRO</span><div class="twa-prompt__text"><strong>' . esc_html( $title ) . '</strong><p>' . esc_html( $text ) . '</p></div><div class="twa-prompt__actions"><a class="twa-btn twa-btn--red twa-btn--sm" href="' . esc_url( self::TRIAL_URL ) . '" target="_blank" rel="noopener">' . esc_html__( 'Try free for 15 days', 'talkwyn' ) . '</a><a class="twa-prompt__close" href="' . esc_url( $dismiss ) . '" aria-label="' . esc_attr__( 'Dismiss', 'talkwyn' ) . '">' . self::icon( 'x' ) . '</a></div></aside>'; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- static SVG.
+		echo '<aside class="twa-prompt"><span class="twa-prompt__badge">PRO</span><div class="twa-prompt__text"><strong>' . esc_html( $title ) . '</strong><p>' . esc_html( $text ) . '</p></div><div class="twa-prompt__actions"><a class="twa-btn twa-btn--red twa-btn--sm" href="' . esc_url( self::TRIAL_URL ) . '" target="_blank" rel="noopener">' . esc_html__( 'Try free for 15 days', 'talkwyn' ) . '</a><a class="twa-link" href="' . esc_url( admin_url( 'admin.php?page=' . self::SLUG . '&tab=profeatures' ) ) . '">' . esc_html__( 'All Pro features', 'talkwyn' ) . '</a><a class="twa-prompt__close" href="' . esc_url( $dismiss ) . '" aria-label="' . esc_attr__( 'Dismiss', 'talkwyn' ) . '">' . self::icon( 'x' ) . '</a></div></aside>'; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- static SVG.
+	}
+
+	/**
+	 * Pro features tab: what Talkwyn Pro adds, grouped by area. Information only;
+	 * the free plugin has no locked or disabled features.
+	 *
+	 * @return void
+	 */
+	private static function tab_profeatures() {
+		$groups = array(
+			array(
+				'providers',
+				__( 'Better answers', 'talkwyn' ),
+				array(
+					array( __( 'Paid AI models', 'talkwyn' ), __( 'OpenAI, Anthropic Claude, Mistral and DeepSeek, with model lists from each API.', 'talkwyn' ) ),
+					array( __( 'Smart search', 'talkwyn' ), __( 'Finds answers by meaning, not only matching words, using embeddings stored in your database.', 'talkwyn' ) ),
+					array( __( 'Streaming replies', 'talkwyn' ), __( 'Answers appear word by word, with a normal reply as fallback.', 'talkwyn' ) ),
+				),
+			),
+			array(
+				'files',
+				__( 'More knowledge', 'talkwyn' ),
+				array(
+					array( __( 'Custom answers', 'talkwyn' ), __( 'Write the exact answer for a question. It always wins.', 'talkwyn' ) ),
+					array( __( 'PDF, DOCX and TXT uploads', 'talkwyn' ), __( 'Price lists, menus and guides become part of what the chat knows.', 'talkwyn' ) ),
+					array( __( 'Pages and sitemaps', 'talkwyn' ), __( 'Add pages by URL or a whole sitemap.', 'talkwyn' ) ),
+				),
+			),
+			array(
+				'chart',
+				__( 'Insights', 'talkwyn' ),
+				array(
+					array( __( 'Analytics', 'talkwyn' ), __( 'Chats per day, leads and lead rate, top questions, start pages, provider success rate and reply time.', 'talkwyn' ) ),
+					array( __( 'Unanswered questions', 'talkwyn' ), __( 'An inbox of questions the chat could not answer, with one-click "Add answer".', 'talkwyn' ) ),
+				),
+			),
+			array(
+				'cart',
+				__( 'WooCommerce', 'talkwyn' ),
+				array(
+					array( __( 'Product cards', 'talkwyn' ), __( 'Products in answers with price and an Add to cart button.', 'talkwyn' ) ),
+					array( __( 'Order status lookup', 'talkwyn' ), __( 'Visitors check an order with the order number plus billing email.', 'talkwyn' ) ),
+				),
+			),
+			array(
+				'behavior',
+				__( 'Engage visitors', 'talkwyn' ),
+				array(
+					array( __( 'Proactive messages', 'talkwyn' ), __( 'A short greeting by time on page, scroll depth or exit intent, on the URLs you choose.', 'talkwyn' ) ),
+					array( __( 'Business hours', 'talkwyn' ), __( 'An away status outside your hours, and lead-only mode while you are closed.', 'talkwyn' ) ),
+				),
+			),
+			array(
+				'bell',
+				__( 'Alerts and branding', 'talkwyn' ),
+				array(
+					array( __( 'Slack and Telegram alerts', 'talkwyn' ), __( 'Every new lead the moment it arrives.', 'talkwyn' ) ),
+					array( __( 'White label', 'talkwyn' ), __( 'Hide "Powered by Talkwyn", rename the admin menu, use your own logo and your own chat menu link.', 'talkwyn' ) ),
+					array( __( 'Settings export and import', 'talkwyn' ), __( 'Copy a setup to another site in one file.', 'talkwyn' ) ),
+				),
+			),
+		);
+		$soon = array(
+			__( 'Live human takeover', 'talkwyn' ),
+			__( 'Booking integrations', 'talkwyn' ),
+			__( 'WhatsApp channel', 'talkwyn' ),
+			__( 'Multiple bots', 'talkwyn' ),
+			__( 'Lead scoring', 'talkwyn' ),
+			__( 'AI conversation summaries', 'talkwyn' ),
+		);
+
+		echo '<section class="twa-prohero"><div><span class="twa-eyebrow">' . esc_html__( 'Talkwyn Pro', 'talkwyn' ) . '</span><h2>' . esc_html__( 'Everything you have now, plus these', 'talkwyn' ) . '</h2><p>' . esc_html__( 'Pro is a separate add-on. The free plugin keeps working on its own, and your settings, knowledge and leads stay if you try Pro and stop.', 'talkwyn' ) . '</p></div><div class="twa-prohero__cta"><a class="twa-btn twa-btn--red twa-btn--lg" href="' . esc_url( self::TRIAL_URL ) . '" target="_blank" rel="noopener">' . esc_html__( 'Start free 15-day trial', 'talkwyn' ) . '</a><a class="twa-btn twa-btn--ghost-light" href="' . esc_url( self::PRICING_URL ) . '" target="_blank" rel="noopener">' . esc_html__( 'Compare plans', 'talkwyn' ) . '</a></div></section>';
+
+		echo '<div class="twa-profeat">';
+		foreach ( $groups as $group ) {
+			echo '<section class="twa-card twa-profeat__group"><header class="twa-profeat__head"><span class="twa-chip-icon">' . self::icon( $group[0] ) . '</span><h3>' . esc_html( $group[1] ) . '</h3></header><ul>'; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- static SVG.
+			foreach ( $group[2] as $item ) {
+				echo '<li><span class="twa-profeat__badge">' . esc_html__( 'Pro', 'talkwyn' ) . '</span><div><strong>' . esc_html( $item[0] ) . '</strong><p>' . esc_html( $item[1] ) . '</p></div></li>';
+			}
+			echo '</ul></section>';
+		}
+		echo '</div>';
+
+		echo '<section class="twa-card twa-profeat__soon"><header class="twa-profeat__head"><span class="twa-chip-icon">' . self::icon( 'rocket' ) . '</span><div><h3>' . esc_html__( 'On the roadmap', 'talkwyn' ) . '</h3><p>' . esc_html__( 'Planned for Pro. Not available yet.', 'talkwyn' ) . '</p></div></header><ul>'; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- static SVG.
+		foreach ( $soon as $item ) {
+			echo '<li>' . esc_html( $item ) . '</li>';
+		}
+		echo '</ul></section>';
 	}
 
 	/**
