@@ -61,6 +61,7 @@ add_action(
 				. '<p>' . esc_html__( 'Log in to see your licenses, downloads, invoices, and partner dashboard.', 'talkwyn' ) . '</p></div>'
 				. talkwyn_modal_login_form() . '</dialog>';
 		}
+		if ( talkwyn_show_trial() ) {
 		$out .= '<dialog class="tw-modal tw-modal--trial" id="tw-modal-trial" aria-labelledby="tw-modal-trial-title">' . $close
 			. '<div class="tw-modal__head"><span class="tw-modal__badge">' . talkwyn_icon( 'sparkles', 16 ) . esc_html__( 'Free trial', 'talkwyn' ) . '</span>'
 			/* translators: %d: trial days */
@@ -68,7 +69,44 @@ add_action(
 			. '<p>' . esc_html__( 'Your license key arrives by email. Upgrade with the same key, or keep the free plan.', 'talkwyn' ) . '</p></div>'
 			. '<div class="tw-modal__body" data-tw-modal-body></div>'
 			. '<template data-tw-modal-tpl>' . talkwyn_modal_trial_form() . '</template></dialog>';
+		}
 		echo $out; // phpcs:ignore WordPress.Security.EscapingOutput.OutputNotEscaped -- built from escaped parts above.
 	},
 	20
+);
+
+/**
+ * Whether "Start free trial" buttons show for the current visitor. Talkwyn Hub answers through
+ * the talkwyn_show_trial_cta filter: logged out visitors always see them, a customer who already
+ * had a trial or holds a license does not.
+ */
+function talkwyn_show_trial(): bool {
+	return (bool) apply_filters( 'talkwyn_show_trial_cta', true );
+}
+
+/**
+ * Body class so trial buttons written into page content hide too.
+ */
+add_filter(
+	'body_class',
+	static function ( $classes ) {
+		if ( ! talkwyn_show_trial() ) {
+			$classes[] = 'tw-no-trial';
+		}
+		return $classes;
+	}
+);
+
+/**
+ * [tw_cta_line] The sentence under "Let your website do the talking." that fits the visitor.
+ */
+add_shortcode(
+	'tw_cta_line',
+	static function () {
+		if ( talkwyn_show_trial() ) {
+			/* translators: %d: trial days */
+			return esc_html( sprintf( __( 'Start your %d-day trial, scan your site, and see your first answer in about five minutes.', 'talkwyn' ), talkwyn_trial()['days'] ) );
+		}
+		return esc_html__( 'Install Talkwyn on another site, or pick the plan that fits your next project.', 'talkwyn' );
+	}
 );

@@ -373,15 +373,33 @@ add_shortcode(
 			array(
 				'post__not_in'   => array( $id ),
 				'category__in'   => $cats,
-				'posts_per_page' => 2,
+				'posts_per_page' => 3,
 			)
 		);
+		if ( count( $related ) < 3 ) {
+			$related = array_merge(
+				$related,
+				get_posts(
+					array(
+						'post__not_in'   => array_merge( array( $id ), wp_list_pluck( $related, 'ID' ) ),
+						'posts_per_page' => 3 - count( $related ),
+					)
+				)
+			);
+		}
 		if ( ! $related ) {
 			return '';
 		}
-		$html = '<aside class="tw-related"><h2>' . esc_html__( 'Keep reading', 'talkwyn' ) . '</h2><div class="tw-cards">';
+		$html = '<aside class="tw-related"><h2>' . esc_html__( 'Keep reading', 'talkwyn' ) . '</h2><div class="tw-related__grid">';
 		foreach ( $related as $post ) {
-			$html .= '<article class="tw-card"><h3>' . esc_html( get_the_title( $post ) ) . '</h3><p>' . esc_html( get_the_excerpt( $post ) ) . '</p><a class="tw-card__link" href="' . esc_url( get_permalink( $post ) ) . '">' . esc_html__( 'Read the article', 'talkwyn' ) . ' ' . talkwyn_icon( 'arrow-right', 18 ) . '</a></article>';
+			$cats_of = get_the_category( $post->ID );
+			$html   .= '<article class="tw-post-card">'
+				. ( has_post_thumbnail( $post ) ? '<div class="tw-post-card__img">' . get_the_post_thumbnail( $post, 'medium_large', array( 'alt' => '' ) ) . '</div>' : '' )
+				. '<div class="tw-post-card__body">'
+				. ( $cats_of ? '<span class="tw-post-card__cat">' . esc_html( $cats_of[0]->name ) . '</span>' : '' )
+				. '<h3><a class="tw-post-card__link" href="' . esc_url( get_permalink( $post ) ) . '">' . esc_html( get_the_title( $post ) ) . '</a></h3>'
+				. '<p>' . esc_html( wp_trim_words( get_the_excerpt( $post ), 20 ) ) . '</p>'
+				. '<span class="tw-post-card__more" aria-hidden="true">' . esc_html__( 'Read the article', 'talkwyn' ) . talkwyn_icon( 'arrow-right', 16 ) . '</span></div></article>';
 		}
 		return $html . '</div></aside>';
 	}
@@ -455,4 +473,42 @@ add_shortcode(
 			. '<div class="tw-nf__chat" aria-hidden="true"><div class="tw-vcard"><div class="tw-msg tw-msg--user"><p>' . esc_html__( 'Where did this page go?', 'talkwyn' ) . '</p></div><div class="tw-msg tw-msg--bot"><p>' . esc_html__( 'I could not find it. Here are the pages most people look for.', 'talkwyn' ) . '</p></div><span class="tw-nf__code">404</span></div></div>'
 			. '</div><div class="tw-nf__cards">' . $cards . '</div></section>';
 	}
+);
+
+/**
+ * Scheduled posts link to each other. Until a linked post is published, show the link text
+ * without the link, so readers never land on a 404; the link appears on its own once it goes live.
+ */
+add_filter(
+	'the_content',
+	static function ( $content ) {
+		if ( false === strpos( (string) $content, '/blog/' ) ) {
+			return $content;
+		}
+		static $hidden = null;
+		if ( null === $hidden ) {
+			$hidden = array();
+			foreach ( get_posts(
+				array(
+					'post_type'      => 'post',
+					'post_status'    => array( 'future', 'draft', 'pending', 'private' ),
+					'posts_per_page' => -1,
+					'fields'         => 'ids',
+				)
+			) as $id ) {
+				$hidden[] = (string) get_post_field( 'post_name', $id );
+			}
+		}
+		if ( ! $hidden ) {
+			return $content;
+		}
+		return (string) preg_replace_callback(
+			'#<a\b[^>]*href="[^"]*/blog/([a-z0-9-]+)/?(?:\#[^"]*)?"[^>]*>(.*?)</a>#is',
+			static function ( $m ) use ( $hidden ) {
+				return in_array( $m[1], $hidden, true ) ? $m[2] : $m[0];
+			},
+			(string) $content
+		);
+	},
+	20
 );

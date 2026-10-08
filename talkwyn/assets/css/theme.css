@@ -1230,3 +1230,49 @@ body .tw-page-head > .tw-page-head__card, .woocommerce-account .tw-page-head > .
 .tw-conv__solo { max-inline-size: 760px; margin-inline: auto; padding: clamp(18px, 3vw, 32px); border-radius: var(--tw-r-lg); background-color: #FFFFFF; background-image: radial-gradient(rgba(26, 15, 18, .06) 1px, transparent 1.6px); background-size: 18px 18px; box-sizing: border-box; }
 .tw-conv__solo .tw-chat { max-inline-size: 560px; margin-inline: auto; }
 .tw-conv__note { text-align: center; max-inline-size: 640px; margin-inline: auto !important; color: var(--tw-n-600); }
+/* Customers who already had a trial (or hold a license) never see trial buttons. */
+.tw-no-trial [data-tw-event="trial_click"], .tw-no-trial [data-tw-modal="trial"], .tw-no-trial a[href$="/pricing/#trial"].tw-pill { display: none !important; }
+/* v3.9 The first band of every page sits the same 12px under the header. */
+:root { --tw-top-gap: 12px; }
+main .tw-hero.tw-inset, main .tw-phero, main .tw-post-hero, main .tw-cart-head, main .tw-nf { margin-block-start: var(--tw-top-gap) !important; }
+main .tw-page-head { padding-block-start: var(--tw-top-gap) !important; margin-block-start: 0 !important; }
+main > .wp-block-post-content:first-child > :first-child, .tw-main--landing > .wp-block-post-content > :first-child { margin-block-start: var(--tw-top-gap) !important; }
+.tw-main--landing > .tw-crumbs-bar:has(+ .wp-block-post-content .tw-phero) { display: none; }
+.tw-main > .wp-block-post-content, .tw-main--landing > .wp-block-post-content { margin-block-start: 0 !important; }
+
+/* ===================== v3.9 Blog cards: cover image on top, the whole card is the link ===================== */
+.tw-post-grid .wp-block-post { position: relative; padding: 0 !important; overflow: hidden; background: #FFFFFF !important; box-shadow: 0 0 0 1px var(--tw-border); gap: 0 !important; }
+.tw-post-grid .wp-block-post:hover { box-shadow: 0 0 0 1px var(--tw-border), 0 18px 40px rgba(26, 15, 18, .10) !important; }
+.tw-post-grid .wp-block-post > :not(.tw-post-card__img) { margin-inline: 22px !important; }
+.tw-post-grid .wp-block-post > .wp-block-post-terms { margin-block-start: 18px !important; }
+.tw-post-grid .wp-block-post > .wp-block-post-title { margin-block-start: 10px !important; }
+.tw-post-grid .wp-block-post > .wp-block-post-excerpt { margin-block-start: 8px !important; color: var(--tw-n-600); }
+.tw-post-grid .wp-block-post > .wp-block-post-date { margin-block: auto 20px !important; padding-block-start: 12px; }
+.tw-post-grid .tw-post-card__img { margin: 0 !important; }
+.tw-post-grid .tw-post-card__img img { display: block; inline-size: 100%; block-size: auto; aspect-ratio: 16 / 9; object-fit: cover; transition: transform 500ms var(--tw-ease); }
+.tw-post-grid .wp-block-post:hover .tw-post-card__img img { transform: scale(1.03); }
+.tw-post-grid .wp-block-post-title a::after { content: ""; position: absolute; inset: 0; z-index: 1; }
+.tw-post-grid .wp-block-post-terms a { position: relative; z-index: 2; }
+.tw-post-grid .wp-block-post:has(a:focus-visible) { outline: 2px solid var(--tw-focus); outline-offset: 3px; }
+
+/* Related posts under an article */
+.tw-related { display: block !important; }
+.tw-related > h2 { text-align: center; margin: 0 0 24px; }
+.tw-related__grid { display: grid; gap: 20px; grid-template-columns: repeat(auto-fit, minmax(min(100%, 280px), 1fr)); }
+.tw-post-card { position: relative; display: flex; flex-direction: column; border-radius: var(--tw-r-lg); overflow: hidden; background: #FFFFFF; box-shadow: 0 0 0 1px var(--tw-border); transition: transform var(--tw-dur) var(--tw-ease), box-shadow var(--tw-dur) var(--tw-ease); }
+.tw-post-card:hover { transform: translateY(-3px); box-shadow: 0 0 0 1px var(--tw-border), 0 18px 40px rgba(26, 15, 18, .10); }
+.tw-post-card__img img { display: block; inline-size: 100%; block-size: auto; aspect-ratio: 16 / 9; object-fit: cover; }
+.tw-post-card__body { display: flex; flex-direction: column; gap: 8px; padding: 20px 22px 22px; flex: 1; }
+.tw-post-card__body > * { margin: 0; }
+.tw-post-card__cat { align-self: flex-start; padding: 4px 12px; border-radius: var(--tw-r-pill); background: var(--tw-red-50); color: var(--tw-red-700); font: 600 .8125rem/1.3 var(--tw-font-display); }
+.tw-post-card h3 { font-size: 1.125rem; line-height: 1.3; letter-spacing: -.01em; }
+.tw-post-card__link { color: var(--tw-ink); text-decoration: none; }
+.tw-post-card__link::after { content: ""; position: absolute; inset: 0; }
+.tw-post-card p { color: var(--tw-n-600); font-size: .9375rem; }
+.tw-post-card__more { margin-block-start: auto !important; padding-block-start: 6px; display: inline-flex; align-items: center; gap: 6px; color: var(--tw-red-700); font-weight: 600; font-size: .9375rem; }
+.tw-post-card:has(a:focus-visible) { outline: 2px solid var(--tw-focus); outline-offset: 3px; }
+
+/* Single post: the cover sits at the top of the article, figures look like illustration cards */
+.tw-post-body .wp-block-post-featured-image { margin: 0 0 32px !important; }
+.tw-post-body .wp-block-post-featured-image img { border-radius: 20px; box-shadow: 0 0 0 1px var(--tw-border); }
+.tw-post-body .wp-block-post-content > p.tw-lede:first-child { margin-block-start: 0; }

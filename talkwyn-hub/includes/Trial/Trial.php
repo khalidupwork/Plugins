@@ -49,6 +49,32 @@ final class Trial {
 		add_action( 'twh_license_issued', array( self::class, 'mark_card_trial' ), 10, 2 );
 		add_action( 'twh_license_renewed', array( self::class, 'end_card_trial_on_renewal' ), 5 );
 		add_action( 'admin_notices', array( self::class, 'notice_card_mode' ) );
+		add_filter( 'talkwyn_show_trial_cta', array( self::class, 'show_cta' ) );
+	}
+
+	/**
+	 * Whether the current visitor should see "Start free trial" buttons.
+	 * Visitors who are logged out always do. A logged-in customer does not once they
+	 * have had a trial on their email, or already hold any license.
+	 *
+	 * @param bool $show Current value.
+	 */
+	public static function show_cta( $show = true ): bool {
+		static $cache = null;
+		if ( ! $show || ! self::enabled() ) {
+			return false;
+		}
+		if ( ! is_user_logged_in() ) {
+			return true;
+		}
+		if ( null === $cache ) {
+			$user  = wp_get_current_user();
+			$email = TrialPolicy::canonical_email( (string) $user->user_email );
+			$cache = '' === Licenses::trial_exists( $email, '' )
+				&& '' === Licenses::trial_exists( strtolower( trim( (string) $user->user_email ) ), '' )
+				&& ! Licenses::for_customer( (int) $user->ID );
+		}
+		return $cache;
 	}
 
 	/**

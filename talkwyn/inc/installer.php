@@ -171,6 +171,15 @@ function talkwyn_setup_upsert( array $page, bool $overwrite, array &$report ): i
 		'post_content' => $page['content'],
 		'menu_order'   => (int) $page['order'],
 	);
+	// Posts with a date in the future are scheduled; WordPress publishes each one on its day.
+	$date = (string) ( $page['date'] ?? '' );
+	if ( '' !== $date && ( ! $existing || 'publish' !== $existing->post_status || strtotime( $date ) > time() ) ) {
+		$gmt                   = get_gmt_from_date( $date );
+		$data['post_date']     = $date;
+		$data['post_date_gmt'] = $gmt;
+		$data['edit_date']     = true;
+		$data['post_status']   = strtotime( $gmt . ' UTC' ) > time() ? 'future' : 'publish';
+	}
 	if ( $existing ) {
 		$data['ID'] = $existing->ID;
 		if ( ! $overwrite ) {
@@ -205,6 +214,12 @@ function talkwyn_setup_upsert( array $page, bool $overwrite, array &$report ): i
 	}
 	foreach ( (array) ( $page['meta'] ?? array() ) as $meta_key => $meta_value ) {
 		update_post_meta( $id, sanitize_key( (string) $meta_key ), sanitize_text_field( (string) $meta_value ) );
+	}
+	if ( ! empty( $page['image'] ) && ( ! has_post_thumbnail( $id ) || $overwrite ) ) {
+		$attachment = talkwyn_setup_cover( (string) $page['image'], (string) $page['title'], $id );
+		if ( $attachment ) {
+			set_post_thumbnail( $id, $attachment );
+		}
 	}
 	if ( 'post' === $type && ! empty( $page['category'] ) ) {
 		$cat = get_term_by( 'name', (string) $page['category'], 'category' );
@@ -277,3 +292,55 @@ add_action(
 		<?php
 	}
 );
+
+/**
+ * Import a cover image that ships with the theme (assets/blog/...) into the media library once,
+ * and reuse it on later runs.
+ *
+ * @param string $file   File name inside assets/blog.
+ * @param string $title  Post title, used for the alt text.
+ * @param int    $parent Post the image belongs to.
+ */
+function talkwyn_setup_cover( string $file, string $title, int $parent ): int {
+	$file = sanitize_file_name( $file );
+	$src  = TALKWYN_THEME_DIR . '/assets/blog/' . $file;
+	if ( '' === $file || ! file_exists( $src ) ) {
+		return 0;
+	}
+	$found = get_posts(
+		array(
+			'post_type'      => 'attachment',
+			'post_status'    => 'inherit',
+			'meta_key'       => '_tw_cover', // phpcs:ignore WordPress.DB.SlowDBQuery.slow_db_query_meta_key -- one lookup per import.
+			'meta_value'     => $file, // phpcs:ignore WordPress.DB.SlowDBQuery.slow_db_query_meta_value -- one lookup per import.
+			'posts_per_page' => 1,
+			'fields'         => 'ids',
+		)
+	);
+	if ( $found ) {
+		return (int) $found[0];
+	}
+	$upload = wp_upload_bits( $file, null, (string) file_get_contents( $src ) ); // phpcs:ignore WordPress.WP.AlternativeFunctions.file_get_contents_file_get_contents -- local theme file.
+	if ( ! empty( $upload['error'] ) ) {
+		return 0;
+	}
+	$type = wp_check_filetype( $upload['file'] );
+	$id   = wp_insert_attachment(
+		array(
+			'post_mime_type' => $type['type'],
+			'post_title'     => $title,
+			'post_status'    => 'inherit',
+		),
+		$upload['file'],
+		$parent
+	);
+	if ( ! $id || is_wp_error( $id ) ) {
+		return 0;
+	}
+	require_once ABSPATH . 'wp-admin/includes/image.php';
+	wp_update_attachment_metadata( $id, wp_generate_attachment_metadata( $id, $upload['file'] ) );
+	update_post_meta( $id, '_tw_cover', $file );
+	/* translators: %s: post title */
+	update_post_meta( $id, '_wp_attachment_image_alt', sprintf( __( 'Cover illustration for: %s', 'talkwyn' ), $title ) );
+	return (int) $id;
+}
