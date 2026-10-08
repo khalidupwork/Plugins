@@ -145,10 +145,17 @@ body.talkwyn-admin,
 	align-items: center;
 	justify-content: center;
 	gap: 8px;
-	min-height: 42px;
+	box-sizing: border-box;
+	height: 44px;
+	min-height: 0;
+	margin: 0;
 	padding: 0 20px;
 	border-radius: 999px;
 	border: 1px solid transparent;
+	white-space: nowrap;
+	vertical-align: middle;
+	align-self: center;
+	flex: none;
 	font-family: var(--body);
 	font-size: 14px;
 	font-weight: 700;
@@ -213,13 +220,13 @@ body.talkwyn-admin,
 }
 
 .twa .twa-btn--sm {
-	min-height: 34px;
+	height: 36px;
 	padding: 0 14px;
 	font-size: 13px;
 }
 
 .twa .twa-btn--lg {
-	min-height: 50px;
+	height: 52px;
 	padding: 0 26px;
 	font-size: 15px;
 }
@@ -752,6 +759,8 @@ label.twa-toggle {
 	}
 
 	.twa .twa-savebar .twa-btn {
+		height: auto;
+		min-height: 190px;
 		writing-mode: vertical-rl;
 		transform: rotate(180deg);
 		padding: 22px 14px;

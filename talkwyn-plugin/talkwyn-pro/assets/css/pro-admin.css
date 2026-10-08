@@ -44,10 +44,10 @@
 .twp-rank li { border-bottom: 1px dashed #EEE7E8; }
 /* License box from the SDK, in the Talkwyn style */
 .twa .talkwyn-license-box { max-width: none !important; border-radius: 24px !important; border-color: #EEE7E8 !important; padding: 22px 26px !important; }
-.twa .talkwyn-license-box .button { display: inline-flex; align-items: center; min-height: 40px; padding: 0 18px; border-radius: 999px; border: 1px solid #DDD3D5; background: #fff; color: #1A0F12; font-weight: 700; box-shadow: none; }
+.twa .talkwyn-license-box .button { display: inline-flex; align-items: center; justify-content: center; box-sizing: border-box; height: 44px; min-height: 0; padding: 0 20px; border-radius: 999px; border: 1px solid #DDD3D5; background: #fff; color: #1A0F12; font-size: 14px; font-weight: 700; line-height: 1; box-shadow: none; vertical-align: middle; }
 .twa .talkwyn-license-box .button-primary { background: #1A0F12; border-color: #1A0F12; color: #fff; }
 .twa .talkwyn-license-box .button:hover { border-color: #1A0F12; }
-.twa .talkwyn-license-box input[type=text] { max-width: 420px; }
+.twa .talkwyn-license-box input[type=text] { max-width: 420px; height: 44px; min-height: 0; box-sizing: border-box; vertical-align: middle; margin-inline-end: 8px; }
 
 .twp-nokey {
 	margin: 12px 0 24px;

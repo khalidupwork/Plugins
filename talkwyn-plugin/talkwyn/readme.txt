@@ -4,7 +4,7 @@ Tags: chatbot, ai chatbot, lead generation, multilingual, live chat
 Requires at least: 6.4
 Tested up to: 6.8
 Requires PHP: 8.0
-Stable tag: 2.2.1
+Stable tag: 2.2.2
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
@@ -109,6 +109,9 @@ In your WordPress database. Chats, leads and knowledge stay on your site. Messag
 
 == Changelog ==
 
+= 2.2.2 =
+* Changed: Buttons use three fixed sizes everywhere: small 36px, normal 44px, large 52px. Buttons in the same row match, and the header buttons all have icons.
+
 = 2.2.1 =
 * Changed: the admin tab bar has no scrollbar. When the tabs do not fit, left and right arrow buttons appear and the open tab is kept in view. The admin area is a little wider, so all tabs fit on most desktop screens.
 
@@ -156,6 +159,9 @@ In your WordPress database. Chats, leads and knowledge stay on your site. Messag
 * Fixed: a full scan removes knowledge of posts that no longer exist.
 
 == Upgrade Notice ==
+
+= 2.2.2 =
+Consistent button sizes in the admin.
 
 = 2.2.1 =
 Cleaner admin tab bar.

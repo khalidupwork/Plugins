@@ -1,4 +1,4 @@
-# Talkwyn 2.2.1 test checklist
+# Talkwyn 2.2.2 test checklist
 
 The full run, including Pro and migration, is in `../QA-CHECKLIST.md`. This list covers what changed in 2.1.0.
 
@@ -15,6 +15,7 @@ The full run, including Pro and migration, is in `../QA-CHECKLIST.md`. This list
 - [ ] Every tab loads without notices: Dashboard, Knowledge, AI providers, Appearance, Answers and leads, Leads, Conversations, Privacy.
 - [ ] Without a Pro license, a red "Pro features" tab lists six groups and the roadmap; both buttons open talkwyn.com. With a Pro license the tab is gone. Pro tips show an "All Pro features" link to it.
 - [ ] Tab bar has no scrollbar. On a wide screen all tabs fit and no arrows show. On a narrow screen (or with Pro tabs) a right arrow shows; clicking it scrolls and a left arrow appears. Opening the last tab keeps it in view.
+- [ ] Every button is 36, 44 or 52px tall, and buttons side by side are the same height (header, wizard Back and Continue, Pro card, Pro features, License).
 - [ ] Start free trial opens talkwyn.com/pricing/#trial. With Pro active, both trial and upgrade buttons hide.
 - [ ] Drag providers to reorder, save, reload: order kept. Arrow buttons work with the keyboard.
 - [ ] Appearance preview follows every setting without saving: launcher icon, avatar type and image, name, status, welcome, placeholder, suggestions, typing text, colour, position, header style, pulse, header buttons, menu items (click the three dots), message times, copy and feedback buttons, source links and badge.

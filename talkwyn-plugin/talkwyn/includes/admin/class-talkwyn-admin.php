@@ -267,8 +267,8 @@ class Talkwyn_Admin {
 	private static function hero_actions() {
 		$html = '<a class="twa-btn twa-btn--light" href="' . esc_url( admin_url( 'admin.php?page=talkwyn-setup' ) ) . '">' . self::icon( 'rocket' ) . esc_html__( 'Setup wizard', 'talkwyn' ) . '</a>';
 		if ( ! self::pro_active() ) {
-			$html .= '<a class="twa-btn twa-btn--red" href="' . esc_url( self::TRIAL_URL ) . '" target="_blank" rel="noopener">' . esc_html__( 'Start free trial', 'talkwyn' ) . '</a>';
-			$html .= '<a class="twa-btn twa-btn--ink" href="' . esc_url( self::PRICING_URL ) . '" target="_blank" rel="noopener">' . esc_html__( 'Upgrade to Pro', 'talkwyn' ) . '</a>';
+			$html .= '<a class="twa-btn twa-btn--red" href="' . esc_url( self::TRIAL_URL ) . '" target="_blank" rel="noopener">' . self::icon( 'profeatures' ) . esc_html__( 'Start free trial', 'talkwyn' ) . '</a>';
+			$html .= '<a class="twa-btn twa-btn--ink" href="' . esc_url( self::PRICING_URL ) . '" target="_blank" rel="noopener">' . self::icon( 'star' ) . esc_html__( 'Upgrade to Pro', 'talkwyn' ) . '</a>';
 		}
 		return $html;
 	}
@@ -548,7 +548,7 @@ class Talkwyn_Admin {
 			__( 'AI conversation summaries', 'talkwyn' ),
 		);
 
-		echo '<section class="twa-prohero"><div><span class="twa-eyebrow">' . esc_html__( 'Talkwyn Pro', 'talkwyn' ) . '</span><h2>' . esc_html__( 'Everything you have now, plus these', 'talkwyn' ) . '</h2><p>' . esc_html__( 'Pro is a separate add-on. The free plugin keeps working on its own, and your settings, knowledge and leads stay if you try Pro and stop.', 'talkwyn' ) . '</p></div><div class="twa-prohero__cta"><a class="twa-btn twa-btn--red twa-btn--lg" href="' . esc_url( self::TRIAL_URL ) . '" target="_blank" rel="noopener">' . esc_html__( 'Start free 15-day trial', 'talkwyn' ) . '</a><a class="twa-btn twa-btn--ghost-light" href="' . esc_url( self::PRICING_URL ) . '" target="_blank" rel="noopener">' . esc_html__( 'Compare plans', 'talkwyn' ) . '</a></div></section>';
+		echo '<section class="twa-prohero"><div><span class="twa-eyebrow">' . esc_html__( 'Talkwyn Pro', 'talkwyn' ) . '</span><h2>' . esc_html__( 'Everything you have now, plus these', 'talkwyn' ) . '</h2><p>' . esc_html__( 'Pro is a separate add-on. The free plugin keeps working on its own, and your settings, knowledge and leads stay if you try Pro and stop.', 'talkwyn' ) . '</p></div><div class="twa-prohero__cta"><a class="twa-btn twa-btn--red twa-btn--lg" href="' . esc_url( self::TRIAL_URL ) . '" target="_blank" rel="noopener">' . esc_html__( 'Start free 15-day trial', 'talkwyn' ) . '</a><a class="twa-btn twa-btn--ghost-light twa-btn--lg" href="' . esc_url( self::PRICING_URL ) . '" target="_blank" rel="noopener">' . esc_html__( 'Compare plans', 'talkwyn' ) . '</a></div></section>';
 
 		echo '<div class="twa-profeat">';
 		foreach ( $groups as $group ) {
@@ -763,7 +763,7 @@ class Talkwyn_Admin {
 			foreach ( $features as $f ) {
 				echo '<li>' . self::icon( 'check' ) . esc_html( $f ) . '</li>'; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- static SVG.
 			}
-			echo '</ul></div><div class="twa-procard__cta"><a class="twa-btn twa-btn--red twa-btn--lg" href="' . esc_url( self::TRIAL_URL ) . '" target="_blank" rel="noopener">' . esc_html__( 'Start free 15-day trial', 'talkwyn' ) . '</a><a class="twa-btn twa-btn--ghost-light" href="' . esc_url( self::PRICING_URL ) . '" target="_blank" rel="noopener">' . esc_html__( 'See plans', 'talkwyn' ) . '</a><span>' . esc_html__( 'No card needed for the trial.', 'talkwyn' ) . '</span></div></section>';
+			echo '</ul></div><div class="twa-procard__cta"><a class="twa-btn twa-btn--red twa-btn--lg" href="' . esc_url( self::TRIAL_URL ) . '" target="_blank" rel="noopener">' . esc_html__( 'Start free 15-day trial', 'talkwyn' ) . '</a><a class="twa-btn twa-btn--ghost-light twa-btn--lg" href="' . esc_url( self::PRICING_URL ) . '" target="_blank" rel="noopener">' . esc_html__( 'See plans', 'talkwyn' ) . '</a><span>' . esc_html__( 'No card needed for the trial.', 'talkwyn' ) . '</span></div></section>';
 		}
 	}
 

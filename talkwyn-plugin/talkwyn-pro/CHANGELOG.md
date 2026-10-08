@@ -1,5 +1,9 @@
 # Talkwyn Pro changelog
 
+## 1.2.1
+
+- License tab: key field and Activate button are 44px, matching the Talkwyn admin buttons.
+
 ## 1.2.0
 
 - License: a paid license that expires keeps Pro features on. Only updates and support stop until renewal. A trial that ended, or a key that is revoked or suspended, turns Pro features off. The 7-day grace period still covers times when talkwyn.com cannot be reached.

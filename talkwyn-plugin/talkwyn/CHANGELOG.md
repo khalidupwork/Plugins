@@ -1,5 +1,10 @@
 # Talkwyn changelog
 
+## 2.2.2
+
+### Changed
+- Buttons use three fixed sizes everywhere: small 36px, normal 44px, large 52px. Buttons in the same row match, and the header buttons all have icons. Wizard Back buttons match Continue, and plan links match the trial button next to them.
+
 ## 2.2.1
 
 ### Changed

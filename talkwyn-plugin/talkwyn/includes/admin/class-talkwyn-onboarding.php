@@ -138,7 +138,7 @@ class Talkwyn_Onboarding {
 		$next_label = '' !== $next_label ? $next_label : __( 'Continue', 'talkwyn' );
 		echo '<div class="twa-wizard__nav">';
 		if ( $step > 1 ) {
-			echo '<a class="twa-btn twa-btn--light" href="' . esc_url( self::url( $step - 1 ) ) . '">' . esc_html__( 'Back', 'talkwyn' ) . '</a>';
+			echo '<a class="twa-btn twa-btn--light twa-btn--lg" href="' . esc_url( self::url( $step - 1 ) ) . '">' . esc_html__( 'Back', 'talkwyn' ) . '</a>';
 		} else {
 			echo '<span></span>';
 		}
