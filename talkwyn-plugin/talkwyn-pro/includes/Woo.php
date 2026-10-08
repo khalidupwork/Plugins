@@ -25,7 +25,7 @@ final class Woo {
 			return;
 		}
 		add_filter( 'talkwyn_reply_extra', array( self::class, 'cards' ), 10, 3 );
-		add_filter( 'talkwyn_pre_reply', array( self::class, 'order_lookup' ), 8, 2 );
+		add_filter( 'talkwyn_before_answer', array( self::class, 'order_lookup' ), 8, 2 );
 	}
 
 	/**

@@ -40,7 +40,7 @@ class Talkwyn_Retriever {
 		 * @param int    $limit   Limit.
 		 * @param array  $context page_url, page_lang.
 		 */
-		return (array) apply_filters( 'talkwyn_retrieve', $out, $query, $limit, $context );
+		return (array) apply_filters( 'talkwyn_sources', $out, $query, $limit, $context );
 	}
 
 	/**

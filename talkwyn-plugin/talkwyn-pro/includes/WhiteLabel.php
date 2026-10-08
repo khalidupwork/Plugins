@@ -19,7 +19,7 @@ final class WhiteLabel {
 	 */
 	public static function init(): void {
 		add_filter(
-			'talkwyn_show_powered_by',
+			'talkwyn_show_badge',
 			static function ( $show ) {
 				return \Talkwyn_Settings::get( 'pro_hide_powered', 1 ) ? false : $show;
 			},

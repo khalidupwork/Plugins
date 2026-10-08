@@ -54,7 +54,13 @@ class Talkwyn_Settings {
 			'suggested_questions'      => "What do you offer?\nHow can I contact you?",
 			'hidden_page_ids'          => array(),
 			'hidden_url_paths'         => '',
-			'show_powered_by'          => 0,
+			'show_badge'               => 0,
+			'badge_ref'                => '',
+			'show_to'                  => 'all',
+			'devices'                  => 'all',
+			'widget_menu'              => 1,
+			'transcript_enabled'       => 1,
+			'language_menu'            => 1,
 
 			// Answers.
 			'system_prompt'            => 'You are a friendly website assistant for sales and support. Answer clearly and naturally. Use the supplied website knowledge only when it is relevant to the question, understand follow-up questions from the conversation, and ask a short clarifying question when needed. Never invent business information.',
@@ -156,7 +162,7 @@ class Talkwyn_Settings {
 	 */
 	public static function schema() {
 		$schema = array(
-			'bool'     => array( 'enabled', 'full_screen_enabled', 'mobile_full_screen', 'show_minimize_button', 'show_reset_button', 'show_sound_button', 'sound_default', 'show_timestamps', 'show_message_tools', 'feedback_enabled', 'show_sources', 'show_powered_by', 'multilingual_enabled', 'lead_enabled', 'lead_ask_first', 'smart_lead_intent', 'lead_require_name', 'lead_require_email', 'lead_require_phone', 'lead_consent_enabled', 'handoff_enabled', 'auto_index_on_save', 'index_custom_fields', 'logs_enabled', 'trusted_proxy', 'delete_data_on_uninstall' ),
+			'bool'     => array( 'enabled', 'full_screen_enabled', 'mobile_full_screen', 'show_minimize_button', 'show_reset_button', 'show_sound_button', 'sound_default', 'show_timestamps', 'show_message_tools', 'feedback_enabled', 'show_sources', 'show_badge', 'widget_menu', 'transcript_enabled', 'language_menu', 'multilingual_enabled', 'lead_enabled', 'lead_ask_first', 'smart_lead_intent', 'lead_require_name', 'lead_require_email', 'lead_require_phone', 'lead_consent_enabled', 'handoff_enabled', 'auto_index_on_save', 'index_custom_fields', 'logs_enabled', 'trusted_proxy', 'delete_data_on_uninstall' ),
 			'int'      => array( 'chat_width', 'chat_height', 'max_history', 'max_context_chunks', 'lead_after_messages', 'lead_rate_limit_per_hour', 'retention_days', 'rate_limit_per_hour' ),
 			'textarea' => array( 'welcome_message', 'suggested_questions', 'hidden_url_paths', 'system_prompt', 'fallback_message', 'lead_success', 'privacy_notice', 'custom_field_allowlist', 'lead_consent_text', 'lead_decline_reply', 'lead_form_intro' ),
 			'email'    => array( 'notification_email' ),
@@ -202,6 +208,8 @@ class Talkwyn_Settings {
 			'position'      => array( 'right', 'left' ),
 			'launcher_icon' => array( 'talkwyn', 'spark_chat', 'chat_dots', 'headset', 'question' ),
 			'avatar_type'   => array( 'talkwyn', 'initials', 'headset', 'chat', 'custom' ),
+			'show_to'       => array( 'all', 'logged_in', 'logged_out' ),
+			'devices'       => array( 'all', 'desktop', 'mobile' ),
 		);
 	}
 

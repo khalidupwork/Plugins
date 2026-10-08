@@ -40,6 +40,7 @@ final class Plugin {
 		}
 
 		Api\RestController::init();
+		Api\Subscribe::init();
 		Cron\Daily::init();
 
 		if ( class_exists( 'WooCommerce' ) ) {

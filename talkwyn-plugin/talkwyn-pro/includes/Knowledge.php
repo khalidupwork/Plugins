@@ -23,7 +23,7 @@ final class Knowledge {
 	 * Hooks.
 	 */
 	public static function init(): void {
-		add_filter( 'talkwyn_pre_reply', array( self::class, 'pre_reply' ), 5, 2 );
+		add_filter( 'talkwyn_before_answer', array( self::class, 'pre_reply' ), 5, 2 );
 		add_action( 'admin_post_talkwyn_pro_qa_save', array( self::class, 'qa_save' ) );
 		add_action( 'admin_post_talkwyn_pro_qa_delete', array( self::class, 'qa_delete' ) );
 		add_action( 'admin_post_talkwyn_pro_upload', array( self::class, 'upload' ) );

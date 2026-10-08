@@ -95,6 +95,15 @@ class Talkwyn_REST {
 				'permission_callback' => $public,
 			)
 		);
+		register_rest_route(
+			self::NS,
+			'/transcript',
+			array(
+				'methods'             => 'POST',
+				'callback'            => array( __CLASS__, 'transcript' ),
+				'permission_callback' => $public,
+			)
+		);
 
 		/**
 		 * Fires after Talkwyn registered its REST routes.
@@ -250,6 +259,7 @@ class Talkwyn_REST {
 			'phone'   => sanitize_text_field( (string) $req->get_param( 'phone' ) ),
 			'consent' => (bool) $req->get_param( 'consent' ),
 			'website' => (string) $req->get_param( 'website' ),
+			'elapsed' => null === $req->get_param( 'elapsed' ) ? -1 : (int) $req->get_param( 'elapsed' ),
 		);
 		$check = Talkwyn_Leads::validate( $in, $s );
 		if ( $check['spam'] ) {
@@ -361,6 +371,12 @@ class Talkwyn_REST {
 					),
 				)
 			);
+		} elseif ( 'name' === $type ) {
+			$name = Talkwyn_Text::sub( sanitize_text_field( (string) $req->get_param( 'value' ) ), 0, 60 );
+			Talkwyn_History::set_flag( $session, 'visitor_name', $name );
+		} elseif ( 'lang' === $type ) {
+			$lang = sanitize_key( (string) $req->get_param( 'value' ) );
+			Talkwyn_History::set_flag( $session, 'reply_lang', array_key_exists( $lang, Talkwyn_Frontend::languages() ) ? $lang : '' );
 		} elseif ( 'lead_no' === $type ) {
 			Talkwyn_History::set_flag( $session, 'lead_declined', 1 );
 			Talkwyn_History::add(
@@ -389,6 +405,82 @@ class Talkwyn_REST {
 			do_action( 'talkwyn_widget_event', $type, $session, $req );
 		}
 		return self::response( array( 'ok' => true ) );
+	}
+
+	/**
+	 * POST /transcript: email the conversation to the visitor. With consent, the
+	 * email is saved as a lead with source "transcript".
+	 *
+	 * @param WP_REST_Request $req Request.
+	 * @return WP_REST_Response
+	 */
+	public static function transcript( WP_REST_Request $req ) {
+		$session = self::guard( $req );
+		if ( $session instanceof WP_REST_Response ) {
+			return $session;
+		}
+		$s = Talkwyn_Settings::all();
+		if ( empty( $s['transcript_enabled'] ) ) {
+			return self::error( 'talkwyn_transcript_off', __( 'Email transcripts are turned off.', 'talkwyn' ), 403 );
+		}
+		$ip = Talkwyn_Rate_Limiter::client_ip( ! empty( $s['trusted_proxy'] ) );
+		if ( ! Talkwyn_Rate_Limiter::hit( 'lead', $ip, absint( $s['lead_rate_limit_per_hour'] ) ) ) {
+			return self::error( 'talkwyn_rate', __( 'Too many requests. Please try again later.', 'talkwyn' ), 429 );
+		}
+		$in    = array(
+			'name'    => (string) ( Talkwyn_History::flags( $session )['visitor_name'] ?? '' ),
+			'email'   => sanitize_email( (string) $req->get_param( 'email' ) ),
+			'consent' => (bool) $req->get_param( 'consent' ),
+			'website' => (string) $req->get_param( 'website' ),
+			'elapsed' => null === $req->get_param( 'elapsed' ) ? -1 : (int) $req->get_param( 'elapsed' ),
+		);
+		$rules = array(
+			'lead_require_name'    => 0,
+			'lead_require_email'   => 1,
+			'lead_require_phone'   => 0,
+			'lead_consent_enabled' => 1,
+		);
+		$check = Talkwyn_Leads::validate( $in, $rules );
+		if ( $check['spam'] ) {
+			return self::response( array( 'message' => __( 'Transcript sent.', 'talkwyn' ) ) );
+		}
+		if ( ! $check['ok'] ) {
+			return self::error( 'talkwyn_transcript_invalid', $check['error'], 400 );
+		}
+		$entries = Talkwyn_History::get( $session );
+		if ( ! $entries ) {
+			return self::error( 'talkwyn_transcript_empty', __( 'There is nothing to send yet.', 'talkwyn' ), 400 );
+		}
+		list( $page_url ) = self::page( $req );
+		Talkwyn_Leads::save(
+			array_merge(
+				$in,
+				array(
+					'session_id' => $session,
+					'message'    => Talkwyn_Chat::last_question( $session ),
+					'page_url'   => $page_url,
+					'source'     => 'transcript',
+				)
+			)
+		);
+		$site  = wp_strip_all_tags( get_bloginfo( 'name' ) );
+		$bot   = Talkwyn_I18n::get( 'bot_name' );
+		$lines = array();
+		foreach ( $entries as $entry ) {
+			if ( '' === trim( (string) $entry['content'] ) ) {
+				continue;
+			}
+			$who     = 'user' === $entry['role'] ? __( 'You', 'talkwyn' ) : $bot;
+			$lines[] = $who . ' (' . wp_date( (string) get_option( 'time_format' ), (int) $entry['time'] ) . '):' . "\n" . Talkwyn_Markdown::plain( (string) $entry['content'] );
+		}
+		/* translators: %s: site name */
+		$subject = sprintf( __( 'Your chat with %s', 'talkwyn' ), $site );
+		$body    = implode( "\n\n", $lines ) . "\n\n" . home_url( '/' );
+		$sent    = wp_mail( $in['email'], $subject, $body );
+		if ( ! $sent ) {
+			return self::error( 'talkwyn_transcript_mail', __( 'We could not send the email. Please try again later.', 'talkwyn' ), 500 );
+		}
+		return self::response( array( 'message' => __( 'Transcript sent. Check your inbox.', 'talkwyn' ) ) );
 	}
 
 	/**

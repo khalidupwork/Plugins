@@ -662,20 +662,13 @@ html.twc-lock body {
 	line-height: 1.4;
 }
 
-.twc-handoff,
-.twc-powered {
-	color: var(--twc-muted);
-	font-weight: 600;
-	text-decoration: none;
-}
-
 .twc-handoff {
+	font-weight: 600;
 	color: var(--twc-ink);
 	text-decoration: underline;
 	text-decoration-color: var(--twc-brand);
 }
 
-.twc-powered:hover,
 .twc-handoff:hover {
 	color: var(--twc-ink);
 }
@@ -835,6 +828,131 @@ html.twc-lock body {
 	stroke-width: 3;
 	stroke-linecap: round;
 	stroke-linejoin: round;
+}
+
+/* Widget menu */
+.twc-panel {
+	position: relative;
+}
+
+.twc-menu {
+	position: absolute;
+	inset-block-start: 64px;
+	inset-inline-end: 12px;
+	z-index: 5;
+	min-width: 230px;
+	background: var(--twc-surface);
+	border: 1px solid var(--twc-border);
+	border-radius: 16px;
+	box-shadow: 0 16px 40px rgba(26, 15, 18, .16);
+	padding: 6px;
+	display: flex;
+	flex-direction: column;
+	animation: twc-in 160ms var(--twc-ease);
+}
+
+.twc-menu[hidden] {
+	display: none;
+}
+
+.twc .twc-menu__item {
+	display: flex;
+	align-items: center;
+	gap: 10px;
+	width: 100%;
+	padding: 10px 12px;
+	border-radius: 10px;
+	font-size: 14px;
+	font-weight: 500;
+	color: var(--twc-ink);
+	text-decoration: none;
+	text-align: start;
+	line-height: 1.3;
+}
+
+.twc .twc-menu__item:hover,
+.twc .twc-menu__item:focus-visible {
+	background: var(--twc-linen);
+	outline: 0;
+}
+
+.twc-menu__item svg {
+	width: 18px;
+	height: 18px;
+	flex: 0 0 18px;
+	fill: none;
+	stroke: currentColor;
+	stroke-width: 2;
+	stroke-linecap: round;
+	stroke-linejoin: round;
+	color: var(--twc-muted);
+}
+
+.twc-menu__item[data-id="add_chat"] {
+	border-top: 1px solid var(--twc-border);
+	border-radius: 0 0 10px 10px;
+	margin-top: 4px;
+	color: var(--twc-brand);
+}
+
+.twc-menu__item[data-id="add_chat"] svg {
+	color: var(--twc-brand);
+}
+
+.twc-head-btn svg circle {
+	fill: currentColor;
+	stroke: none;
+}
+
+.twc-sheet {
+	align-items: stretch;
+}
+
+.twc-sheet .twc-offer__actions {
+	margin-top: 2px;
+}
+
+.twc-langs {
+	display: flex;
+	flex-wrap: wrap;
+	gap: 6px;
+}
+
+.twc .twc-langs .twc-chip {
+	padding: 6px 12px;
+	font-size: 13px;
+}
+
+.twc .twc-chip.is-on {
+	background: var(--twc-ink);
+	border-color: var(--twc-ink);
+	color: #FFFFFF;
+}
+
+/* "Powered by Talkwyn" badge: a Linen pill */
+.twc .twc-badge {
+	display: inline-flex;
+	align-items: center;
+	gap: 6px;
+	padding: 4px 10px 4px 8px;
+	border-radius: 999px;
+	background: var(--twc-linen);
+	color: var(--twc-muted);
+	font-size: 11.5px;
+	font-weight: 600;
+	text-decoration: none;
+	line-height: 1.2;
+	margin-inline-start: auto;
+}
+
+.twc .twc-badge:hover {
+	color: var(--twc-ink);
+}
+
+.twc-badge svg {
+	width: 13px;
+	height: 13px;
+	fill: #D7263D;
 }
 
 /* Small screens */

@@ -5,7 +5,7 @@
  * Description:       AI chatbot that learns your website in one click, answers visitors in their language, and captures leads. Works with free AI provider tiers.
  * Version:           2.0.0
  * Requires at least: 6.4
- * Requires PHP:      7.4
+ * Requires PHP:      8.0
  * Author:            Talkwyn
  * Author URI:        https://talkwyn.com/
  * License:           GPLv2 or later

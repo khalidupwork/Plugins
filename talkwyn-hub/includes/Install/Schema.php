@@ -14,7 +14,7 @@ defined( 'ABSPATH' ) || exit;
  */
 final class Schema {
 
-	public const TABLES = array( 'products', 'releases', 'licenses', 'activations', 'events', 'partners', 'referral_visits', 'referrals', 'payouts' );
+	public const TABLES = array( 'products', 'releases', 'licenses', 'activations', 'events', 'partners', 'referral_visits', 'referrals', 'payouts', 'subscribers' );
 
 	/**
 	 * Full table name.
@@ -216,6 +216,21 @@ final class Schema {
   created_at datetime NOT NULL,
   PRIMARY KEY  (id),
   KEY partner_id (partner_id)
+) $charset;";
+
+		$sql[] = "CREATE TABLE {$p}subscribers (
+  id bigint(20) unsigned NOT NULL AUTO_INCREMENT,
+  email varchar(190) NOT NULL,
+  site_url varchar(255) NOT NULL DEFAULT '',
+  source varchar(40) NOT NULL DEFAULT '',
+  locale varchar(20) NOT NULL DEFAULT '',
+  ip_hash varchar(64) NOT NULL DEFAULT '',
+  status varchar(20) NOT NULL DEFAULT 'subscribed',
+  created_at datetime NOT NULL,
+  updated_at datetime NOT NULL,
+  PRIMARY KEY  (id),
+  UNIQUE KEY email (email),
+  KEY status (status)
 ) $charset;";
 
 		foreach ( $sql as $statement ) {

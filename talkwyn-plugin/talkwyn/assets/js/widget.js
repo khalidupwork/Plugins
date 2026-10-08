@@ -259,8 +259,20 @@
 			root.setAttribute( 'dir', 'rtl' );
 		}
 
+		if ( mode === 'floating' && cfg.devices && cfg.devices !== 'all' ) {
+			var small = window.matchMedia( '(max-width: 782px)' ).matches;
+			if ( ( cfg.devices === 'desktop' && small ) || ( cfg.devices === 'mobile' && ! small ) ) {
+				root.hidden = true;
+			}
+		}
+		var savedLang = store.get( 'talkwyn_lang' ) || '';
+		if ( savedLang && cfg.languages && cfg.languages[ savedLang ] && cfg.languages[ savedLang ].rtl ) {
+			root.setAttribute( 'dir', 'rtl' );
+		}
+
 		renderFoot();
 		renderSound();
+		setupMenu();
 
 		if ( launcher ) {
 			launcher.addEventListener( 'click', function () {
@@ -457,6 +469,260 @@
 				soundBtn.classList.toggle( 'is-muted', ! soundOn );
 				soundBtn.setAttribute( 'aria-pressed', soundOn ? 'true' : 'false' );
 			}
+			var item = root.querySelector( '.twc-menu [data-id="sound"]' );
+			if ( item ) {
+				item.querySelector( 'span' ).textContent = soundOn ? T.soundOn : T.soundOff;
+				item.setAttribute( 'aria-checked', soundOn ? 'true' : 'false' );
+			}
+		}
+
+		/* ---------- Menu ---------- */
+
+		function menuIcon( id ) {
+			var icons = {
+				name: '<circle cx="12" cy="8" r="4"/><path d="M4 21a8 8 0 0 1 16 0"/>',
+				transcript: '<rect x="3" y="5" width="18" height="14" rx="2"/><path d="m3 7 9 6 9-6"/>',
+				sound: '<path d="M11 5 6 9H3v6h3l5 4V5Z"/><path d="M15 9.5a4 4 0 0 1 0 5"/>',
+				language: '<circle cx="12" cy="12" r="9"/><path d="M3 12h18"/><path d="M12 3a14 14 0 0 1 0 18a14 14 0 0 1 0-18"/>',
+				popout: '<path d="M14 4h6v6"/><path d="M20 4 11 13"/><path d="M19 14v5a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1V6a1 1 0 0 1 1-1h5"/>',
+				reset: '<path d="M4 4v6h6"/><path d="M5.5 15a7.5 7.5 0 1 0 .8-7.7L4 10"/>',
+				add_chat: '<path d="M12 5v14"/><path d="M5 12h14"/>'
+			};
+			return '<svg viewBox="0 0 24 24" aria-hidden="true">' + ( icons[ id ] || '<circle cx="12" cy="12" r="2"/>' ) + '</svg>';
+		}
+
+		function setupMenu() {
+			var btn = root.querySelector( '.twc-menu-btn' );
+			var box = root.querySelector( '.twc-menu' );
+			if ( ! btn || ! box ) {
+				return;
+			}
+			( cfg.menu || [] ).forEach( function ( item ) {
+				if ( item.id === 'popout' && root.classList.contains( 'twc--popout' ) ) {
+					return;
+				}
+				var b = el( item.url ? 'a' : 'button', 'twc-menu__item' );
+				if ( item.url ) {
+					b.href = item.url;
+					b.target = '_blank';
+					b.rel = 'nofollow noopener';
+				} else {
+					b.type = 'button';
+				}
+				b.setAttribute( 'role', item.id === 'sound' ? 'menuitemcheckbox' : 'menuitem' );
+				b.setAttribute( 'data-id', item.id );
+				b.innerHTML = menuIcon( item.id );
+				b.appendChild( el( 'span', '', item.label ) );
+				b.addEventListener( 'click', function () {
+					closeMenu();
+					runMenu( item );
+				} );
+				box.appendChild( b );
+			} );
+			renderSound();
+			btn.addEventListener( 'click', function ( e ) {
+				e.stopPropagation();
+				if ( box.hidden ) {
+					box.hidden = false;
+					btn.setAttribute( 'aria-expanded', 'true' );
+					var first = box.querySelector( '.twc-menu__item' );
+					if ( first ) {
+						first.focus();
+					}
+				} else {
+					closeMenu();
+				}
+			} );
+			document.addEventListener( 'click', function ( e ) {
+				if ( ! box.hidden && ! box.contains( e.target ) ) {
+					closeMenu();
+				}
+			} );
+			box.addEventListener( 'keydown', function ( e ) {
+				var items = Array.prototype.slice.call( box.querySelectorAll( '.twc-menu__item' ) );
+				var i = items.indexOf( document.activeElement );
+				if ( e.key === 'ArrowDown' || e.key === 'ArrowUp' ) {
+					e.preventDefault();
+					items[ ( i + ( e.key === 'ArrowDown' ? 1 : -1 ) + items.length ) % items.length ].focus();
+				} else if ( e.key === 'Escape' ) {
+					e.stopPropagation();
+					closeMenu();
+					btn.focus();
+				}
+			} );
+			function closeMenu() {
+				box.hidden = true;
+				btn.setAttribute( 'aria-expanded', 'false' );
+			}
+		}
+
+		function runMenu( item ) {
+			if ( item.url ) {
+				return;
+			}
+			if ( ! opened ) {
+				open( true );
+			}
+			switch ( item.id ) {
+				case 'name':
+					nameForm();
+					break;
+				case 'transcript':
+					transcriptForm();
+					break;
+				case 'sound':
+					soundOn = ! soundOn;
+					store.set( 'talkwyn_sound', soundOn ? '1' : '0' );
+					renderSound();
+					if ( soundOn ) {
+						beep();
+					}
+					break;
+				case 'language':
+					languagePicker();
+					break;
+				case 'popout':
+					window.open( cfg.popoutUrl, 'talkwyn_chat', 'width=460,height=760,noopener=no' );
+					close();
+					break;
+				case 'reset':
+					reset();
+					break;
+				default:
+					emit( 'menu', { id: item.id, item: item } );
+			}
+		}
+
+		function card( cls, title ) {
+			var old = messages.querySelector( '.twc-sheet' );
+			if ( old ) {
+				old.remove();
+			}
+			var wrap = el( 'div', 'twc-msg twc-msg--bot twc-sheet ' + cls );
+			var f = el( 'form', 'twc-lead__form' );
+			f.noValidate = true;
+			f.appendChild( el( 'strong', 'twc-lead__title', title ) );
+			wrap.appendChild( f );
+			messages.appendChild( wrap );
+			scroll();
+			return { wrap: wrap, form: f, shown: Date.now() };
+		}
+
+		function actions( f, label ) {
+			var row = el( 'div', 'twc-offer__actions' );
+			var ok = el( 'button', 'twc-btn twc-btn--brand', label );
+			ok.type = 'submit';
+			var no = el( 'button', 'twc-btn twc-btn--ghost', T.cancel );
+			no.type = 'button';
+			row.appendChild( ok );
+			row.appendChild( no );
+			f.appendChild( row );
+			var note = el( 'p', 'twc-lead__note' );
+			note.setAttribute( 'role', 'alert' );
+			f.appendChild( note );
+			return { ok: ok, no: no, note: note };
+		}
+
+		function nameForm() {
+			var c = card( 'twc-sheet--name', T.yourName );
+			var input = field( 'name', T.yourName, true, 'text' );
+			input.querySelector( 'input' ).value = store.get( 'talkwyn_name' ) || '';
+			c.form.appendChild( input );
+			var a = actions( c.form, T.save );
+			a.no.addEventListener( 'click', function () {
+				c.wrap.remove();
+			} );
+			c.form.addEventListener( 'submit', function ( e ) {
+				e.preventDefault();
+				var name = input.querySelector( 'input' ).value.trim().slice( 0, 60 );
+				if ( ! name ) {
+					return;
+				}
+				store.set( 'talkwyn_name', name );
+				request( 'event', { type: 'name', value: name } ).catch( function () {} );
+				c.wrap.remove();
+				addMessage( 'assistant', null, { text: T.nameSaved.replace( '%s', name ), tools: false } );
+			} );
+			setTimeout( function () {
+				input.querySelector( 'input' ).focus();
+			}, 60 );
+		}
+
+		function transcriptForm() {
+			var c = card( 'twc-sheet--transcript', T.transcriptTitle );
+			var email = field( 'email', T.email, true, 'email' );
+			c.form.appendChild( email );
+			var hp = el( 'label', 'twc-hp' );
+			hp.setAttribute( 'aria-hidden', 'true' );
+			var hpi = el( 'input' );
+			hpi.name = 'website';
+			hpi.tabIndex = -1;
+			hpi.autocomplete = 'off';
+			hp.appendChild( hpi );
+			c.form.appendChild( hp );
+			var consent = el( 'label', 'twc-consent' );
+			var cb = el( 'input' );
+			cb.type = 'checkbox';
+			cb.required = true;
+			consent.appendChild( cb );
+			consent.appendChild( el( 'span', '', T.transcriptConsent ) );
+			c.form.appendChild( consent );
+			var a = actions( c.form, T.transcriptSend );
+			a.no.addEventListener( 'click', function () {
+				c.wrap.remove();
+			} );
+			c.form.addEventListener( 'submit', function ( e ) {
+				e.preventDefault();
+				a.note.textContent = '';
+				a.ok.disabled = true;
+				request( 'transcript', { email: email.querySelector( 'input' ).value, consent: cb.checked, website: hpi.value, elapsed: Date.now() - c.shown, page_url: location.href } ).then( function ( j ) {
+					c.wrap.remove();
+					addMessage( 'assistant', null, { text: j.message, tools: false } );
+				} ).catch( function ( err ) {
+					a.note.textContent = ( err && err.data && err.data.message ) || T.leadError;
+					a.ok.disabled = false;
+				} );
+			} );
+			setTimeout( function () {
+				email.querySelector( 'input' ).focus();
+			}, 60 );
+		}
+
+		function languagePicker() {
+			var c = card( 'twc-sheet--lang', T.language || '' );
+			c.form.querySelector( '.twc-lead__title' ).textContent = ( cfg.menu || [] ).filter( function ( i ) {
+				return i.id === 'language';
+			} ).map( function ( i ) {
+				return i.label;
+			} )[ 0 ] || '';
+			var grid = el( 'div', 'twc-langs' );
+			var current = store.get( 'talkwyn_lang' ) || '';
+			var pick = function ( code ) {
+				store.set( 'talkwyn_lang', code );
+				var info = code && cfg.languages[ code ];
+				root.setAttribute( 'dir', info && info.rtl ? 'rtl' : ( /^(ar|ur|fa|he)\b/i.test( pageLang() ) ? 'rtl' : 'ltr' ) );
+				request( 'event', { type: 'lang', value: code } ).catch( function () {} );
+				c.wrap.remove();
+				if ( info ) {
+					addMessage( 'assistant', null, { text: T.languageSet.replace( '%s', info.native ), tools: false } );
+				}
+			};
+			var auto = el( 'button', 'twc-chip' + ( current ? '' : ' is-on' ), T.autoLanguage );
+			auto.type = 'button';
+			auto.addEventListener( 'click', function () {
+				pick( '' );
+			} );
+			grid.appendChild( auto );
+			Object.keys( cfg.languages || {} ).forEach( function ( code ) {
+				var b = el( 'button', 'twc-chip' + ( current === code ? ' is-on' : '' ), cfg.languages[ code ].native );
+				b.type = 'button';
+				b.lang = code;
+				b.addEventListener( 'click', function () {
+					pick( code );
+				} );
+				grid.appendChild( b );
+			} );
+			c.form.appendChild( grid );
 		}
 
 		function beep() {
@@ -495,11 +761,13 @@
 			if ( T.privacy ) {
 				foot.appendChild( el( 'p', 'twc-privacy', T.privacy ) );
 			}
-			if ( cfg.poweredBy ) {
-				var p = el( 'a', 'twc-powered', T.poweredBy );
-				p.href = cfg.poweredUrl;
+			if ( cfg.badge ) {
+				var p = el( 'a', 'twc-badge' );
+				p.href = cfg.badgeUrl;
 				p.target = '_blank';
-				p.rel = 'noopener';
+				p.rel = 'nofollow noopener';
+				p.innerHTML = '<svg viewBox="0 0 32 32" aria-hidden="true"><path d="M8 4.5h16A5.5 5.5 0 0 1 29.5 10v10A5.5 5.5 0 0 1 24 25.5H13.5L7.5 30v-4.6A5.5 5.5 0 0 1 2.5 20V10A5.5 5.5 0 0 1 8 4.5Z"/></svg>';
+				p.appendChild( el( 'span', '', T.poweredBy ) );
 				foot.appendChild( p );
 			}
 		}
@@ -801,6 +1069,10 @@
 				f.appendChild( ts );
 				renderTurnstile( ts );
 			}
+			var shownAt = Date.now();
+			if ( store.get( 'talkwyn_name' ) ) {
+				f.querySelector( 'input[name="name"]' ).value = store.get( 'talkwyn_name' );
+			}
 			var submit = el( 'button', 'twc-btn twc-btn--brand twc-btn--block', T.leadButton );
 			submit.type = 'submit';
 			f.appendChild( submit );
@@ -811,7 +1083,7 @@
 				e.preventDefault();
 				note.textContent = '';
 				var fe = f.elements;
-				var data = { name: fe.namedItem( 'name' ).value, email: fe.namedItem( 'email' ).value, phone: fe.namedItem( 'phone' ).value, website: hpi.value, consent: F.consent ? fe.namedItem( 'consent' ).checked : true, page_url: location.href };
+				var data = { name: fe.namedItem( 'name' ).value, email: fe.namedItem( 'email' ).value, phone: fe.namedItem( 'phone' ).value, website: hpi.value, consent: F.consent ? fe.namedItem( 'consent' ).checked : true, elapsed: Date.now() - shownAt, page_url: location.href };
 				if ( ts ) {
 					var tsi = f.querySelector( '[name="cf-turnstile-response"]' );
 					data.turnstile = tsi ? tsi.value : '';

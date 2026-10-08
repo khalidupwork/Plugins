@@ -19,7 +19,7 @@ final class Alerts {
 	 * Hooks.
 	 */
 	public static function init(): void {
-		add_action( 'talkwyn_lead_saved', array( self::class, 'send' ), 10, 2 );
+		add_action( 'talkwyn_lead_created', array( self::class, 'send' ), 10, 2 );
 		add_action( 'wp_ajax_talkwyn_pro_test_alert', array( self::class, 'ajax_test' ) );
 	}
 

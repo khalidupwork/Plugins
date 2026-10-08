@@ -13,14 +13,21 @@ defined( 'ABSPATH' ) || exit;
 class Talkwyn_Leads {
 
 	/**
+	 * Minimum time between showing and sending a form, in milliseconds.
+	 */
+	const MIN_FILL_MS = 2500;
+
+	/**
 	 * Validate submitted lead fields. Pure function, unit tested.
 	 *
-	 * @param array $in Fields: name, email, phone, consent, website (honeypot).
+	 * @param array $in Fields: name, email, phone, consent, website (honeypot), elapsed (ms the form was open).
 	 * @param array $s  Settings.
 	 * @return array{ok:bool,error:string,spam:bool}
 	 */
 	public static function validate( array $in, array $s ) {
-		if ( '' !== trim( (string) ( $in['website'] ?? '' ) ) ) {
+		// Honeypot filled, or the form was sent faster than a person can type (time trap).
+		$elapsed = isset( $in['elapsed'] ) ? (int) $in['elapsed'] : -1;
+		if ( '' !== trim( (string) ( $in['website'] ?? '' ) ) || $elapsed < self::MIN_FILL_MS ) {
 			return array(
 				'ok'    => false,
 				'error' => 'spam',
@@ -87,7 +94,7 @@ class Talkwyn_Leads {
 	/**
 	 * Store a lead and send the email alert.
 	 *
-	 * @param array $lead name, email, phone, message, page_url, session_id, consent.
+	 * @param array $lead name, email, phone, message, page_url, session_id, consent, source (chat|transcript).
 	 * @return int Lead ID, 0 on failure.
 	 */
 	public static function save( array $lead ) {
@@ -102,9 +109,10 @@ class Talkwyn_Leads {
 			'message'     => sanitize_textarea_field( (string) ( $lead['message'] ?? '' ) ),
 			'page_url'    => esc_url_raw( (string) ( $lead['page_url'] ?? '' ) ),
 			'consent'     => empty( $lead['consent'] ) ? 0 : 1,
+			'source'      => in_array( $lead['source'] ?? 'chat', array( 'chat', 'transcript' ), true ) ? $lead['source'] : 'chat',
 			'status'      => 'new',
 		);
-		$ok = $wpdb->insert( $t['leads'], $row, array( '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%d', '%s' ) ); // phpcs:ignore WordPress.DB.DirectDatabaseQuery
+		$ok = $wpdb->insert( $t['leads'], $row, array( '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%d', '%s', '%s' ) ); // phpcs:ignore WordPress.DB.DirectDatabaseQuery
 		if ( ! $ok ) {
 			return 0;
 		}
@@ -118,7 +126,7 @@ class Talkwyn_Leads {
 		 * @param int   $id  Lead ID.
 		 * @param array $row Lead data.
 		 */
-		do_action( 'talkwyn_lead_saved', $id, $row );
+		do_action( 'talkwyn_lead_created', $id, $row );
 		return $id;
 	}
 

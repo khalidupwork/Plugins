@@ -12,7 +12,7 @@ defined( 'ABSPATH' ) || exit;
  */
 class Talkwyn_DB {
 
-	const DB_VERSION = '2.0.0';
+	const DB_VERSION = '2.0.1';
 
 	/**
 	 * Table names.
@@ -105,6 +105,7 @@ class Talkwyn_DB {
 			message text NULL,
 			page_url text NULL,
 			consent tinyint(1) NOT NULL DEFAULT 0,
+			source varchar(20) NOT NULL DEFAULT 'chat',
 			status varchar(30) NOT NULL DEFAULT 'new',
 			PRIMARY KEY  (id),
 			KEY created_gmt (created_gmt),
@@ -135,6 +136,7 @@ class Talkwyn_DB {
 
 		self::ensure_fulltext();
 		update_option( 'talkwyn_db_version', self::DB_VERSION, false );
+		add_option( 'talkwyn_installed_at', time(), '', false );
 		if ( false === get_option( Talkwyn_Settings::OPTION ) ) {
 			add_option( Talkwyn_Settings::OPTION, array(), '', false );
 		}

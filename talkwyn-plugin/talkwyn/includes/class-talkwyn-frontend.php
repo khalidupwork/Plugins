@@ -29,6 +29,160 @@ class Talkwyn_Frontend {
 		add_action( 'wp_footer', array( __CLASS__, 'render_floating' ) );
 		add_shortcode( 'talkwyn_chat', array( __CLASS__, 'shortcode' ) );
 		add_action( 'init', array( __CLASS__, 'legacy_shortcode' ), 99 );
+		add_action( 'template_redirect', array( __CLASS__, 'popout' ), 1 );
+	}
+
+	/**
+	 * Languages a visitor can pick in the widget menu.
+	 *
+	 * @return array<string, array{native:string,en:string,rtl:bool}>
+	 */
+	public static function languages() {
+		$list = array(
+			'en' => array( 'English', 'English', false ),
+			'es' => array( 'Español', 'Spanish', false ),
+			'fr' => array( 'Français', 'French', false ),
+			'de' => array( 'Deutsch', 'German', false ),
+			'pt' => array( 'Português', 'Portuguese', false ),
+			'it' => array( 'Italiano', 'Italian', false ),
+			'nl' => array( 'Nederlands', 'Dutch', false ),
+			'tr' => array( 'Türkçe', 'Turkish', false ),
+			'pl' => array( 'Polski', 'Polish', false ),
+			'ru' => array( 'Русский', 'Russian', false ),
+			'ar' => array( 'العربية', 'Arabic', true ),
+			'ur' => array( 'اردو', 'Urdu', true ),
+			'hi' => array( 'हिन्दी', 'Hindi', false ),
+			'zh' => array( '中文', 'Chinese', false ),
+			'ja' => array( '日本語', 'Japanese', false ),
+			'ko' => array( '한국어', 'Korean', false ),
+		);
+		$out  = array();
+		foreach ( $list as $code => $row ) {
+			$out[ $code ] = array(
+				'native' => $row[0],
+				'en'     => $row[1],
+				'rtl'    => $row[2],
+			);
+		}
+		return (array) apply_filters( 'talkwyn_languages', $out );
+	}
+
+	/**
+	 * Talkwyn link with the owner's referral code and UTM tags.
+	 *
+	 * @param string $source utm_source.
+	 * @return string
+	 */
+	public static function talkwyn_link( $source ) {
+		$args = array();
+		$ref  = sanitize_key( (string) Talkwyn_Settings::get( 'badge_ref', '' ) );
+		if ( '' !== $ref ) {
+			$args['ref'] = $ref;
+		}
+		$args['utm_source'] = $source;
+		$args['utm_medium'] = 'widget';
+		return add_query_arg( $args, 'https://talkwyn.com/' );
+	}
+
+	/**
+	 * Whether the badge shows (owner opted in, add-ons can hide it).
+	 *
+	 * @return bool
+	 */
+	public static function show_badge() {
+		return (bool) apply_filters( 'talkwyn_show_badge', (bool) Talkwyn_Settings::get( 'show_badge', 0 ) );
+	}
+
+	/**
+	 * Widget menu items.
+	 *
+	 * @return array[] Each: id, label, and url for links.
+	 */
+	public static function menu_items() {
+		$s     = Talkwyn_Settings::all();
+		$items = array(
+			array(
+				'id'    => 'name',
+				'label' => __( 'Change name', 'talkwyn' ),
+			),
+		);
+		if ( ! empty( $s['transcript_enabled'] ) && ! empty( $s['logs_enabled'] ) ) {
+			$items[] = array(
+				'id'    => 'transcript',
+				'label' => __( 'Email transcript', 'talkwyn' ),
+			);
+		}
+		if ( ! empty( $s['show_sound_button'] ) ) {
+			$items[] = array(
+				'id'    => 'sound',
+				'label' => __( 'Sound', 'talkwyn' ),
+			);
+		}
+		if ( ! empty( $s['language_menu'] ) ) {
+			$items[] = array(
+				'id'    => 'language',
+				'label' => __( 'Language', 'talkwyn' ),
+			);
+		}
+		$items[] = array(
+			'id'    => 'popout',
+			'label' => __( 'Pop out', 'talkwyn' ),
+		);
+		if ( ! empty( $s['show_reset_button'] ) ) {
+			$items[] = array(
+				'id'    => 'reset',
+				'label' => Talkwyn_I18n::get( 'reset_label' ),
+			);
+		}
+		if ( self::show_badge() ) {
+			$items[] = array(
+				'id'    => 'add_chat',
+				'label' => __( 'Add chat to your website', 'talkwyn' ),
+				'url'   => self::talkwyn_link( 'widget_menu' ),
+			);
+		}
+
+		/**
+		 * Filters the widget menu. Each item: id, label, optional url.
+		 *
+		 * @param array $items Items.
+		 */
+		return array_values( (array) apply_filters( 'talkwyn_widget_menu', $items ) );
+	}
+
+	/**
+	 * Pop-out window: the chat on its own page (?talkwyn_popout=1).
+	 *
+	 * @return void
+	 */
+	public static function popout() {
+		if ( empty( $_GET['talkwyn_popout'] ) || ! Talkwyn_Settings::get( 'enabled' ) ) { // phpcs:ignore WordPress.Security.NonceVerification.Recommended
+			return;
+		}
+		show_admin_bar( false );
+		nocache_headers();
+		wp_register_style( 'talkwyn-widget', TALKWYN_URL . 'assets/css/widget.css', array(), TALKWYN_VERSION );
+		wp_register_script( 'talkwyn-widget', TALKWYN_URL . 'assets/js/widget.js', array(), TALKWYN_VERSION, true );
+		self::enqueue();
+		$bot = Talkwyn_I18n::get( 'bot_name' );
+		?>
+<!DOCTYPE html>
+<html <?php language_attributes(); ?>>
+<head>
+<meta charset="<?php bloginfo( 'charset' ); ?>">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title><?php echo esc_html( $bot . ' | ' . wp_strip_all_tags( get_bloginfo( 'name' ) ) ); ?></title>
+		<?php wp_print_styles(); ?>
+<style>html,body{margin:0;height:100%;background:#F7F3F3}.twc--inline{max-width:760px;height:100%;margin:0 auto}.twc--inline .twc-panel{height:100vh;height:100dvh;border-radius:0;border-top:0;border-bottom:0}</style>
+</head>
+<body class="talkwyn-popout">
+		<?php echo self::markup( 'inline', 0, true ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- escaped in markup(). ?>
+		<?php wp_print_scripts(); ?>
+</body>
+</html>
+		<?php
+		exit;
 	}
 
 	/**
@@ -100,8 +254,12 @@ class Talkwyn_Frontend {
 			'height'       => min( 900, max( 480, absint( $s['chat_height'] ) ) ),
 			'pageLanguage' => Talkwyn_I18n::page_language(),
 			'turnstile'    => ( '' !== (string) $s['turnstile_site_key'] && '' !== (string) $s['turnstile_secret'] ) ? (string) $s['turnstile_site_key'] : '',
-			'poweredBy'    => (bool) apply_filters( 'talkwyn_show_powered_by', ! empty( $s['show_powered_by'] ) ),
-			'poweredUrl'   => 'https://talkwyn.com/',
+			'badge'        => self::show_badge(),
+			'badgeUrl'     => self::talkwyn_link( 'badge' ),
+			'menu'         => ! empty( $s['widget_menu'] ) ? self::menu_items() : array(),
+			'languages'    => self::languages(),
+			'popoutUrl'    => add_query_arg( 'talkwyn_popout', '1', home_url( '/' ) ),
+			'devices'      => (string) $s['devices'],
 			'flags'        => array(
 				'fullScreen'   => ! empty( $s['full_screen_enabled'] ),
 				'mobileFull'   => ! empty( $s['mobile_full_screen'] ),
@@ -156,6 +314,18 @@ class Talkwyn_Frontend {
 				'send'           => __( 'Send message', 'talkwyn' ),
 				'message'        => __( 'Message', 'talkwyn' ),
 				'poweredBy'      => __( 'Powered by Talkwyn', 'talkwyn' ),
+				'menu'           => __( 'Chat menu', 'talkwyn' ),
+				'yourName'       => __( 'Your name', 'talkwyn' ),
+				'save'           => __( 'Save', 'talkwyn' ),
+				'cancel'         => __( 'Cancel', 'talkwyn' ),
+				'nameSaved'      => __( 'Thanks, %s. Nice to meet you.', 'talkwyn' ),
+				'transcriptTitle' => __( 'Email this chat to me', 'talkwyn' ),
+				'transcriptConsent' => __( 'Send me this chat and let the team contact me about my questions.', 'talkwyn' ),
+				'transcriptSend' => __( 'Send transcript', 'talkwyn' ),
+				'autoLanguage'   => __( 'Auto (match my messages)', 'talkwyn' ),
+				'languageSet'    => __( 'Replies will be in %s.', 'talkwyn' ),
+				'soundOn'        => __( 'Sound on', 'talkwyn' ),
+				'soundOff'       => __( 'Sound off', 'talkwyn' ),
 				'websiteField'   => __( 'Leave this field empty', 'talkwyn' ),
 				'securityCheck'  => __( 'Please complete the security check.', 'talkwyn' ),
 				'chatWindow'     => __( 'Chat window', 'talkwyn' ),
@@ -218,6 +388,9 @@ class Talkwyn_Frontend {
 	public static function should_show() {
 		$s = Talkwyn_Settings::all();
 		if ( is_admin() || empty( $s['enabled'] ) || is_feed() || is_embed() ) {
+			return false;
+		}
+		if ( ( 'logged_in' === $s['show_to'] && ! is_user_logged_in() ) || ( 'logged_out' === $s['show_to'] && is_user_logged_in() ) ) {
 			return false;
 		}
 		$hidden = array_map( 'absint', (array) $s['hidden_page_ids'] );
@@ -306,9 +479,10 @@ class Talkwyn_Frontend {
 	 *
 	 * @param string $mode   floating|inline.
 	 * @param int    $height Inline height in px.
+	 * @param bool   $popout Rendered in the pop-out window.
 	 * @return string
 	 */
-	public static function markup( $mode, $height = 0 ) {
+	public static function markup( $mode, $height = 0, $popout = false ) {
 		$s        = Talkwyn_Settings::all();
 		$label    = trim( Talkwyn_I18n::get( 'launcher_label' ) );
 		$bot      = Talkwyn_I18n::get( 'bot_name' );
@@ -321,10 +495,14 @@ class Talkwyn_Frontend {
 		};
 		$style    = $height ? ' style="--twc-inline-height:' . absint( $height ) . 'px"' : '';
 		$tools    = '';
-		if ( ! empty( $s['show_reset_button'] ) ) {
+		$menu     = ! empty( $s['widget_menu'] );
+		if ( $menu ) {
+			$tools .= '<button type="button" class="twc-head-btn twc-menu-btn" aria-haspopup="menu" aria-expanded="false" aria-label="' . esc_attr__( 'Chat menu', 'talkwyn' ) . '" title="' . esc_attr__( 'Chat menu', 'talkwyn' ) . '">' . $svg( '<circle cx="5" cy="12" r="1.6"/><circle cx="12" cy="12" r="1.6"/><circle cx="19" cy="12" r="1.6"/>' ) . '</button>';
+		}
+		if ( ! $menu && ! empty( $s['show_reset_button'] ) ) {
 			$tools .= $tool( 'twc-reset', 'reset_label', $svg( '<path d="M4 4v6h6"/><path d="M5.5 15a7.5 7.5 0 1 0 .8-7.7L4 10"/>' ) );
 		}
-		if ( ! empty( $s['show_sound_button'] ) ) {
+		if ( ! $menu && ! empty( $s['show_sound_button'] ) ) {
 			$tools .= $tool( 'twc-sound', 'sound_label', $svg( '<g class="twc-on"><path d="M11 5 6 9H3v6h3l5 4V5Z"/><path d="M15 9.5a4 4 0 0 1 0 5"/><path d="M17.5 7a7.5 7.5 0 0 1 0 10"/></g><g class="twc-off"><path d="M11 5 6 9H3v6h3l5 4V5Z"/><path d="m16 10 5 5"/><path d="m21 10-5 5"/></g>' ), ' aria-pressed="false"' );
 		}
 		if ( 'floating' === $mode && ! empty( $s['full_screen_enabled'] ) ) {
@@ -339,7 +517,7 @@ class Talkwyn_Frontend {
 
 		ob_start();
 		?>
-		<div class="twc twc--<?php echo esc_attr( $mode ); ?>" data-talkwyn-chat="<?php echo esc_attr( $mode ); ?>"<?php echo $style; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- built from absint(). ?>>
+		<div class="twc twc--<?php echo esc_attr( $mode ); ?><?php echo $popout ? ' twc--popout' : ''; ?>" data-talkwyn-chat="<?php echo esc_attr( $mode ); ?>"<?php echo $style; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- built from absint(). ?>>
 			<?php if ( 'floating' === $mode ) : ?>
 				<div class="twc-launcher-wrap">
 					<?php if ( '' !== $label ) : ?>
@@ -359,6 +537,7 @@ class Talkwyn_Frontend {
 					</div>
 					<div class="twc-tools"><?php echo $tools; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- escaped above. ?></div>
 				</header>
+				<div class="twc-menu" role="menu" aria-label="<?php esc_attr_e( 'Chat menu', 'talkwyn' ); ?>" hidden></div>
 				<div class="twc-messages" role="log" aria-live="polite" aria-relevant="additions"></div>
 				<div class="twc-suggestions"></div>
 				<form class="twc-compose" novalidate>

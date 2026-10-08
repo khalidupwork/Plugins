@@ -254,6 +254,23 @@ Public, unsigned, cached for 10 minutes. The website reads it to show the Partne
 
 `renewal_rate: 0` means commission is paid on the first payment only.
 
+## POST `subscribe`
+
+Product news opt-in from the Talkwyn plugin setup wizard. The plugin calls it only when the site owner ticks the box, which is unchecked by default. Not signed; rate limited by IP.
+
+```json
+{ "email": "owner@example.com", "site_url": "https://example.com", "source": "plugin_wizard", "locale": "en_US", "consent": true }
+```
+
+| Response | Meaning |
+|---|---|
+| `200 { "success": true }` | Stored (or already subscribed) |
+| `400 { "code": "invalid_email" }` | Email is not valid |
+| `400 { "code": "consent_required" }` | `consent` was not true |
+| `429 { "code": "rate_limited" }` | Too many requests from this IP |
+
+Subscribers are listed under **Talkwyn Hub, Subscribers** with a CSV export. The `twh_subscriber_added` action fires for each opt-in so you can connect a mailing list.
+
 ## Rate limiting
 
 Fixed windows, configurable under Settings (default **30 requests per 10 minutes**):

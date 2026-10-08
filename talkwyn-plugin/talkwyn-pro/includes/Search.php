@@ -35,7 +35,7 @@ final class Search {
 	 * Hooks.
 	 */
 	public static function init(): void {
-		add_filter( 'talkwyn_retrieve', array( self::class, 'retrieve' ), 10, 4 );
+		add_filter( 'talkwyn_sources', array( self::class, 'retrieve' ), 10, 4 );
 		add_filter( 'cron_schedules', array( self::class, 'schedules' ) ); // phpcs:ignore WordPress.WP.CronInterval.CronSchedulesInterval
 		add_action( self::CRON, array( self::class, 'cron' ) );
 		add_action( 'talkwyn_scan_complete', array( self::class, 'soon' ) );
@@ -284,7 +284,7 @@ final class Search {
 	}
 
 	/**
-	 * Filter for talkwyn_retrieve: hybrid ranking.
+	 * Filter for talkwyn_sources: hybrid ranking.
 	 *
 	 * @param array  $out     Keyword results.
 	 * @param string $query   Query.

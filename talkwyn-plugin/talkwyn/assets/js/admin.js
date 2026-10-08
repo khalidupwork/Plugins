@@ -141,6 +141,10 @@ jQuery( function ( $ ) {
 			sprintf( __( 'Smart Contrast uses %1$s text on this colour (contrast %2$s:1).', 'talkwyn' ), on === '#FFFFFF' ? __( 'white', 'talkwyn' ) : __( 'dark', 'talkwyn' ), best.toFixed( 1 ) )
 		);
 		box.find( '.twa-contrast__warn' ).prop( 'hidden', best >= 4.5 );
+		$( '.twa-preview__chat' ).each( function () {
+			this.style.setProperty( '--twc-brand', color );
+			this.style.setProperty( '--twc-on-brand', on );
+		} );
 	} );
 
 	/* Avatar picker */
@@ -156,5 +160,96 @@ jQuery( function ( $ ) {
 			} );
 		}
 		frame.open();
+	} );
+
+	/* Provider fallback order: drag or use the arrows */
+	var order = $( '[data-twa-order]' );
+	function syncOrder() {
+		var ids = order.children( 'li' ).map( function () {
+			return $( this ).data( 'id' );
+		} ).get();
+		$( '#twa-provider_order' ).val( ids.join( ',' ) );
+	}
+	if ( order.length ) {
+		var dragging = null;
+		order.on( 'dragstart', 'li', function ( e ) {
+			dragging = this;
+			$( this ).addClass( 'is-dragging' );
+			e.originalEvent.dataTransfer.effectAllowed = 'move';
+		} ).on( 'dragend', 'li', function () {
+			$( this ).removeClass( 'is-dragging' );
+			dragging = null;
+			syncOrder();
+		} ).on( 'dragover', 'li', function ( e ) {
+			e.preventDefault();
+			if ( ! dragging || dragging === this ) {
+				return;
+			}
+			var rect = this.getBoundingClientRect();
+			var after = e.originalEvent.clientY > rect.top + rect.height / 2;
+			if ( after ) {
+				this.after( dragging );
+			} else {
+				this.before( dragging );
+			}
+		} );
+		order.on( 'click', '[data-move]', function () {
+			var li = $( this ).closest( 'li' );
+			if ( 'up' === $( this ).data( 'move' ) ) {
+				li.prev().before( li );
+			} else {
+				li.next().after( li );
+			}
+			syncOrder();
+		} );
+	}
+
+	/* Live preview on the Appearance tab */
+	var preview = $( '.twa-preview__chat' );
+	if ( preview.length ) {
+		var esc = function ( t ) {
+			return $( '<div>' ).text( t ).html();
+		};
+		$( '[data-preview]' ).on( 'input', function () {
+			var key = $( this ).data( 'preview' );
+			var val = $( this ).val();
+			var target = preview.find( '[data-twa-p="' + key + '"]' );
+			if ( 'suggestions' === key ) {
+				target.html( val.split( /\r?\n/ ).filter( function ( l ) {
+					return l.trim();
+				} ).slice( 0, 4 ).map( function ( l ) {
+					return '<span class="twc-chip">' + esc( l.trim() ) + '</span>';
+				} ).join( '' ) );
+			} else if ( 'launcher' === key ) {
+				target.text( val ).prop( 'hidden', ! val.trim() );
+			} else {
+				target.text( val );
+			}
+		} );
+		$( '#twa-position' ).on( 'change', function () {
+			preview.toggleClass( 'twc--left', 'left' === $( this ).val() );
+		} ).trigger( 'change' );
+	}
+
+	/* Copy email */
+	$( document ).on( 'click', '.twa-copy', function () {
+		var btn = $( this );
+		if ( navigator.clipboard ) {
+			navigator.clipboard.writeText( btn.data( 'copy' ) ).then( function () {
+				btn.addClass( 'is-good' );
+				setTimeout( function () {
+					btn.removeClass( 'is-good' );
+				}, 1200 );
+			} );
+		}
+	} );
+
+	/* Review: mark as done when the visitor follows the link */
+	$( document ).on( 'click', '[data-twa-review]', function () {
+		var href = $( this ).data( 'twa-href' );
+		if ( href ) {
+			fetch( href, { credentials: 'same-origin' } );
+		}
+		$( this ).closest( '.twa-review' ).slideUp( 150 );
 	} );
 } );

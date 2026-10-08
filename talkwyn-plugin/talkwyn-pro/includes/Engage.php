@@ -19,7 +19,7 @@ final class Engage {
 	 */
 	public static function init(): void {
 		add_filter( 'talkwyn_widget_config', array( self::class, 'config' ) );
-		add_filter( 'talkwyn_pre_reply', array( self::class, 'away_reply' ), 1, 2 );
+		add_filter( 'talkwyn_before_answer', array( self::class, 'away_reply' ), 1, 2 );
 		add_filter( 'talkwyn_reply', array( self::class, 'away_lead' ), 10, 2 );
 		add_filter(
 			'talkwyn_translatable_keys',

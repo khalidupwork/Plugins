@@ -40,12 +40,12 @@ Talkwyn Pro adds every Pro feature through these actions and filters. You can us
 | Hook | Type | Arguments | Use |
 |---|---|---|---|
 | `talkwyn_providers` | filter | `array $providers` | Add AI providers. Each entry: `label`, `fields`, `key_field`, `model_field`, `signup`, `free`, `ready( $settings )`, `call( $messages, $settings )`, `models( $settings )`. |
-| `talkwyn_retrieve` | filter | `array $chunks, $query, $limit, array $context` | Replace or re-rank retrieved knowledge (Pro: smart search). |
-| `talkwyn_pre_reply` | filter | `null, array $ctx` | Return `array( 'text' => ..., 'provider' => ... )` to answer without the AI (Pro: custom answers, order lookup, away mode). |
+| `talkwyn_sources` | filter | `array $chunks, $query, $limit, array $context` | Replace or re-rank retrieved knowledge (Pro: smart search). |
+| `talkwyn_before_answer` | filter | `null, array $ctx` | Return `array( 'text' => ..., 'provider' => ... )` to answer without the AI (Pro: custom answers, order lookup, away mode). |
 | `talkwyn_system_prompt` | filter | `string $prompt, array $ctx` | Change the system prompt. |
 | `talkwyn_reply_extra` | filter | `array $extra, array $ctx, $reply` | Extra data saved with the reply and sent to the widget (Pro: product cards). |
 | `talkwyn_reply` | filter | `array $data, array $ctx` | Change the response sent to the widget. Set `lead_offer` and `lead_direct` to show the lead form. |
-| `talkwyn_after_reply` | action | `array $data, array $ctx, array $gen` | After a reply (analytics). |
+| `talkwyn_after_answer` | action | `array $data, array $ctx, array $gen` | After a reply (analytics). |
 | `talkwyn_history_ttl` | filter | `int $seconds` | How long a conversation is kept for continuity (default one day). |
 
 `Talkwyn_Chat::prepare()` and `Talkwyn_Chat::finish()` split a turn so an add-on can call the provider itself (Pro streams replies this way). `Talkwyn_Providers::openai_compatible()` and `Talkwyn_Providers::json()` are public helpers.
@@ -54,7 +54,7 @@ Talkwyn Pro adds every Pro feature through these actions and filters. You can us
 
 | Hook | Type | Arguments | Use |
 |---|---|---|---|
-| `talkwyn_lead_saved` | action | `$id, array $lead` | A lead was saved (Pro: Slack and Telegram alerts). |
+| `talkwyn_lead_created` | action | `$id, array $lead` | A lead was saved (Pro: Slack and Telegram alerts). |
 | `talkwyn_feedback_saved` | action | `$log_id, $value, $session` | Helpful or not helpful was saved. |
 | `talkwyn_widget_event` | action | `$type, $session, WP_REST_Request $req` | Custom events sent to `POST talkwyn/v1/event`. |
 | `talkwyn_personal_data_erased` | action | `$email, array $sessions` | After a privacy erase request. |
@@ -67,7 +67,7 @@ Talkwyn Pro adds every Pro feature through these actions and filters. You can us
 | `talkwyn_widget_config` | filter | `array $config` | Data passed to the widget as `window.TalkwynConfig`. |
 | `talkwyn_enqueue_widget` | action | | The widget assets were enqueued. Enqueue yours here. |
 | `talkwyn_show_widget` | filter | `bool $show` | Hide the floating widget on a request. |
-| `talkwyn_show_powered_by` | filter | `bool $show` | Show or hide the "Powered by Talkwyn" link. |
+| `talkwyn_show_badge` | filter | `bool $show` | Show or hide the "Powered by Talkwyn" link. |
 
 ### JavaScript API
 

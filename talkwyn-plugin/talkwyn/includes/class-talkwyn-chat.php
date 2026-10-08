@@ -80,7 +80,7 @@ class Talkwyn_Chat {
 		 * @param array|null $preset  Null to continue.
 		 * @param array      $ctx     Turn context.
 		 */
-		$preset = apply_filters( 'talkwyn_pre_reply', null, $ctx );
+		$preset = apply_filters( 'talkwyn_before_answer', null, $ctx );
 		if ( is_array( $preset ) && ! empty( $preset['text'] ) ) {
 			$ctx['preset'] = array_merge(
 				array(
@@ -139,6 +139,14 @@ class Talkwyn_Chat {
 		}
 
 		$system = self::system_prompt( $s, $site_name, $page_lang, $knowledge ? implode( "\n\n", $knowledge ) : '[No relevant website knowledge was found for this message.]' );
+		$flags  = Talkwyn_History::flags( $session );
+		if ( ! empty( $flags['visitor_name'] ) ) {
+			$system .= "\n\nThe visitor's name is " . $flags['visitor_name'] . '. Use it naturally now and then, not in every message.';
+		}
+		$langs = Talkwyn_Frontend::languages();
+		if ( ! empty( $flags['reply_lang'] ) && isset( $langs[ $flags['reply_lang'] ] ) ) {
+			$system .= "\n\nThe visitor chose " . $langs[ $flags['reply_lang'] ]['en'] . ' as their language. Always reply in ' . $langs[ $flags['reply_lang'] ]['en'] . '.';
+		}
 
 		/**
 		 * Filters the system prompt.
@@ -324,7 +332,7 @@ class Talkwyn_Chat {
 		 * @param array $ctx  Turn context.
 		 * @param array $gen  Provider result.
 		 */
-		do_action( 'talkwyn_after_reply', $data, $ctx, array_merge( $gen, array( 'ms' => $ms ) ) );
+		do_action( 'talkwyn_after_answer', $data, $ctx, array_merge( $gen, array( 'ms' => $ms ) ) );
 		return $data;
 	}
 

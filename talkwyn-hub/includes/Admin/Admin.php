@@ -48,6 +48,7 @@ final class Admin {
 		add_submenu_page( 'twh-dashboard', __( 'Releases', 'talkwyn-hub' ), __( 'Releases', 'talkwyn-hub' ), $cap, 'twh-releases', array( ReleasesPage::class, 'render' ) );
 		add_submenu_page( 'twh-dashboard', __( 'Products', 'talkwyn-hub' ), __( 'Products', 'talkwyn-hub' ), $cap, 'twh-products', array( ProductsPage::class, 'render' ) );
 		add_submenu_page( 'twh-dashboard', __( 'Partners', 'talkwyn-hub' ), __( 'Partners', 'talkwyn-hub' ), $cap, 'twh-partners', array( PartnersPage::class, 'render' ) );
+		add_submenu_page( 'twh-dashboard', __( 'Subscribers', 'talkwyn-hub' ), __( 'Subscribers', 'talkwyn-hub' ), $cap, 'twh-subscribers', array( SubscribersPage::class, 'render' ) );
 		add_submenu_page( 'twh-dashboard', __( 'Logs', 'talkwyn-hub' ), __( 'Logs', 'talkwyn-hub' ), $cap, 'twh-logs', array( LogsPage::class, 'render' ) );
 		add_submenu_page( 'twh-dashboard', __( 'Settings', 'talkwyn-hub' ), __( 'Settings', 'talkwyn-hub' ), $cap, 'twh-settings', array( SettingsPage::class, 'render' ) );
 	}
