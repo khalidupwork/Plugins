@@ -195,6 +195,11 @@
 
 	function init() {
 		var roots = document.querySelectorAll( '[data-talkwyn-chat]' );
+		if ( store.get( 'talkwyn_seen' ) === '1' ) {
+			Array.prototype.forEach.call( roots, function ( r ) {
+				r.classList.add( 'twc--seen' );
+			} );
+		}
 		Array.prototype.forEach.call( roots, function ( root ) {
 			if ( ! root.dataset.ready ) {
 				root.dataset.ready = '1';
@@ -416,6 +421,8 @@
 				launcher.setAttribute( 'aria-expanded', 'true' );
 			}
 			store.set( 'talkwyn_open', '1' );
+			store.set( 'talkwyn_seen', '1' );
+			root.classList.add( 'twc--seen' );
 			firstRender();
 			if ( F.mobileFull && window.matchMedia( '(max-width: 640px)' ).matches ) {
 				setFull( true );

@@ -15,11 +15,20 @@ defined( 'ABSPATH' ) || exit;
 final class Plugin {
 
 	/**
+	 * Lowest free plugin version with the hooks Pro uses.
+	 */
+	const MIN_FREE = '2.0.0';
+
+	/**
 	 * Boot on plugins_loaded.
 	 */
 	public static function boot(): void {
 		if ( ! class_exists( '\Talkwyn_Settings' ) || ! defined( 'TALKWYN_VERSION' ) ) {
 			add_action( 'admin_notices', array( self::class, 'missing_free_notice' ) );
+			return;
+		}
+		if ( version_compare( TALKWYN_VERSION, self::MIN_FREE, '<' ) ) {
+			add_action( 'admin_notices', array( self::class, 'old_free_notice' ) );
 			return;
 		}
 
@@ -61,5 +70,16 @@ final class Plugin {
 			return;
 		}
 		echo '<div class="notice notice-error"><p><strong>' . esc_html__( 'Talkwyn Pro needs the free Talkwyn plugin.', 'talkwyn-pro' ) . '</strong> ' . esc_html__( 'Install and activate Talkwyn from Plugins, Add New, then Pro switches on.', 'talkwyn-pro' ) . '</p></div>';
+	}
+
+	/**
+	 * Notice when the free plugin is older than the hooks Pro needs.
+	 */
+	public static function old_free_notice(): void {
+		if ( ! current_user_can( 'update_plugins' ) ) {
+			return;
+		}
+		/* translators: %s: version number */
+		echo '<div class="notice notice-error"><p><strong>' . esc_html( sprintf( __( 'Talkwyn Pro needs Talkwyn %s or newer.', 'talkwyn-pro' ), self::MIN_FREE ) ) . '</strong> ' . esc_html__( 'Update Talkwyn from Dashboard, Updates, then Pro switches on.', 'talkwyn-pro' ) . '</p></div>';
 	}
 }

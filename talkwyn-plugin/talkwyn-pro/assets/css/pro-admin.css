@@ -48,3 +48,11 @@
 .twa .talkwyn-license-box .button-primary { background: #1A0F12; border-color: #1A0F12; color: #fff; }
 .twa .talkwyn-license-box .button:hover { border-color: #1A0F12; }
 .twa .talkwyn-license-box input[type=text] { max-width: 420px; }
+
+.twp-nokey {
+	margin: 12px 0 24px;
+	display: flex;
+	align-items: center;
+	gap: 12px;
+	font-weight: 600;
+}

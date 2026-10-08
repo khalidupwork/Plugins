@@ -75,7 +75,7 @@ final class Admin {
 			return false;
 		}
 		A::card( __( 'Pro features are paused', 'talkwyn-pro' ), __( 'Activate a license or start a free 15-day trial to use this. Your Pro data and settings are kept.', 'talkwyn-pro' ) );
-		echo '<p><a class="twa-btn twa-btn--ink" href="' . esc_url( admin_url( 'admin.php?page=talkwyn&tab=license' ) ) . '">' . esc_html__( 'Activate license', 'talkwyn-pro' ) . '</a> <a class="twa-btn twa-btn--light twa-btn--sm" href="https://talkwyn.com/pricing/" target="_blank" rel="noopener">' . esc_html__( 'Start a free trial', 'talkwyn-pro' ) . '</a></p></section>';
+		echo '<p><a class="twa-btn twa-btn--ink" href="' . esc_url( admin_url( 'admin.php?page=talkwyn&tab=license' ) ) . '">' . esc_html__( 'Activate license', 'talkwyn-pro' ) . '</a> <a class="twa-btn twa-btn--light twa-btn--sm" href="https://talkwyn.com/pricing/#trial" target="_blank" rel="noopener">' . esc_html__( 'Start a free trial', 'talkwyn-pro' ) . '</a></p></section>';
 		return true;
 	}
 
@@ -136,6 +136,9 @@ final class Admin {
 		A::card( __( 'Talkwyn Pro license', 'talkwyn-pro' ), __( 'Paste the key from your talkwyn.com account. Trial keys work the same way; when you upgrade, the same key keeps working.', 'talkwyn-pro' ) );
 		echo '</section>';
 		License::client()->render_settings();
+		if ( '' === (string) get_option( 'talkwyn_license_key', '' ) ) {
+			echo '<p class="twp-nokey">' . esc_html__( 'Don\'t have a key?', 'talkwyn-pro' ) . ' <a class="twa-btn twa-btn--red twa-btn--sm" href="https://talkwyn.com/pricing/#trial" target="_blank" rel="noopener">' . esc_html__( 'Start a free 15-day trial', 'talkwyn-pro' ) . '</a></p>';
+		}
 		if ( ! License::public_keys() ) {
 			echo '<div class="notice notice-warning inline"><p>' . esc_html__( 'This build has no Talkwyn Hub public key, so license responses cannot be verified. Add the key in includes/hub-keys.php or define TALKWYN_PRO_PUBLIC_KEYS.', 'talkwyn-pro' ) . '</p></div>';
 		}

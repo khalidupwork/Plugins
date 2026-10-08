@@ -815,6 +815,8 @@ class Talkwyn_Admin {
 		echo '<div class="twa-row">';
 		self::select( 'position', __( 'Position', 'talkwyn' ), array( 'right' => __( 'Bottom right', 'talkwyn' ), 'left' => __( 'Bottom left', 'talkwyn' ) ) );
 		self::select( 'launcher_icon', __( 'Launcher icon', 'talkwyn' ), array( 'talkwyn' => __( 'Talkwyn bubble', 'talkwyn' ), 'chat_dots' => __( 'Chat dots', 'talkwyn' ), 'spark_chat' => __( 'Spark', 'talkwyn' ), 'headset' => __( 'Support headset', 'talkwyn' ), 'question' => __( 'Help', 'talkwyn' ) ) );
+		self::select( 'header_style', __( 'Chat header', 'talkwyn' ), array( 'plain' => __( 'White', 'talkwyn' ), 'gradient' => __( 'Brand gradient', 'talkwyn' ) ) );
+		self::toggle( 'launcher_pulse', __( 'Gentle pulse on the chat button until the first open', 'talkwyn' ) );
 		echo '</div>';
 		self::field( 'launcher_label', __( 'Launcher text', 'talkwyn' ), 'text', __( 'Leave empty to show only the icon.', 'talkwyn' ), array( 'data-preview' => 'launcher' ) );
 		echo '<div class="twa-row">';

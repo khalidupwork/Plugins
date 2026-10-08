@@ -517,7 +517,7 @@ class Talkwyn_Frontend {
 
 		ob_start();
 		?>
-		<div class="twc twc--<?php echo esc_attr( $mode ); ?><?php echo $popout ? ' twc--popout' : ''; ?>" data-talkwyn-chat="<?php echo esc_attr( $mode ); ?>"<?php echo $style; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- built from absint(). ?>>
+		<div class="twc twc--<?php echo esc_attr( $mode ); ?><?php echo $popout ? ' twc--popout' : ''; ?><?php echo ! empty( $s['launcher_pulse'] ) ? ' twc--pulse' : ''; ?><?php echo 'gradient' === $s['header_style'] ? ' twc--gradient' : ''; ?>" data-talkwyn-chat="<?php echo esc_attr( $mode ); ?>"<?php echo $style; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- built from absint(). ?>>
 			<?php if ( 'floating' === $mode ) : ?>
 				<div class="twc-launcher-wrap">
 					<?php if ( '' !== $label ) : ?>

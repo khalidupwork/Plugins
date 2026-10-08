@@ -991,3 +991,42 @@ html.twc-lock body {
 		display: none !important;
 	}
 }
+
+/* Launcher pulse: a soft ring until the visitor opens the chat once. */
+.twc--pulse:not(.is-open):not(.twc--seen) .twc-launcher {
+	animation: twc-pulse 2.4s var(--twc-ease) 1.2s 4;
+}
+
+@keyframes twc-pulse {
+	0% { box-shadow: 0 12px 32px rgba(26, 15, 18, .22), 0 0 0 0 color-mix(in srgb, var(--twc-brand) 45%, transparent); }
+	70% { box-shadow: 0 12px 32px rgba(26, 15, 18, .22), 0 0 0 14px color-mix(in srgb, var(--twc-brand) 0%, transparent); }
+	100% { box-shadow: 0 12px 32px rgba(26, 15, 18, .22), 0 0 0 0 transparent; }
+}
+
+/* Optional brand gradient header. */
+.twc--gradient .twc-header {
+	background: var(--twc-brand);
+	background: linear-gradient(135deg, var(--twc-brand), color-mix(in srgb, var(--twc-brand) 72%, #1A0F12));
+	color: var(--twc-on-brand);
+	border-bottom-color: transparent;
+}
+
+.twc--gradient .twc-status,
+.twc--gradient .twc .twc-head-btn,
+.twc.twc--gradient .twc-head-btn {
+	color: var(--twc-on-brand);
+}
+
+.twc--gradient .twc-status {
+	opacity: .85;
+}
+
+.twc.twc--gradient .twc-head-btn:hover {
+	background: rgba(255, 255, 255, .16);
+}
+
+@media (prefers-reduced-motion: reduce) {
+	.twc--pulse .twc-launcher {
+		animation: none !important;
+	}
+}

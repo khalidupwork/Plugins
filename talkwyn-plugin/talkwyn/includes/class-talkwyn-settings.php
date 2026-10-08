@@ -37,6 +37,8 @@ class Talkwyn_Settings {
 			'position'                 => 'right',
 			'launcher_label'           => 'Ask us',
 			'launcher_icon'            => 'talkwyn',
+			'launcher_pulse'           => 1,
+			'header_style'             => 'plain',
 			'avatar_type'              => 'talkwyn',
 			'avatar_url'               => '',
 			'full_screen_enabled'      => 1,
@@ -162,7 +164,7 @@ class Talkwyn_Settings {
 	 */
 	public static function schema() {
 		$schema = array(
-			'bool'     => array( 'enabled', 'full_screen_enabled', 'mobile_full_screen', 'show_minimize_button', 'show_reset_button', 'show_sound_button', 'sound_default', 'show_timestamps', 'show_message_tools', 'feedback_enabled', 'show_sources', 'show_badge', 'widget_menu', 'transcript_enabled', 'language_menu', 'multilingual_enabled', 'lead_enabled', 'lead_ask_first', 'smart_lead_intent', 'lead_require_name', 'lead_require_email', 'lead_require_phone', 'lead_consent_enabled', 'handoff_enabled', 'auto_index_on_save', 'index_custom_fields', 'logs_enabled', 'trusted_proxy', 'delete_data_on_uninstall' ),
+			'bool'     => array( 'enabled', 'full_screen_enabled', 'mobile_full_screen', 'show_minimize_button', 'show_reset_button', 'show_sound_button', 'sound_default', 'show_timestamps', 'show_message_tools', 'feedback_enabled', 'show_sources', 'show_badge', 'launcher_pulse', 'widget_menu', 'transcript_enabled', 'language_menu', 'multilingual_enabled', 'lead_enabled', 'lead_ask_first', 'smart_lead_intent', 'lead_require_name', 'lead_require_email', 'lead_require_phone', 'lead_consent_enabled', 'handoff_enabled', 'auto_index_on_save', 'index_custom_fields', 'logs_enabled', 'trusted_proxy', 'delete_data_on_uninstall' ),
 			'int'      => array( 'chat_width', 'chat_height', 'max_history', 'max_context_chunks', 'lead_after_messages', 'lead_rate_limit_per_hour', 'retention_days', 'rate_limit_per_hour' ),
 			'textarea' => array( 'welcome_message', 'suggested_questions', 'hidden_url_paths', 'system_prompt', 'fallback_message', 'lead_success', 'privacy_notice', 'custom_field_allowlist', 'lead_consent_text', 'lead_decline_reply', 'lead_form_intro' ),
 			'email'    => array( 'notification_email' ),
@@ -210,6 +212,7 @@ class Talkwyn_Settings {
 			'avatar_type'   => array( 'talkwyn', 'initials', 'headset', 'chat', 'custom' ),
 			'show_to'       => array( 'all', 'logged_in', 'logged_out' ),
 			'devices'       => array( 'all', 'desktop', 'mobile' ),
+			'header_style'  => array( 'plain', 'gradient' ),
 		);
 	}
 
