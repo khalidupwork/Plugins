@@ -1,5 +1,11 @@
 # Talkwyn changelog
 
+## 2.2.3
+
+### Added
+- Installed version labels next to the title on Talkwyn screens ("v2.2.3", plus "Pro v1.2.1" when Pro is installed).
+- Release ZIPs carry the version in the file name, for example `talkwyn-2.2.3.zip`. The folder inside is still `talkwyn`, so WordPress replaces the installed copy.
+
 ## 2.2.2
 
 ### Changed

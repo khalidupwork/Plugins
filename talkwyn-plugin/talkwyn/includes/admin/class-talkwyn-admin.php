@@ -252,7 +252,7 @@ class Talkwyn_Admin {
 		 * @param string $url Logo URL.
 		 */
 		$logo = (string) apply_filters( 'talkwyn_admin_logo', TALKWYN_URL . 'assets/img/talkwyn-mark.svg' );
-		echo '<header class="twa-hero"><div class="twa-hero__brand"><span class="twa-hero__mark"><img src="' . esc_url( $logo ) . '" alt="" width="44" height="44"></span><div><h1>' . esc_html( $title ) . '</h1><p>' . esc_html( $subtitle ) . '</p></div></div>';
+		echo '<header class="twa-hero"><div class="twa-hero__brand"><span class="twa-hero__mark"><img src="' . esc_url( $logo ) . '" alt="" width="44" height="44"></span><div><h1>' . esc_html( $title ) . self::versions() . '</h1><p>' . esc_html( $subtitle ) . '</p></div></div>';
 		if ( '' !== $actions ) {
 			echo '<div class="twa-hero__actions">' . $actions . '</div>'; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- built from escaped parts.
 		}
@@ -565,6 +565,19 @@ class Talkwyn_Admin {
 			echo '<li>' . esc_html( $item ) . '</li>';
 		}
 		echo '</ul></section>';
+	}
+
+	/**
+	 * Installed version labels shown next to the title, so an update is easy to confirm.
+	 *
+	 * @return string HTML.
+	 */
+	private static function versions() {
+		$html = '<span class="twa-ver" title="' . esc_attr__( 'Installed version', 'talkwyn' ) . '">v' . esc_html( TALKWYN_VERSION ) . '</span>';
+		if ( defined( 'TALKWYN_PRO_VERSION' ) ) {
+			$html .= '<span class="twa-ver twa-ver--pro">' . esc_html( sprintf( /* translators: %s: version number */ __( 'Pro v%s', 'talkwyn' ), (string) TALKWYN_PRO_VERSION ) ) . '</span>';
+		}
+		return $html;
 	}
 
 	/**

@@ -2156,3 +2156,32 @@ label.twa-toggle {
 		justify-content: flex-start;
 	}
 }
+
+/* Installed version next to the title */
+.twa-hero h1 {
+	display: flex;
+	flex-wrap: wrap;
+	align-items: center;
+	gap: 8px;
+}
+
+.twa-ver {
+	display: inline-flex;
+	align-items: center;
+	height: 22px;
+	padding: 0 9px;
+	border-radius: 999px;
+	background: #fff;
+	border: 1px solid var(--border);
+	color: var(--muted);
+	font-family: var(--body);
+	font-size: 12px;
+	font-weight: 700;
+	letter-spacing: 0;
+}
+
+.twa-ver--pro {
+	background: var(--ink);
+	border-color: var(--ink);
+	color: #fff;
+}

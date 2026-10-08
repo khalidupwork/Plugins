@@ -4,7 +4,7 @@ Tags: chatbot, ai chatbot, lead generation, multilingual, live chat
 Requires at least: 6.4
 Tested up to: 6.8
 Requires PHP: 8.0
-Stable tag: 2.2.2
+Stable tag: 2.2.3
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
@@ -109,6 +109,9 @@ In your WordPress database. Chats, leads and knowledge stay on your site. Messag
 
 == Changelog ==
 
+= 2.2.3 =
+* New: the installed Talkwyn version (and the Pro version, when Pro is installed) shows next to the title on Talkwyn screens, so you can confirm an update at a glance.
+
 = 2.2.2 =
 * Changed: Buttons use three fixed sizes everywhere: small 36px, normal 44px, large 52px. Buttons in the same row match, and the header buttons all have icons.
 
@@ -159,6 +162,9 @@ In your WordPress database. Chats, leads and knowledge stay on your site. Messag
 * Fixed: a full scan removes knowledge of posts that no longer exist.
 
 == Upgrade Notice ==
+
+= 2.2.3 =
+Shows the installed version in the Talkwyn header.
 
 = 2.2.2 =
 Consistent button sizes in the admin.
