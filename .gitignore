@@ -4,3 +4,4 @@ node_modules/
 talkwyn-hub/vendor/
 talkwyn-hub/composer.lock
 .phpunit.result.cache
+dist/
