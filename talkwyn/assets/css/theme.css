@@ -1226,3 +1226,7 @@ body .tw-page-head > .tw-page-head__card, .woocommerce-account .tw-page-head > .
 .tw-conv .tw-row__text, .tw-tv .tw-tv__text { align-self: center; }
 .tw-section--tight + .tw-section:not(.tw-inset) { padding-block-start: clamp(32px, 4vw, 56px) !important; }
 .tw-section + .tw-section--tight, .tw-section--tight + .tw-section--tight { margin-block-start: 0; }
+/* Long example chats: one centered column under the intro, on a dotted panel */
+.tw-conv__solo { max-inline-size: 760px; margin-inline: auto; padding: clamp(18px, 3vw, 32px); border-radius: var(--tw-r-lg); background-color: #FFFFFF; background-image: radial-gradient(rgba(26, 15, 18, .06) 1px, transparent 1.6px); background-size: 18px 18px; box-sizing: border-box; }
+.tw-conv__solo .tw-chat { max-inline-size: 560px; margin-inline: auto; }
+.tw-conv__note { text-align: center; max-inline-size: 640px; margin-inline: auto !important; color: var(--tw-n-600); }
