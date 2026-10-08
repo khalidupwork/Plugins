@@ -8,6 +8,13 @@ See [`credit-market-audit/readme.txt`](credit-market-audit/readme.txt) for insta
 
 **Install:** zip the `credit-market-audit` folder → WordPress → Plugins → Add New → Upload, then activate and add your PageSpeed API key under **Free Audit → Settings**.
 
+## Talkwyn chatbot plugins (`talkwyn-plugin/`)
+
+- `talkwyn-plugin/talkwyn/`: **Talkwyn**, the free WordPress.org plugin (rebuilt from Nabia AI Chatbot 1.9.0, with migration)
+- `talkwyn-plugin/talkwyn-pro/`: **Talkwyn Pro**, the paid add-on licensed and updated through Talkwyn Hub
+
+See [`talkwyn-plugin/README.md`](talkwyn-plugin/README.md), [`HOOKS.md`](talkwyn-plugin/talkwyn/HOOKS.md), [`MIGRATION.md`](talkwyn-plugin/talkwyn/MIGRATION.md) and [`QA-CHECKLIST.md`](talkwyn-plugin/QA-CHECKLIST.md).
+
 ## Talkwyn Hub (`talkwyn-hub/`)
 
 WordPress + WooCommerce plugin that sells, licenses and delivers updates for Talkwyn Pro from talkwyn.com:

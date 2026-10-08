@@ -1,0 +1,848 @@
+# Copyright (C) 2026 Talkwyn
+# This file is distributed under the GPLv2 or later.
+msgid ""
+msgstr ""
+"Project-Id-Version: Talkwyn Pro 1.0.0\n"
+"Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/talkwyn-pro\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"POT-Creation-Date: 2026-10-08T13:15:48+00:00\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"X-Generator: WP-CLI 2.12.0\n"
+"X-Domain: talkwyn-pro\n"
+
+#. Plugin Name of the plugin
+#: talkwyn-pro.php
+#: includes/Admin.php:123
+msgid "Talkwyn Pro"
+msgstr ""
+
+#. Plugin URI of the plugin
+#: talkwyn-pro.php
+msgid "https://talkwyn.com/pricing/"
+msgstr ""
+
+#. Description of the plugin
+#: talkwyn-pro.php
+msgid "Pro add-on for Talkwyn: paid AI models, smart search, PDF and URL knowledge, streaming replies, analytics, an unanswered questions inbox, WooCommerce product cards and order lookup, lead alerts, proactive messages, business hours and white label."
+msgstr ""
+
+#. Author of the plugin
+#: talkwyn-pro.php
+msgid "Talkwyn"
+msgstr ""
+
+#. Author URI of the plugin
+#: talkwyn-pro.php
+msgid "https://talkwyn.com/"
+msgstr ""
+
+#: includes/Admin.php:41
+msgid "Extra knowledge"
+msgstr ""
+
+#: includes/Admin.php:42
+msgid "Analytics"
+msgstr ""
+
+#: includes/Admin.php:43
+msgid "Unanswered"
+msgstr ""
+
+#: includes/Admin.php:44
+msgid "Pro settings"
+msgstr ""
+
+#: includes/Admin.php:48
+msgid "License"
+msgstr ""
+
+#: includes/Admin.php:72
+msgid "Pro features are paused"
+msgstr ""
+
+#: includes/Admin.php:72
+msgid "Activate a license or start a free 15-day trial to use this. Your Pro data and settings are kept."
+msgstr ""
+
+#: includes/Admin.php:73
+msgid "Activate license"
+msgstr ""
+
+#: includes/Admin.php:73
+msgid "Start a free trial"
+msgstr ""
+
+#. translators: %d: days
+#: includes/Admin.php:88
+#, php-format
+msgid "Pro trial: %d day left"
+msgid_plural "Pro trial: %d days left"
+msgstr[0] ""
+msgstr[1] ""
+
+#. translators: %d: days
+#: includes/Admin.php:88
+msgid "Upgrade any time with the same key. Your settings and knowledge stay."
+msgstr ""
+
+#. translators: %d: days
+#: includes/Admin.php:88
+msgid "Upgrade"
+msgstr ""
+
+#: includes/Admin.php:95
+msgid "Answer saved."
+msgstr ""
+
+#: includes/Admin.php:96
+msgid "Answer saved. The question is marked as done."
+msgstr ""
+
+#: includes/Admin.php:97
+msgid "Deleted."
+msgstr ""
+
+#: includes/Admin.php:98
+msgid "Add both a question and an answer."
+msgstr ""
+
+#: includes/Admin.php:99
+msgid "Choose a file first."
+msgstr ""
+
+#: includes/Admin.php:100
+msgid "Upload failed."
+msgstr ""
+
+#: includes/Admin.php:101
+msgid "File added to the knowledge."
+msgstr ""
+
+#: includes/Admin.php:102
+msgid "Enter a full URL that starts with https://"
+msgstr ""
+
+#: includes/Admin.php:103
+msgid "Page added to the knowledge."
+msgstr ""
+
+#: includes/Admin.php:104
+msgid "The first pages were added. The rest are read in the background, 10 every minute."
+msgstr ""
+
+#: includes/Admin.php:105
+msgid "Source read again."
+msgstr ""
+
+#: includes/Admin.php:106
+msgid "Settings imported."
+msgstr ""
+
+#: includes/Admin.php:107
+msgid "That file is not a Talkwyn settings export."
+msgstr ""
+
+#. translators: %d: count
+#: includes/Admin.php:124
+#, php-format
+msgid "%d question needs an answer."
+msgid_plural "%d questions need an answer."
+msgstr[0] ""
+msgstr[1] ""
+
+#. translators: %d: count
+#: includes/Admin.php:124
+msgid "Open the inbox"
+msgstr ""
+
+#. translators: %d: count
+#: includes/Admin.php:124
+msgid "See analytics"
+msgstr ""
+
+#: includes/Admin.php:131
+msgid "Talkwyn Pro license"
+msgstr ""
+
+#: includes/Admin.php:131
+msgid "Paste the key from your talkwyn.com account. Trial keys work the same way; when you upgrade, the same key keeps working."
+msgstr ""
+
+#: includes/Admin.php:135
+msgid "This build has no Talkwyn Hub public key, so license responses cannot be verified. Add the key in includes/hub-keys.php or define TALKWYN_PRO_PUBLIC_KEYS."
+msgstr ""
+
+#: includes/Admin.php:155
+msgid "Edit answer"
+msgstr ""
+
+#: includes/Admin.php:155
+msgid "Custom answers"
+msgstr ""
+
+#: includes/Admin.php:155
+msgid "When a visitor asks something close to one of these questions, Talkwyn replies with your answer word for word."
+msgstr ""
+
+#: includes/Admin.php:158
+#: includes/Admin.php:181
+#: includes/Admin.php:310
+#: includes/Alerts.php:41
+msgid "Question"
+msgstr ""
+
+#: includes/Admin.php:159
+#: includes/Admin.php:181
+#: includes/Admin.php:310
+msgid "Answer"
+msgstr ""
+
+#: includes/Admin.php:159
+msgid "Markdown works: **bold**, lists and [links](https://example.com)."
+msgstr ""
+
+#: includes/Admin.php:160
+msgid "Also match these words (optional)"
+msgstr ""
+
+#: includes/Admin.php:161
+#: includes/Admin.php:310
+msgid "Save answer"
+msgstr ""
+
+#: includes/Admin.php:163
+msgid "Add files and pages"
+msgstr ""
+
+#: includes/Admin.php:163
+msgid "PDF, DOCX and TXT files, or any public page or sitemap. Talkwyn reads the text and adds it to the knowledge."
+msgstr ""
+
+#: includes/Admin.php:166
+msgid "File (PDF, DOCX or TXT)"
+msgstr ""
+
+#: includes/Admin.php:166
+msgid "Upload"
+msgstr ""
+
+#: includes/Admin.php:169
+msgid "Page or sitemap URL"
+msgstr ""
+
+#: includes/Admin.php:169
+msgid "Read"
+msgstr ""
+
+#. translators: %d: pages
+#: includes/Admin.php:172
+#, php-format
+msgid "%d page waiting to be read."
+msgid_plural "%d pages waiting to be read."
+msgstr[0] ""
+msgstr[1] ""
+
+#: includes/Admin.php:177
+msgid "Your answers"
+msgstr ""
+
+#: includes/Admin.php:179
+msgid "No custom answers yet."
+msgstr ""
+
+#: includes/Admin.php:181
+msgid "Used"
+msgstr ""
+
+#: includes/Admin.php:184
+msgid "Edit"
+msgstr ""
+
+#: includes/Admin.php:184
+msgid "Delete this answer?"
+msgstr ""
+
+#: includes/Admin.php:184
+msgid "Delete"
+msgstr ""
+
+#: includes/Admin.php:191
+msgid "Files and pages"
+msgstr ""
+
+#: includes/Admin.php:193
+msgid "Nothing added yet."
+msgstr ""
+
+#: includes/Admin.php:195
+msgid "Source"
+msgstr ""
+
+#: includes/Admin.php:195
+msgid "Type"
+msgstr ""
+
+#: includes/Admin.php:195
+msgid "Chunks"
+msgstr ""
+
+#: includes/Admin.php:195
+msgid "Status"
+msgstr ""
+
+#: includes/Admin.php:200
+#: includes/Alerts.php:42
+msgid "Page"
+msgstr ""
+
+#: includes/Admin.php:200
+msgid "File"
+msgstr ""
+
+#: includes/Admin.php:200
+msgid "Ready"
+msgstr ""
+
+#: includes/Admin.php:200
+msgid "No text"
+msgstr ""
+
+#: includes/Admin.php:200
+msgid "Read again"
+msgstr ""
+
+#: includes/Admin.php:200
+msgid "Remove"
+msgstr ""
+
+#: includes/Admin.php:216
+msgid "Chats, 30 days"
+msgstr ""
+
+#: includes/Admin.php:217
+msgid "Leads, 30 days"
+msgstr ""
+
+#: includes/Admin.php:218
+msgid "Lead rate"
+msgstr ""
+
+#: includes/Admin.php:219
+msgid "Average reply time"
+msgstr ""
+
+#: includes/Admin.php:227
+#: includes/Admin.php:229
+msgid "Chats per day"
+msgstr ""
+
+#: includes/Admin.php:227
+msgid "Conversations started in the last 30 days."
+msgstr ""
+
+#: includes/Admin.php:235
+msgid "Top questions"
+msgstr ""
+
+#: includes/Admin.php:236
+msgid "No questions yet."
+msgstr ""
+
+#: includes/Admin.php:238
+msgid "Pages where chats start"
+msgstr ""
+
+#: includes/Admin.php:243
+msgid "(unknown)"
+msgstr ""
+
+#: includes/Admin.php:249
+msgid "No chats yet."
+msgstr ""
+
+#: includes/Admin.php:252
+msgid "AI providers"
+msgstr ""
+
+#. translators: %s: percent
+#: includes/Admin.php:252
+#, php-format
+msgid "%s of answers came from an AI provider; the rest used local fallback answers."
+msgstr ""
+
+#: includes/Admin.php:255
+msgid "Provider"
+msgstr ""
+
+#: includes/Admin.php:255
+msgid "Answers"
+msgstr ""
+
+#: includes/Admin.php:255
+msgid "Failures"
+msgstr ""
+
+#: includes/Admin.php:255
+msgid "Success rate"
+msgstr ""
+
+#: includes/Admin.php:261
+msgid "No AI answers yet."
+msgstr ""
+
+#: includes/Admin.php:264
+msgid "Feedback"
+msgstr ""
+
+#. translators: 1: helpful count, 2: not helpful count
+#: includes/Admin.php:265
+#, php-format
+msgid "%1$s helpful, %2$s not helpful."
+msgstr ""
+
+#. translators: 1: helpful count, 2: not helpful count
+#: includes/Admin.php:265
+msgid "Review unanswered questions"
+msgstr ""
+
+#: includes/Admin.php:296
+msgid "Unanswered questions"
+msgstr ""
+
+#: includes/Admin.php:296
+msgid "Questions the assistant could not answer from your site, and answers visitors marked as not helpful. Add an answer once and Talkwyn uses it from then on."
+msgstr ""
+
+#: includes/Admin.php:298
+msgid "All caught up. New items appear here as visitors chat."
+msgstr ""
+
+#: includes/Admin.php:303
+msgid "Not helpful"
+msgstr ""
+
+#: includes/Admin.php:303
+msgid "Not answered"
+msgstr ""
+
+#: includes/Admin.php:308
+msgid "Add answer"
+msgstr ""
+
+#: includes/Admin.php:310
+msgid "Dismiss"
+msgstr ""
+
+#: includes/Admin.php:326
+msgid "Smart search"
+msgstr ""
+
+#: includes/Admin.php:326
+msgid "Finds answers by meaning, not only matching words. Uses the embedding API of a provider you already have a key for."
+msgstr ""
+
+#: includes/Admin.php:329
+msgid "Embedding provider"
+msgstr ""
+
+#: includes/Admin.php:331
+msgid "Off (keyword search)"
+msgstr ""
+
+#: includes/Admin.php:337
+msgid "Embedding model (optional)"
+msgstr ""
+
+#: includes/Admin.php:337
+msgid "Leave empty for the provider default."
+msgstr ""
+
+#: includes/Admin.php:338
+msgid "Meaning vs keywords (0 to 100)"
+msgstr ""
+
+#: includes/Admin.php:338
+msgid "Higher trusts meaning more. 60 works well for most sites."
+msgstr ""
+
+#: includes/Admin.php:340
+msgid "Build smart search now"
+msgstr ""
+
+#. translators: 1: vectors, 2: chunks
+#: includes/Admin.php:340
+#: assets/js/pro-admin.js:16
+#, php-format,js-format
+msgid "%1$s of %2$s chunks ready"
+msgstr ""
+
+#. translators: 1: vectors, 2: chunks
+#: includes/Admin.php:340
+msgid "New and changed content is added in the background every 10 minutes."
+msgstr ""
+
+#: includes/Admin.php:343
+msgid "Replies and WooCommerce"
+msgstr ""
+
+#: includes/Admin.php:344
+msgid "Stream replies word by word"
+msgstr ""
+
+#: includes/Admin.php:344
+msgid "Falls back to normal replies when your host buffers responses."
+msgstr ""
+
+#: includes/Admin.php:345
+msgid "Show product cards with price and Add to cart"
+msgstr ""
+
+#: includes/Admin.php:346
+msgid "Order status lookup (order number plus billing email)"
+msgstr ""
+
+#: includes/Admin.php:348
+msgid "WooCommerce is not active on this site."
+msgstr ""
+
+#: includes/Admin.php:352
+msgid "Lead alerts"
+msgstr ""
+
+#: includes/Admin.php:352
+msgid "Email alerts are set under Answers and leads. Add Slack or Telegram for instant alerts."
+msgstr ""
+
+#: includes/Admin.php:353
+msgid "Slack incoming webhook URL"
+msgstr ""
+
+#: includes/Admin.php:354
+msgid "Telegram bot token"
+msgstr ""
+
+#: includes/Admin.php:355
+msgid "Telegram chat ID"
+msgstr ""
+
+#: includes/Admin.php:356
+msgid "Send a test alert"
+msgstr ""
+
+#: includes/Admin.php:357
+msgid "Coming soon"
+msgstr ""
+
+#: includes/Admin.php:357
+msgid "WhatsApp alerts"
+msgstr ""
+
+#: includes/Admin.php:360
+msgid "White label"
+msgstr ""
+
+#: includes/Admin.php:361
+msgid "Hide \"Powered by Talkwyn\" in the chat"
+msgstr ""
+
+#: includes/Admin.php:362
+msgid "Admin menu name"
+msgstr ""
+
+#: includes/Admin.php:362
+msgid "For client sites, for example \"Website chat\". Leave empty for Talkwyn."
+msgstr ""
+
+#: includes/Admin.php:365
+msgid "Proactive messages"
+msgstr ""
+
+#: includes/Admin.php:365
+msgid "Greet visitors with a short message near the chat button. Each message shows once per visit."
+msgstr ""
+
+#: includes/Admin.php:367
+#: includes/Admin.php:377
+msgid "Message"
+msgstr ""
+
+#: includes/Admin.php:367
+#: includes/Admin.php:378
+msgid "When"
+msgstr ""
+
+#: includes/Admin.php:367
+#: includes/Admin.php:386
+msgid "Value"
+msgstr ""
+
+#: includes/Admin.php:367
+msgid "Only on URLs containing"
+msgstr ""
+
+#: includes/Admin.php:367
+#: includes/Admin.php:386
+msgid "Open chat"
+msgstr ""
+
+#: includes/Admin.php:377
+msgid "Questions about pricing? Ask me."
+msgstr ""
+
+#: includes/Admin.php:380
+msgid "After seconds on page"
+msgstr ""
+
+#: includes/Admin.php:381
+msgid "After scrolling percent"
+msgstr ""
+
+#: includes/Admin.php:382
+msgid "When leaving the page"
+msgstr ""
+
+#: includes/Admin.php:386
+msgid "URL contains"
+msgstr ""
+
+#: includes/Admin.php:390
+msgid "Business hours"
+msgstr ""
+
+#. translators: %s: time zone
+#: includes/Admin.php:390
+#, php-format
+msgid "Outside these hours the chat shows as away. Times use the site time zone (%s)."
+msgstr ""
+
+#. translators: %s: time zone
+#: includes/Admin.php:391
+msgid "Use business hours"
+msgstr ""
+
+#: includes/Admin.php:393
+msgid "Monday"
+msgstr ""
+
+#: includes/Admin.php:394
+msgid "Tuesday"
+msgstr ""
+
+#: includes/Admin.php:395
+msgid "Wednesday"
+msgstr ""
+
+#: includes/Admin.php:396
+msgid "Thursday"
+msgstr ""
+
+#: includes/Admin.php:397
+msgid "Friday"
+msgstr ""
+
+#: includes/Admin.php:398
+msgid "Saturday"
+msgstr ""
+
+#: includes/Admin.php:399
+msgid "Sunday"
+msgstr ""
+
+#: includes/Admin.php:406
+msgid "opens"
+msgstr ""
+
+#: includes/Admin.php:406
+msgid "to"
+msgstr ""
+
+#: includes/Admin.php:406
+msgid "closes"
+msgstr ""
+
+#: includes/Admin.php:409
+msgid "Status text when away"
+msgstr ""
+
+#: includes/Admin.php:410
+msgid "When away, collect contact details instead of chatting"
+msgstr ""
+
+#: includes/Admin.php:411
+msgid "Away reply"
+msgstr ""
+
+#: includes/Admin.php:413
+msgid "Save Pro settings"
+msgstr ""
+
+#: includes/Admin.php:415
+msgid "Export and import settings"
+msgstr ""
+
+#: includes/Admin.php:415
+msgid "Move a setup to another site. Exports include settings and custom answers. API keys are left out unless you tick the box."
+msgstr ""
+
+#: includes/Admin.php:418
+msgid "Include API keys"
+msgstr ""
+
+#: includes/Admin.php:418
+msgid "Download export"
+msgstr ""
+
+#: includes/Admin.php:421
+msgid "Settings file"
+msgstr ""
+
+#: includes/Admin.php:421
+msgid "Also import custom answers"
+msgstr ""
+
+#: includes/Admin.php:421
+msgid "Import"
+msgstr ""
+
+#. translators: %s: site name
+#: includes/Alerts.php:35
+#, php-format
+msgid "New lead on %s"
+msgstr ""
+
+#: includes/Alerts.php:38
+msgid "Name"
+msgstr ""
+
+#: includes/Alerts.php:39
+msgid "Email"
+msgstr ""
+
+#: includes/Alerts.php:40
+msgid "Phone"
+msgstr ""
+
+#: includes/Alerts.php:98
+#: includes/Insights.php:180
+#: includes/Knowledge.php:408
+#: includes/Search.php:119
+#: includes/Transfer.php:69
+#: includes/Transfer.php:85
+msgid "You do not have permission to do this."
+msgstr ""
+
+#: includes/Alerts.php:103
+msgid "Test lead"
+msgstr ""
+
+#: includes/Alerts.php:105
+msgid "This is a test alert from Talkwyn Pro."
+msgstr ""
+
+#: includes/Alerts.php:109
+msgid "Add a Slack webhook or a Telegram bot first, then save."
+msgstr ""
+
+#: includes/Alerts.php:113
+msgid "sent"
+msgstr ""
+
+#: includes/Knowledge.php:274
+msgid "No text found. Scanned PDFs are images; export a text PDF or upload a DOCX."
+msgstr ""
+
+#: includes/Plugin.php:63
+msgid "Talkwyn Pro needs the free Talkwyn plugin."
+msgstr ""
+
+#: includes/Plugin.php:63
+msgid "Install and activate Talkwyn from Plugins, Add New, then Pro switches on."
+msgstr ""
+
+#: includes/Search.php:122
+msgid "Choose an embedding provider that has an API key first."
+msgstr ""
+
+#: includes/Stream.php:66
+msgid "Too many messages. Please try again later."
+msgstr ""
+
+#: includes/Stream.php:70
+msgid "Please type a message."
+msgstr ""
+
+#: includes/Woo.php:93
+msgid "View product"
+msgstr ""
+
+#: includes/Woo.php:94
+msgid "Add to cart"
+msgstr ""
+
+#: includes/Woo.php:95
+msgid "Out of stock"
+msgstr ""
+
+#: includes/Woo.php:151
+msgid "I can check that. Please send your order number and the billing email you used for the order."
+msgstr ""
+
+#: includes/Woo.php:152
+msgid "Thanks. What is the order number?"
+msgstr ""
+
+#: includes/Woo.php:152
+msgid "Thanks. What is the billing email on the order?"
+msgstr ""
+
+#: includes/Woo.php:162
+msgid "Too many order lookups. Please try again in an hour or contact the team."
+msgstr ""
+
+#: includes/Woo.php:179
+msgid "I could not find an order with that number and email. Please check both and try again."
+msgstr ""
+
+#. translators: 1: order number, 2: status
+#: includes/Woo.php:189
+#, php-format
+msgid "Order #%1$s is **%2$s**."
+msgstr ""
+
+#. translators: %s: date
+#: includes/Woo.php:193
+#, php-format
+msgid "Placed on %s."
+msgstr ""
+
+#. translators: %s: order total
+#: includes/Woo.php:196
+#, php-format
+msgid "Total: %s."
+msgstr ""
+
+#: includes/Woo.php:202
+msgid "Items:"
+msgstr ""
+
+#. translators: 1: carrier, 2: tracking number
+#: includes/Woo.php:209
+#, php-format
+msgid "Tracking: %1$s %2$s"
+msgstr ""
+
+#: assets/js/pro-admin.js:25
+msgid "Could not build smart search. Save your settings and check the key."
+msgstr ""
+
+#: assets/js/pro-admin.js:32
+msgid "Sending"
+msgstr ""
+
+#: assets/js/pro-admin.js:36
+msgid "Failed."
+msgstr ""

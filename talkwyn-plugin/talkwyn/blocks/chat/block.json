@@ -1,0 +1,23 @@
+{
+	"$schema": "https://schemas.wp.org/trunk/block.json",
+	"apiVersion": 3,
+	"name": "talkwyn/chat",
+	"title": "Talkwyn Chat",
+	"category": "widgets",
+	"icon": "format-chat",
+	"description": "Shows the Talkwyn chat inside the page.",
+	"keywords": [ "chat", "chatbot", "ai", "talkwyn" ],
+	"textdomain": "talkwyn",
+	"attributes": {
+		"height": {
+			"type": "number",
+			"default": 600
+		}
+	},
+	"supports": {
+		"html": false,
+		"align": [ "wide", "full" ],
+		"spacing": { "margin": true }
+	},
+	"editorScript": "talkwyn-block-editor"
+}

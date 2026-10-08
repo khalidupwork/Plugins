@@ -1,0 +1,38 @@
+/* Talkwyn Pro admin. */
+.twp-trial { border-left-color: #D7263D; }
+.twp-trial p { display: flex; align-items: center; gap: 10px; flex-wrap: wrap; }
+.twp-inline-form { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; margin: 0 0 14px; }
+.twp-inline-form input[type=url] { flex: 1 1 260px; }
+.twp-label { width: 100%; font-weight: 600; }
+.twp-actions { white-space: nowrap; }
+.twp-actions a + a { margin-left: 10px; }
+.twp-bars { display: grid; grid-template-columns: repeat(30, 1fr); gap: 4px; align-items: end; height: 160px; padding: 8px 0 0; border-bottom: 1px solid #EEE7E8; }
+.twp-bar { height: 100%; display: flex; align-items: flex-end; }
+.twp-bar i { display: block; width: 100%; height: max(2px, var(--h)); background: #D7263D; border-radius: 4px 4px 0 0; }
+.twp-bar:hover i { background: #1A0F12; }
+.twp-rank { margin: 0; padding: 0; list-style: none; counter-reset: r; }
+.twp-rank li { display: flex; justify-content: space-between; gap: 12px; padding: 8px 0; border-bottom: 1px solid #f0f0f1; }
+.twp-rank li span { overflow-wrap: anywhere; }
+.twp-rank li b { color: #1A0F12; }
+.twp-inbox { border: 1px solid #EEE7E8; border-radius: 12px; padding: 14px 16px; margin: 0 0 12px; background: #fff; }
+.twp-inbox header { display: flex; align-items: center; gap: 10px; flex-wrap: wrap; color: #6B5E61; font-size: 12px; }
+.twp-inbox__q { margin: 10px 0 4px; font-size: 14px; }
+.twp-inbox__a { margin: 0 0 12px; color: #6B5E61; background: #F7F3F3; padding: 8px 12px; border-radius: 10px; }
+.twp-inbox details { display: inline-block; vertical-align: top; }
+.twp-inbox details[open] { display: block; margin-bottom: 8px; }
+.twp-inbox details summary { list-style: none; }
+.twp-inbox details summary::-webkit-details-marker { display: none; }
+.twp-inbox details form { margin-top: 12px; }
+.twp-inbox .twa-field input, .twp-inbox .twa-field textarea { display: block; width: 100%; margin-top: 4px; font-weight: 400; }
+.twp-badge--warn { background: #fdf0e6; color: #9a3412; }
+.twp-empty { font-size: 14px; }
+.twp-soon { color: #6B5E61; }
+.twp-rules { display: grid; gap: 8px; }
+.twp-rules__head, .twp-rules__row { display: grid; grid-template-columns: 2.4fr 1.6fr .7fr 1.2fr .6fr; gap: 8px; align-items: center; }
+.twp-rules__head { font-weight: 600; font-size: 12px; color: #6B5E61; }
+.twp-rules__row input[type=text], .twp-rules__row select, .twp-rules__row input[type=number] { width: 100%; max-width: 100%; }
+.twp-center { text-align: center; }
+.twp-hours { display: grid; gap: 6px; margin: 0 0 16px; }
+.twp-hours__row { display: grid; grid-template-columns: 160px 120px 24px 120px; gap: 8px; align-items: center; }
+.twp-embed { display: flex; align-items: center; gap: 10px; flex-wrap: wrap; }
+@media (max-width: 960px) { .twp-rules__head { display: none; } .twp-rules__row { grid-template-columns: 1fr 1fr; padding-bottom: 8px; border-bottom: 1px solid #EEE7E8; } .twp-rules__row input[type=text]:first-child { grid-column: 1 / -1; } }

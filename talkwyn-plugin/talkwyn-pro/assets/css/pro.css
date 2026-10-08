@@ -1,0 +1,126 @@
+/* Talkwyn Pro widget additions. */
+.twc-cards {
+	display: flex;
+	gap: 10px;
+	overflow-x: auto;
+	max-width: 100%;
+	padding: 8px 2px 4px;
+	scroll-snap-type: x mandatory;
+}
+
+.twc-card {
+	flex: 0 0 200px;
+	scroll-snap-align: start;
+	background: var(--twc-surface, #fff);
+	border: 1px solid var(--twc-border, #EEE7E8);
+	border-radius: 16px;
+	overflow: hidden;
+	display: flex;
+	flex-direction: column;
+}
+
+.twc-card img {
+	width: 100%;
+	aspect-ratio: 4 / 3;
+	object-fit: cover;
+	display: block;
+	background: var(--twc-linen, #F7F3F3);
+}
+
+.twc-card__body {
+	padding: 10px 12px 12px;
+	display: flex;
+	flex-direction: column;
+	gap: 6px;
+	flex: 1 1 auto;
+}
+
+.twc .twc-card__title {
+	color: var(--twc-ink, #1A0F12);
+	font-weight: 700;
+	font-size: 14px;
+	line-height: 1.35;
+	text-decoration: none;
+}
+
+.twc-card__price {
+	font-size: 14px;
+	color: var(--twc-ink, #1A0F12);
+}
+
+.twc-card__actions {
+	display: flex;
+	flex-wrap: wrap;
+	gap: 6px;
+	margin-top: auto;
+}
+
+.twc .twc-card__actions .twc-btn {
+	min-height: 34px;
+	padding: 6px 12px;
+	font-size: 13px;
+	text-decoration: none;
+}
+
+.twc-card__out {
+	font-size: 13px;
+	color: var(--twc-muted, #6B5E61);
+}
+
+.twc.is-away .twc-status::before {
+	background: #94878A;
+}
+
+.twc-teaser {
+	position: absolute;
+	inset-block-end: 76px;
+	inset-inline-end: 0;
+	display: flex;
+	align-items: flex-start;
+	gap: 4px;
+	width: max-content;
+	max-width: min(300px, calc(100vw - 32px));
+	background: var(--twc-surface, #fff);
+	border: 1px solid var(--twc-border, #EEE7E8);
+	border-radius: 18px 18px 6px 18px;
+	box-shadow: 0 12px 32px rgba(26, 15, 18, .16);
+	padding: 4px 4px 4px 0;
+	animation: twc-in 240ms cubic-bezier(.2, .8, .2, 1);
+}
+
+.twc--left .twc-teaser {
+	inset-inline-end: auto;
+	inset-inline-start: 0;
+	border-radius: 18px 18px 18px 6px;
+}
+
+.twc .twc-teaser__text {
+	padding: 10px 6px 10px 14px;
+	font-size: 15px;
+	line-height: 1.45;
+	text-align: start;
+	color: var(--twc-ink, #1A0F12);
+}
+
+.twc .twc-teaser__close {
+	flex: 0 0 28px;
+	width: 28px;
+	height: 28px;
+	border-radius: 50%;
+	display: grid;
+	place-items: center;
+	color: var(--twc-muted, #6B5E61);
+}
+
+.twc-teaser__close svg {
+	width: 16px;
+	height: 16px;
+	fill: none;
+	stroke: currentColor;
+	stroke-width: 2;
+	stroke-linecap: round;
+}
+
+.twc.is-open .twc-teaser {
+	display: none;
+}
