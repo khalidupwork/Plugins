@@ -72,6 +72,12 @@ final class SettingsPage {
 				<?php wp_nonce_field( 'twh_save_settings' ); ?>
 
 				<section class="twh-tabpanel" data-tab="general">
+				<h2><?php esc_html_e( 'License keys', 'talkwyn-hub' ); ?></h2>
+				<table class="form-table" role="presentation">
+					<tr><th><?php esc_html_e( 'Keys in emails', 'talkwyn-hub' ); ?></th>
+						<td><label><input name="email_keys" type="checkbox" value="1" <?php checked( (int) $s['email_keys'], 1 ); ?>> <?php esc_html_e( 'Include the full license key in emails', 'talkwyn-hub' ); ?></label>
+						<p class="description"><?php esc_html_e( 'Off (recommended): emails show only the last 4 characters and a button to the customer dashboard, where the full key is shown. Buyers of license products must create an account at checkout.', 'talkwyn-hub' ); ?></p></td></tr>
+				</table>
 				<h2><?php esc_html_e( 'Renewals & reminders', 'talkwyn-hub' ); ?></h2>
 				<table class="form-table" role="presentation">
 					<tr><th><label for="twh-reminder-days"><?php esc_html_e( 'Reminder days', 'talkwyn-hub' ); ?></label></th>
@@ -298,6 +304,7 @@ final class SettingsPage {
 			'dev_domains'         => implode( "\n", Domain::parse_patterns( sanitize_textarea_field( wp_unslash( $_POST['dev_domains'] ?? '' ) ) ) ),
 			'log_retention_days'  => absint( $_POST['log_retention_days'] ?? 180 ),
 			'delete_on_uninstall' => empty( $_POST['delete_on_uninstall'] ) ? 0 : 1,
+			'email_keys'          => empty( $_POST['email_keys'] ) ? 0 : 1,
 			'admin_notify_email'  => sanitize_email( wp_unslash( $_POST['admin_notify_email'] ?? '' ) ),
 			'email_from_name'     => sanitize_text_field( wp_unslash( $_POST['email_from_name'] ?? '' ) ),
 		);

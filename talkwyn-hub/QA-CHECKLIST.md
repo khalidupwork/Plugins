@@ -144,6 +144,13 @@ Run this on a staging copy of talkwyn.com with Stripe in **test mode** (card `42
 - [ ] `GET /wp-json/talkwyn-hub/v1/partners/terms` returns the current settings.
 - [ ] Turn Partners off → `?ref=` does nothing, My Account → Partners says the program is closed.
 
+## 14. Keys only in the account (1.6.0)
+
+- [ ] Keys in emails off: the trial welcome and license emails show `TALK-****-****-****-XXXX` and an "Open your dashboard" button; the full key is on My Account → Licenses.
+- [ ] Logged out, add a license product to the cart: checkout asks to create an account and refuses guest checkout.
+- [ ] As a customer with a trial, buy a plan from the pricing page (not the upgrade link): still one license, same key, now paid with the plan's sites and a new term.
+- [ ] Turn Keys in emails on: emails show the full key again, guest checkout works as before.
+
 ## 13. Customer dashboard (1.5.0)
 
 - [ ] Logged out, /my-account/ shows the normal login form.

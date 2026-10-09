@@ -42,7 +42,7 @@ final class Settings {
 			'admin_notify_email'                => '',
 			'email_from_name'                   => '',
 			'email_license_subject'             => __( 'Your Talkwyn license is ready', 'talkwyn-hub' ),
-			'email_license_body'                => __( "Hi {customer_name},\n\nThank you for choosing {product_name}. Your {plan} license is ready, and your key is below.\n\nTo turn on Pro, open Talkwyn in your WordPress dashboard, go to the License tab, and paste the key. Staging and local sites are free and don't use a slot.\n\nSites: {activation_limit}\nValid until: {expires_at}\n\nYou can see your sites, downloads, and invoices in your account at any time.\n\nThe {site_name} team", 'talkwyn-hub' ),
+			'email_license_body'                => __( "Hi {customer_name},\n\nThank you for choosing {product_name}. Your {plan} license is ready in your account.\n\nTo turn on Pro, copy your key from your account, open Talkwyn in your WordPress dashboard, go to the License tab, and paste it. Staging and local sites are free and don't use a slot.\n\nSites: {activation_limit}\nValid until: {expires_at}\n\nYou can see your sites, downloads, and invoices in your account at any time.\n\nThe {site_name} team", 'talkwyn-hub' ),
 			'email_reminder_subject'            => __( 'Your Talkwyn license renews in {days_left} days', 'talkwyn-hub' ),
 			'email_reminder_body'               => __( "Hi {customer_name},\n\nYour {product_name} license ({plan}, key ending {key_last4}) is due for renewal on {expires_at}.\n\nRenew before then to keep updates and support running on your sites. It takes one click and your renewal discount is already applied.\n\nThe {site_name} team", 'talkwyn-hub' ),
 			'email_expired_subject'             => __( 'Your Talkwyn license has expired', 'talkwyn-hub' ),
@@ -58,6 +58,9 @@ final class Settings {
 			'invoice_email'                     => '',
 			'invoice_note'                      => '',
 
+			// Keys stay in the customer dashboard; emails show only the last 4 characters.
+			'email_keys'                        => 0,
+
 			// Trial.
 			'trial_enabled'                     => 1,
 			'trial_days'                        => 15,
@@ -69,7 +72,7 @@ final class Settings {
 			'email_trial_confirm_subject'       => __( 'Confirm your email to start your Talkwyn trial', 'talkwyn-hub' ),
 			'email_trial_confirm_body'          => __( "Hi {customer_name},\n\nThanks for starting a Talkwyn Pro trial for {trial_site}. Please confirm this is your email address with the button below.\n\nRight after you confirm, we create your trial license and your account and send both to you.\n\nThe link works for 48 hours. If you didn't ask for a trial, you can ignore this email and nothing will happen.\n\nThe {site_name} team", 'talkwyn-hub' ),
 			'email_trial_welcome_subject'       => __( 'Your {trial_days}-day Talkwyn Pro trial has started', 'talkwyn-hub' ),
-			'email_trial_welcome_body'          => __( "Hi {customer_name},\n\nWelcome to Talkwyn Pro. Your trial key is below and every Pro feature is yours until {trial_ends_at}.\n\nGetting set up takes about five minutes:\n1. Install Talkwyn on your WordPress site.\n2. Open Talkwyn, go to the License tab and paste your key.\n3. Click Scan my site, add a free AI key, and turn the chat on.\n\nThe trial covers one site. Staging and local sites are free and don't use it.\n\n{login_details}\n\nThe {site_name} team", 'talkwyn-hub' ),
+			'email_trial_welcome_body'          => __( "Hi {customer_name},\n\nWelcome to Talkwyn Pro. Every Pro feature is yours until {trial_ends_at}, and your trial key is waiting in your account.\n\nGetting set up takes about five minutes:\n1. Install Talkwyn on your WordPress site.\n2. Copy your key from your account, open Talkwyn, go to the License tab and paste it.\n3. Click Scan my site, add a free AI key, and turn the chat on.\n\nThe trial covers one site. Staging and local sites are free and don't use it.\n\n{login_details}\n\nThe {site_name} team", 'talkwyn-hub' ),
 			'email_trial_reminder_subject'      => __( 'Your Talkwyn trial has {days_left} days left', 'talkwyn-hub' ),
 			'email_trial_reminder_body'         => __( "Hi {customer_name},\n\nYour Talkwyn Pro trial ends on {trial_ends_at}, in {days_left} days.\n\nHere's what you've used so far: {trial_usage}\n\nTo keep Pro running, pick a plan before the trial ends. You keep the same key, so nothing changes on your site. If you don't upgrade, Talkwyn moves to the free plan and keeps all your settings, chats and leads.\n\nThe {site_name} team", 'talkwyn-hub' ),
 			'email_trial_ended_subject'         => __( 'Your Talkwyn trial has ended', 'talkwyn-hub' ),
@@ -111,6 +114,13 @@ final class Settings {
 			self::$cache = array_merge( self::defaults(), is_array( $stored ) ? $stored : array() );
 		}
 		return self::$cache;
+	}
+
+	/**
+	 * Whether full license keys may appear in emails (off: last 4 characters only).
+	 */
+	public static function email_keys(): bool {
+		return (bool) self::get( 'email_keys' );
 	}
 
 	/**

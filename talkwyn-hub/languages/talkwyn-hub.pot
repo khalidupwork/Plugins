@@ -2,14 +2,14 @@
 # This file is distributed under the GPL-2.0-or-later.
 msgid ""
 msgstr ""
-"Project-Id-Version: Talkwyn Hub 1.5.0\n"
+"Project-Id-Version: Talkwyn Hub 1.6.0\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/talkwyn-hub\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2026-10-09T08:21:13+00:00\n"
+"POT-Creation-Date: 2026-10-09T11:46:17+00:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "X-Generator: WP-CLI 2.12.0\n"
 "X-Domain: talkwyn-hub\n"
@@ -62,7 +62,7 @@ msgstr ""
 #: includes/Partners/PartnerAccount.php:254
 #: includes/Partners/PartnerAccount.php:260
 #: includes/Partners/PartnerAccount.php:397
-#: includes/Woo/OrderDisplay.php:219
+#: includes/Woo/OrderDisplay.php:221
 #: templates/account/license-detail.php:45
 #: templates/account/licenses.php:62
 msgid "Copy"
@@ -84,7 +84,7 @@ msgstr ""
 #: includes/Account/Account.php:151
 #: includes/Account/Account.php:275
 #: includes/Account/Account.php:291
-#: includes/Woo/Cart.php:221
+#: includes/Woo/Cart.php:257
 msgid "License not found."
 msgstr ""
 
@@ -103,7 +103,7 @@ msgid "Every Pro feature is on. Pick a plan any time, you keep the same key."
 msgstr ""
 
 #: includes/Account/Account.php:204
-#: includes/Email/Mailer.php:254
+#: includes/Email/Mailer.php:255
 msgid "Your trial has ended"
 msgstr ""
 
@@ -124,7 +124,7 @@ msgstr ""
 #: includes/Account/Account.php:286
 #: includes/Account/Account.php:308
 #: includes/Partners/PartnerAccount.php:101
-#: includes/Woo/Cart.php:216
+#: includes/Woo/Cart.php:252
 msgid "Your session expired. Please try again."
 msgstr ""
 
@@ -149,7 +149,7 @@ msgid "The license was added to your account."
 msgstr ""
 
 #: includes/Account/Account.php:359
-#: includes/Admin/SettingsPage.php:358
+#: includes/Admin/SettingsPage.php:365
 msgid "Trial ended"
 msgstr ""
 
@@ -344,7 +344,7 @@ msgstr ""
 #: includes/Admin/PartnersPage.php:168
 #: includes/Admin/PartnersPage.php:175
 #: includes/Admin/SettingsPage.php:58
-#: includes/Admin/SettingsPage.php:124
+#: includes/Admin/SettingsPage.php:130
 #: includes/Partners/PartnerAccount.php:67
 msgid "Partners"
 msgstr ""
@@ -605,7 +605,7 @@ msgstr ""
 #: includes/Admin/LicensesTable.php:61
 #: includes/Admin/PartnersPage.php:218
 #: includes/Admin/PartnersPage.php:310
-#: includes/Admin/SettingsPage.php:245
+#: includes/Admin/SettingsPage.php:251
 #: includes/Partners/PartnerAccount.php:300
 msgid "Status"
 msgstr ""
@@ -792,7 +792,7 @@ msgid "Expires"
 msgstr ""
 
 #: includes/Admin/LicensesTable.php:64
-#: includes/Admin/SettingsPage.php:247
+#: includes/Admin/SettingsPage.php:253
 msgid "Created"
 msgstr ""
 
@@ -843,7 +843,7 @@ msgstr ""
 
 #: includes/Admin/LicensesTable.php:223
 #: includes/Admin/SettingsPage.php:57
-#: includes/Admin/SettingsPage.php:88
+#: includes/Admin/SettingsPage.php:94
 msgid "Trial"
 msgstr ""
 
@@ -1294,7 +1294,7 @@ msgid "file missing"
 msgstr ""
 
 #: includes/Admin/ReleasesPage.php:139
-#: includes/Admin/SettingsPage.php:274
+#: includes/Admin/SettingsPage.php:280
 msgid "Yes"
 msgstr ""
 
@@ -1348,12 +1348,12 @@ msgid "General"
 msgstr ""
 
 #: includes/Admin/SettingsPage.php:59
-#: includes/Admin/SettingsPage.php:161
+#: includes/Admin/SettingsPage.php:167
 msgid "Invoices"
 msgstr ""
 
 #: includes/Admin/SettingsPage.php:60
-#: includes/Admin/SettingsPage.php:201
+#: includes/Admin/SettingsPage.php:207
 msgid "Emails"
 msgstr ""
 
@@ -1362,387 +1362,403 @@ msgid "Signing keys"
 msgstr ""
 
 #: includes/Admin/SettingsPage.php:62
-#: includes/Admin/SettingsPage.php:272
+#: includes/Admin/SettingsPage.php:278
 msgid "System status"
 msgstr ""
 
 #: includes/Admin/SettingsPage.php:75
-msgid "Renewals & reminders"
+msgid "License keys"
 msgstr ""
 
 #: includes/Admin/SettingsPage.php:77
-msgid "Reminder days"
+msgid "Keys in emails"
+msgstr ""
+
+#: includes/Admin/SettingsPage.php:78
+msgid "Include the full license key in emails"
 msgstr ""
 
 #: includes/Admin/SettingsPage.php:79
+msgid "Off (recommended): emails show only the last 4 characters and a button to the customer dashboard, where the full key is shown. Buyers of license products must create an account at checkout."
+msgstr ""
+
+#: includes/Admin/SettingsPage.php:81
+msgid "Renewals & reminders"
+msgstr ""
+
+#: includes/Admin/SettingsPage.php:83
+msgid "Reminder days"
+msgstr ""
+
+#: includes/Admin/SettingsPage.php:85
 msgid "Comma-separated days before expiry, e.g. 30,7. An \"expired\" email is always sent on expiry."
 msgstr ""
 
-#: includes/Admin/SettingsPage.php:80
+#: includes/Admin/SettingsPage.php:86
 msgid "Renewal discount (%)"
 msgstr ""
 
-#: includes/Admin/SettingsPage.php:82
+#: includes/Admin/SettingsPage.php:88
 msgid "Applied to manual renewals (when WooCommerce Subscriptions is not used)."
 msgstr ""
 
-#: includes/Admin/SettingsPage.php:90
+#: includes/Admin/SettingsPage.php:96
 msgid "Free Pro trial"
 msgstr ""
 
-#: includes/Admin/SettingsPage.php:91
+#: includes/Admin/SettingsPage.php:97
 msgid "Let new customers try Pro for free"
 msgstr ""
 
-#: includes/Admin/SettingsPage.php:92
+#: includes/Admin/SettingsPage.php:98
 msgid "Put the [twh_trial_form] shortcode on your pricing page. One trial per email and per website."
 msgstr ""
 
-#: includes/Admin/SettingsPage.php:93
+#: includes/Admin/SettingsPage.php:99
 msgid "Trial length (days)"
 msgstr ""
 
-#: includes/Admin/SettingsPage.php:95
+#: includes/Admin/SettingsPage.php:101
 msgid "Plan the trial includes"
 msgstr ""
 
-#: includes/Admin/SettingsPage.php:101
+#: includes/Admin/SettingsPage.php:107
 msgid "Features come from that plan. Trials are always limited to one site."
 msgstr ""
 
-#: includes/Admin/SettingsPage.php:102
+#: includes/Admin/SettingsPage.php:108
 msgid "Card policy"
 msgstr ""
 
-#: includes/Admin/SettingsPage.php:104
+#: includes/Admin/SettingsPage.php:110
 msgid "No card required: the trial starts from a short form (name, email, website) and ends on the free plan."
 msgstr ""
 
-#: includes/Admin/SettingsPage.php:105
+#: includes/Admin/SettingsPage.php:111
 msgid "Card on file: the trial starts at checkout with a $0 first period and converts to paid automatically. Needs WooCommerce Subscriptions."
 msgstr ""
 
-#: includes/Admin/SettingsPage.php:108
+#: includes/Admin/SettingsPage.php:114
 msgid "Not ready: activate WooCommerce Subscriptions and choose a subscription product with a free trial below."
 msgstr ""
 
-#: includes/Admin/SettingsPage.php:110
+#: includes/Admin/SettingsPage.php:116
 msgid "Trial product (card mode)"
 msgstr ""
 
-#: includes/Admin/SettingsPage.php:112
+#: includes/Admin/SettingsPage.php:118
 msgid "ID of a WooCommerce Subscriptions product (or variation) with a free trial period. Ignored in no-card mode."
 msgstr ""
 
-#: includes/Admin/SettingsPage.php:113
+#: includes/Admin/SettingsPage.php:119
 msgid "Reminder emails"
 msgstr ""
 
-#: includes/Admin/SettingsPage.php:115
+#: includes/Admin/SettingsPage.php:121
 msgid "Days left when a reminder is sent, comma separated. 5,2 means day 10 and day 13 of a 15-day trial. A welcome email goes out on day 0 and a \"trial ended\" email on the last day."
 msgstr ""
 
-#: includes/Admin/SettingsPage.php:116
+#: includes/Admin/SettingsPage.php:122
 msgid "Blocked email domains"
 msgstr ""
 
-#: includes/Admin/SettingsPage.php:118
+#: includes/Admin/SettingsPage.php:124
 msgid "Disposable email services, one per line. Subdomains are blocked too."
 msgstr ""
 
-#: includes/Admin/SettingsPage.php:126
+#: includes/Admin/SettingsPage.php:132
 #: includes/Partners/PartnerAccount.php:78
 msgid "Talkwyn Partners"
 msgstr ""
 
-#: includes/Admin/SettingsPage.php:127
+#: includes/Admin/SettingsPage.php:133
 msgid "Run the referral program (My Account, Partners)"
 msgstr ""
 
-#: includes/Admin/SettingsPage.php:128
+#: includes/Admin/SettingsPage.php:134
 msgid "Commission on new sales (%)"
 msgstr ""
 
-#: includes/Admin/SettingsPage.php:130
+#: includes/Admin/SettingsPage.php:136
 msgid "Commission on renewals (%)"
 msgstr ""
 
-#: includes/Admin/SettingsPage.php:132
+#: includes/Admin/SettingsPage.php:138
 msgid "0 pays on the first payment only."
 msgstr ""
 
-#: includes/Admin/SettingsPage.php:133
+#: includes/Admin/SettingsPage.php:139
 msgid "Cookie (days)"
 msgstr ""
 
-#: includes/Admin/SettingsPage.php:135
+#: includes/Admin/SettingsPage.php:141
 msgid "Attribution is last click: the newest referral link (or partner coupon) wins."
 msgstr ""
 
-#: includes/Admin/SettingsPage.php:136
+#: includes/Admin/SettingsPage.php:142
 msgid "Approve commissions after (days)"
 msgstr ""
 
-#: includes/Admin/SettingsPage.php:138
+#: includes/Admin/SettingsPage.php:144
 msgid "Match your refund window. Fully refunded or charged-back orders reject the commission automatically."
 msgstr ""
 
-#: includes/Admin/SettingsPage.php:139
+#: includes/Admin/SettingsPage.php:145
 msgid "Payout threshold"
 msgstr ""
 
-#: includes/Admin/SettingsPage.php:141
+#: includes/Admin/SettingsPage.php:147
 msgid "Payout methods"
 msgstr ""
 
-#: includes/Admin/SettingsPage.php:147
-#: includes/Support/Settings.php:185
+#: includes/Admin/SettingsPage.php:153
+#: includes/Support/Settings.php:195
 msgid "Bank transfer"
 msgstr ""
 
-#: includes/Admin/SettingsPage.php:153
+#: includes/Admin/SettingsPage.php:159
 msgid "Links"
 msgstr ""
 
 #. translators: %s: example URL
-#: includes/Admin/SettingsPage.php:154
+#: includes/Admin/SettingsPage.php:160
 #, php-format
 msgid "Also accept short links like %s"
 msgstr ""
 
 #. translators: %s: example URL
-#: includes/Admin/SettingsPage.php:155
+#: includes/Admin/SettingsPage.php:161
 msgid "Only set the referral cookie after cookie consent when a consent plugin is active"
 msgstr ""
 
-#: includes/Admin/SettingsPage.php:162
+#: includes/Admin/SettingsPage.php:168
 msgid "Every paid order gets the next invoice number. Customers open a printable invoice from My Account, Orders and from their order email, and can save it as a PDF."
 msgstr ""
 
-#: includes/Admin/SettingsPage.php:164
+#: includes/Admin/SettingsPage.php:170
 msgid "Number prefix"
 msgstr ""
 
 #. translators: %s: example number
-#: includes/Admin/SettingsPage.php:166
+#: includes/Admin/SettingsPage.php:172
 #, php-format
 msgid "Next number looks like %s."
 msgstr ""
 
 #. translators: %s: example number
-#: includes/Admin/SettingsPage.php:167
+#: includes/Admin/SettingsPage.php:173
 msgid "Company name"
 msgstr ""
 
-#: includes/Admin/SettingsPage.php:169
+#: includes/Admin/SettingsPage.php:175
 msgid "Company address"
 msgstr ""
 
-#: includes/Admin/SettingsPage.php:171
+#: includes/Admin/SettingsPage.php:177
 msgid "Tax or VAT ID"
 msgstr ""
 
-#: includes/Admin/SettingsPage.php:173
+#: includes/Admin/SettingsPage.php:179
 msgid "Billing email"
 msgstr ""
 
-#: includes/Admin/SettingsPage.php:175
+#: includes/Admin/SettingsPage.php:181
 msgid "Note at the bottom"
 msgstr ""
 
-#: includes/Admin/SettingsPage.php:177
+#: includes/Admin/SettingsPage.php:183
 msgid "For example payment terms or a thank-you line."
 msgstr ""
 
-#: includes/Admin/SettingsPage.php:183
+#: includes/Admin/SettingsPage.php:189
 msgid "API and domains"
 msgstr ""
 
-#: includes/Admin/SettingsPage.php:185
+#: includes/Admin/SettingsPage.php:191
 msgid "Rate limit"
 msgstr ""
 
-#: includes/Admin/SettingsPage.php:187
+#: includes/Admin/SettingsPage.php:193
 msgid "requests per"
 msgstr ""
 
-#: includes/Admin/SettingsPage.php:189
+#: includes/Admin/SettingsPage.php:195
 msgid "minutes, per IP and per license key"
 msgstr ""
 
-#: includes/Admin/SettingsPage.php:190
+#: includes/Admin/SettingsPage.php:196
 msgid "Dev/staging domains"
 msgstr ""
 
-#: includes/Admin/SettingsPage.php:192
+#: includes/Admin/SettingsPage.php:198
 msgid "One pattern per line; * matches anything. These sites never count toward the activation limit. IP addresses always count as dev. Developers can also use the twh_dev_domain_patterns filter."
 msgstr ""
 
-#: includes/Admin/SettingsPage.php:193
+#: includes/Admin/SettingsPage.php:199
 msgid "Log retention (days)"
 msgstr ""
 
-#: includes/Admin/SettingsPage.php:195
+#: includes/Admin/SettingsPage.php:201
 msgid "0 keeps logs forever."
 msgstr ""
 
-#: includes/Admin/SettingsPage.php:202
+#: includes/Admin/SettingsPage.php:208
 msgid "Emails use the branded Talkwyn layout (override it from your theme at talkwyn-hub/emails/branded.php). You can use these placeholders in any subject or text:"
 msgstr ""
 
-#: includes/Admin/SettingsPage.php:209
+#: includes/Admin/SettingsPage.php:215
 msgid "From name"
 msgstr ""
 
-#: includes/Admin/SettingsPage.php:211
+#: includes/Admin/SettingsPage.php:217
 msgid "Admin notifications to"
 msgstr ""
 
-#: includes/Admin/SettingsPage.php:219
+#: includes/Admin/SettingsPage.php:225
 msgid "Subject"
 msgstr ""
 
-#: includes/Admin/SettingsPage.php:221
+#: includes/Admin/SettingsPage.php:227
 msgid "Text"
 msgstr ""
 
-#: includes/Admin/SettingsPage.php:230
+#: includes/Admin/SettingsPage.php:236
 msgid "Uninstall"
 msgstr ""
 
-#: includes/Admin/SettingsPage.php:232
+#: includes/Admin/SettingsPage.php:238
 msgid "Data"
 msgstr ""
 
-#: includes/Admin/SettingsPage.php:233
+#: includes/Admin/SettingsPage.php:239
 msgid "Delete all data on uninstall (licenses, activations, releases, logs, signing keys, settings and release ZIPs). This cannot be undone."
 msgstr ""
 
-#: includes/Admin/SettingsPage.php:236
+#: includes/Admin/SettingsPage.php:242
 msgid "Save settings"
 msgstr ""
 
-#: includes/Admin/SettingsPage.php:240
+#: includes/Admin/SettingsPage.php:246
 msgid "Signing keys (Ed25519)"
 msgstr ""
 
-#: includes/Admin/SettingsPage.php:241
+#: includes/Admin/SettingsPage.php:247
 msgid "Embed the public key(s) in the client plugin. To rotate: 1) generate the next key, 2) ship a client release that trusts both keys, 3) once most sites have updated, promote the next key."
 msgstr ""
 
-#: includes/Admin/SettingsPage.php:244
+#: includes/Admin/SettingsPage.php:250
 msgid "Key ID"
 msgstr ""
 
-#: includes/Admin/SettingsPage.php:246
+#: includes/Admin/SettingsPage.php:252
 msgid "Public key (base64)"
 msgstr ""
 
-#: includes/Admin/SettingsPage.php:263
+#: includes/Admin/SettingsPage.php:269
 msgid "Generate next key"
 msgstr ""
 
-#: includes/Admin/SettingsPage.php:265
+#: includes/Admin/SettingsPage.php:271
 msgid "Promote next key to active"
 msgstr ""
 
-#: includes/Admin/SettingsPage.php:274
+#: includes/Admin/SettingsPage.php:280
 msgid "TWH_SECRET_KEY defined"
 msgstr ""
 
-#: includes/Admin/SettingsPage.php:274
+#: includes/Admin/SettingsPage.php:280
 msgid "No, using the WordPress salt fallback"
 msgstr ""
 
-#: includes/Admin/SettingsPage.php:275
+#: includes/Admin/SettingsPage.php:281
 msgid "Release directory"
 msgstr ""
 
-#: includes/Admin/SettingsPage.php:275
+#: includes/Admin/SettingsPage.php:281
 msgid "Writable"
 msgstr ""
 
-#: includes/Admin/SettingsPage.php:275
+#: includes/Admin/SettingsPage.php:281
 msgid "Not writable"
 msgstr ""
 
-#: includes/Admin/SettingsPage.php:276
+#: includes/Admin/SettingsPage.php:282
 msgid "WooCommerce Subscriptions"
 msgstr ""
 
-#: includes/Admin/SettingsPage.php:276
+#: includes/Admin/SettingsPage.php:282
 msgid "Active, automatic renewals"
 msgstr ""
 
-#: includes/Admin/SettingsPage.php:276
+#: includes/Admin/SettingsPage.php:282
 msgid "Not active, manual renewal flow"
 msgstr ""
 
-#: includes/Admin/SettingsPage.php:277
+#: includes/Admin/SettingsPage.php:283
 msgid "Daily cron scheduled"
 msgstr ""
 
-#: includes/Admin/SettingsPage.php:277
+#: includes/Admin/SettingsPage.php:283
 msgid "Not scheduled"
 msgstr ""
 
-#: includes/Admin/SettingsPage.php:278
+#: includes/Admin/SettingsPage.php:284
 msgid "API base URL"
 msgstr ""
 
-#: includes/Admin/SettingsPage.php:279
+#: includes/Admin/SettingsPage.php:285
 msgid "Default dev patterns"
 msgstr ""
 
-#: includes/Admin/SettingsPage.php:351
+#: includes/Admin/SettingsPage.php:358
 msgid "License issued"
 msgstr ""
 
-#: includes/Admin/SettingsPage.php:352
+#: includes/Admin/SettingsPage.php:359
 msgid "Expiry reminder (before expiry)"
 msgstr ""
 
-#: includes/Admin/SettingsPage.php:353
+#: includes/Admin/SettingsPage.php:360
 msgid "License expired"
 msgstr ""
 
-#: includes/Admin/SettingsPage.php:354
+#: includes/Admin/SettingsPage.php:361
 msgid "License renewed"
 msgstr ""
 
-#: includes/Admin/SettingsPage.php:355
+#: includes/Admin/SettingsPage.php:362
 msgid "Trial: confirm email (first email)"
 msgstr ""
 
-#: includes/Admin/SettingsPage.php:356
+#: includes/Admin/SettingsPage.php:363
 msgid "Trial started: key and account (after confirming)"
 msgstr ""
 
-#: includes/Admin/SettingsPage.php:357
+#: includes/Admin/SettingsPage.php:364
 msgid "Trial reminder (days left)"
 msgstr ""
 
-#: includes/Admin/SettingsPage.php:359
+#: includes/Admin/SettingsPage.php:366
 msgid "Trial upgraded to paid"
 msgstr ""
 
-#: includes/Admin/SettingsPage.php:360
+#: includes/Admin/SettingsPage.php:367
 msgid "Partner approved"
 msgstr ""
 
-#: includes/Admin/SettingsPage.php:361
+#: includes/Admin/SettingsPage.php:368
 msgid "Partner: new referral (pending)"
 msgstr ""
 
-#: includes/Admin/SettingsPage.php:362
+#: includes/Admin/SettingsPage.php:369
 msgid "Partner: commission approved"
 msgstr ""
 
-#: includes/Admin/SettingsPage.php:363
+#: includes/Admin/SettingsPage.php:370
 msgid "Partner: payout sent"
 msgstr ""
 
-#: includes/Admin/SettingsPage.php:364
+#: includes/Admin/SettingsPage.php:371
 msgid "Admin: new partner application"
 msgstr ""
 
@@ -1835,132 +1851,139 @@ msgstr ""
 msgid "The release file is missing."
 msgstr ""
 
-#: includes/Email/Mailer.php:123
-#: includes/Email/Mailer.php:189
+#: includes/Email/Mailer.php:124
+#: includes/Email/Mailer.php:190
 #: includes/Partners/Program.php:251
 msgid "there"
 msgstr ""
 
 #. translators: 1: masked key, 2: reason
-#: includes/Email/Mailer.php:140
+#: includes/Email/Mailer.php:141
 #, php-format
 msgid "License …%1$s revoked (%2$s)"
 msgstr ""
 
 #. translators: 1: license id, 2: order id, 3: reason
-#: includes/Email/Mailer.php:142
+#: includes/Email/Mailer.php:143
 #, php-format
 msgid "License #%1$d from order #%2$d was revoked automatically. Reason: %3$s."
 msgstr ""
 
-#: includes/Email/Mailer.php:158
+#: includes/Email/Mailer.php:159
 msgid "View license"
 msgstr ""
 
-#: includes/Email/Mailer.php:241
+#: includes/Email/Mailer.php:242
 msgid "You're in. Here is your license."
 msgstr ""
 
-#: includes/Email/Mailer.php:241
+#: includes/Email/Mailer.php:242
 msgid "Manage your license"
 msgstr ""
 
-#: includes/Email/Mailer.php:242
+#: includes/Email/Mailer.php:243
 msgid "Your license renews soon"
 msgstr ""
 
-#: includes/Email/Mailer.php:242
+#: includes/Email/Mailer.php:243
 msgid "Renew now"
 msgstr ""
 
-#: includes/Email/Mailer.php:243
+#: includes/Email/Mailer.php:244
 msgid "Your license has expired"
 msgstr ""
 
-#: includes/Email/Mailer.php:243
+#: includes/Email/Mailer.php:244
 msgid "Renew in one click"
 msgstr ""
 
-#: includes/Email/Mailer.php:244
+#: includes/Email/Mailer.php:245
 msgid "Thanks for renewing"
 msgstr ""
 
-#: includes/Email/Mailer.php:244
-#: includes/Email/Mailer.php:255
+#: includes/Email/Mailer.php:245
+#: includes/Email/Mailer.php:256
 msgid "View your license"
 msgstr ""
 
-#: includes/Email/Mailer.php:251
+#: includes/Email/Mailer.php:252
 msgid "Confirm your email"
 msgstr ""
 
-#: includes/Email/Mailer.php:251
+#: includes/Email/Mailer.php:252
 msgid "Confirm and start my trial"
 msgstr ""
 
-#: includes/Email/Mailer.php:252
+#: includes/Email/Mailer.php:253
 msgid "Your Pro trial has started"
 msgstr ""
 
-#: includes/Email/Mailer.php:252
+#: includes/Email/Mailer.php:253
 msgid "Read the setup guide"
 msgstr ""
 
-#: includes/Email/Mailer.php:253
+#: includes/Email/Mailer.php:254
 msgid "Your trial ends soon"
 msgstr ""
 
-#: includes/Email/Mailer.php:253
+#: includes/Email/Mailer.php:254
 #: templates/account/license-detail.php:116
 #: templates/account/license-detail.php:140
 msgid "Choose a plan"
 msgstr ""
 
-#: includes/Email/Mailer.php:254
+#: includes/Email/Mailer.php:255
 msgid "Upgrade in one click"
 msgstr ""
 
-#: includes/Email/Mailer.php:255
-#: includes/Support/Settings.php:77
+#: includes/Email/Mailer.php:256
+#: includes/Support/Settings.php:80
 msgid "Welcome to Talkwyn Pro"
 msgstr ""
 
-#: includes/Email/Mailer.php:256
-#: includes/Support/Settings.php:90
+#: includes/Email/Mailer.php:257
+#: includes/Support/Settings.php:93
 msgid "You're a Talkwyn Partner"
 msgstr ""
 
-#: includes/Email/Mailer.php:256
 #: includes/Email/Mailer.php:257
 #: includes/Email/Mailer.php:258
+#: includes/Email/Mailer.php:259
+#: includes/Email/Mailer.php:309
 msgid "Open your dashboard"
 msgstr ""
 
-#: includes/Email/Mailer.php:257
+#: includes/Email/Mailer.php:258
 msgid "You have a new referral"
 msgstr ""
 
-#: includes/Email/Mailer.php:258
+#: includes/Email/Mailer.php:259
 msgid "Commission approved"
 msgstr ""
 
-#: includes/Email/Mailer.php:259
+#: includes/Email/Mailer.php:260
 msgid "Payout sent"
 msgstr ""
 
-#: includes/Email/Mailer.php:259
+#: includes/Email/Mailer.php:260
 msgid "See your payouts"
 msgstr ""
 
-#: includes/Email/Mailer.php:260
+#: includes/Email/Mailer.php:261
 msgid "New partner application"
 msgstr ""
 
-#: includes/Email/Mailer.php:260
+#: includes/Email/Mailer.php:261
 msgid "Review applications"
 msgstr ""
 
-#: includes/Email/Mailer.php:305
+#. translators: %s: account URL
+#: includes/Email/Mailer.php:306
+#, php-format
+msgid "For your security, the full license key is only shown in your account. Log in to copy it: %s"
+msgstr ""
+
+#: includes/Email/Mailer.php:326
 msgid "Your license key:"
 msgid_plural "Your license keys:"
 msgstr[0] ""
@@ -2332,9 +2355,9 @@ msgstr ""
 msgid ""
 "Hi {customer_name},\n"
 "\n"
-"Thank you for choosing {product_name}. Your {plan} license is ready, and your key is below.\n"
+"Thank you for choosing {product_name}. Your {plan} license is ready in your account.\n"
 "\n"
-"To turn on Pro, open Talkwyn in your WordPress dashboard, go to the License tab, and paste the key. Staging and local sites are free and don't use a slot.\n"
+"To turn on Pro, copy your key from your account, open Talkwyn in your WordPress dashboard, go to the License tab, and paste it. Staging and local sites are free and don't use a slot.\n"
 "\n"
 "Sites: {activation_limit}\n"
 "Valid until: {expires_at}\n"
@@ -2387,11 +2410,11 @@ msgid ""
 "The {site_name} team"
 msgstr ""
 
-#: includes/Support/Settings.php:69
+#: includes/Support/Settings.php:72
 msgid "Confirm your email to start your Talkwyn trial"
 msgstr ""
 
-#: includes/Support/Settings.php:70
+#: includes/Support/Settings.php:73
 msgid ""
 "Hi {customer_name},\n"
 "\n"
@@ -2404,19 +2427,19 @@ msgid ""
 "The {site_name} team"
 msgstr ""
 
-#: includes/Support/Settings.php:71
+#: includes/Support/Settings.php:74
 msgid "Your {trial_days}-day Talkwyn Pro trial has started"
 msgstr ""
 
-#: includes/Support/Settings.php:72
+#: includes/Support/Settings.php:75
 msgid ""
 "Hi {customer_name},\n"
 "\n"
-"Welcome to Talkwyn Pro. Your trial key is below and every Pro feature is yours until {trial_ends_at}.\n"
+"Welcome to Talkwyn Pro. Every Pro feature is yours until {trial_ends_at}, and your trial key is waiting in your account.\n"
 "\n"
 "Getting set up takes about five minutes:\n"
 "1. Install Talkwyn on your WordPress site.\n"
-"2. Open Talkwyn, go to the License tab and paste your key.\n"
+"2. Copy your key from your account, open Talkwyn, go to the License tab and paste it.\n"
 "3. Click Scan my site, add a free AI key, and turn the chat on.\n"
 "\n"
 "The trial covers one site. Staging and local sites are free and don't use it.\n"
@@ -2426,11 +2449,11 @@ msgid ""
 "The {site_name} team"
 msgstr ""
 
-#: includes/Support/Settings.php:73
+#: includes/Support/Settings.php:76
 msgid "Your Talkwyn trial has {days_left} days left"
 msgstr ""
 
-#: includes/Support/Settings.php:74
+#: includes/Support/Settings.php:77
 msgid ""
 "Hi {customer_name},\n"
 "\n"
@@ -2443,11 +2466,11 @@ msgid ""
 "The {site_name} team"
 msgstr ""
 
-#: includes/Support/Settings.php:75
+#: includes/Support/Settings.php:78
 msgid "Your Talkwyn trial has ended"
 msgstr ""
 
-#: includes/Support/Settings.php:76
+#: includes/Support/Settings.php:79
 msgid ""
 "Hi {customer_name},\n"
 "\n"
@@ -2460,7 +2483,7 @@ msgid ""
 "The {site_name} team"
 msgstr ""
 
-#: includes/Support/Settings.php:78
+#: includes/Support/Settings.php:81
 msgid ""
 "Hi {customer_name},\n"
 "\n"
@@ -2469,7 +2492,7 @@ msgid ""
 "The {site_name} team"
 msgstr ""
 
-#: includes/Support/Settings.php:91
+#: includes/Support/Settings.php:94
 msgid ""
 "Hi {partner_name},\n"
 "\n"
@@ -2482,11 +2505,11 @@ msgid ""
 "The {site_name} team"
 msgstr ""
 
-#: includes/Support/Settings.php:92
+#: includes/Support/Settings.php:95
 msgid "New referral: {amount}"
 msgstr ""
 
-#: includes/Support/Settings.php:93
+#: includes/Support/Settings.php:96
 msgid ""
 "Hi {partner_name},\n"
 "\n"
@@ -2495,11 +2518,11 @@ msgid ""
 "The {site_name} team"
 msgstr ""
 
-#: includes/Support/Settings.php:94
+#: includes/Support/Settings.php:97
 msgid "Commission approved: {commission}"
 msgstr ""
 
-#: includes/Support/Settings.php:95
+#: includes/Support/Settings.php:98
 msgid ""
 "Hi {partner_name},\n"
 "\n"
@@ -2508,11 +2531,11 @@ msgid ""
 "The {site_name} team"
 msgstr ""
 
-#: includes/Support/Settings.php:96
+#: includes/Support/Settings.php:99
 msgid "Payout sent: {amount}"
 msgstr ""
 
-#: includes/Support/Settings.php:97
+#: includes/Support/Settings.php:100
 msgid ""
 "Hi {partner_name},\n"
 "\n"
@@ -2523,11 +2546,11 @@ msgid ""
 "The {site_name} team"
 msgstr ""
 
-#: includes/Support/Settings.php:98
+#: includes/Support/Settings.php:101
 msgid "New partner application from {partner_name}"
 msgstr ""
 
-#: includes/Support/Settings.php:99
+#: includes/Support/Settings.php:102
 msgid ""
 "{partner_name} ({partner_email}) applied to Talkwyn Partners.\n"
 "\n"
@@ -2537,15 +2560,15 @@ msgid ""
 "Review the application in Talkwyn Hub, Partners."
 msgstr ""
 
-#: includes/Support/Settings.php:183
+#: includes/Support/Settings.php:193
 msgid "PayPal"
 msgstr ""
 
-#: includes/Support/Settings.php:184
+#: includes/Support/Settings.php:194
 msgid "Wise"
 msgstr ""
 
-#: includes/Support/Settings.php:186
+#: includes/Support/Settings.php:196
 msgid "Payoneer"
 msgstr ""
 
@@ -2706,64 +2729,64 @@ msgid ""
 "After that, see your license, downloads and invoices at %4$s"
 msgstr ""
 
-#: includes/Woo/Cart.php:123
+#: includes/Woo/Cart.php:159
 msgid "This renewal link is not valid."
 msgstr ""
 
-#: includes/Woo/Cart.php:132
+#: includes/Woo/Cart.php:168
 msgid "This license cannot be renewed online. Please contact support."
 msgstr ""
 
-#: includes/Woo/Cart.php:137
+#: includes/Woo/Cart.php:173
 msgid "The renewal product is currently unavailable. Please contact support."
 msgstr ""
 
-#: includes/Woo/Cart.php:145
+#: includes/Woo/Cart.php:181
 msgid "Could not add the renewal to your cart."
 msgstr ""
 
-#: includes/Woo/Cart.php:233
+#: includes/Woo/Cart.php:269
 msgid "This upgrade is not available for your license."
 msgstr ""
 
-#: includes/Woo/Cart.php:239
+#: includes/Woo/Cart.php:275
 msgid "Could not add the upgrade to your cart."
 msgstr ""
 
-#: includes/Woo/Cart.php:292
+#: includes/Woo/Cart.php:328
 msgid "Renewal of license"
 msgstr ""
 
-#: includes/Woo/Cart.php:293
+#: includes/Woo/Cart.php:329
 msgid "Upgrade of license"
 msgstr ""
 
-#: includes/Woo/Cart.php:294
+#: includes/Woo/Cart.php:330
 msgid "Upgrade of your trial"
 msgstr ""
 
-#: includes/Woo/Cart.php:302
-#: includes/Woo/Cart.php:314
+#: includes/Woo/Cart.php:338
+#: includes/Woo/Cart.php:350
 msgid "Note"
 msgstr ""
 
-#: includes/Woo/Cart.php:303
+#: includes/Woo/Cart.php:339
 msgid "You keep the same license key. Your yearly term starts today."
 msgstr ""
 
-#: includes/Woo/Cart.php:308
+#: includes/Woo/Cart.php:344
 msgid "Renewal discount"
 msgstr ""
 
-#: includes/Woo/Cart.php:315
+#: includes/Woo/Cart.php:351
 msgid "Prorated for the remaining license term. Your key and expiry date stay the same."
 msgstr ""
 
-#: includes/Woo/Cart.php:365
+#: includes/Woo/Cart.php:401
 msgid "Renewals and upgrades are limited to a quantity of 1."
 msgstr ""
 
-#: includes/Woo/Cart.php:410
+#: includes/Woo/Cart.php:446
 msgid "A license renewal or upgrade in your cart is no longer valid and was removed."
 msgstr ""
 
@@ -2861,7 +2884,7 @@ msgid "Upgrades license"
 msgstr ""
 
 #: includes/Woo/OrderDisplay.php:101
-#: includes/Woo/OrderDisplay.php:107
+#: includes/Woo/OrderDisplay.php:109
 #: templates/account/license-detail.php:42
 #: templates/account/licenses.php:25
 msgid "License key"
@@ -2871,107 +2894,107 @@ msgstr ""
 msgid "Issued as soon as your payment is confirmed."
 msgstr ""
 
-#: includes/Woo/OrderDisplay.php:203
+#: includes/Woo/OrderDisplay.php:205
 msgid "Thanks for your order."
 msgstr ""
 
-#: includes/Woo/OrderDisplay.php:203
+#: includes/Woo/OrderDisplay.php:205
 msgid "Your license key appears here and in your email as soon as the payment is confirmed."
 msgstr ""
 
-#: includes/Woo/OrderDisplay.php:212
+#: includes/Woo/OrderDisplay.php:214
 msgid "You're in."
 msgstr ""
 
-#: includes/Woo/OrderDisplay.php:213
+#: includes/Woo/OrderDisplay.php:215
 msgid "Your license is ready. We've also emailed the key to you."
 msgid_plural "Your licenses are ready. We've also emailed the keys to you."
 msgstr[0] ""
 msgstr[1] ""
 
-#: includes/Woo/OrderDisplay.php:215
+#: includes/Woo/OrderDisplay.php:217
 #: templates/emails/branded.php:43
 msgid "Your license key"
 msgid_plural "Your license keys"
 msgstr[0] ""
 msgstr[1] ""
 
-#: includes/Woo/OrderDisplay.php:224
+#: includes/Woo/OrderDisplay.php:226
 msgid "Download Talkwyn"
 msgstr ""
 
-#: includes/Woo/OrderDisplay.php:224
+#: includes/Woo/OrderDisplay.php:226
 msgid "Get the latest version from your account"
 msgstr ""
 
-#: includes/Woo/OrderDisplay.php:224
+#: includes/Woo/OrderDisplay.php:226
 msgid "Get the plugin from the download page"
 msgstr ""
 
-#: includes/Woo/OrderDisplay.php:225
+#: includes/Woo/OrderDisplay.php:227
 msgid "Activate your license"
 msgstr ""
 
-#: includes/Woo/OrderDisplay.php:225
+#: includes/Woo/OrderDisplay.php:227
 msgid "In WordPress, open Talkwyn, go to the License tab, and paste your key."
 msgstr ""
 
-#: includes/Woo/OrderDisplay.php:226
+#: includes/Woo/OrderDisplay.php:228
 msgid "Follow the setup guide"
 msgstr ""
 
-#: includes/Woo/OrderDisplay.php:226
+#: includes/Woo/OrderDisplay.php:228
 msgid "Scan your site and go live in about five minutes"
 msgstr ""
 
-#: includes/Woo/OrderDisplay.php:229
+#: includes/Woo/OrderDisplay.php:231
 msgid "Manage your licenses and sites"
 msgstr ""
 
 #. translators: %s: masked license keys
-#: includes/Woo/OrderHandler.php:160
+#: includes/Woo/OrderHandler.php:172
 #, php-format
 msgid "Talkwyn Hub issued license keys: %s"
 msgstr ""
 
 #. translators: 1: license id, 2: date
-#: includes/Woo/OrderHandler.php:204
+#: includes/Woo/OrderHandler.php:216
 #, php-format
 msgid "Talkwyn Hub renewed license #%1$d until %2$s."
 msgstr ""
 
-#: includes/Woo/OrderHandler.php:224
+#: includes/Woo/OrderHandler.php:236
 msgid "Talkwyn Hub could not apply the upgrade: license or product mapping not found. Please review."
 msgstr ""
 
 #. translators: 1: license id, 2: plan
-#: includes/Woo/OrderHandler.php:251
+#: includes/Woo/OrderHandler.php:263
 #, php-format
 msgid "Talkwyn Hub upgraded license #%1$d to plan \"%2$s\"."
 msgstr ""
 
-#: includes/Woo/OrderHandler.php:270
+#: includes/Woo/OrderHandler.php:300
 msgid "Talkwyn Hub could not convert the trial: license or product mapping not found. Please review."
 msgstr ""
 
 #. translators: 1: license id, 2: plan
-#: includes/Woo/OrderHandler.php:308
+#: includes/Woo/OrderHandler.php:338
 #, php-format
 msgid "Talkwyn Hub converted trial license #%1$d to plan \"%2$s\"."
 msgstr ""
 
-#: includes/Woo/OrderHandler.php:405
+#: includes/Woo/OrderHandler.php:435
 msgid "Talkwyn Hub suspended the licenses of this order (order put on hold after payment)."
 msgstr ""
 
 #. translators: %d: license id
-#: includes/Woo/OrderHandler.php:516
+#: includes/Woo/OrderHandler.php:546
 #, php-format
 msgid "Renewal/upgrade reversed for license #%d"
 msgstr ""
 
 #. translators: 1: order number, 2: reason
-#: includes/Woo/OrderHandler.php:518
+#: includes/Woo/OrderHandler.php:548
 #, php-format
 msgid "Order %1$s was %2$s. The renewal or upgrade it contained has been rolled back."
 msgstr ""

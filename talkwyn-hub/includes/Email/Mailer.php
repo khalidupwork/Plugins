@@ -8,6 +8,7 @@
 namespace TWH\Email;
 
 use TWH\Domain\ExpiryCalculator;
+use TWH\Domain\KeyGenerator;
 use TWH\LicenseService;
 use TWH\Repository\Licenses;
 use TWH\Support\Settings;
@@ -280,6 +281,17 @@ final class Mailer {
 		if ( ! is_email( $to ) ) {
 			return false;
 		}
+		$masked = $keys && ! Settings::email_keys();
+		if ( $masked ) {
+			// Full keys live only in the customer's account; the email shows the last 4 characters.
+			$keys                  = array_map(
+				static function ( $key ) {
+					return KeyGenerator::mask( substr( (string) $key, -4 ) );
+				},
+				$keys
+			);
+			$vars['{license_key}'] = implode( "\n", $keys );
+		}
 		$subject = strtr( (string) Settings::get( 'email_' . $type . '_subject' ), $vars );
 		$body    = (string) Settings::get( 'email_' . $type . '_body' );
 		$text    = trim( strtr( $body, $vars ) );
@@ -288,6 +300,15 @@ final class Mailer {
 			$text .= "\n\n" . $vars['{login_details}'];
 		}
 		$layout  = self::layout( $type, $vars );
+		if ( $masked ) {
+			$text             .= "\n\n" . sprintf(
+				/* translators: %s: account URL */
+				__( 'For your security, the full license key is only shown in your account. Log in to copy it: %s', 'talkwyn-hub' ),
+				$vars['{account_url}']
+			);
+			$layout['button'] = __( 'Open your dashboard', 'talkwyn-hub' );
+			$layout['url']    = $vars['{account_url}'];
+		}
 
 		$html = self::render(
 			array(

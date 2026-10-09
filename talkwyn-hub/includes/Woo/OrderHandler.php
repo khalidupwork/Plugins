@@ -109,6 +109,18 @@ final class OrderHandler {
 			}
 
 			$existing = Licenses::for_order_item( $item->get_id() );
+
+			// A customer on a trial who buys a plan keeps the same key: the trial becomes the paid license.
+			if ( ! $existing && 1 === (int) $item->get_quantity() && ! Subscriptions::subscription_for_item( $order, $item ) ) {
+				$trial_id = self::open_trial_for( (int) $order->get_customer_id(), (int) $mapping['product_id'] );
+				if ( $trial_id ) {
+					$item->update_meta_data( self::ITEM_TRIAL_CONVERT, $trial_id );
+					$item->save();
+					self::apply_conversion( $order, $item, $trial_id );
+					continue;
+				}
+			}
+
 			$needed   = max( 0, (int) $item->get_quantity() - count( $existing ) );
 			$ids      = array_map(
 				static function ( $l ) {
@@ -250,6 +262,24 @@ final class OrderHandler {
 			/* translators: 1: license id, 2: plan */
 			sprintf( __( 'Talkwyn Hub upgraded license #%1$d to plan "%2$s".', 'talkwyn-hub' ), $license_id, $mapping['plan_slug'] )
 		);
+	}
+
+	/**
+	 * The customer's trial license for a product that has not been paid for yet.
+	 *
+	 * @param int $customer_id WordPress user id.
+	 * @param int $product_id  Software product id.
+	 */
+	private static function open_trial_for( int $customer_id, int $product_id ): int {
+		if ( $customer_id <= 0 ) {
+			return 0;
+		}
+		foreach ( Licenses::for_customer( $customer_id ) as $license ) {
+			if ( ! empty( $license['is_trial'] ) && empty( $license['converted_at'] ) && (int) $license['product_id'] === $product_id && in_array( (string) $license['status'], array( 'active', 'expired' ), true ) ) {
+				return (int) $license['id'];
+			}
+		}
+		return 0;
 	}
 
 	/**

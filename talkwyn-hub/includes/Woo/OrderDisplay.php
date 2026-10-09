@@ -103,7 +103,9 @@ final class OrderDisplay {
 			return;
 		}
 		foreach ( $licenses as $license ) {
-			$key = self::$admin_email ? KeyGenerator::mask( (string) $license['key_last4'] ) : (string) Licenses::plain_key( $license );
+			// Emails show the full key only when Settings allow it; the account and thank-you page always do.
+			$mask = self::$admin_email || ( self::$in_email && ! \TWH\Support\Settings::email_keys() );
+			$key  = $mask ? KeyGenerator::mask( (string) $license['key_last4'] ) : (string) Licenses::plain_key( $license );
 			self::line( __( 'License key', 'talkwyn-hub' ), $key, (bool) $plain_text, true );
 		}
 	}

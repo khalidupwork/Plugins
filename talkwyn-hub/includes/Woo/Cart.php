@@ -40,6 +40,42 @@ final class Cart {
 		add_filter( 'woocommerce_update_cart_validation', array( self::class, 'validate_quantity' ), 10, 4 );
 		add_action( 'woocommerce_check_cart_items', array( self::class, 'validate_cart' ) );
 		add_filter( 'woocommerce_get_cart_item_from_session', array( self::class, 'from_session' ), 10, 2 );
+		add_filter( 'woocommerce_checkout_registration_required', array( self::class, 'require_account' ) );
+		add_filter( 'woocommerce_checkout_registration_enabled', array( self::class, 'allow_account' ) );
+	}
+
+	/**
+	 * Whether the cart holds a product that issues license keys.
+	 */
+	public static function cart_has_license(): bool {
+		if ( ! function_exists( 'WC' ) || ! WC()->cart ) {
+			return false;
+		}
+		foreach ( WC()->cart->get_cart() as $line ) {
+			$product = $line['data'] ?? null;
+			if ( $product instanceof \WC_Product && Mapping::for_product( $product ) ) {
+				return true;
+			}
+		}
+		return false;
+	}
+
+	/**
+	 * Keys are not emailed, so a buyer needs an account to see them: no guest checkout for licenses.
+	 *
+	 * @param bool $required Current value.
+	 */
+	public static function require_account( $required ): bool {
+		return ( ! Settings::email_keys() && ! is_user_logged_in() && self::cart_has_license() ) ? true : (bool) $required;
+	}
+
+	/**
+	 * Make sure the "create account" fields show when an account is required.
+	 *
+	 * @param bool $enabled Current value.
+	 */
+	public static function allow_account( $enabled ): bool {
+		return self::require_account( false ) ? true : (bool) $enabled;
 	}
 
 	/**

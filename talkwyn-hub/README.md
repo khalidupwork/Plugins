@@ -149,6 +149,16 @@ Every paid order gets the next invoice number (prefix plus five digits, for exam
 
 Customers open a printable invoice from **My Account, Orders and invoices** (the Invoice button), from the order page, and from the link in their order email. The page has a "Print or save as PDF" button. A link only opens for the customer, a shop manager, or someone holding the order key from the email. Older `/my-account/twh-invoice/ID/` links redirect to the new invoice. If a dedicated PDF invoice plugin is active, Talkwyn Hub leaves invoices to it.
 
+## 5c-2. Keys stay in the account (since 1.6.0)
+
+**Talkwyn Hub → Settings → General → Keys in emails** is off by default:
+
+- Emails (license issued, trial started, WooCommerce order emails) show only `TALK-****-****-****-ABCD` and a button to the customer dashboard, where the full key is shown (Licenses page, thank-you page).
+- Because the key is not emailed, buying a license product needs an account: guest checkout is turned off for carts with a license product, and WooCommerce asks for an account at checkout.
+- Turn the setting on to email full keys again.
+
+**Trial → paid keeps the key:** when a customer who has a trial buys a plan of the same product (any route, not only the upgrade link), the trial license itself becomes the paid license: same key, new plan, sites and term from the payment day. No second license is created.
+
 ## 5d. Customer dashboard (since 1.5.0)
 
 Logged-in customers see My Account as a full-screen dashboard: a sidebar (Overview, Downloads, Licenses, Billing, Account, Partner, Support, a "Need more sites?" box and their name), a top bar with the page title and **Log out**, and the WooCommerce pages inside it. Logged-out visitors still get the normal login page.
