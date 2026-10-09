@@ -74,7 +74,7 @@ class Talkwyn_Leads {
 			return false;
 		}
 		$res = wp_remote_post(
-			'https://challenges.cloudflare.com/turnstile/v0/siteverify',
+			'https://challenges.cloudflare.com/turnstile/v0/siteverify', // phpcs:ignore PluginCheck.CodeAnalysis.Offloading.OffloadedContent -- server-side Turnstile check, listed under External services.
 			array(
 				'timeout' => 10,
 				'body'    => array(

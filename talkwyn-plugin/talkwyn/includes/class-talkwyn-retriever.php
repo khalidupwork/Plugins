@@ -69,10 +69,11 @@ class Talkwyn_Retriever {
 				$wpdb->prepare(
 					"SELECT id, source_key, source_type, source_url, source_lang, title, chunk_text,
 						MATCH(title, chunk_text) AGAINST (%s IN NATURAL LANGUAGE MODE) AS ft
-					FROM {$t['chunks']}
+					FROM %i
 					WHERE MATCH(title, chunk_text) AGAINST (%s IN NATURAL LANGUAGE MODE)
-					ORDER BY ft DESC LIMIT %d", // phpcs:ignore WordPress.DB.PreparedSQL.InterpolatedNotPrepared
+					ORDER BY ft DESC LIMIT %d",
 					$against,
+					$t['chunks'],
 					$against,
 					self::CANDIDATES
 				),
@@ -95,10 +96,10 @@ class Talkwyn_Retriever {
 			$params[] = $like;
 			$params[] = $like;
 		}
-		$params = array_merge( $params, $params, array( self::CANDIDATES ) );
-		$sql    = "SELECT id, source_key, source_type, source_url, source_lang, title, chunk_text, (" . implode( ' + ', $score ) . ") AS kw
-			FROM {$t['chunks']} WHERE " . implode( ' OR ', $where ) . ' ORDER BY kw DESC, id DESC LIMIT %d';
-		$found  = $wpdb->get_results( $wpdb->prepare( $sql, $params ), ARRAY_A ); // phpcs:ignore WordPress.DB.PreparedSQL.NotPrepared,WordPress.DB.DirectDatabaseQuery
+		$params = array_merge( $params, array( $t['chunks'] ), $params, array( self::CANDIDATES ) );
+		$sql    = 'SELECT id, source_key, source_type, source_url, source_lang, title, chunk_text, (' . implode( ' + ', $score ) . ') AS kw
+			FROM %i WHERE ' . implode( ' OR ', $where ) . ' ORDER BY kw DESC, id DESC LIMIT %d';
+		$found  = $wpdb->get_results( $wpdb->prepare( $sql, $params ), ARRAY_A ); // phpcs:ignore WordPress.DB.PreparedSQL.NotPrepared,WordPress.DB.DirectDatabaseQuery,PluginCheck.Security.DirectDB.UnescapedDBParameter -- $sql only holds placeholders.
 		foreach ( (array) $found as $row ) {
 			$id = (int) $row['id'];
 			if ( isset( $rows[ $id ] ) ) {

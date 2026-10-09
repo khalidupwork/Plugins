@@ -252,7 +252,7 @@ class Talkwyn_Admin {
 		 * @param string $url Logo URL.
 		 */
 		$logo = (string) apply_filters( 'talkwyn_admin_logo', TALKWYN_URL . 'assets/img/talkwyn-mark.svg' );
-		echo '<header class="twa-hero"><div class="twa-hero__brand"><span class="twa-hero__mark"><img src="' . esc_url( $logo ) . '" alt="" width="44" height="44"></span><div><h1>' . esc_html( $title ) . self::versions() . '</h1><p>' . esc_html( $subtitle ) . '</p></div></div>';
+		echo '<header class="twa-hero"><div class="twa-hero__brand"><span class="twa-hero__mark"><img src="' . esc_url( $logo ) . '" alt="" width="44" height="44"></span><div><h1>' . esc_html( $title ) . wp_kses_post( self::versions() ) . '</h1><p>' . esc_html( $subtitle ) . '</p></div></div>';
 		if ( '' !== $actions ) {
 			echo '<div class="twa-hero__actions">' . $actions . '</div>'; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- built from escaped parts.
 		}
@@ -607,7 +607,7 @@ class Talkwyn_Admin {
 	private static function chat_count() {
 		global $wpdb;
 		$t = Talkwyn_DB::tables();
-		return (int) $wpdb->get_var( "SELECT COUNT(DISTINCT session_id) FROM {$t['logs']}" ); // phpcs:ignore WordPress.DB.PreparedSQL.InterpolatedNotPrepared,WordPress.DB.DirectDatabaseQuery
+		return (int) $wpdb->get_var( $wpdb->prepare( "SELECT COUNT(DISTINCT session_id) FROM %i", $t['logs'] ) ); // phpcs:ignore WordPress.DB.DirectDatabaseQuery
 	}
 
 	/**
@@ -650,11 +650,11 @@ class Talkwyn_Admin {
 		$now   = time();
 		$w1    = gmdate( 'Y-m-d H:i:s', $now - 7 * DAY_IN_SECONDS );
 		$w2    = gmdate( 'Y-m-d H:i:s', $now - 14 * DAY_IN_SECONDS );
-		$chats = (int) $wpdb->get_var( $wpdb->prepare( "SELECT COUNT(DISTINCT session_id) FROM {$t['logs']} WHERE role = 'user' AND created_gmt >= %s", $w1 ) ); // phpcs:ignore WordPress.DB.PreparedSQL.InterpolatedNotPrepared,WordPress.DB.DirectDatabaseQuery
-		$prev  = (int) $wpdb->get_var( $wpdb->prepare( "SELECT COUNT(DISTINCT session_id) FROM {$t['logs']} WHERE role = 'user' AND created_gmt >= %s AND created_gmt < %s", $w2, $w1 ) ); // phpcs:ignore WordPress.DB.PreparedSQL.InterpolatedNotPrepared,WordPress.DB.DirectDatabaseQuery
-		$leads = (int) $wpdb->get_var( $wpdb->prepare( "SELECT COUNT(*) FROM {$t['leads']} WHERE created_gmt >= %s", $w1 ) ); // phpcs:ignore WordPress.DB.PreparedSQL.InterpolatedNotPrepared,WordPress.DB.DirectDatabaseQuery
-		$lprev = (int) $wpdb->get_var( $wpdb->prepare( "SELECT COUNT(*) FROM {$t['leads']} WHERE created_gmt >= %s AND created_gmt < %s", $w2, $w1 ) ); // phpcs:ignore WordPress.DB.PreparedSQL.InterpolatedNotPrepared,WordPress.DB.DirectDatabaseQuery
-		$rows  = (array) $wpdb->get_col( $wpdb->prepare( "SELECT message FROM {$t['logs']} WHERE role = 'user' AND created_gmt >= %s ORDER BY id DESC LIMIT 2000", $w1 ) ); // phpcs:ignore WordPress.DB.PreparedSQL.InterpolatedNotPrepared,WordPress.DB.DirectDatabaseQuery
+		$chats = (int) $wpdb->get_var( $wpdb->prepare( "SELECT COUNT(DISTINCT session_id) FROM %i WHERE role = 'user' AND created_gmt >= %s", $t['logs'], $w1 ) ); // phpcs:ignore WordPress.DB.DirectDatabaseQuery
+		$prev  = (int) $wpdb->get_var( $wpdb->prepare( "SELECT COUNT(DISTINCT session_id) FROM %i WHERE role = 'user' AND created_gmt >= %s AND created_gmt < %s", $t['logs'], $w2, $w1 ) ); // phpcs:ignore WordPress.DB.DirectDatabaseQuery
+		$leads = (int) $wpdb->get_var( $wpdb->prepare( "SELECT COUNT(*) FROM %i WHERE created_gmt >= %s", $t['leads'], $w1 ) ); // phpcs:ignore WordPress.DB.DirectDatabaseQuery
+		$lprev = (int) $wpdb->get_var( $wpdb->prepare( "SELECT COUNT(*) FROM %i WHERE created_gmt >= %s AND created_gmt < %s", $t['leads'], $w2, $w1 ) ); // phpcs:ignore WordPress.DB.DirectDatabaseQuery
+		$rows  = (array) $wpdb->get_col( $wpdb->prepare( "SELECT message FROM %i WHERE role = 'user' AND created_gmt >= %s ORDER BY id DESC LIMIT 2000", $t['logs'], $w1 ) ); // phpcs:ignore WordPress.DB.DirectDatabaseQuery
 		$top   = array();
 		foreach ( $rows as $q ) {
 			$q = trim( (string) $q );
@@ -714,8 +714,8 @@ class Talkwyn_Admin {
 		$s      = Talkwyn_Settings::all();
 		$since  = gmdate( 'Y-m-d H:i:s', time() - 30 * DAY_IN_SECONDS );
 		$chunks = Talkwyn_Indexer::count();
-		$leads  = (int) $wpdb->get_var( $wpdb->prepare( "SELECT COUNT(*) FROM {$t['leads']} WHERE created_gmt >= %s", $since ) ); // phpcs:ignore WordPress.DB.PreparedSQL.InterpolatedNotPrepared,WordPress.DB.DirectDatabaseQuery
-		$chats  = (int) $wpdb->get_var( $wpdb->prepare( "SELECT COUNT(DISTINCT session_id) FROM {$t['logs']} WHERE created_gmt >= %s", $since ) ); // phpcs:ignore WordPress.DB.PreparedSQL.InterpolatedNotPrepared,WordPress.DB.DirectDatabaseQuery
+		$leads  = (int) $wpdb->get_var( $wpdb->prepare( "SELECT COUNT(*) FROM %i WHERE created_gmt >= %s", $t['leads'], $since ) ); // phpcs:ignore WordPress.DB.DirectDatabaseQuery
+		$chats  = (int) $wpdb->get_var( $wpdb->prepare( "SELECT COUNT(DISTINCT session_id) FROM %i WHERE created_gmt >= %s", $t['logs'], $since ) ); // phpcs:ignore WordPress.DB.DirectDatabaseQuery
 		$ready  = Talkwyn_Providers::order( $s );
 		$live   = ! empty( $s['enabled'] );
 		$stats  = array(
@@ -788,7 +788,7 @@ class Talkwyn_Admin {
 	private static function tab_knowledge() {
 		global $wpdb;
 		$t     = Talkwyn_DB::tables();
-		$types = (array) $wpdb->get_results( "SELECT source_type, COUNT(DISTINCT source_key) AS n FROM {$t['chunks']} GROUP BY source_type ORDER BY n DESC", ARRAY_A ); // phpcs:ignore WordPress.DB.PreparedSQL.InterpolatedNotPrepared,WordPress.DB.DirectDatabaseQuery
+		$types = (array) $wpdb->get_results( $wpdb->prepare( "SELECT source_type, COUNT(DISTINCT source_key) AS n FROM %i GROUP BY source_type ORDER BY n DESC", $t['chunks'] ), ARRAY_A ); // phpcs:ignore WordPress.DB.DirectDatabaseQuery
 		self::card( __( 'Scan your website', 'talkwyn' ), __( 'Talkwyn reads your published pages, posts and products and keeps the text in your WordPress database. Password protected, private and draft content is never included.', 'talkwyn' ), '', 'scan' );
 		echo '<div class="twa-scan"><button type="button" class="twa-btn twa-btn--ink" id="twa-scan">' . self::icon( 'scan' ) . esc_html__( 'Scan entire site', 'talkwyn' ) . '</button><button type="button" class="twa-btn twa-btn--light" id="twa-clear">' . esc_html__( 'Clear knowledge', 'talkwyn' ) . '</button><span id="twa-scan-status" aria-live="polite">'; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- static SVG.
 		/* translators: %s: number of chunks */
@@ -1219,7 +1219,7 @@ class Talkwyn_Admin {
 	private static function tab_leads() {
 		global $wpdb;
 		$t    = Talkwyn_DB::tables();
-		$rows = (array) $wpdb->get_results( "SELECT * FROM {$t['leads']} ORDER BY id DESC LIMIT 250" ); // phpcs:ignore WordPress.DB.PreparedSQL.InterpolatedNotPrepared,WordPress.DB.DirectDatabaseQuery
+		$rows = (array) $wpdb->get_results( $wpdb->prepare( "SELECT * FROM %i ORDER BY id DESC LIMIT 250", $t['leads'] ) ); // phpcs:ignore WordPress.DB.DirectDatabaseQuery
 		self::card( __( 'Leads', 'talkwyn' ), __( 'People who asked the team to follow up, newest first.', 'talkwyn' ), '', 'leads' );
 		if ( ! $rows ) {
 			self::empty_state( 'leads', __( 'No leads yet', 'talkwyn' ), __( 'When a visitor shares their details in the chat, they show up here and you get an email.', 'talkwyn' ), '<a class="twa-btn twa-btn--ink" href="' . esc_url( home_url( '/' ) ) . '" target="_blank" rel="noopener">' . esc_html__( 'Open your site to test the chat', 'talkwyn' ) . '</a>' );
@@ -1252,7 +1252,7 @@ class Talkwyn_Admin {
 	private static function tab_conversations() {
 		global $wpdb;
 		$t        = Talkwyn_DB::tables();
-		$sessions = (array) $wpdb->get_results( "SELECT session_id, MAX(created_gmt) AS last_time, COUNT(*) AS messages, MIN(id) AS first_id FROM {$t['logs']} GROUP BY session_id ORDER BY last_time DESC LIMIT 100" ); // phpcs:ignore WordPress.DB.PreparedSQL.InterpolatedNotPrepared,WordPress.DB.DirectDatabaseQuery
+		$sessions = (array) $wpdb->get_results( $wpdb->prepare( "SELECT session_id, MAX(created_gmt) AS last_time, COUNT(*) AS messages, MIN(id) AS first_id FROM %i GROUP BY session_id ORDER BY last_time DESC LIMIT 100", $t['logs'] ) ); // phpcs:ignore WordPress.DB.DirectDatabaseQuery
 		self::card( __( 'Conversations', 'talkwyn' ), __( 'The latest 100 conversations, stored in your WordPress database.', 'talkwyn' ), '', 'conversations' );
 		if ( ! $sessions ) {
 			self::empty_state( 'conversations', __( 'No conversations yet', 'talkwyn' ), __( 'Chats with visitors show up here with the answers and the provider that replied.', 'talkwyn' ), '<a class="twa-btn twa-btn--ink" href="' . esc_url( home_url( '/' ) ) . '" target="_blank" rel="noopener">' . esc_html__( 'Open your site to test the chat', 'talkwyn' ) . '</a>' );
@@ -1261,7 +1261,7 @@ class Talkwyn_Admin {
 		}
 		echo '<div class="twa-actions twa-actions--top"><a class="twa-btn twa-btn--light twa-btn--sm twa-danger" href="' . esc_url( wp_nonce_url( admin_url( 'admin-post.php?action=talkwyn_clear_logs' ), 'talkwyn_clear_logs' ) ) . '" onclick="return confirm(\'' . esc_js( __( 'Delete all conversations?', 'talkwyn' ) ) . '\')">' . esc_html__( 'Delete all conversations', 'talkwyn' ) . '</a></div>';
 		foreach ( $sessions as $sess ) {
-			$messages = (array) $wpdb->get_results( $wpdb->prepare( "SELECT * FROM {$t['logs']} WHERE session_id = %s ORDER BY id ASC LIMIT 80", $sess->session_id ) ); // phpcs:ignore WordPress.DB.PreparedSQL.InterpolatedNotPrepared,WordPress.DB.DirectDatabaseQuery
+			$messages = (array) $wpdb->get_results( $wpdb->prepare( "SELECT * FROM %i WHERE session_id = %s ORDER BY id ASC LIMIT 80", $t['logs'], $sess->session_id ) ); // phpcs:ignore WordPress.DB.DirectDatabaseQuery
 			$first    = '';
 			$page     = '';
 			foreach ( $messages as $m ) {
@@ -1376,7 +1376,7 @@ class Talkwyn_Admin {
 		check_admin_referer( 'talkwyn_export_leads' );
 		global $wpdb;
 		$t    = Talkwyn_DB::tables();
-		$rows = (array) $wpdb->get_results( "SELECT * FROM {$t['leads']} ORDER BY id DESC", ARRAY_A ); // phpcs:ignore WordPress.DB.PreparedSQL.InterpolatedNotPrepared,WordPress.DB.DirectDatabaseQuery
+		$rows = (array) $wpdb->get_results( $wpdb->prepare( "SELECT * FROM %i ORDER BY id DESC", $t['leads'] ), ARRAY_A ); // phpcs:ignore WordPress.DB.DirectDatabaseQuery
 		nocache_headers();
 		header( 'Content-Type: text/csv; charset=utf-8' );
 		header( 'Content-Disposition: attachment; filename=talkwyn-leads-' . gmdate( 'Y-m-d' ) . '.csv' );
@@ -1430,7 +1430,7 @@ class Talkwyn_Admin {
 		check_admin_referer( 'talkwyn_clear_logs' );
 		global $wpdb;
 		$t = Talkwyn_DB::tables();
-		$wpdb->query( "TRUNCATE TABLE {$t['logs']}" ); // phpcs:ignore WordPress.DB.PreparedSQL.InterpolatedNotPrepared,WordPress.DB.DirectDatabaseQuery
+		$wpdb->query( $wpdb->prepare( "TRUNCATE TABLE %i", $t['logs'] ) ); // phpcs:ignore WordPress.DB.DirectDatabaseQuery
 		wp_safe_redirect( admin_url( 'admin.php?page=' . self::SLUG . '&tab=conversations' ) );
 		exit;
 	}

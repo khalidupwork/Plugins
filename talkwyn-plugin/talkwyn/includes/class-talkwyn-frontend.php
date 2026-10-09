@@ -222,7 +222,7 @@ class Talkwyn_Frontend {
 		wp_enqueue_script( 'talkwyn-widget' );
 		wp_add_inline_script( 'talkwyn-widget', 'window.TalkwynConfig = ' . wp_json_encode( self::config() ) . ';', 'before' );
 		if ( Talkwyn_Settings::get( 'lead_enabled' ) && '' !== (string) Talkwyn_Settings::get( 'turnstile_site_key' ) && '' !== (string) Talkwyn_Settings::get( 'turnstile_secret' ) ) {
-			wp_enqueue_script( 'talkwyn-turnstile', 'https://challenges.cloudflare.com/turnstile/v0/api.js?render=explicit', array(), null, array( 'in_footer' => true, 'strategy' => 'async' ) ); // phpcs:ignore WordPress.WP.EnqueuedResourceParameters.MissingVersion
+			wp_enqueue_script( 'talkwyn-turnstile', 'https://challenges.cloudflare.com/turnstile/v0/api.js?render=explicit', array(), null, array( 'in_footer' => true, 'strategy' => 'async' ) ); // phpcs:ignore WordPress.WP.EnqueuedResourceParameters.MissingVersion,PluginCheck.CodeAnalysis.EnqueuedResourceOffloading.OffloadedContent -- Cloudflare Turnstile must load from Cloudflare; opt-in and listed under External services.
 		}
 
 		/**
@@ -318,6 +318,7 @@ class Talkwyn_Frontend {
 				'yourName'       => __( 'Your name', 'talkwyn' ),
 				'save'           => __( 'Save', 'talkwyn' ),
 				'cancel'         => __( 'Cancel', 'talkwyn' ),
+				/* translators: %s: visitor name */
 				'nameSaved'      => __( 'Thanks, %s. Nice to meet you.', 'talkwyn' ),
 				'transcriptTitle' => __( 'Email this chat to me', 'talkwyn' ),
 				'transcriptConsent' => __( 'Send me this chat and let the team contact me about my questions.', 'talkwyn' ),

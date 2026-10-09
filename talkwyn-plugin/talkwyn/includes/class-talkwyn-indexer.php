@@ -91,7 +91,6 @@ class Talkwyn_Indexer {
 				'order'            => 'ASC',
 				'fields'           => 'ids',
 				'has_password'     => false,
-				'suppress_filters' => true,
 			)
 		);
 		foreach ( $ids as $post_id ) {
@@ -125,7 +124,7 @@ class Talkwyn_Indexer {
 		self::guard();
 		global $wpdb;
 		$t = Talkwyn_DB::tables();
-		$wpdb->query( "DELETE FROM {$t['chunks']} WHERE source_key LIKE 'post:%' OR source_key LIKE 'site:%'" ); // phpcs:ignore WordPress.DB.PreparedSQL.InterpolatedNotPrepared,WordPress.DB.DirectDatabaseQuery
+		$wpdb->query( $wpdb->prepare( "DELETE FROM %i WHERE source_key LIKE 'post:%%' OR source_key LIKE 'site:%%'", $t['chunks'] ) ); // phpcs:ignore WordPress.DB.DirectDatabaseQuery
 		do_action( 'talkwyn_index_cleared' );
 		wp_send_json_success( array( 'chunks' => self::count() ) );
 	}
@@ -138,7 +137,7 @@ class Talkwyn_Indexer {
 	public static function count() {
 		global $wpdb;
 		$t = Talkwyn_DB::tables();
-		return (int) $wpdb->get_var( "SELECT COUNT(*) FROM {$t['chunks']}" ); // phpcs:ignore WordPress.DB.PreparedSQL.InterpolatedNotPrepared,WordPress.DB.DirectDatabaseQuery
+		return (int) $wpdb->get_var( $wpdb->prepare( "SELECT COUNT(*) FROM %i", $t['chunks'] ) ); // phpcs:ignore WordPress.DB.DirectDatabaseQuery
 	}
 
 	/**
@@ -257,9 +256,9 @@ class Talkwyn_Indexer {
 		$t      = Talkwyn_DB::tables();
 		$types  = self::post_types();
 		$holder = implode( ',', array_fill( 0, count( $types ), '%s' ) );
-		$sql    = "DELETE c FROM {$t['chunks']} c LEFT JOIN {$wpdb->posts} p ON p.ID = c.source_id
+		$sql    = "DELETE c FROM %i c LEFT JOIN %i p ON p.ID = c.source_id
 			WHERE c.source_key LIKE 'post:%%' AND ( p.ID IS NULL OR p.post_status <> 'publish' OR p.post_password <> '' OR p.post_type NOT IN ({$holder}) )";
-		return (int) $wpdb->query( $wpdb->prepare( $sql, $types ) ); // phpcs:ignore WordPress.DB.PreparedSQL.NotPrepared,WordPress.DB.DirectDatabaseQuery
+		return (int) $wpdb->query( $wpdb->prepare( $sql, array_merge( array( $t['chunks'], $wpdb->posts ), $types ) ) ); // phpcs:ignore WordPress.DB.PreparedSQL.NotPrepared,WordPress.DB.DirectDatabaseQuery,PluginCheck.Security.DirectDB.UnescapedDBParameter -- $sql only holds placeholders.
 	}
 
 	/**
@@ -537,7 +536,7 @@ class Talkwyn_Indexer {
 				return Talkwyn_I18n::short_code( $lang );
 			}
 		}
-		$details = apply_filters( 'wpml_post_language_details', null, $post_id );
+		$details = apply_filters( 'wpml_post_language_details', null, $post_id ); // phpcs:ignore WordPress.NamingConventions.PrefixAllGlobals.NonPrefixedHooknameFound -- WPML's own hook.
 		if ( is_array( $details ) && ! empty( $details['language_code'] ) ) {
 			return Talkwyn_I18n::short_code( $details['language_code'] );
 		}

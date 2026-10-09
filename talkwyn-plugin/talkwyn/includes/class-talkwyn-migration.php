@@ -137,15 +137,17 @@ class Talkwyn_Migration {
 		$old_t = self::old_tables();
 		$new_t = Talkwyn_DB::tables();
 		$cols  = array(
-			'chunks' => 'source_key, source_type, source_id, source_url, source_lang, title, chunk_text, checksum, modified_gmt',
-			'leads'  => 'created_gmt, session_id, name, email, phone, message, page_url, status',
-			'logs'   => 'created_gmt, session_id, role, message, provider, page_url, meta, feedback',
+			'chunks' => array( 'source_key', 'source_type', 'source_id', 'source_url', 'source_lang', 'title', 'chunk_text', 'checksum', 'modified_gmt' ),
+			'leads'  => array( 'created_gmt', 'session_id', 'name', 'email', 'phone', 'message', 'page_url', 'status' ),
+			'logs'   => array( 'created_gmt', 'session_id', 'role', 'message', 'provider', 'page_url', 'meta', 'feedback' ),
 		);
 		foreach ( $cols as $key => $list ) {
 			if ( ! $wpdb->get_var( $wpdb->prepare( 'SHOW TABLES LIKE %s', $old_t[ $key ] ) ) ) { // phpcs:ignore WordPress.DB.DirectDatabaseQuery
 				continue;
 			}
-			$result = $wpdb->query( "INSERT INTO {$new_t[ $key ]} ({$list}) SELECT {$list} FROM {$old_t[ $key ]}" ); // phpcs:ignore WordPress.DB.PreparedSQL.InterpolatedNotPrepared,WordPress.DB.DirectDatabaseQuery
+			$ids    = implode( ', ', array_fill( 0, count( $list ), '%i' ) );
+			$sql    = "INSERT INTO %i ({$ids}) SELECT {$ids} FROM %i";
+			$result = $wpdb->query( $wpdb->prepare( $sql, array_merge( array( $new_t[ $key ] ), $list, $list, array( $old_t[ $key ] ) ) ) ); // phpcs:ignore WordPress.DB.PreparedSQL.NotPrepared,WordPress.DB.DirectDatabaseQuery,PluginCheck.Security.DirectDB.UnescapedDBParameter -- $sql only holds %i placeholders.
 			$copied[ $key ] = (int) $result;
 		}
 
@@ -224,7 +226,7 @@ class Talkwyn_Migration {
 		}
 		global $wpdb;
 		foreach ( self::old_tables() as $table ) {
-			$wpdb->query( "DROP TABLE IF EXISTS {$table}" ); // phpcs:ignore WordPress.DB.PreparedSQL.InterpolatedNotPrepared,WordPress.DB.DirectDatabaseQuery,WordPress.DB.DirectDatabaseQuery.SchemaChange
+			$wpdb->query( $wpdb->prepare( "DROP TABLE IF EXISTS %i", $table ) ); // phpcs:ignore WordPress.DB.DirectDatabaseQuery,WordPress.DB.DirectDatabaseQuery.SchemaChange
 		}
 		foreach ( array( 'nac_settings', 'nac_db_version', 'nac_do_onboarding' ) as $option ) {
 			delete_option( $option );

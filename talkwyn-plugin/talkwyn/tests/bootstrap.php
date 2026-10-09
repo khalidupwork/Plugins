@@ -88,6 +88,12 @@ function post_type_exists( $t ) {
 function wp_strip_all_tags( $s ) {
 	return trim( strip_tags( (string) $s ) );
 }
+function esc_html( $s ) {
+	return htmlspecialchars( (string) $s, ENT_QUOTES, 'UTF-8', false );
+}
+function wp_specialchars_decode( $s, $q = ENT_NOQUOTES ) {
+	return htmlspecialchars_decode( (string) $s, $q );
+}
 
 class WP_Post {
 	public $ID = 1;

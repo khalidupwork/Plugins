@@ -2,9 +2,9 @@
 Contributors: talkwyn
 Tags: chatbot, ai chatbot, lead generation, multilingual, live chat
 Requires at least: 6.4
-Tested up to: 6.8
+Tested up to: 7.1
 Requires PHP: 8.0
-Stable tag: 2.3.1
+Stable tag: 2.3.2
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
@@ -109,6 +109,10 @@ In your WordPress database. Chats, leads and knowledge stay on your site. Messag
 
 == Changelog ==
 
+= 2.3.2 =
+* Changed: Code cleanup from the WordPress Plugin Check report: database table names go through prepared statements, error messages are escaped, and a missing translator note was added.
+* Changed: Tested up to WordPress 7.1. The plugin name in the plugin list now matches the WordPress.org listing.
+
 = 2.3.1 =
 * Changed: Sources under an answer fold behind a small "Sources (n)" button. Click it to see the links.
 * Changed: At most three sources per answer, one per page. Small talk, "I don't know" and off-topic replies show no sources.
@@ -169,6 +173,9 @@ In your WordPress database. Chats, leads and knowledge stay on your site. Messag
 * Fixed: a full scan removes knowledge of posts that no longer exist.
 
 == Upgrade Notice ==
+
+= 2.3.2 =
+Code cleanup for the WordPress Plugin Check. No settings change.
 
 = 2.3.1 =
 Sources under chat answers are folded and limited to three.

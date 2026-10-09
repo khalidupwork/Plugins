@@ -73,7 +73,7 @@ class Talkwyn_Providers {
 				'fields'      => array( 'cloudflare_account_id', 'cloudflare_token', 'cloudflare_model' ),
 				'key_field'   => 'cloudflare_token',
 				'model_field' => 'cloudflare_model',
-				'signup'      => 'https://dash.cloudflare.com/?to=/:account/ai/workers-ai',
+				'signup'      => 'https://dash.cloudflare.com/?to=/:account/ai/workers-ai', // phpcs:ignore PluginCheck.CodeAnalysis.Offloading.OffloadedContent -- plain sign-up link shown to the admin.
 				'free'        => true,
 				'ready'       => static function ( $s ) {
 					return ! empty( $s['cloudflare_token'] ) && ! empty( $s['cloudflare_account_id'] );
@@ -153,7 +153,7 @@ class Talkwyn_Providers {
 				}
 				$errors[] = $id . ': empty reply';
 			} catch ( Exception $e ) {
-				$errors[] = $id . ': ' . $e->getMessage();
+				$errors[] = $id . ': ' . wp_specialchars_decode( $e->getMessage(), ENT_QUOTES );
 			}
 			if ( $last === $id ) {
 				delete_transient( self::LAST_GOOD );
@@ -213,7 +213,7 @@ class Talkwyn_Providers {
 		} catch ( Exception $e ) {
 			return array(
 				'success' => false,
-				'message' => $e->getMessage(),
+				'message' => wp_specialchars_decode( $e->getMessage(), ENT_QUOTES ),
 			);
 		}
 	}
@@ -524,7 +524,7 @@ class Talkwyn_Providers {
 	 */
 	public static function json( $res ) {
 		if ( is_wp_error( $res ) ) {
-			throw new Exception( $res->get_error_message() );
+			throw new Exception( esc_html( $res->get_error_message() ) );
 		}
 		$code = (int) wp_remote_retrieve_response_code( $res );
 		$body = (string) wp_remote_retrieve_body( $res );
@@ -540,7 +540,7 @@ class Talkwyn_Providers {
 			if ( '' === $msg ) {
 				$msg = '' !== $body ? substr( wp_strip_all_tags( $body ), 0, 240 ) : 'No response body';
 			}
-			throw new Exception( 'HTTP ' . $code . ': ' . $msg );
+			throw new Exception( esc_html( 'HTTP ' . $code . ': ' . $msg ) );
 		}
 		return is_array( $data ) ? $data : array();
 	}

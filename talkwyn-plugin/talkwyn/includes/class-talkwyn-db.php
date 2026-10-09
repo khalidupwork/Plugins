@@ -151,12 +151,12 @@ class Talkwyn_DB {
 	public static function ensure_fulltext() {
 		global $wpdb;
 		$t      = self::tables();
-		$exists = $wpdb->get_var( $wpdb->prepare( "SHOW INDEX FROM {$t['chunks']} WHERE Key_name = %s", 'talkwyn_ft' ) ); // phpcs:ignore WordPress.DB.PreparedSQL.InterpolatedNotPrepared,WordPress.DB.DirectDatabaseQuery
+		$exists = $wpdb->get_var( $wpdb->prepare( "SHOW INDEX FROM %i WHERE Key_name = %s", $t['chunks'], 'talkwyn_ft' ) ); // phpcs:ignore WordPress.DB.DirectDatabaseQuery
 		if ( ! $exists ) {
 			$suppress = $wpdb->suppress_errors( true );
-			$wpdb->query( "ALTER TABLE {$t['chunks']} ADD FULLTEXT KEY talkwyn_ft (title, chunk_text)" ); // phpcs:ignore WordPress.DB.PreparedSQL.InterpolatedNotPrepared,WordPress.DB.DirectDatabaseQuery,WordPress.DB.DirectDatabaseQuery.SchemaChange
+			$wpdb->query( $wpdb->prepare( "ALTER TABLE %i ADD FULLTEXT KEY talkwyn_ft (title, chunk_text)", $t['chunks'] ) ); // phpcs:ignore WordPress.DB.DirectDatabaseQuery,WordPress.DB.DirectDatabaseQuery.SchemaChange
 			$wpdb->suppress_errors( $suppress );
-			$exists = $wpdb->get_var( $wpdb->prepare( "SHOW INDEX FROM {$t['chunks']} WHERE Key_name = %s", 'talkwyn_ft' ) ); // phpcs:ignore WordPress.DB.PreparedSQL.InterpolatedNotPrepared,WordPress.DB.DirectDatabaseQuery
+			$exists = $wpdb->get_var( $wpdb->prepare( "SHOW INDEX FROM %i WHERE Key_name = %s", $t['chunks'], 'talkwyn_ft' ) ); // phpcs:ignore WordPress.DB.DirectDatabaseQuery
 		}
 		update_option( 'talkwyn_fulltext', $exists ? 1 : 0, false );
 	}
@@ -171,7 +171,7 @@ class Talkwyn_DB {
 		$t      = self::tables();
 		$days   = max( 1, absint( Talkwyn_Settings::get( 'retention_days', 30 ) ) );
 		$cutoff = gmdate( 'Y-m-d H:i:s', time() - ( $days * DAY_IN_SECONDS ) );
-		$wpdb->query( $wpdb->prepare( "DELETE FROM {$t['logs']} WHERE created_gmt < %s", $cutoff ) ); // phpcs:ignore WordPress.DB.PreparedSQL.InterpolatedNotPrepared,WordPress.DB.DirectDatabaseQuery
+		$wpdb->query( $wpdb->prepare( "DELETE FROM %i WHERE created_gmt < %s", $t['logs'], $cutoff ) ); // phpcs:ignore WordPress.DB.DirectDatabaseQuery
 
 		/**
 		 * Fires after the daily cleanup.
@@ -189,7 +189,7 @@ class Talkwyn_DB {
 	public static function drop_all() {
 		global $wpdb;
 		foreach ( self::tables() as $table ) {
-			$wpdb->query( "DROP TABLE IF EXISTS {$table}" ); // phpcs:ignore WordPress.DB.PreparedSQL.InterpolatedNotPrepared,WordPress.DB.DirectDatabaseQuery,WordPress.DB.DirectDatabaseQuery.SchemaChange
+			$wpdb->query( $wpdb->prepare( "DROP TABLE IF EXISTS %i", $table ) ); // phpcs:ignore WordPress.DB.DirectDatabaseQuery,WordPress.DB.DirectDatabaseQuery.SchemaChange
 		}
 	}
 }

@@ -55,7 +55,7 @@ class Talkwyn_I18n {
 				continue;
 			}
 			$value = trim( (string) $s[ $key ] );
-			do_action( 'wpml_register_single_string', self::CONTEXT, $key, $value );
+			do_action( 'wpml_register_single_string', self::CONTEXT, $key, $value ); // phpcs:ignore WordPress.NamingConventions.PrefixAllGlobals.NonPrefixedHooknameFound -- WPML's own hook.
 			if ( function_exists( 'pll_register_string' ) ) {
 				pll_register_string( 'talkwyn_' . $key, $value, self::CONTEXT, true );
 			}
@@ -80,7 +80,7 @@ class Talkwyn_I18n {
 	 * @return string
 	 */
 	public static function translate( $key, $value ) {
-		$value = (string) apply_filters( 'wpml_translate_single_string', (string) $value, self::CONTEXT, $key );
+		$value = (string) apply_filters( 'wpml_translate_single_string', (string) $value, self::CONTEXT, $key ); // phpcs:ignore WordPress.NamingConventions.PrefixAllGlobals.NonPrefixedHooknameFound -- WPML's own hook.
 		if ( function_exists( 'pll__' ) ) {
 			$value = (string) pll__( $value );
 		}

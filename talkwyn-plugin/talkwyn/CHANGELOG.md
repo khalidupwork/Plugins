@@ -1,5 +1,23 @@
 # Talkwyn changelog
 
+## 2.3.2
+
+### Changed
+- Fixes from the WordPress Plugin Check report (run on 2.3.1):
+  - Every database query passes table and column names through `$wpdb->prepare()` with `%i` (needs WordPress 6.2, the plugin already needs 6.4).
+  - Fixed the placeholder count in the privacy export query.
+  - Provider error messages are escaped when thrown and decoded again before they show in the admin, so quotes do not appear as `&#039;`.
+  - The version labels in the admin header go through `wp_kses_post()`.
+  - Added the missing "translators:" note for "Thanks, %s. Nice to meet you."
+  - The scan no longer sets `suppress_filters` (get_posts already defaults to it, so results are the same).
+  - WPML hook names and the Cloudflare Turnstile script and verify call carry a phpcs note with the reason. Turnstile is opt-in and listed under External services.
+- Tested up to WordPress 7.1.
+- The plugin header name matches the readme: "Talkwyn: AI Chatbot, Lead Generation & Multilingual Support".
+- `HOOKS.md` and `MIGRATION.md` stay in the source but are no longer in the release ZIP.
+
+### Not changed
+- Plugin Check suggests the WordPress 7.0 AI Client instead of calling Groq, OpenRouter and Gemini directly. This is a suggestion, not an error, so the providers stay as they are.
+
 ## 2.3.1
 
 ### Changed

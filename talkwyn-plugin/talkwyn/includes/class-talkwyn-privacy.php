@@ -64,7 +64,7 @@ class Talkwyn_Privacy {
 	private static function leads( $email ) {
 		global $wpdb;
 		$t = Talkwyn_DB::tables();
-		return (array) $wpdb->get_results( $wpdb->prepare( "SELECT * FROM {$t['leads']} WHERE email = %s ORDER BY id ASC", $email ), ARRAY_A ); // phpcs:ignore WordPress.DB.PreparedSQL.InterpolatedNotPrepared,WordPress.DB.DirectDatabaseQuery
+		return (array) $wpdb->get_results( $wpdb->prepare( "SELECT * FROM %i WHERE email = %s ORDER BY id ASC", $t['leads'], $email ), ARRAY_A ); // phpcs:ignore WordPress.DB.DirectDatabaseQuery
 	}
 
 	/**
@@ -119,7 +119,7 @@ class Talkwyn_Privacy {
 		if ( $sessions ) {
 			$holder = implode( ',', array_fill( 0, count( $sessions ), '%s' ) );
 			$offset = ( max( 1, (int) $page ) - 1 ) * self::PAGE;
-			$rows   = (array) $wpdb->get_results( $wpdb->prepare( "SELECT * FROM {$t['logs']} WHERE session_id IN ({$holder}) ORDER BY id ASC LIMIT %d OFFSET %d", array_merge( $sessions, array( self::PAGE, $offset ) ) ), ARRAY_A ); // phpcs:ignore WordPress.DB.PreparedSQL.InterpolatedNotPrepared,WordPress.DB.DirectDatabaseQuery
+			$rows   = (array) $wpdb->get_results( $wpdb->prepare( "SELECT * FROM %i WHERE session_id IN ({$holder}) ORDER BY id ASC LIMIT %d OFFSET %d", array_merge( array( $t['logs'] ), $sessions, array( self::PAGE, $offset ) ) ), ARRAY_A ); // phpcs:ignore WordPress.DB.PreparedSQL.InterpolatedNotPrepared,WordPress.DB.DirectDatabaseQuery,WordPress.DB.PreparedSQLPlaceholders.ReplacementsWrongNumber,PluginCheck.Security.DirectDB.UnescapedDBParameter -- $holder is a list of %s placeholders.
 			foreach ( $rows as $row ) {
 				$items[] = array(
 					'group_id'    => 'talkwyn-messages',

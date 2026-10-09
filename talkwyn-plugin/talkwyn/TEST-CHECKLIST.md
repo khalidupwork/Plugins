@@ -1,6 +1,12 @@
-# Talkwyn 2.3.1 test checklist
+# Talkwyn 2.3.2 test checklist
 
 The full run, including Pro and migration, is in `../QA-CHECKLIST.md`. This list covers what changed in 2.1.0.
+
+## Plugin Check (2.3.2)
+- [ ] Run Tools, Plugin Check on Talkwyn with all categories: no errors. The only warnings left are the AI provider suggestions.
+- [ ] Dashboard, Knowledge, Leads and Conversations tabs show the same numbers as before. Rescan, Clear knowledge, Export leads and Clear conversations work.
+- [ ] Test connection with a wrong key: the error text shows quotes normally, not `&#039;`.
+- [ ] Tools, Export Personal Data for an email with a lead: the file holds the lead and its chat.
 
 ## Install
 - [ ] PHP 7.4 site: WordPress refuses to activate (needs PHP 8.0).
