@@ -534,8 +534,8 @@ class Talkwyn_Admin {
 				__( 'Alerts and branding', 'talkwyn' ),
 				array(
 					array( __( 'Slack and Telegram alerts', 'talkwyn' ), __( 'Every new lead the moment it arrives.', 'talkwyn' ) ),
-					array( __( 'White label', 'talkwyn' ), __( 'Hide "Powered by Talkwyn", rename the admin menu, use your own logo and your own chat menu link.', 'talkwyn' ) ),
-					array( __( 'Settings export and import', 'talkwyn' ), __( 'Copy a setup to another site in one file.', 'talkwyn' ) ),
+					array( __( 'White label', 'talkwyn' ), __( 'Agency plan: rename the admin menu, use your own logo and your own chat menu link.', 'talkwyn' ) ),
+					array( __( 'Settings export and import', 'talkwyn' ), __( 'Agency plan: copy a setup to another site in one file.', 'talkwyn' ) ),
 				),
 			),
 		);
@@ -770,7 +770,7 @@ class Talkwyn_Admin {
 				__( 'PDF, DOCX and web pages as knowledge', 'talkwyn' ),
 				__( 'Analytics and an unanswered questions inbox', 'talkwyn' ),
 				__( 'WooCommerce product cards and order lookup', 'talkwyn' ),
-				__( 'Slack and Telegram lead alerts, white label', 'talkwyn' ),
+				__( 'Slack and Telegram lead alerts, white label on Agency', 'talkwyn' ),
 			);
 			echo '<section class="twa-procard"><div class="twa-procard__text"><span class="twa-eyebrow">' . esc_html__( 'Talkwyn Pro', 'talkwyn' ) . '</span><h2>' . esc_html__( 'Answer more, learn more, sell more', 'talkwyn' ) . '</h2><p>' . esc_html__( 'Everything in the free plugin keeps working. Pro adds:', 'talkwyn' ) . '</p><ul>';
 			foreach ( $features as $f ) {

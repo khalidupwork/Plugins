@@ -365,15 +365,17 @@ final class Admin {
 		echo '<p class="twp-soon"><span class="twa-badge">' . esc_html__( 'Coming soon', 'talkwyn-pro' ) . '</span> ' . esc_html__( 'WhatsApp alerts', 'talkwyn-pro' ) . '</p>';
 		echo '</section>';
 
-		A::card( __( 'White label', 'talkwyn-pro' ) );
-		A::toggle( 'pro_hide_powered', __( 'Hide "Powered by Talkwyn" in the chat', 'talkwyn-pro' ) );
-		A::field( 'pro_menu_name', __( 'Admin menu and screen name', 'talkwyn-pro' ), 'text', __( 'For client sites, for example "Website chat". Leave empty for Talkwyn.', 'talkwyn-pro' ) );
-		A::field( 'pro_brand_logo', __( 'Admin logo URL', 'talkwyn-pro' ), 'url', __( 'Square image shown in the admin header instead of the Talkwyn mark.', 'talkwyn-pro' ) );
-		echo '<div class="twa-row">';
-		A::field( 'pro_menu_item_label', __( 'Chat menu link text', 'talkwyn-pro' ), 'text', __( 'For example "Website by Your Agency".', 'talkwyn-pro' ) );
-		A::field( 'pro_menu_item_url', __( 'Chat menu link', 'talkwyn-pro' ), 'url' );
-		echo '</div>';
-		echo '</section>';
+		if ( License::agency() ) {
+			A::card( __( 'White label', 'talkwyn-pro' ) );
+			A::toggle( 'pro_hide_powered', __( 'Hide "Powered by Talkwyn" in the chat', 'talkwyn-pro' ) );
+			A::field( 'pro_menu_name', __( 'Admin menu and screen name', 'talkwyn-pro' ), 'text', __( 'For client sites, for example "Website chat". Leave empty for Talkwyn.', 'talkwyn-pro' ) );
+			A::field( 'pro_brand_logo', __( 'Admin logo URL', 'talkwyn-pro' ), 'url', __( 'Square image shown in the admin header instead of the Talkwyn mark.', 'talkwyn-pro' ) );
+			echo '<div class="twa-row">';
+			A::field( 'pro_menu_item_label', __( 'Chat menu link text', 'talkwyn-pro' ), 'text', __( 'For example "Website by Your Agency".', 'talkwyn-pro' ) );
+			A::field( 'pro_menu_item_url', __( 'Chat menu link', 'talkwyn-pro' ), 'url' );
+			echo '</div>';
+			echo '</section>';
+		}
 
 		A::card( __( 'Coming soon', 'talkwyn-pro' ), __( 'On the roadmap. Not available yet.', 'talkwyn-pro' ), '', 'rocket' );
 		echo '<ul class="twp-soon-list">';
@@ -438,6 +440,12 @@ final class Admin {
 		A::field( 'pro_away_message', __( 'Away reply', 'talkwyn-pro' ), 'textarea' );
 		echo '</section></div>';
 		A::form_close( __( 'Save Pro settings', 'talkwyn-pro' ) );
+
+		if ( ! License::agency() ) {
+			A::card( __( 'White label and settings export', 'talkwyn-pro' ), __( 'Your own logo and menu name in the admin, a link in the chat menu, and moving a setup from one site to another are part of the Agency plan. The "Powered by Talkwyn" badge is optional on every plan: turn it on or off under Appearance.', 'talkwyn-pro' ) );
+			echo '<p><a class="twa-btn twa-btn--light twa-btn--sm" href="https://talkwyn.com/pricing/#plans" target="_blank" rel="noopener">' . esc_html__( 'See the Agency plan', 'talkwyn-pro' ) . '</a></p></section>';
+			return;
+		}
 
 		A::card( __( 'Export and import settings', 'talkwyn-pro' ), __( 'Move a setup to another site. Exports include settings and custom answers. API keys are left out unless you tick the box.', 'talkwyn-pro' ) );
 		echo '<form method="post" action="' . esc_url( admin_url( 'admin-post.php' ) ) . '" class="twp-inline-form"><input type="hidden" name="action" value="talkwyn_pro_export">';

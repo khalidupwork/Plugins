@@ -1,5 +1,10 @@
 # Talkwyn Pro changelog
 
+## 1.2.6
+
+- White label (admin logo, menu name, chat menu link) and settings export and import load only for an Agency license, a license whose features include `white_label`, or a running trial. New `License::agency()` and the `talkwyn_pro_agency` filter. An expired paid Agency license keeps them, like every other Pro feature.
+- Other plans see a short card under Pro settings that points to the Agency plan. Saved white label settings are kept.
+
 ## 1.2.5
 
 - Product card titles use weight 600 (was 700), matching the Inter type in Talkwyn 2.3.6.

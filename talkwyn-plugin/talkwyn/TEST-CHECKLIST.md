@@ -1,4 +1,4 @@
-# Talkwyn 2.3.6 test checklist
+# Talkwyn 2.3.7 test checklist
 
 The full run, including Pro and migration, is in `../QA-CHECKLIST.md`. This list covers what changed in 2.1.0.
 

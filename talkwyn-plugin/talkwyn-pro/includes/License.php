@@ -77,6 +77,25 @@ final class License {
 	}
 
 	/**
+	 * Agency features (white label, settings export and import): an Agency
+	 * license, a license whose features list "white_label", or a running trial,
+	 * which includes every Pro feature. Read from the saved state so an expired
+	 * paid Agency license keeps them, like every other Pro feature.
+	 */
+	public static function agency(): bool {
+		$state    = self::client()->state();
+		$plan     = (string) ( $state['plan'] ?? '' );
+		$features = (array) ( $state['features'] ?? array() );
+		$on       = self::active() && ( 'agency' === $plan || in_array( 'white_label', $features, true ) || self::client()->is_trial() );
+		/**
+		 * Filters whether the Agency features are on.
+		 *
+		 * @param bool $on On.
+		 */
+		return (bool) apply_filters( 'talkwyn_pro_agency', $on );
+	}
+
+	/**
 	 * A paid (non-trial) license that has expired.
 	 */
 	public static function expired_paid(): bool {

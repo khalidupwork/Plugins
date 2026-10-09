@@ -3,7 +3,7 @@ Requires at least: 6.4
 Tested up to: 7.1
 Requires PHP: 8.0
 Requires Plugins: talkwyn
-Stable tag: 1.2.5
+Stable tag: 1.2.6
 License: GPLv2 or later
 
 Pro add-on for the free Talkwyn plugin. Sold and delivered from talkwyn.com with a free 15-day trial.
@@ -22,9 +22,9 @@ Talkwyn Pro needs the free Talkwyn plugin and extends it through hooks. If a pai
 * Lead alerts: email (free plugin), Slack and Telegram. WhatsApp alerts: coming soon.
 * Proactive messages: time on page, scroll depth, exit intent, per URL.
 * Business hours with an away status and lead-only mode.
-* White label: hide "Powered by Talkwyn", rename the admin menu, use your own admin logo, and put your own link in the chat menu.
+* White label (Agency plan and trials): rename the admin menu, use your own admin logo, put your own link in the chat menu, and keep "Powered by Talkwyn" hidden. The badge is off by default on every plan.
 * Coming soon (on the roadmap, not available yet): live human takeover, booking integrations, WhatsApp channel, multiple bots, lead scoring, AI conversation summaries.
-* Settings export and import (JSON).
+* Settings export and import (JSON), Agency plan and trials.
 
 == License and updates ==
 
@@ -41,6 +41,9 @@ Before building a release, put the active Hub public key in `includes/hub-keys.p
 * Pages you add by URL or sitemap are fetched from their sites.
 
 == Changelog ==
+
+= 1.2.6 =
+* White label and settings export and import are now Agency plan features (also on during a trial). Other plans keep every other Pro feature.
 
 = 1.2.5 =
 * Product card titles use weight 600, matching the lighter chat type in Talkwyn 2.3.6.

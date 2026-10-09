@@ -4,7 +4,7 @@ Tags: chatbot, ai chatbot, lead generation, multilingual, live chat
 Requires at least: 6.4
 Tested up to: 7.1
 Requires PHP: 8.0
-Stable tag: 2.3.6
+Stable tag: 2.3.7
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
@@ -37,7 +37,7 @@ You bring your own AI key. Groq, OpenRouter, Google Gemini and Cloudflare Worker
 
 = Talkwyn Pro =
 
-Talkwyn works on its own. Talkwyn Pro is a separate add-on from talkwyn.com with a free 15-day trial. It adds paid AI providers (OpenAI, Anthropic Claude, Mistral, DeepSeek), smart search by meaning, PDF, DOCX and URL knowledge, custom answers, streaming replies, analytics, an unanswered questions inbox, WooCommerce product cards and order lookup, Slack and Telegram lead alerts, proactive messages, business hours and white label. If Pro stops, the free plugin keeps working with all your data.
+Talkwyn works on its own. Talkwyn Pro is a separate add-on from talkwyn.com with a free 15-day trial. It adds paid AI providers (OpenAI, Anthropic Claude, Mistral, DeepSeek), smart search by meaning, PDF, DOCX and URL knowledge, custom answers, streaming replies, analytics, an unanswered questions inbox, WooCommerce product cards and order lookup, Slack and Telegram lead alerts, proactive messages, business hours, and white label on the Agency plan. If Pro stops, the free plugin keeps working with all your data.
 
 == External services ==
 
@@ -108,6 +108,9 @@ In your WordPress database. Chats, leads and knowledge stay on your site. Messag
 6. Leads and conversations.
 
 == Changelog ==
+
+= 2.3.7 =
+* Changed: The Pro features list says that white label and settings export are part of the Agency plan.
 
 = 2.3.6 =
 * Changed: The chat uses the Inter font, bundled with the plugin, so it looks the same on every theme. Buttons and chips are lighter (medium weight) and easier to read.
@@ -185,6 +188,9 @@ In your WordPress database. Chats, leads and knowledge stay on your site. Messag
 * Fixed: a full scan removes knowledge of posts that no longer exist.
 
 == Upgrade Notice ==
+
+= 2.3.7 =
+Text update in the Pro features list.
 
 = 2.3.6 =
 Cleaner chat text and buttons with the bundled Inter font.

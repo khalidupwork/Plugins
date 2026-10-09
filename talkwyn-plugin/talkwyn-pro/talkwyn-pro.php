@@ -3,7 +3,7 @@
  * Plugin Name:       Talkwyn Pro
  * Plugin URI:        https://talkwyn.com/pricing/
  * Description:       Pro add-on for Talkwyn: paid AI models, smart search, PDF and URL knowledge, streaming replies, analytics, an unanswered questions inbox, WooCommerce product cards and order lookup, lead alerts, proactive messages, business hours and white label.
- * Version:           1.2.5
+ * Version:           1.2.6
  * Requires at least: 6.4
  * Requires PHP:      8.0
  * Requires Plugins:  talkwyn
@@ -19,7 +19,7 @@
 
 defined( 'ABSPATH' ) || exit;
 
-define( 'TALKWYN_PRO_VERSION', '1.2.5' );
+define( 'TALKWYN_PRO_VERSION', '1.2.6' );
 define( 'TALKWYN_PRO_FILE', __FILE__ );
 define( 'TALKWYN_PRO_DIR', plugin_dir_path( __FILE__ ) );
 define( 'TALKWYN_PRO_URL', plugin_dir_url( __FILE__ ) );

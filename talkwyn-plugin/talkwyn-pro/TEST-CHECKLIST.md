@@ -2,6 +2,11 @@
 
 Use a clean WordPress 6.4+ site on PHP 8.0+ with Talkwyn 2.1.0 active.
 
+## Agency features (1.2.6)
+- [ ] Personal or Business license: no White label card and no Export and import; a card points to the Agency plan. Chat menu link and admin logo are not applied.
+- [ ] Agency license, or a trial: White label and Export and import show and work.
+- [ ] Agency license after it expires: both still work.
+
 ## Plugin Check (1.2.4)
 - [ ] Plugin Check on Talkwyn Pro: only the update checker items (expected, Pro is not on WordPress.org) and, until the free plugin is live there, the "Requires Plugins" warning.
 - [ ] Insights, Unanswered inbox, Smart search status and rebuild, Q and A list and Sources list show the same data as 1.2.3.

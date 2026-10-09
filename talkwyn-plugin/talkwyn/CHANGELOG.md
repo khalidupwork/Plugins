@@ -1,5 +1,10 @@
 # Talkwyn changelog
 
+## 2.3.7
+
+### Changed
+- Pro features tab and readme: white label and settings export are marked as Agency plan features, matching Talkwyn Pro 1.2.6. The "Powered by Talkwyn" badge stays off by default and optional on every plan (WordPress.org guideline 10).
+
 ## 2.3.6
 
 ### Changed

@@ -68,9 +68,8 @@ function talkwyn_plans(): array {
 			'features' => array(
 				__( 'Everything in Business', 'talkwyn' ),
 				__( 'Unlimited client sites', 'talkwyn' ),
-				__( 'Remove the Talkwyn branding', 'talkwyn' ),
+				__( 'White label: your logo and menu name', 'talkwyn' ),
 				__( 'Copy settings from one site to the next', 'talkwyn' ),
-				__( 'A lead inbox for each client', 'talkwyn' ),
 			),
 		),
 	);
@@ -154,6 +153,7 @@ add_shortcode(
 		$y    = talkwyn_icon( 'check', 20, __( 'Included', 'talkwyn' ) );
 		$n    = '<span class="tw-no">' . esc_html__( 'No', 'talkwyn' ) . '</span>';
 		$soon = ' <span class="tw-badge tw-badge--soon">' . esc_html__( 'Coming soon', 'talkwyn' ) . '</span>';
+		$off  = esc_html__( 'Off by default', 'talkwyn' );
 		$rows = array(
 			__( 'Sites', 'talkwyn' )                       => array( esc_html__( 'Unlimited', 'talkwyn' ), '1', '5', esc_html__( 'Unlimited', 'talkwyn' ) ),
 			__( 'Staging and local sites', 'talkwyn' )     => array( esc_html__( 'Free', 'talkwyn' ), esc_html__( 'Free', 'talkwyn' ), esc_html__( 'Free', 'talkwyn' ), esc_html__( 'Free', 'talkwyn' ) ),
@@ -168,10 +168,15 @@ add_shortcode(
 			__( 'Paid AI models: OpenAI, Claude, Mistral, DeepSeek', 'talkwyn' ) => array( $n, $y, $y, $y ),
 			__( 'Advanced search', 'talkwyn' )             => array( $n, $y, $y, $y ),
 			__( 'Analytics', 'talkwyn' )                   => array( $n, $y, $y, $y ),
-			__( 'Remove Talkwyn branding', 'talkwyn' )     => array( $n, $n, $n, $y ),
+			__( 'Unanswered questions inbox', 'talkwyn' )  => array( $n, $y, $y, $y ),
+			__( 'PDF, URL and sitemap knowledge', 'talkwyn' ) => array( $n, $y, $y, $y ),
+			__( 'WooCommerce product cards and order lookup', 'talkwyn' ) => array( $n, $y, $y, $y ),
+			__( 'Proactive messages and business hours', 'talkwyn' ) => array( $n, $y, $y, $y ),
+			__( 'Lead alerts on Slack and Telegram', 'talkwyn' ) => array( $n, $y, $y, $y ),
+			__( '"Powered by Talkwyn" badge in the chat', 'talkwyn' ) => array( $off, $off, $off, $off ),
+			__( 'White label: your logo and menu name in the admin', 'talkwyn' ) => array( $n, $n, $n, $y ),
 			__( 'Copy settings between sites', 'talkwyn' ) => array( $n, $n, $n, $y ),
-			__( 'Lead inbox per client', 'talkwyn' )       => array( $n, $n, $n, $y ),
-			__( 'Lead alerts on WhatsApp and Slack', 'talkwyn' ) . $soon => array( $n, $y, $y, $y ),
+			__( 'Lead alerts on WhatsApp', 'talkwyn' ) . $soon => array( $n, $y, $y, $y ),
 			__( 'Lead scoring and AI summaries', 'talkwyn' ) . $soon => array( $n, $y, $y, $y ),
 			__( 'Pro updates', 'talkwyn' )                 => array( $n, esc_html__( '1 year, renewable', 'talkwyn' ), esc_html__( '1 year, renewable', 'talkwyn' ), esc_html__( '1 year, renewable', 'talkwyn' ) ),
 		);

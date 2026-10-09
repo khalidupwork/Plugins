@@ -2,14 +2,14 @@
 # This file is distributed under the GPLv2 or later.
 msgid ""
 msgstr ""
-"Project-Id-Version: Talkwyn 2.3.5\n"
+"Project-Id-Version: Talkwyn 2.3.7\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/talkwyn\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2026-10-09T19:59:54+00:00\n"
+"POT-Creation-Date: 2026-10-09T21:06:58+00:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "X-Generator: WP-CLI 2.12.0\n"
 "X-Domain: talkwyn\n"
@@ -259,7 +259,7 @@ msgid "White label"
 msgstr ""
 
 #: includes/admin/class-talkwyn-admin.php:537
-msgid "Hide \"Powered by Talkwyn\", rename the admin menu, use your own logo and your own chat menu link."
+msgid "Agency plan: rename the admin menu, use your own logo and your own chat menu link."
 msgstr ""
 
 #: includes/admin/class-talkwyn-admin.php:538
@@ -267,7 +267,7 @@ msgid "Settings export and import"
 msgstr ""
 
 #: includes/admin/class-talkwyn-admin.php:538
-msgid "Copy a setup to another site in one file."
+msgid "Agency plan: copy a setup to another site in one file."
 msgstr ""
 
 #: includes/admin/class-talkwyn-admin.php:543
@@ -490,7 +490,7 @@ msgid "WooCommerce product cards and order lookup"
 msgstr ""
 
 #: includes/admin/class-talkwyn-admin.php:773
-msgid "Slack and Telegram lead alerts, white label"
+msgid "Slack and Telegram lead alerts, white label on Agency"
 msgstr ""
 
 #: includes/admin/class-talkwyn-admin.php:775

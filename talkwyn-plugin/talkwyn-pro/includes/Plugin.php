@@ -52,8 +52,10 @@ final class Plugin {
 		Woo::init();
 		Alerts::init();
 		Engage::init();
-		WhiteLabel::init();
-		Transfer::init();
+		if ( License::agency() ) {
+			WhiteLabel::init();
+			Transfer::init();
+		}
 		Frontend::init();
 
 		/**
