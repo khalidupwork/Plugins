@@ -4,7 +4,7 @@ Tags: chatbot, ai chatbot, lead generation, multilingual, live chat
 Requires at least: 6.4
 Tested up to: 7.1
 Requires PHP: 8.0
-Stable tag: 2.3.3
+Stable tag: 2.3.4
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
@@ -109,6 +109,9 @@ In your WordPress database. Chats, leads and knowledge stay on your site. Messag
 
 == Changelog ==
 
+= 2.3.4 =
+* Changed: The AI provider addresses carry a code note for the WordPress Plugin Check. You pick the provider and add your own key, so nothing changes in how chats are answered.
+
 = 2.3.3 =
 * Changed: The LIKE patterns in two knowledge cleanup queries are passed as prepared values (WordPress Plugin Check).
 
@@ -176,6 +179,9 @@ In your WordPress database. Chats, leads and knowledge stay on your site. Messag
 * Fixed: a full scan removes knowledge of posts that no longer exist.
 
 == Upgrade Notice ==
+
+= 2.3.4 =
+Code notes for the WordPress Plugin Check. No behaviour change.
 
 = 2.3.3 =
 One more code cleanup for the WordPress Plugin Check.

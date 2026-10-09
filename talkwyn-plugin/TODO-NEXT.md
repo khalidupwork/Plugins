@@ -62,7 +62,7 @@ Warnings:
 - [x] Direct DB queries with table names from `$t[...]` not escaped: admin, indexer, privacy, retriever, db, migration (about 25 rows).
 - [x] `class-talkwyn-privacy.php:122` $wpdb->prepare() gets 1 replacement, expects 2.
 - [x] `class-talkwyn-retriever.php:72, 99` interpolated SQL.
-- [ ] (Kept as is, decide later) Direct AI provider calls (OpenRouter, Groq, Gemini): checker suggests the WordPress 7.0 AI Client (wp_ai_client_prompt()). Decide: keep, or add the AI Client as an extra provider.
+- [x] (2.3.4: phpcs note added, providers kept) Direct AI provider calls (OpenRouter, Groq, Gemini): checker suggests the WordPress 7.0 AI Client (wp_ai_client_prompt()). Decide: keep, or add the AI Client as an extra provider.
 - [x] WPML hook names (wpml_post_language_details, wpml_register_single_string, wpml_translate_single_string) not prefixed. These are WPML's own hooks; likely add a phpcs ignore comment.
 - [x] readme plugin name differs from the plugin header name.
 - [x] MIGRATION.md and HOOKS.md in the plugin root: leave them out of the release ZIP.

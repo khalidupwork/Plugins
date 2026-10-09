@@ -1,5 +1,10 @@
 # Talkwyn changelog
 
+## 2.3.4
+
+### Changed
+- The seven Groq, OpenRouter and Gemini addresses that Plugin Check flagged ("consider the WordPress AI Client") carry a phpcs note: the site owner chooses the provider and adds their own key, and every provider is listed under External services in the readme. The calls themselves are unchanged.
+
 ## 2.3.3
 
 ### Changed
