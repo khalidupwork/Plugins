@@ -1331,3 +1331,12 @@ body { font-feature-settings: "cv11" 0, "ss01" 0; -webkit-font-smoothing: antial
 /* Trial popup: one type scale. Title 26px, every other line 15px. */
 .tw-modal .twh-trial-done p, .tw-modal .twh-trial-fine, .tw-modal p { font-size: var(--tw-text-sm); }
 .tw-modal .twh-trial-done .twh-trial-done__title { font-size: 1.125rem; }
+
+/* v4.1: clean buttons everywhere. Inter 500, 15px (14px small), no heavy weights. */
+.tw-pill, .tw-btn, .wp-element-button, .wp-block-button__link, .tw-btn-sm .wp-block-button__link,
+.woocommerce .button, .woocommerce button.button, .woocommerce a.button, .woocommerce input.button,
+.wc-block-components-button, .wc-block-components-button__text, .twh-btn, .tw-mform button {
+	font-family: var(--tw-font-body) !important; font-weight: 500 !important; font-size: .9375rem; letter-spacing: -.006em;
+}
+.tw-pill--sm, .tw-hdr__actions .tw-pill, .tw-chip, .tw-chat__chips .tw-chip { font-family: var(--tw-font-body); font-weight: 500; font-size: .875rem; }
+.tw-pill--lg { font-size: 1rem; }

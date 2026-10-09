@@ -242,7 +242,7 @@ body.twh-app-body {
 	border: 1px solid transparent;
 	font-family: var(--twh-body);
 	font-size: 15px;
-	font-weight: 700;
+	font-weight: 500;
 	line-height: 1;
 	text-decoration: none;
 	white-space: nowrap;

@@ -1,5 +1,9 @@
 # Talkwyn Pro changelog
 
+## 1.2.5
+
+- Product card titles use weight 600 (was 700), matching the Inter type in Talkwyn 2.3.6.
+
 ## 1.2.4
 
 Fixes from the WordPress Plugin Check report on 1.2.3:

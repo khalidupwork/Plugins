@@ -37,7 +37,7 @@
 
 :is(.twc,#twc-boost) .twc-card__title {
 	color: var(--twc-ink, #1A0F12);
-	font-weight: 700;
+	font-weight: 600;
 	font-size: 14px;
 	line-height: 1.35;
 	text-decoration: none;

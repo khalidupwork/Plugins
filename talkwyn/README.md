@@ -3,7 +3,7 @@
 Block theme for talkwyn.com (v3, Talkwyn Red). It works with WooCommerce and the Talkwyn Hub plugin (licenses, free trial, partners, updates, My Account screens and emails).
 
 - Requires WordPress 6.5+, PHP 8.0+.
-- Light only. There is no dark mode and no theme switcher. Colors: Talkwyn Red `#D7263D`, Ink `#1A0F12`, Linen `#F7F3F3`, Blush gradient. Fonts: Plus Jakarta Sans (headings and UI), Inter (body), JetBrains Mono (keys).
+- Light only. There is no dark mode and no theme switcher. Colors: Talkwyn Red `#D7263D`, Ink `#1A0F12`, Linen `#F7F3F3`, Blush gradient. Fonts: Plus Jakarta Sans (headings), Inter (body and every button, weight 500), JetBrains Mono (keys).
 - Fonts are self-hosted, so the theme makes no Google Fonts requests. Licenses are in `assets/fonts/`.
 - Layouts are RTL-ready: logical CSS properties throughout, and Arabic and Hindi fonts are applied by `:lang()`. Chinese, Japanese and Korean use system fonts.
 

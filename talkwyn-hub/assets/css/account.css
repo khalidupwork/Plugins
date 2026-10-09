@@ -32,7 +32,7 @@
 .twh-meta dd { margin: 0; font-weight: 600; }
 
 .twh-actions { display: flex; flex-wrap: wrap; gap: 10px; align-items: center; }
-.woocommerce .twh-btn, .twh-btn { display: inline-flex !important; align-items: center; justify-content: center; min-block-size: 44px; box-sizing: border-box; background: var(--tw-primary, #1A0F12) !important; color: var(--tw-on-primary, #FFFFFF) !important; border: 0 !important; border-radius: 999px !important; padding: 10px 20px !important; font: 600 .9375rem/1.2 var(--tw-font-body, inherit) !important; text-decoration: none !important; }
+.woocommerce .twh-btn, .twh-btn { display: inline-flex !important; align-items: center; justify-content: center; min-block-size: 44px; box-sizing: border-box; background: var(--tw-primary, #1A0F12) !important; color: var(--tw-on-primary, #FFFFFF) !important; border: 0 !important; border-radius: 999px !important; padding: 10px 20px !important; font: 500 .9375rem/1.2 var(--tw-font-body, inherit) !important; text-decoration: none !important; }
 .woocommerce .twh-btn:hover, .twh-btn:hover { background: var(--tw-primary-hover, #4A3E41) !important; }
 .woocommerce .twh-btn--ghost, .twh-btn--ghost { background: transparent !important; color: var(--tw-link, #D7263D) !important; box-shadow: inset 0 0 0 1.5px currentColor; }
 .woocommerce .twh-btn--ghost:hover, .twh-btn--ghost:hover { background: var(--tw-section, #F7F3F3) !important; }

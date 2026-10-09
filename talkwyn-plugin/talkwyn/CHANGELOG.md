@@ -1,5 +1,11 @@
 # Talkwyn changelog
 
+## 2.3.6
+
+### Changed
+- The chat widget bundles Inter 4.0 (400, 500, 600, Latin, OFL) in `assets/fonts` and loads it from `widget.css`. Before, it asked for Figtree without loading it, so most sites showed a system font.
+- Widget type scale: messages 15px, buttons and chips 14px or smaller at weight 500, names and titles 600. Nothing uses 700 any more.
+
 ## 2.3.5
 
 ### Changed

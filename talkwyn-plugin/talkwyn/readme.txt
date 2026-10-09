@@ -4,7 +4,7 @@ Tags: chatbot, ai chatbot, lead generation, multilingual, live chat
 Requires at least: 6.4
 Tested up to: 7.1
 Requires PHP: 8.0
-Stable tag: 2.3.5
+Stable tag: 2.3.6
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
@@ -109,6 +109,9 @@ In your WordPress database. Chats, leads and knowledge stay on your site. Messag
 
 == Changelog ==
 
+= 2.3.6 =
+* Changed: The chat uses the Inter font, bundled with the plugin, so it looks the same on every theme. Buttons and chips are lighter (medium weight) and easier to read.
+
 = 2.3.5 =
 * Changed: The plugin name is "Talkwyn" in both the plugin header and this readme, so the WordPress.org address matches the plugin's text domain.
 
@@ -182,6 +185,9 @@ In your WordPress database. Chats, leads and knowledge stay on your site. Messag
 * Fixed: a full scan removes knowledge of posts that no longer exist.
 
 == Upgrade Notice ==
+
+= 2.3.6 =
+Cleaner chat text and buttons with the bundled Inter font.
 
 = 2.3.5 =
 Plugin name set to Talkwyn. No behaviour change.
