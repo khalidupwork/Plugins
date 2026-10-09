@@ -1,5 +1,11 @@
 # Talkwyn changelog
 
+## 2.3.1
+
+### Changed
+- Sources under an answer fold behind a small "Sources (n)" button with a count. Clicking it opens a short list of page links.
+- At most three sources per answer, one per page title. Small talk, "I don't know" and off-topic replies (for example "I can only help with questions about this website") show no sources.
+
 ## 2.3.0
 
 ### Changed

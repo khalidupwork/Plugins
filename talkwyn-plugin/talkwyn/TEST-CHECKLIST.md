@@ -1,4 +1,4 @@
-# Talkwyn 2.3.0 test checklist
+# Talkwyn 2.3.1 test checklist
 
 The full run, including Pro and migration, is in `../QA-CHECKLIST.md`. This list covers what changed in 2.1.0.
 
@@ -25,6 +25,8 @@ The full run, including Pro and migration, is in `../QA-CHECKLIST.md`. This list
 - [ ] Review request: set `talkwyn_installed_at` to 15 days ago and log 20 chats; the card shows. Maybe later hides it for 30 days.
 
 ## Widget
+- [ ] Ask a question about the site: a "Sources (n)" button shows under the answer, n is 3 or less, and the list stays closed until clicked. No page title shows twice.
+- [ ] Say "thanks", ask something off-topic, or ask something the site does not cover: no Sources button.
 - [ ] Menu items: Change name, Email transcript, Sound, Language, Pop out, New chat. Turning the menu off brings back the header sound and reset buttons.
 - [ ] Email transcript needs consent, saves a lead with Source "Transcript" and sends the email. If mail fails, the visitor sees that the request was saved.
 - [ ] Language picker forces the reply language; Arabic and Urdu switch the chat to right to left.

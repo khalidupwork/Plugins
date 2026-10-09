@@ -294,6 +294,11 @@ If you tell me what you are looking for, I can narrow this down.";
 	 * @return bool
 	 */
 	public static function looks_unanswered( $reply ) {
-		return (bool) preg_match( '/not enough information|do not have enough|don.t have enough|not sure|could not find|couldn.t find|cannot answer|can.t answer|unable to answer|no information|je ne sais pas|pas assez|nicht genug|weiß nicht|no tengo suficiente|no estoy seguro|non ho abbastanza|não tenho informação|لا توجد معلومات|مجھے معلوم نہیں|जानकारी नहीं|不确定|情報がありません|정보가 없습니다|не знаю|недостаточно информации/iu', (string) $reply );
+		$text = (string) $reply;
+		// Off-topic and "I can only help with this website" replies (English, Roman Urdu, Hindi).
+		if ( preg_match( '/i (?:can )?only (?:help|answer)|only (?:help|answer) (?:with )?questions about|not (?:related|about) (?:to )?(?:this|the) (?:site|website|business)|i don.t know|i do not know|i.m (?:just|only) (?:the |an? )?.{0,40}assistant|(?:main|mai) (?:bas|sirf) .{0,60}assistant|mujhe (?:nahi|nahin) (?:pata|maloom)|maloom nahi|पता नहीं|सिर्फ .{0,40}सहायक/iu', $text ) ) {
+			return true;
+		}
+		return (bool) preg_match( '/not enough information|do not have enough|don.t have enough|not sure|could not find|couldn.t find|cannot answer|can.t answer|unable to answer|no information|je ne sais pas|pas assez|nicht genug|weiß nicht|no tengo suficiente|no estoy seguro|non ho abbastanza|não tenho informação|لا توجد معلومات|مجھے معلوم نہیں|जानकारी नहीं|不确定|情報がありません|정보가 없습니다|не знаю|недостаточно информации/iu', $text );
 	}
 }

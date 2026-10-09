@@ -824,24 +824,45 @@
 				bubble.textContent = o.text || '';
 			}
 			wrap.appendChild( bubble );
+			var meta = el( 'div', 'twc-meta' );
+			stamp( meta, o.time );
+			var src = null;
 			if ( o.sources && o.sources.length ) {
-				var src = el( 'div', 'twc-sources' );
-				src.appendChild( el( 'span', 'twc-sources__label', T.sources ) );
+				// Sources stay folded behind one small button so answers look clean.
+				src = el( 'ul', 'twc-sources' );
+				src.hidden = true;
+				src.id = 'twc-src-' + Math.random().toString( 36 ).slice( 2, 9 );
 				o.sources.forEach( function ( s ) {
+					var li = el( 'li' );
 					var a = el( 'a', '', s.title );
 					a.href = s.url;
 					a.dir = 'auto';
-					src.appendChild( a );
+					li.appendChild( a );
+					src.appendChild( li );
 				} );
-				wrap.appendChild( src );
+				var toggle = el( 'button', 'twc-src-btn' );
+				toggle.type = 'button';
+				toggle.setAttribute( 'aria-expanded', 'false' );
+				toggle.setAttribute( 'aria-controls', src.id );
+				toggle.innerHTML = '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M14 3H7a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V8Z"/><path d="M14 3v5h5"/></svg>';
+				toggle.appendChild( el( 'span', '', T.sources + ' (' + o.sources.length + ')' ) );
+				toggle.addEventListener( 'click', function () {
+					src.hidden = ! src.hidden;
+					toggle.setAttribute( 'aria-expanded', src.hidden ? 'false' : 'true' );
+					if ( ! src.hidden ) {
+						scroll();
+					}
+				} );
+				meta.appendChild( toggle );
 			}
-			var meta = el( 'div', 'twc-meta' );
-			stamp( meta, o.time );
 			if ( role !== 'user' && o.tools !== false && ( F.copy || F.feedback ) ) {
 				meta.appendChild( tools( o.text || bubble.textContent, o.id ) );
 			}
 			if ( meta.childNodes.length ) {
 				wrap.appendChild( meta );
+			}
+			if ( src ) {
+				wrap.appendChild( src );
 			}
 			messages.appendChild( wrap );
 			scroll();

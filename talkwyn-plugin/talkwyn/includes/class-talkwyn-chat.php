@@ -259,7 +259,24 @@ class Talkwyn_Chat {
 			$ms
 		);
 
-		$sources = ( ! $ctx['is_social'] && ! empty( $s['show_sources'] ) && 'local-conversation' !== $provider ) ? array_values( array_slice( $ctx['sources'], 0, 4 ) ) : array();
+		// Sources only for answers that used the website: none for small talk, "I don't know" or off-topic
+		// replies. At most three, one per page title.
+		$sources = array();
+		$grounded = ! $ctx['is_social'] && $ctx['chunks'] && ! Talkwyn_Conversation::looks_unanswered( $reply );
+		if ( $grounded && ! empty( $s['show_sources'] ) && 'local-conversation' !== $provider ) {
+			$titles = array();
+			foreach ( $ctx['sources'] as $src ) {
+				$key = strtolower( trim( (string) $src['title'] ) );
+				if ( isset( $titles[ $key ] ) ) {
+					continue;
+				}
+				$titles[ $key ] = true;
+				$sources[]      = $src;
+				if ( count( $sources ) >= 3 ) {
+					break;
+				}
+			}
+		}
 		$extra   = isset( $gen['extra'] ) && is_array( $gen['extra'] ) ? $gen['extra'] : array();
 
 		/**

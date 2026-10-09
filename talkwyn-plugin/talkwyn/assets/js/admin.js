@@ -317,6 +317,9 @@ jQuery( function ( $ ) {
 			if ( get( 'show_timestamps' ) && now ) {
 				meta += '<time class="twc-time">' + esc( now ) + '</time>';
 			}
+			if ( get( 'show_sources' ) ) {
+				meta += '<span class="twc-src-btn">' + svg( '<path d="M14 3H7a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V8Z"/><path d="M14 3v5h5"/>' ) + '<span>' + esc( get( 'sources_label' ) ) + ' (1)</span></span>';
+			}
 			if ( get( 'show_message_tools' ) || get( 'feedback_enabled' ) ) {
 				meta += '<div class="twc-msg-tools">';
 				if ( get( 'show_message_tools' ) ) {
@@ -328,9 +331,6 @@ jQuery( function ( $ ) {
 				meta += '</div>';
 			}
 			var answer = '<div class="twc-msg twc-msg--bot"><div class="twc-bubble">' + esc( P.answer ) + '</div>';
-			if ( get( 'show_sources' ) ) {
-				answer += '<div class="twc-sources"><span class="twc-sources__label">' + esc( get( 'sources_label' ) ) + '</span><a>' + esc( P.source ) + '</a></div>';
-			}
 			answer += meta ? '<div class="twc-meta">' + meta + '</div>' : '';
 			answer += '</div>';
 			var typingText = get( 'typing_label' ).split( '{bot}' ).join( name );
