@@ -112,9 +112,14 @@ Run this on a staging copy of talkwyn.com with Stripe in **test mode** (card `42
 - [ ] Settings → "Delete all data on uninstall" off → delete the plugin → reinstall → all data is still there.
 - [ ] HPOS on (WooCommerce → Settings → Advanced → Features → High-performance order storage) → repeat sections 1, 6 and 7.
 
-## 11. Free trial (1.1.0)
+## 11. Free trial (1.1.0, confirm-first since 1.4.0)
 
-- [ ] Put `[twh_trial_form]` on a page. Submit name, email and `https://shop-one.com` → "Your trial has started", one email "Your 15-day Talkwyn Pro trial has started" with the key.
+- [ ] Put `[twh_trial_form]` on a page. Submit name, email and `https://shop-one.com` → the form is replaced by "Check your inbox" without a page reload, and one email "Confirm your email to start your Talkwyn trial" arrives. No license exists yet.
+- [ ] Submit the same email again within 2 minutes → "We already sent you a confirmation link", no second email.
+- [ ] Open the confirm link with a new email → an account is created, you are signed in and land on My Account → Licenses with the trial. Email "Your 15-day Talkwyn Pro trial has started" has the key and a "Set your password" link that opens the WooCommerce reset form.
+- [ ] Open the same confirm link again → "This confirmation link has expired or was already used".
+- [ ] Confirm with the email of an existing account → the trial is added to that account, nobody is signed in, the email says "log in any time".
+- [ ] Header popup: the trial form shows placeholders only (no labels), and errors (for example `localhost`) show inside the popup.
 - [ ] The same email again (also `name+x@gmail.com` for a Gmail address) → "already used". The same site with another email → refused. A `mailinator.com` email and `http://localhost` → refused.
 - [ ] Submit the form in under 3 seconds, or fill the hidden field → refused quietly. 6 starts from one IP in an hour → the 6th is refused.
 - [ ] Activate the trial key in Talkwyn on shop-one.com → plugin shows "Trial: 15 days left". A second site → `limit_reached`.
@@ -138,3 +143,10 @@ Run this on a staging copy of talkwyn.com with Stripe in **test mode** (card `42
 - [ ] Reject a referral without a reason → refused with a notice. With a reason → the partner sees it.
 - [ ] `GET /wp-json/talkwyn-hub/v1/partners/terms` returns the current settings.
 - [ ] Turn Partners off → `?ref=` does nothing, My Account → Partners says the program is closed.
+
+## 12. Admin screens (1.4.0)
+
+- [ ] Every Talkwyn Hub screen shows the pink header with the version, the two header buttons and the page tabs. The active page is dark.
+- [ ] Settings: tabs General, Trial, Partners, Invoices, Emails, Signing keys, System status. Save on the Trial tab returns to the Trial tab with "Saved.".
+- [ ] Emails tab: each template opens on click; placeholders copy on click.
+- [ ] Desktop: the "Save settings" tab sits on the right edge and hides on Signing keys and System status.

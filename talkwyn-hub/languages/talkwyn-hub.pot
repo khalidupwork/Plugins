@@ -1,0 +1,3025 @@
+# Copyright (C) 2026 Talkwyn
+# This file is distributed under the GPL-2.0-or-later.
+msgid ""
+msgstr ""
+"Project-Id-Version: Talkwyn Hub 1.4.0\n"
+"Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/talkwyn-hub\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"POT-Creation-Date: 2026-10-09T08:01:21+00:00\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"X-Generator: WP-CLI 2.12.0\n"
+"X-Domain: talkwyn-hub\n"
+
+#. Plugin Name of the plugin
+#: talkwyn-hub.php
+#: includes/Admin/Admin.php:47
+#: includes/Admin/Admin.php:124
+#: includes/Woo/ProductTab.php:38
+msgid "Talkwyn Hub"
+msgstr ""
+
+#. Plugin URI of the plugin
+#. Author URI of the plugin
+#: talkwyn-hub.php
+msgid "https://talkwyn.com"
+msgstr ""
+
+#. Description of the plugin
+#: talkwyn-hub.php
+msgid "License, activation and update server for Talkwyn commercial products, powered by WooCommerce."
+msgstr ""
+
+#. Author of the plugin
+#: talkwyn-hub.php
+msgid "Talkwyn"
+msgstr ""
+
+#: includes/Account/Account.php:84
+#: includes/Account/Account.php:96
+#: includes/Admin/Admin.php:49
+#: includes/Admin/Admin.php:84
+#: includes/Admin/LicensesPage.php:71
+msgid "Licenses"
+msgstr ""
+
+#: includes/Account/Account.php:85
+#: includes/Account/Account.php:103
+msgid "Software downloads"
+msgstr ""
+
+#: includes/Account/Account.php:122
+#: includes/Admin/Admin.php:168
+msgid "Copied!"
+msgstr ""
+
+#: includes/Account/Account.php:123
+#: includes/Partners/PartnerAccount.php:254
+#: includes/Partners/PartnerAccount.php:260
+#: includes/Partners/PartnerAccount.php:397
+#: includes/Woo/OrderDisplay.php:219
+#: templates/account/license-detail.php:45
+#: templates/account/licenses.php:62
+msgid "Copy"
+msgstr ""
+
+#: includes/Account/Account.php:124
+#: templates/account/licenses.php:61
+msgid "Reveal"
+msgstr ""
+
+#: includes/Account/Account.php:125
+msgid "Hide"
+msgstr ""
+
+#: includes/Account/Account.php:126
+msgid "Could not load the key. Please reload the page."
+msgstr ""
+
+#: includes/Account/Account.php:151
+#: includes/Account/Account.php:261
+#: includes/Account/Account.php:277
+#: includes/Woo/Cart.php:221
+msgid "License not found."
+msgstr ""
+
+#. translators: %d: days left
+#. translators: %d: days left in the trial
+#: includes/Account/Account.php:201
+#: includes/Account/Account.php:342
+#, php-format
+msgid "Trial: %d day left"
+msgid_plural "Trial: %d days left"
+msgstr[0] ""
+msgstr[1] ""
+
+#: includes/Account/Account.php:202
+msgid "Every Pro feature is on. Pick a plan any time, you keep the same key."
+msgstr ""
+
+#: includes/Account/Account.php:204
+#: includes/Email/Mailer.php:254
+msgid "Your trial has ended"
+msgstr ""
+
+#: includes/Account/Account.php:205
+msgid "Talkwyn is on the free plan and kept all your data. Upgrade to switch Pro back on."
+msgstr ""
+
+#: includes/Account/Account.php:207
+#: templates/account/license-detail.php:110
+msgid "Upgrade"
+msgstr ""
+
+#: includes/Account/Account.php:256
+#: includes/Account/Account.php:272
+#: includes/Account/Account.php:294
+#: includes/Partners/PartnerAccount.php:101
+#: includes/Woo/Cart.php:216
+msgid "Your session expired. Please try again."
+msgstr ""
+
+#: includes/Account/Account.php:281
+msgid "The site was deactivated. Its slot is free again."
+msgstr ""
+
+#: includes/Account/Account.php:283
+msgid "That site could not be deactivated."
+msgstr ""
+
+#: includes/Account/Account.php:298
+msgid "Too many attempts. Please try again later."
+msgstr ""
+
+#: includes/Account/Account.php:304
+msgid "This license key is not valid or already belongs to another account."
+msgstr ""
+
+#: includes/Account/Account.php:308
+msgid "The license was added to your account."
+msgstr ""
+
+#: includes/Account/Account.php:345
+#: includes/Admin/SettingsPage.php:358
+msgid "Trial ended"
+msgstr ""
+
+#: includes/Account/Account.php:351
+#: includes/Admin/LicensesTable.php:247
+#: includes/LicenseService.php:240
+msgid "Lifetime"
+msgstr ""
+
+#: includes/Account/Account.php:354
+msgid "Expiring soon"
+msgstr ""
+
+#: includes/Account/Account.php:356
+#: includes/Admin/ReleasesPage.php:99
+#: includes/Admin/ReleasesPage.php:116
+#: includes/Admin/ReleasesPage.php:175
+#: includes/LicenseService.php:253
+msgid "Active"
+msgstr ""
+
+#: includes/Account/Account.php:402
+msgid "Invoice not found."
+msgstr ""
+
+#: includes/Admin/Admin.php:48
+#: includes/Admin/Admin.php:83
+#: includes/Admin/Dashboard.php:110
+msgid "Dashboard"
+msgstr ""
+
+#: includes/Admin/Admin.php:50
+#: includes/Admin/Admin.php:85
+#: includes/Admin/ReleasesPage.php:55
+msgid "Releases"
+msgstr ""
+
+#: includes/Admin/Admin.php:51
+#: includes/Admin/Admin.php:86
+msgid "Products"
+msgstr ""
+
+#: includes/Admin/Admin.php:52
+#: includes/Admin/Admin.php:87
+#: includes/Admin/PartnersPage.php:168
+#: includes/Admin/PartnersPage.php:175
+#: includes/Admin/SettingsPage.php:58
+#: includes/Admin/SettingsPage.php:124
+#: includes/Partners/PartnerAccount.php:67
+msgid "Partners"
+msgstr ""
+
+#: includes/Admin/Admin.php:53
+#: includes/Admin/Admin.php:88
+#: includes/Admin/SubscribersPage.php:30
+msgid "Subscribers"
+msgstr ""
+
+#: includes/Admin/Admin.php:54
+#: includes/Admin/Admin.php:89
+msgid "Logs"
+msgstr ""
+
+#: includes/Admin/Admin.php:55
+#: includes/Admin/Admin.php:90
+#: includes/Admin/PartnersPage.php:218
+#: includes/Admin/SettingsPage.php:52
+msgid "Settings"
+msgstr ""
+
+#: includes/Admin/Admin.php:124
+msgid "Licenses, trials, releases and partners for talkwyn.com"
+msgstr ""
+
+#: includes/Admin/Admin.php:125
+#: includes/Admin/ReleasesPage.php:102
+msgid "Upload release"
+msgstr ""
+
+#: includes/Admin/Admin.php:125
+#: includes/Admin/LicensesPage.php:72
+#: includes/Admin/LicensesPage.php:452
+#: includes/Admin/LicensesPage.php:482
+msgid "Create license"
+msgstr ""
+
+#: includes/Admin/Admin.php:126
+msgid "Talkwyn Hub sections"
+msgstr ""
+
+#: includes/Admin/Admin.php:169
+msgid "Are you sure?"
+msgstr ""
+
+#: includes/Admin/Admin.php:205
+#: includes/Admin/LicensesPage.php:105
+#: includes/Api/Subscribe.php:121
+msgid "You are not allowed to do this."
+msgstr ""
+
+#: includes/Admin/Admin.php:220
+msgid "Saved."
+msgstr ""
+
+#: includes/Admin/Admin.php:221
+msgid "License created."
+msgstr ""
+
+#: includes/Admin/Admin.php:222
+msgid "License email sent."
+msgstr ""
+
+#: includes/Admin/Admin.php:223
+msgid "The email could not be sent."
+msgstr ""
+
+#: includes/Admin/Admin.php:224
+msgid "Site deactivated."
+msgstr ""
+
+#: includes/Admin/Admin.php:225
+msgid "Bulk action applied."
+msgstr ""
+
+#: includes/Admin/Admin.php:226
+msgid "Status not changed. To reactivate an expired license, set a future expiry date first."
+msgstr ""
+
+#: includes/Admin/Admin.php:227
+msgid "Release uploaded."
+msgstr ""
+
+#: includes/Admin/Admin.php:228
+msgid "Deleted."
+msgstr ""
+
+#: includes/Admin/Admin.php:229
+msgid "This product still has licenses or releases and cannot be deleted."
+msgstr ""
+
+#: includes/Admin/Admin.php:230
+msgid "Upload failed. Please choose a valid ZIP file."
+msgstr ""
+
+#: includes/Admin/Admin.php:231
+msgid "The ZIP does not contain a WordPress plugin with a \"Plugin Name\" header."
+msgstr ""
+
+#: includes/Admin/Admin.php:232
+msgid "The version you entered does not match the \"Version\" header of the plugin inside the ZIP."
+msgstr ""
+
+#: includes/Admin/Admin.php:233
+msgid "This version already exists for this product and channel."
+msgstr ""
+
+#: includes/Admin/Admin.php:234
+msgid "The release directory is not writable."
+msgstr ""
+
+#: includes/Admin/Admin.php:235
+msgid "Please check the form and try again."
+msgstr ""
+
+#: includes/Admin/Admin.php:236
+msgid "A product with this slug already exists."
+msgstr ""
+
+#: includes/Admin/Admin.php:237
+msgid "A new signing key was generated. Add its public key to your client plugin before promoting it."
+msgstr ""
+
+#: includes/Admin/Admin.php:238
+msgid "The next signing key is now active."
+msgstr ""
+
+#: includes/Admin/Admin.php:239
+msgid "Payout recorded and the partner was emailed."
+msgstr ""
+
+#: includes/Admin/Admin.php:240
+msgid "Add a reason before rejecting a referral. The partner sees it."
+msgstr ""
+
+#: includes/Admin/Dashboard.php:99
+msgid "Active licenses"
+msgstr ""
+
+#: includes/Admin/Dashboard.php:100
+msgid "New this month"
+msgstr ""
+
+#: includes/Admin/Dashboard.php:101
+msgid "Expiring in 30 days"
+msgstr ""
+
+#: includes/Admin/Dashboard.php:102
+msgid "Expired, not renewed"
+msgstr ""
+
+#: includes/Admin/Dashboard.php:103
+msgid "Renewal rate (12 mo)"
+msgstr ""
+
+#: includes/Admin/Dashboard.php:104
+msgid "Revenue this month"
+msgstr ""
+
+#: includes/Admin/Dashboard.php:105
+msgid "Revenue (12 months)"
+msgstr ""
+
+#: includes/Admin/Dashboard.php:106
+msgid "Active sites"
+msgstr ""
+
+#: includes/Admin/Dashboard.php:126
+#: includes/Partners/PartnerAccount.php:235
+msgid "Trials"
+msgstr ""
+
+#: includes/Admin/Dashboard.php:128
+msgid "Trials started"
+msgstr ""
+
+#: includes/Admin/Dashboard.php:129
+msgid "Trials active"
+msgstr ""
+
+#: includes/Admin/Dashboard.php:130
+msgid "Trial to paid"
+msgstr ""
+
+#: includes/Admin/Dashboard.php:131
+msgid "Average days to convert"
+msgstr ""
+
+#: includes/Admin/Dashboard.php:133
+msgid "Conversion rate counts finished trials only: converted divided by converted plus ended."
+msgstr ""
+
+#: includes/Admin/Dashboard.php:136
+msgid "New licenses per month"
+msgstr ""
+
+#: includes/Admin/Dashboard.php:140
+msgid "Net revenue per month (mapped products)"
+msgstr ""
+
+#: includes/Admin/Dashboard.php:144
+msgid "Plugin versions on active sites"
+msgstr ""
+
+#: includes/Admin/Dashboard.php:148
+msgid "Figures are cached for 10 minutes. Revenue is net of refunds and chargebacks and counts orders processed by Talkwyn Hub."
+msgstr ""
+
+#: includes/Admin/Dashboard.php:191
+msgid "No active sites yet."
+msgstr ""
+
+#: includes/Admin/LicensesPage.php:73
+msgid "Export licenses (CSV)"
+msgstr ""
+
+#: includes/Admin/LicensesPage.php:74
+msgid "Export activations (CSV)"
+msgstr ""
+
+#: includes/Admin/LicensesPage.php:78
+msgid "Search key (last 4 or full), email, domain"
+msgstr ""
+
+#. translators: %d: license id
+#: includes/Admin/LicensesPage.php:177
+#, php-format
+msgid "License #%d"
+msgstr ""
+
+#: includes/Admin/LicensesPage.php:180
+#: templates/account/license-detail.php:31
+msgid "All licenses"
+msgstr ""
+
+#: includes/Admin/LicensesPage.php:184
+#: includes/Admin/LicensesTable.php:58
+#: includes/Admin/LogsPage.php:96
+msgid "License"
+msgstr ""
+
+#: includes/Admin/LicensesPage.php:187
+msgid "Show full key"
+msgstr ""
+
+#: includes/Admin/LicensesPage.php:192
+msgid "Resend license email"
+msgstr ""
+
+#: includes/Admin/LicensesPage.php:199
+#: includes/Admin/ReleasesPage.php:77
+#: includes/Admin/ReleasesPage.php:110
+msgid "Product"
+msgstr ""
+
+#: includes/Admin/LicensesPage.php:201
+#: includes/Admin/LicensesTable.php:61
+#: includes/Admin/PartnersPage.php:218
+#: includes/Admin/PartnersPage.php:310
+#: includes/Admin/SettingsPage.php:245
+#: includes/Partners/PartnerAccount.php:300
+msgid "Status"
+msgstr ""
+
+#: includes/Admin/LicensesPage.php:209
+#: includes/Admin/LicensesPage.php:469
+#: includes/Woo/ProductTab.php:146
+msgid "Plan slug"
+msgstr ""
+
+#: includes/Admin/LicensesPage.php:213
+#: includes/Admin/LicensesPage.php:471
+#: includes/Woo/ProductTab.php:112
+msgid "Activation limit"
+msgstr ""
+
+#: includes/Admin/LicensesPage.php:214
+#: includes/Admin/LicensesPage.php:472
+msgid "0 = unlimited"
+msgstr ""
+
+#: includes/Admin/LicensesPage.php:217
+msgid "Expires (UTC)"
+msgstr ""
+
+#: includes/Admin/LicensesPage.php:218
+msgid "Empty = lifetime"
+msgstr ""
+
+#: includes/Admin/LicensesPage.php:221
+msgid "Renewal period (days)"
+msgstr ""
+
+#: includes/Admin/LicensesPage.php:222
+msgid "Added on each renewal. 0 = lifetime."
+msgstr ""
+
+#: includes/Admin/LicensesPage.php:225
+#: includes/Admin/LicensesPage.php:475
+#: includes/Woo/ProductTab.php:158
+msgid "Features"
+msgstr ""
+
+#: includes/Admin/LicensesPage.php:229
+#: includes/Admin/LicensesPage.php:466
+msgid "Customer email"
+msgstr ""
+
+#. translators: %d: user id
+#: includes/Admin/LicensesPage.php:233
+#, php-format
+msgid "Linked to user #%d"
+msgstr ""
+
+#: includes/Admin/LicensesPage.php:238
+#: includes/Admin/LicensesPage.php:477
+msgid "Private notes"
+msgstr ""
+
+#: includes/Admin/LicensesPage.php:242
+msgid "Save license"
+msgstr ""
+
+#: includes/Admin/LicensesPage.php:247
+msgid "Activations"
+msgstr ""
+
+#: includes/Admin/LicensesPage.php:249
+msgid "No activations yet."
+msgstr ""
+
+#. translators: %d: count
+#: includes/Admin/LicensesPage.php:253
+#: includes/Admin/SubscribersPage.php:32
+msgid "Site"
+msgstr ""
+
+#: includes/Admin/LicensesPage.php:254
+msgid "Versions"
+msgstr ""
+
+#: includes/Admin/LicensesPage.php:255
+msgid "Last check"
+msgstr ""
+
+#: includes/Admin/LicensesPage.php:264
+msgid "dev"
+msgstr ""
+
+#. translators: %s: date
+#: includes/Admin/LicensesPage.php:269
+#, php-format
+msgid "Deactivated %s"
+msgstr ""
+
+#. translators: %s: date
+#: includes/Admin/LicensesPage.php:269
+#: templates/account/licenses.php:65
+msgid "Never"
+msgstr ""
+
+#: includes/Admin/LicensesPage.php:272
+#: templates/account/license-detail.php:99
+msgid "Deactivate"
+msgstr ""
+
+#: includes/Admin/LicensesPage.php:281
+msgid "Linked orders"
+msgstr ""
+
+#: includes/Admin/LicensesPage.php:283
+msgid "Created manually."
+msgstr ""
+
+#: includes/Admin/LicensesPage.php:294
+msgid "(deleted)"
+msgstr ""
+
+#. translators: %d: subscription id
+#: includes/Admin/LicensesPage.php:301
+#, php-format
+msgid "Subscription #%d"
+msgstr ""
+
+#: includes/Admin/LicensesPage.php:304
+#: includes/Admin/LogsPage.php:47
+msgid "Event log"
+msgstr ""
+
+#: includes/Admin/LicensesPage.php:306
+msgid "Full log"
+msgstr ""
+
+#: includes/Admin/LicensesPage.php:453
+msgid "For giveaways, partners and support cases. The license is not linked to an order."
+msgstr ""
+
+#: includes/Admin/LicensesPage.php:459
+#: includes/Woo/ProductTab.php:77
+msgid "Software product"
+msgstr ""
+
+#: includes/Admin/LicensesPage.php:468
+msgid "If a user with this email exists, the license appears in their account."
+msgstr ""
+
+#: includes/Admin/LicensesPage.php:473
+msgid "Duration (days)"
+msgstr ""
+
+#: includes/Admin/LicensesPage.php:474
+msgid "0 = lifetime"
+msgstr ""
+
+#. translators: %d: count
+#: includes/Admin/LicensesPage.php:479
+#: includes/Admin/SubscribersPage.php:32
+#: includes/Trial/Trial.php:616
+msgid "Email"
+msgstr ""
+
+#: includes/Admin/LicensesPage.php:480
+msgid "Send the license email to the customer"
+msgstr ""
+
+#: includes/Admin/LicensesTable.php:59
+msgid "Customer"
+msgstr ""
+
+#: includes/Admin/LicensesTable.php:60
+msgid "Product / plan"
+msgstr ""
+
+#: includes/Admin/LicensesTable.php:62
+#: templates/account/license-detail.php:57
+#: templates/account/licenses.php:66
+msgid "Sites"
+msgstr ""
+
+#: includes/Admin/LicensesTable.php:63
+#: templates/account/license-detail.php:51
+#: templates/account/licenses.php:65
+msgid "Expires"
+msgstr ""
+
+#: includes/Admin/LicensesTable.php:64
+#: includes/Admin/SettingsPage.php:247
+msgid "Created"
+msgstr ""
+
+#: includes/Admin/LicensesTable.php:89
+#: includes/Admin/PartnersPage.php:267
+msgid "Suspend"
+msgstr ""
+
+#: includes/Admin/LicensesTable.php:90
+msgid "Reactivate"
+msgstr ""
+
+#: includes/Admin/LicensesTable.php:91
+msgid "Revoke"
+msgstr ""
+
+#: includes/Admin/LicensesTable.php:92
+msgid "Export to CSV"
+msgstr ""
+
+#: includes/Admin/LicensesTable.php:140
+msgid "All statuses"
+msgstr ""
+
+#: includes/Admin/LicensesTable.php:144
+msgid "All plans"
+msgstr ""
+
+#: includes/Admin/LicensesTable.php:148
+msgid "All products"
+msgstr ""
+
+#: includes/Admin/LicensesTable.php:153
+#: includes/Admin/LogsPage.php:59
+msgid "Filter"
+msgstr ""
+
+#: includes/Admin/LicensesTable.php:178
+msgid "Manage"
+msgstr ""
+
+#. translators: %d: order id
+#: includes/Admin/LicensesTable.php:200
+#, php-format
+msgid "Order #%d"
+msgstr ""
+
+#: includes/Admin/LicensesTable.php:223
+#: includes/Admin/SettingsPage.php:57
+#: includes/Admin/SettingsPage.php:88
+msgid "Trial"
+msgstr ""
+
+#: includes/Admin/LicensesTable.php:225
+msgid "From trial"
+msgstr ""
+
+#: includes/Admin/LicensesTable.php:259
+msgid "No licenses found."
+msgstr ""
+
+#: includes/Admin/LogsPage.php:51
+msgid "All types"
+msgstr ""
+
+#: includes/Admin/LogsPage.php:56
+msgid "License ID"
+msgstr ""
+
+#. translators: %s: count
+#: includes/Admin/LogsPage.php:60
+#, php-format
+msgid "%s event"
+msgid_plural "%s events"
+msgstr[0] ""
+msgstr[1] ""
+
+#: includes/Admin/LogsPage.php:93
+msgid "Date (UTC)"
+msgstr ""
+
+#: includes/Admin/LogsPage.php:94
+#: includes/Admin/PartnersPage.php:310
+#: includes/Partners/PartnerAccount.php:300
+msgid "Type"
+msgstr ""
+
+#: includes/Admin/LogsPage.php:98
+#: includes/Admin/PartnersPage.php:373
+#: includes/Woo/Invoices.php:265
+msgid "Details"
+msgstr ""
+
+#: includes/Admin/LogsPage.php:99
+msgid "IP hash"
+msgstr ""
+
+#: includes/Admin/LogsPage.php:103
+msgid "No events."
+msgstr ""
+
+#: includes/Admin/LogsPage.php:115
+#: includes/Admin/PartnersPage.php:254
+#: includes/Admin/ProductsPage.php:56
+msgid "None"
+msgstr ""
+
+#: includes/Admin/PartnersPage.php:169
+#: includes/Admin/PartnersPage.php:218
+#: includes/Partners/PartnerAccount.php:295
+msgid "Referrals"
+msgstr ""
+
+#: includes/Admin/PartnersPage.php:170
+#: includes/Partners/PartnerAccount.php:328
+msgid "Payouts"
+msgstr ""
+
+#: includes/Admin/PartnersPage.php:177
+msgid "The partner program is turned off in Settings. Links stop tracking and applications are closed."
+msgstr ""
+
+#: includes/Admin/PartnersPage.php:214
+msgid "No applications yet. Partners apply from My Account, Partners."
+msgstr ""
+
+#: includes/Admin/PartnersPage.php:218
+#: includes/Admin/PartnersPage.php:310
+#: includes/Admin/PartnersPage.php:373
+#: includes/Admin/PartnersPage.php:410
+msgid "Partner"
+msgstr ""
+
+#: includes/Admin/PartnersPage.php:218
+#: includes/Partners/PartnerAccount.php:474
+msgid "Clicks"
+msgstr ""
+
+#: includes/Admin/PartnersPage.php:218
+#: includes/Partners/PartnerAccount.php:237
+#: includes/Partners/PartnerAccount.php:484
+msgid "Pending"
+msgstr ""
+
+#: includes/Admin/PartnersPage.php:218
+msgid "Approved, unpaid"
+msgstr ""
+
+#: includes/Admin/PartnersPage.php:218
+#: includes/Partners/PartnerAccount.php:486
+#: includes/Woo/Invoices.php:263
+msgid "Paid"
+msgstr ""
+
+#: includes/Admin/PartnersPage.php:218
+msgid "Signals"
+msgstr ""
+
+#: includes/Admin/PartnersPage.php:218
+#: includes/Admin/PartnersPage.php:310
+msgid "Actions"
+msgstr ""
+
+#: includes/Admin/PartnersPage.php:232
+msgid "How they will promote"
+msgstr ""
+
+#. translators: %d: rejected count
+#: includes/Admin/PartnersPage.php:237
+#, php-format
+msgid "%d rejected"
+msgstr ""
+
+#. translators: %s: percent
+#: includes/Admin/PartnersPage.php:244
+#, php-format
+msgid "%s%% from one IP"
+msgstr ""
+
+#. translators: %d: count
+#: includes/Admin/PartnersPage.php:248
+#, php-format
+msgid "%d bought under 60s after the click"
+msgstr ""
+
+#. translators: %s: percent
+#: includes/Admin/PartnersPage.php:252
+#, php-format
+msgid "%s%% refunded"
+msgstr ""
+
+#: includes/Admin/PartnersPage.php:258
+msgid "Code"
+msgstr ""
+
+#: includes/Admin/PartnersPage.php:259
+msgid "Rate %"
+msgstr ""
+
+#: includes/Admin/PartnersPage.php:260
+msgid "Coupon"
+msgstr ""
+
+#: includes/Admin/PartnersPage.php:261
+#: includes/Partners/PartnerAccount.php:272
+msgid "Save"
+msgstr ""
+
+#: includes/Admin/PartnersPage.php:264
+msgid "Approve"
+msgstr ""
+
+#: includes/Admin/PartnersPage.php:281
+msgid "All"
+msgstr ""
+
+#: includes/Admin/PartnersPage.php:305
+msgid "No referrals yet."
+msgstr ""
+
+#. translators: %d: count
+#: includes/Admin/PartnersPage.php:310
+#: includes/Admin/PartnersPage.php:410
+#: includes/Admin/SubscribersPage.php:32
+#: includes/Partners/PartnerAccount.php:300
+msgid "Date"
+msgstr ""
+
+#: includes/Admin/PartnersPage.php:310
+msgid "Order"
+msgstr ""
+
+#: includes/Admin/PartnersPage.php:310
+#: includes/Partners/PartnerAccount.php:300
+msgid "Plan"
+msgstr ""
+
+#: includes/Admin/PartnersPage.php:310
+#: includes/Admin/PartnersPage.php:373
+#: includes/Admin/PartnersPage.php:410
+#: includes/Partners/PartnerAccount.php:300
+#: includes/Woo/Invoices.php:271
+msgid "Amount"
+msgstr ""
+
+#: includes/Admin/PartnersPage.php:310
+#: includes/Partners/PartnerAccount.php:300
+msgid "Commission"
+msgstr ""
+
+#. translators: %d: count
+#: includes/Admin/PartnersPage.php:310
+#: includes/Admin/SubscribersPage.php:32
+msgid "Source"
+msgstr ""
+
+#: includes/Admin/PartnersPage.php:341
+msgid "Approve now"
+msgstr ""
+
+#: includes/Admin/PartnersPage.php:343
+msgid "Reason"
+msgstr ""
+
+#: includes/Admin/PartnersPage.php:344
+msgid "Reason to reject"
+msgstr ""
+
+#: includes/Admin/PartnersPage.php:345
+msgid "Reject"
+msgstr ""
+
+#. translators: %s: threshold
+#: includes/Admin/PartnersPage.php:361
+#, php-format
+msgid "Partners with an approved balance of %s or more. Send the money with their method, then mark it paid with the payment reference."
+msgstr ""
+
+#: includes/Admin/PartnersPage.php:366
+#: includes/Admin/SubscribersPage.php:30
+msgid "Export CSV"
+msgstr ""
+
+#: includes/Admin/PartnersPage.php:370
+msgid "Nobody is due a payout right now."
+msgstr ""
+
+#: includes/Admin/PartnersPage.php:373
+#: includes/Admin/PartnersPage.php:410
+msgid "Method"
+msgstr ""
+
+#: includes/Admin/PartnersPage.php:373
+#: includes/Admin/PartnersPage.php:387
+msgid "Mark paid"
+msgstr ""
+
+#: includes/Admin/PartnersPage.php:386
+msgid "Payment reference"
+msgstr ""
+
+#: includes/Admin/PartnersPage.php:392
+msgid "Payout history"
+msgstr ""
+
+#: includes/Admin/PartnersPage.php:407
+msgid "No payouts yet."
+msgstr ""
+
+#: includes/Admin/PartnersPage.php:410
+msgid "Reference"
+msgstr ""
+
+#: includes/Admin/ProductsPage.php:41
+msgid "Software products"
+msgstr ""
+
+#: includes/Admin/ProductsPage.php:46
+#: includes/Admin/ProductsPage.php:78
+msgid "Name"
+msgstr ""
+
+#: includes/Admin/ProductsPage.php:47
+msgid "Slug (sent by the client)"
+msgstr ""
+
+#: includes/Admin/ProductsPage.php:48
+msgid "Latest stable"
+msgstr ""
+
+#: includes/Admin/ProductsPage.php:58
+#: includes/Admin/ReleasesPage.php:140
+msgid "Edit"
+msgstr ""
+
+#: includes/Admin/ProductsPage.php:63
+msgid "Delete"
+msgstr ""
+
+#: includes/Admin/ProductsPage.php:72
+msgid "Edit product"
+msgstr ""
+
+#: includes/Admin/ProductsPage.php:72
+#: includes/Admin/ProductsPage.php:99
+msgid "Add product"
+msgstr ""
+
+#: includes/Admin/ProductsPage.php:80
+msgid "Slug"
+msgstr ""
+
+#: includes/Admin/ProductsPage.php:82
+msgid "Lowercase, e.g. talkwyn-pro. Cannot be changed later because clients send it."
+msgstr ""
+
+#: includes/Admin/ProductsPage.php:83
+msgid "Homepage"
+msgstr ""
+
+#: includes/Admin/ProductsPage.php:85
+msgid "Icons"
+msgstr ""
+
+#: includes/Admin/ProductsPage.php:87
+msgid "128×128 icon URL"
+msgstr ""
+
+#: includes/Admin/ProductsPage.php:88
+msgid "256×256 icon URL"
+msgstr ""
+
+#: includes/Admin/ProductsPage.php:90
+msgid "Banners"
+msgstr ""
+
+#: includes/Admin/ProductsPage.php:92
+msgid "772×250 banner URL"
+msgstr ""
+
+#: includes/Admin/ProductsPage.php:93
+msgid "1544×500 banner URL"
+msgstr ""
+
+#: includes/Admin/ProductsPage.php:95
+msgid "Description (Markdown)"
+msgstr ""
+
+#: includes/Admin/ProductsPage.php:97
+msgid "Shown in the \"View details\" modal in WordPress."
+msgstr ""
+
+#: includes/Admin/ProductsPage.php:99
+msgid "Save product"
+msgstr ""
+
+#: includes/Admin/ProductsPage.php:101
+msgid "Cancel"
+msgstr ""
+
+#. translators: %s: path
+#: includes/Admin/ReleasesPage.php:58
+#, php-format
+msgid "The release directory is not writable: %s"
+msgstr ""
+
+#: includes/Admin/ReleasesPage.php:64
+msgid "ZIPs are stored in TWH_RELEASES_DIR."
+msgstr ""
+
+#: includes/Admin/ReleasesPage.php:65
+msgid "ZIPs are stored in a protected uploads folder (.htaccess deny + random names). For maximum protection, define TWH_RELEASES_DIR in wp-config.php with a path outside the web root. On Nginx, deny access to /wp-content/uploads/talkwyn-hub-releases/ in the server config."
+msgstr ""
+
+#: includes/Admin/ReleasesPage.php:72
+msgid "Upload a release"
+msgstr ""
+
+#: includes/Admin/ReleasesPage.php:83
+msgid "Plugin ZIP"
+msgstr ""
+
+#: includes/Admin/ReleasesPage.php:85
+msgid "The ZIP must contain the plugin folder (e.g. talkwyn/talkwyn.php). Its \"Version\" header must match the version below."
+msgstr ""
+
+#: includes/Admin/ReleasesPage.php:86
+#: includes/Admin/ReleasesPage.php:111
+msgid "Version"
+msgstr ""
+
+#: includes/Admin/ReleasesPage.php:88
+#: includes/Admin/ReleasesPage.php:112
+#: includes/Admin/ReleasesPage.php:165
+msgid "Channel"
+msgstr ""
+
+#: includes/Admin/ReleasesPage.php:89
+#: includes/Admin/ReleasesPage.php:166
+msgid "Stable"
+msgstr ""
+
+#: includes/Admin/ReleasesPage.php:89
+#: includes/Admin/ReleasesPage.php:166
+msgid "Beta"
+msgstr ""
+
+#: includes/Admin/ReleasesPage.php:90
+#: includes/Admin/ReleasesPage.php:167
+msgid "Requirements"
+msgstr ""
+
+#: includes/Admin/ReleasesPage.php:92
+#: includes/Admin/ReleasesPage.php:169
+msgid "Requires WP"
+msgstr ""
+
+#: includes/Admin/ReleasesPage.php:93
+#: includes/Admin/ReleasesPage.php:170
+msgid "Requires PHP"
+msgstr ""
+
+#: includes/Admin/ReleasesPage.php:94
+#: includes/Admin/ReleasesPage.php:171
+msgid "Tested up to"
+msgstr ""
+
+#: includes/Admin/ReleasesPage.php:95
+msgid "Leave empty to read them from the plugin header / readme.txt."
+msgstr ""
+
+#: includes/Admin/ReleasesPage.php:97
+#: includes/Admin/ReleasesPage.php:173
+msgid "Changelog (Markdown)"
+msgstr ""
+
+#: includes/Admin/ReleasesPage.php:100
+msgid "Offer this release as an update immediately"
+msgstr ""
+
+#. translators: 1: product, 2: version
+#: includes/Admin/ReleasesPage.php:107
+#: includes/Admin/ReleasesPage.php:159
+msgid "All releases"
+msgstr ""
+
+#: includes/Admin/ReleasesPage.php:113
+msgid "Requires"
+msgstr ""
+
+#: includes/Admin/ReleasesPage.php:114
+msgid "Size"
+msgstr ""
+
+#: includes/Admin/ReleasesPage.php:115
+msgid "Released"
+msgstr ""
+
+#: includes/Admin/ReleasesPage.php:123
+msgid "No releases yet."
+msgstr ""
+
+#: includes/Admin/ReleasesPage.php:132
+msgid "file missing"
+msgstr ""
+
+#: includes/Admin/ReleasesPage.php:139
+#: includes/Admin/SettingsPage.php:274
+msgid "Yes"
+msgstr ""
+
+#: includes/Admin/ReleasesPage.php:139
+msgid "No"
+msgstr ""
+
+#. translators: 1: product, 2: version
+#: includes/Admin/ReleasesPage.php:158
+#, php-format
+msgid "Edit release %1$s %2$s"
+msgstr ""
+
+#: includes/Admin/ReleasesPage.php:176
+msgid "Offer as update"
+msgstr ""
+
+#: includes/Admin/ReleasesPage.php:177
+msgid "File"
+msgstr ""
+
+#: includes/Admin/ReleasesPage.php:180
+msgid "Save release"
+msgstr ""
+
+#: includes/Admin/ReleasesPage.php:186
+msgid "Delete release and file"
+msgstr ""
+
+#: includes/Admin/SettingsPage.php:46
+#: includes/LicenseService.php:237
+msgid "Personal"
+msgstr ""
+
+#: includes/Admin/SettingsPage.php:47
+#: includes/LicenseService.php:238
+msgid "Business"
+msgstr ""
+
+#: includes/Admin/SettingsPage.php:48
+#: includes/LicenseService.php:239
+msgid "Agency"
+msgstr ""
+
+#: includes/Admin/SettingsPage.php:53
+msgid "Settings sections"
+msgstr ""
+
+#: includes/Admin/SettingsPage.php:56
+msgid "General"
+msgstr ""
+
+#: includes/Admin/SettingsPage.php:59
+#: includes/Admin/SettingsPage.php:161
+msgid "Invoices"
+msgstr ""
+
+#: includes/Admin/SettingsPage.php:60
+#: includes/Admin/SettingsPage.php:201
+msgid "Emails"
+msgstr ""
+
+#: includes/Admin/SettingsPage.php:61
+msgid "Signing keys"
+msgstr ""
+
+#: includes/Admin/SettingsPage.php:62
+#: includes/Admin/SettingsPage.php:272
+msgid "System status"
+msgstr ""
+
+#: includes/Admin/SettingsPage.php:75
+msgid "Renewals & reminders"
+msgstr ""
+
+#: includes/Admin/SettingsPage.php:77
+msgid "Reminder days"
+msgstr ""
+
+#: includes/Admin/SettingsPage.php:79
+msgid "Comma-separated days before expiry, e.g. 30,7. An \"expired\" email is always sent on expiry."
+msgstr ""
+
+#: includes/Admin/SettingsPage.php:80
+msgid "Renewal discount (%)"
+msgstr ""
+
+#: includes/Admin/SettingsPage.php:82
+msgid "Applied to manual renewals (when WooCommerce Subscriptions is not used)."
+msgstr ""
+
+#: includes/Admin/SettingsPage.php:90
+msgid "Free Pro trial"
+msgstr ""
+
+#: includes/Admin/SettingsPage.php:91
+msgid "Let new customers try Pro for free"
+msgstr ""
+
+#: includes/Admin/SettingsPage.php:92
+msgid "Put the [twh_trial_form] shortcode on your pricing page. One trial per email and per website."
+msgstr ""
+
+#: includes/Admin/SettingsPage.php:93
+msgid "Trial length (days)"
+msgstr ""
+
+#: includes/Admin/SettingsPage.php:95
+msgid "Plan the trial includes"
+msgstr ""
+
+#: includes/Admin/SettingsPage.php:101
+msgid "Features come from that plan. Trials are always limited to one site."
+msgstr ""
+
+#: includes/Admin/SettingsPage.php:102
+msgid "Card policy"
+msgstr ""
+
+#: includes/Admin/SettingsPage.php:104
+msgid "No card required: the trial starts from a short form (name, email, website) and ends on the free plan."
+msgstr ""
+
+#: includes/Admin/SettingsPage.php:105
+msgid "Card on file: the trial starts at checkout with a $0 first period and converts to paid automatically. Needs WooCommerce Subscriptions."
+msgstr ""
+
+#: includes/Admin/SettingsPage.php:108
+msgid "Not ready: activate WooCommerce Subscriptions and choose a subscription product with a free trial below."
+msgstr ""
+
+#: includes/Admin/SettingsPage.php:110
+msgid "Trial product (card mode)"
+msgstr ""
+
+#: includes/Admin/SettingsPage.php:112
+msgid "ID of a WooCommerce Subscriptions product (or variation) with a free trial period. Ignored in no-card mode."
+msgstr ""
+
+#: includes/Admin/SettingsPage.php:113
+msgid "Reminder emails"
+msgstr ""
+
+#: includes/Admin/SettingsPage.php:115
+msgid "Days left when a reminder is sent, comma separated. 5,2 means day 10 and day 13 of a 15-day trial. A welcome email goes out on day 0 and a \"trial ended\" email on the last day."
+msgstr ""
+
+#: includes/Admin/SettingsPage.php:116
+msgid "Blocked email domains"
+msgstr ""
+
+#: includes/Admin/SettingsPage.php:118
+msgid "Disposable email services, one per line. Subdomains are blocked too."
+msgstr ""
+
+#: includes/Admin/SettingsPage.php:126
+#: includes/Partners/PartnerAccount.php:78
+msgid "Talkwyn Partners"
+msgstr ""
+
+#: includes/Admin/SettingsPage.php:127
+msgid "Run the referral program (My Account, Partners)"
+msgstr ""
+
+#: includes/Admin/SettingsPage.php:128
+msgid "Commission on new sales (%)"
+msgstr ""
+
+#: includes/Admin/SettingsPage.php:130
+msgid "Commission on renewals (%)"
+msgstr ""
+
+#: includes/Admin/SettingsPage.php:132
+msgid "0 pays on the first payment only."
+msgstr ""
+
+#: includes/Admin/SettingsPage.php:133
+msgid "Cookie (days)"
+msgstr ""
+
+#: includes/Admin/SettingsPage.php:135
+msgid "Attribution is last click: the newest referral link (or partner coupon) wins."
+msgstr ""
+
+#: includes/Admin/SettingsPage.php:136
+msgid "Approve commissions after (days)"
+msgstr ""
+
+#: includes/Admin/SettingsPage.php:138
+msgid "Match your refund window. Fully refunded or charged-back orders reject the commission automatically."
+msgstr ""
+
+#: includes/Admin/SettingsPage.php:139
+msgid "Payout threshold"
+msgstr ""
+
+#: includes/Admin/SettingsPage.php:141
+msgid "Payout methods"
+msgstr ""
+
+#: includes/Admin/SettingsPage.php:147
+#: includes/Support/Settings.php:185
+msgid "Bank transfer"
+msgstr ""
+
+#: includes/Admin/SettingsPage.php:153
+msgid "Links"
+msgstr ""
+
+#. translators: %s: example URL
+#: includes/Admin/SettingsPage.php:154
+#, php-format
+msgid "Also accept short links like %s"
+msgstr ""
+
+#. translators: %s: example URL
+#: includes/Admin/SettingsPage.php:155
+msgid "Only set the referral cookie after cookie consent when a consent plugin is active"
+msgstr ""
+
+#: includes/Admin/SettingsPage.php:162
+msgid "Every paid order gets the next invoice number. Customers open a printable invoice from My Account, Orders and from their order email, and can save it as a PDF."
+msgstr ""
+
+#: includes/Admin/SettingsPage.php:164
+msgid "Number prefix"
+msgstr ""
+
+#. translators: %s: example number
+#: includes/Admin/SettingsPage.php:166
+#, php-format
+msgid "Next number looks like %s."
+msgstr ""
+
+#. translators: %s: example number
+#: includes/Admin/SettingsPage.php:167
+msgid "Company name"
+msgstr ""
+
+#: includes/Admin/SettingsPage.php:169
+msgid "Company address"
+msgstr ""
+
+#: includes/Admin/SettingsPage.php:171
+msgid "Tax or VAT ID"
+msgstr ""
+
+#: includes/Admin/SettingsPage.php:173
+msgid "Billing email"
+msgstr ""
+
+#: includes/Admin/SettingsPage.php:175
+msgid "Note at the bottom"
+msgstr ""
+
+#: includes/Admin/SettingsPage.php:177
+msgid "For example payment terms or a thank-you line."
+msgstr ""
+
+#: includes/Admin/SettingsPage.php:183
+msgid "API and domains"
+msgstr ""
+
+#: includes/Admin/SettingsPage.php:185
+msgid "Rate limit"
+msgstr ""
+
+#: includes/Admin/SettingsPage.php:187
+msgid "requests per"
+msgstr ""
+
+#: includes/Admin/SettingsPage.php:189
+msgid "minutes, per IP and per license key"
+msgstr ""
+
+#: includes/Admin/SettingsPage.php:190
+msgid "Dev/staging domains"
+msgstr ""
+
+#: includes/Admin/SettingsPage.php:192
+msgid "One pattern per line; * matches anything. These sites never count toward the activation limit. IP addresses always count as dev. Developers can also use the twh_dev_domain_patterns filter."
+msgstr ""
+
+#: includes/Admin/SettingsPage.php:193
+msgid "Log retention (days)"
+msgstr ""
+
+#: includes/Admin/SettingsPage.php:195
+msgid "0 keeps logs forever."
+msgstr ""
+
+#: includes/Admin/SettingsPage.php:202
+msgid "Emails use the branded Talkwyn layout (override it from your theme at talkwyn-hub/emails/branded.php). You can use these placeholders in any subject or text:"
+msgstr ""
+
+#: includes/Admin/SettingsPage.php:209
+msgid "From name"
+msgstr ""
+
+#: includes/Admin/SettingsPage.php:211
+msgid "Admin notifications to"
+msgstr ""
+
+#: includes/Admin/SettingsPage.php:219
+msgid "Subject"
+msgstr ""
+
+#: includes/Admin/SettingsPage.php:221
+msgid "Text"
+msgstr ""
+
+#: includes/Admin/SettingsPage.php:230
+msgid "Uninstall"
+msgstr ""
+
+#: includes/Admin/SettingsPage.php:232
+msgid "Data"
+msgstr ""
+
+#: includes/Admin/SettingsPage.php:233
+msgid "Delete all data on uninstall (licenses, activations, releases, logs, signing keys, settings and release ZIPs). This cannot be undone."
+msgstr ""
+
+#: includes/Admin/SettingsPage.php:236
+msgid "Save settings"
+msgstr ""
+
+#: includes/Admin/SettingsPage.php:240
+msgid "Signing keys (Ed25519)"
+msgstr ""
+
+#: includes/Admin/SettingsPage.php:241
+msgid "Embed the public key(s) in the client plugin. To rotate: 1) generate the next key, 2) ship a client release that trusts both keys, 3) once most sites have updated, promote the next key."
+msgstr ""
+
+#: includes/Admin/SettingsPage.php:244
+msgid "Key ID"
+msgstr ""
+
+#: includes/Admin/SettingsPage.php:246
+msgid "Public key (base64)"
+msgstr ""
+
+#: includes/Admin/SettingsPage.php:263
+msgid "Generate next key"
+msgstr ""
+
+#: includes/Admin/SettingsPage.php:265
+msgid "Promote next key to active"
+msgstr ""
+
+#: includes/Admin/SettingsPage.php:274
+msgid "TWH_SECRET_KEY defined"
+msgstr ""
+
+#: includes/Admin/SettingsPage.php:274
+msgid "No, using the WordPress salt fallback"
+msgstr ""
+
+#: includes/Admin/SettingsPage.php:275
+msgid "Release directory"
+msgstr ""
+
+#: includes/Admin/SettingsPage.php:275
+msgid "Writable"
+msgstr ""
+
+#: includes/Admin/SettingsPage.php:275
+msgid "Not writable"
+msgstr ""
+
+#: includes/Admin/SettingsPage.php:276
+msgid "WooCommerce Subscriptions"
+msgstr ""
+
+#: includes/Admin/SettingsPage.php:276
+msgid "Active, automatic renewals"
+msgstr ""
+
+#: includes/Admin/SettingsPage.php:276
+msgid "Not active, manual renewal flow"
+msgstr ""
+
+#: includes/Admin/SettingsPage.php:277
+msgid "Daily cron scheduled"
+msgstr ""
+
+#: includes/Admin/SettingsPage.php:277
+msgid "Not scheduled"
+msgstr ""
+
+#: includes/Admin/SettingsPage.php:278
+msgid "API base URL"
+msgstr ""
+
+#: includes/Admin/SettingsPage.php:279
+msgid "Default dev patterns"
+msgstr ""
+
+#: includes/Admin/SettingsPage.php:351
+msgid "License issued"
+msgstr ""
+
+#: includes/Admin/SettingsPage.php:352
+msgid "Expiry reminder (before expiry)"
+msgstr ""
+
+#: includes/Admin/SettingsPage.php:353
+msgid "License expired"
+msgstr ""
+
+#: includes/Admin/SettingsPage.php:354
+msgid "License renewed"
+msgstr ""
+
+#: includes/Admin/SettingsPage.php:355
+msgid "Trial: confirm email (first email)"
+msgstr ""
+
+#: includes/Admin/SettingsPage.php:356
+msgid "Trial started: key and account (after confirming)"
+msgstr ""
+
+#: includes/Admin/SettingsPage.php:357
+msgid "Trial reminder (days left)"
+msgstr ""
+
+#: includes/Admin/SettingsPage.php:359
+msgid "Trial upgraded to paid"
+msgstr ""
+
+#: includes/Admin/SettingsPage.php:360
+msgid "Partner approved"
+msgstr ""
+
+#: includes/Admin/SettingsPage.php:361
+msgid "Partner: new referral (pending)"
+msgstr ""
+
+#: includes/Admin/SettingsPage.php:362
+msgid "Partner: commission approved"
+msgstr ""
+
+#: includes/Admin/SettingsPage.php:363
+msgid "Partner: payout sent"
+msgstr ""
+
+#: includes/Admin/SettingsPage.php:364
+msgid "Admin: new partner application"
+msgstr ""
+
+#. translators: %d: count
+#: includes/Admin/SubscribersPage.php:31
+#, php-format
+msgid "%d site owners asked for product news from the Talkwyn plugin setup wizard. Showing the latest 200."
+msgstr ""
+
+#: includes/Admin/SubscribersPage.php:34
+msgid "No subscribers yet."
+msgstr ""
+
+#: includes/Api/RestController.php:102
+#: includes/Api/RestController.php:465
+msgid "Too many requests. Please try again later."
+msgstr ""
+
+#: includes/Api/RestController.php:105
+msgid "Missing or invalid nonce."
+msgstr ""
+
+#: includes/Api/RestController.php:111
+msgid "Too many requests for this license. Please try again later."
+msgstr ""
+
+#: includes/Api/RestController.php:123
+msgid "Internal error."
+msgstr ""
+
+#: includes/Api/RestController.php:145
+msgid "license_key is required."
+msgstr ""
+
+#: includes/Api/RestController.php:149
+msgid "instance_id is missing or invalid."
+msgstr ""
+
+#: includes/Api/RestController.php:154
+msgid "site_url is missing or invalid."
+msgstr ""
+
+#: includes/Api/RestController.php:158
+msgid "product is required."
+msgstr ""
+
+#: includes/Api/RestController.php:198
+msgid "This license key is not valid."
+msgstr ""
+
+#: includes/Api/RestController.php:202
+msgid "This license key is for a different product."
+msgstr ""
+
+#: includes/Api/RestController.php:216
+msgid "This license has been revoked."
+msgstr ""
+
+#: includes/Api/RestController.php:218
+msgid "This license is suspended. Please contact support."
+msgstr ""
+
+#: includes/Api/RestController.php:223
+msgid "Your Pro trial has ended. Talkwyn keeps working on the free plan, and you can upgrade any time with the same key."
+msgstr ""
+
+#: includes/Api/RestController.php:233
+msgid "This license has expired. Pro features keep working; renew to get updates and support again."
+msgstr ""
+
+#. translators: %d: activation limit
+#: includes/Api/RestController.php:269
+#, php-format
+msgid "This license is already active on %d site(s). Deactivate one in your account or upgrade your plan."
+msgstr ""
+
+#: includes/Api/RestController.php:469
+msgid "This download link is invalid or has expired."
+msgstr ""
+
+#: includes/Api/RestController.php:474
+msgid "This release is not available."
+msgstr ""
+
+#: includes/Api/RestController.php:478
+msgid "Downloads require an active license."
+msgstr ""
+
+#: includes/Api/RestController.php:482
+msgid "The release file is missing."
+msgstr ""
+
+#: includes/Email/Mailer.php:123
+#: includes/Email/Mailer.php:189
+#: includes/Partners/Program.php:251
+msgid "there"
+msgstr ""
+
+#. translators: 1: masked key, 2: reason
+#: includes/Email/Mailer.php:140
+#, php-format
+msgid "License …%1$s revoked (%2$s)"
+msgstr ""
+
+#. translators: 1: license id, 2: order id, 3: reason
+#: includes/Email/Mailer.php:142
+#, php-format
+msgid "License #%1$d from order #%2$d was revoked automatically. Reason: %3$s."
+msgstr ""
+
+#: includes/Email/Mailer.php:158
+msgid "View license"
+msgstr ""
+
+#: includes/Email/Mailer.php:241
+msgid "You're in. Here is your license."
+msgstr ""
+
+#: includes/Email/Mailer.php:241
+msgid "Manage your license"
+msgstr ""
+
+#: includes/Email/Mailer.php:242
+msgid "Your license renews soon"
+msgstr ""
+
+#: includes/Email/Mailer.php:242
+msgid "Renew now"
+msgstr ""
+
+#: includes/Email/Mailer.php:243
+msgid "Your license has expired"
+msgstr ""
+
+#: includes/Email/Mailer.php:243
+msgid "Renew in one click"
+msgstr ""
+
+#: includes/Email/Mailer.php:244
+msgid "Thanks for renewing"
+msgstr ""
+
+#: includes/Email/Mailer.php:244
+#: includes/Email/Mailer.php:255
+msgid "View your license"
+msgstr ""
+
+#: includes/Email/Mailer.php:251
+msgid "Confirm your email"
+msgstr ""
+
+#: includes/Email/Mailer.php:251
+msgid "Confirm and start my trial"
+msgstr ""
+
+#: includes/Email/Mailer.php:252
+msgid "Your Pro trial has started"
+msgstr ""
+
+#: includes/Email/Mailer.php:252
+msgid "Read the setup guide"
+msgstr ""
+
+#: includes/Email/Mailer.php:253
+msgid "Your trial ends soon"
+msgstr ""
+
+#: includes/Email/Mailer.php:253
+#: templates/account/license-detail.php:116
+#: templates/account/license-detail.php:140
+msgid "Choose a plan"
+msgstr ""
+
+#: includes/Email/Mailer.php:254
+msgid "Upgrade in one click"
+msgstr ""
+
+#: includes/Email/Mailer.php:255
+#: includes/Support/Settings.php:77
+msgid "Welcome to Talkwyn Pro"
+msgstr ""
+
+#: includes/Email/Mailer.php:256
+#: includes/Support/Settings.php:90
+msgid "You're a Talkwyn Partner"
+msgstr ""
+
+#: includes/Email/Mailer.php:256
+#: includes/Email/Mailer.php:257
+#: includes/Email/Mailer.php:258
+msgid "Open your dashboard"
+msgstr ""
+
+#: includes/Email/Mailer.php:257
+msgid "You have a new referral"
+msgstr ""
+
+#: includes/Email/Mailer.php:258
+msgid "Commission approved"
+msgstr ""
+
+#: includes/Email/Mailer.php:259
+msgid "Payout sent"
+msgstr ""
+
+#: includes/Email/Mailer.php:259
+msgid "See your payouts"
+msgstr ""
+
+#: includes/Email/Mailer.php:260
+msgid "New partner application"
+msgstr ""
+
+#: includes/Email/Mailer.php:260
+msgid "Review applications"
+msgstr ""
+
+#: includes/Email/Mailer.php:305
+msgid "Your license key:"
+msgid_plural "Your license keys:"
+msgstr[0] ""
+msgstr[1] ""
+
+#: includes/Install/Installer.php:37
+msgid "Talkwyn Hub requires the PHP sodium extension."
+msgstr ""
+
+#. translators: 1: license status, 2: license id
+#: includes/LicenseService.php:100
+#, php-format
+msgid "Renewal paid for a %1$s license (#%2$d)"
+msgstr ""
+
+#: includes/LicenseService.php:101
+msgid "A renewal was paid for a license that is not active or expired. The expiry was extended but the status was not changed. Please review it."
+msgstr ""
+
+#: includes/LicenseService.php:227
+msgid "Unknown product"
+msgstr ""
+
+#: includes/LicenseService.php:254
+msgid "Expired"
+msgstr ""
+
+#: includes/LicenseService.php:255
+#: includes/Partners/PartnerAccount.php:167
+#: includes/Partners/PartnerAccount.php:488
+msgid "Suspended"
+msgstr ""
+
+#: includes/LicenseService.php:256
+msgid "Revoked"
+msgstr ""
+
+#: includes/LicenseService.php:267
+msgid "Unlimited"
+msgstr ""
+
+#: includes/Partners/PartnerAccount.php:113
+msgid "Please accept the partner terms."
+msgstr ""
+
+#: includes/Partners/PartnerAccount.php:129
+msgid "Thanks for applying. We review every application by hand and will email you soon."
+msgstr ""
+
+#: includes/Partners/PartnerAccount.php:138
+msgid "Payout details saved."
+msgstr ""
+
+#: includes/Partners/PartnerAccount.php:145
+msgid "Your referral link was updated."
+msgstr ""
+
+#: includes/Partners/PartnerAccount.php:156
+#: includes/Partners/Program.php:82
+msgid "The partner program is closed right now."
+msgstr ""
+
+#: includes/Partners/PartnerAccount.php:164
+msgid "Pending review"
+msgstr ""
+
+#: includes/Partners/PartnerAccount.php:165
+msgid "Thanks for applying"
+msgstr ""
+
+#: includes/Partners/PartnerAccount.php:165
+msgid "We review every application by hand, usually within two business days. You'll get an email as soon as you're approved, with your referral link."
+msgstr ""
+
+#: includes/Partners/PartnerAccount.php:167
+msgid "Your partner account is paused. Please contact us if you think this is a mistake."
+msgstr ""
+
+#: includes/Partners/PartnerAccount.php:182
+msgid "Join Talkwyn Partners"
+msgstr ""
+
+#: includes/Partners/PartnerAccount.php:183
+msgid "Recommend Talkwyn to clients, readers or followers and earn a commission on every paid plan they buy through your link."
+msgstr ""
+
+#. translators: %s: commission percent
+#: includes/Partners/PartnerAccount.php:186
+#, php-format
+msgid "%s commission on new paid plans"
+msgstr ""
+
+#. translators: %s: commission percent
+#: includes/Partners/PartnerAccount.php:189
+#, php-format
+msgid "%s on renewals"
+msgstr ""
+
+#. translators: %d: days
+#: includes/Partners/PartnerAccount.php:192
+#, php-format
+msgid "%d-day cookie, last click wins"
+msgstr ""
+
+#. translators: %s: amount
+#: includes/Partners/PartnerAccount.php:194
+#, php-format
+msgid "Payouts from %s"
+msgstr ""
+
+#: includes/Partners/PartnerAccount.php:199
+msgid "Your website or channel"
+msgstr ""
+
+#: includes/Partners/PartnerAccount.php:200
+msgid "How will you promote Talkwyn?"
+msgstr ""
+
+#: includes/Partners/PartnerAccount.php:201
+#: includes/Partners/PartnerAccount.php:351
+msgid "Payout method"
+msgstr ""
+
+#: includes/Partners/PartnerAccount.php:207
+#: includes/Partners/PartnerAccount.php:357
+msgid "Payout details"
+msgstr ""
+
+#: includes/Partners/PartnerAccount.php:207
+msgid "PayPal or Wise email, or bank details"
+msgstr ""
+
+#: includes/Partners/PartnerAccount.php:207
+msgid "Stored encrypted. You can change this later."
+msgstr ""
+
+#. translators: %s: link
+#: includes/Partners/PartnerAccount.php:208
+#, php-format
+msgid "I agree to the <a href=\"%s\">partner terms</a>, including no self-referrals and no paid ads on the Talkwyn brand name."
+msgstr ""
+
+#. translators: %s: link
+#: includes/Partners/PartnerAccount.php:209
+msgid "Apply to join"
+msgstr ""
+
+#: includes/Partners/PartnerAccount.php:234
+msgid "Clicks (30 days)"
+msgstr ""
+
+#: includes/Partners/PartnerAccount.php:236
+msgid "Paid referrals"
+msgstr ""
+
+#: includes/Partners/PartnerAccount.php:238
+#: includes/Partners/PartnerAccount.php:485
+msgid "Approved"
+msgstr ""
+
+#: includes/Partners/PartnerAccount.php:239
+msgid "Paid to date"
+msgstr ""
+
+#: includes/Partners/PartnerAccount.php:249
+msgid "Your referral link"
+msgstr ""
+
+#: includes/Partners/PartnerAccount.php:257
+msgid "Link to any page"
+msgstr ""
+
+#: includes/Partners/PartnerAccount.php:266
+msgid "Change your link name (once)"
+msgstr ""
+
+#: includes/Partners/PartnerAccount.php:270
+msgid "New link name"
+msgstr ""
+
+#: includes/Partners/PartnerAccount.php:277
+msgid "QR code for your referral link"
+msgstr ""
+
+#: includes/Partners/PartnerAccount.php:283
+msgid "Clicks and conversions"
+msgstr ""
+
+#: includes/Partners/PartnerAccount.php:284
+msgid "Range"
+msgstr ""
+
+#. translators: %d: days
+#: includes/Partners/PartnerAccount.php:287
+#, php-format
+msgid "%d days"
+msgstr ""
+
+#: includes/Partners/PartnerAccount.php:297
+msgid "No paid referrals yet. Share your link and they show up here."
+msgstr ""
+
+#: includes/Partners/PartnerAccount.php:306
+msgid "Renewal"
+msgstr ""
+
+#: includes/Partners/PartnerAccount.php:306
+msgid "New"
+msgstr ""
+
+#: includes/Partners/PartnerAccount.php:316
+msgid "Referred trials"
+msgstr ""
+
+#: includes/Partners/PartnerAccount.php:317
+msgid "Commission is created when a trial upgrades to a paid plan. For privacy, trial users are not named."
+msgstr ""
+
+#: includes/Partners/PartnerAccount.php:321
+msgid "Upgraded"
+msgstr ""
+
+#: includes/Partners/PartnerAccount.php:321
+msgid "In trial"
+msgstr ""
+
+#: includes/Partners/PartnerAccount.php:321
+msgid "Ended"
+msgstr ""
+
+#. translators: %s: amount
+#: includes/Partners/PartnerAccount.php:333
+#, php-format
+msgid "Your approved balance of %s is ready to pay out. We send payouts at the start of each month."
+msgstr ""
+
+#. translators: 1: approved balance, 2: threshold
+#: includes/Partners/PartnerAccount.php:336
+#, php-format
+msgid "Approved balance: %1$s. Payouts go out once it reaches %2$s."
+msgstr ""
+
+#: includes/Partners/PartnerAccount.php:358
+msgid "Save payout details"
+msgstr ""
+
+#. translators: %s: referral link
+#: includes/Partners/PartnerAccount.php:381
+#, php-format
+msgid "I use Talkwyn to answer website visitors in their own language and capture leads overnight. Free plan, no monthly bill: %s"
+msgstr ""
+
+#. translators: %s: referral link
+#: includes/Partners/PartnerAccount.php:383
+#, php-format
+msgid "Looking for an AI chatbot for your WordPress site that speaks Spanish, French, German, Arabic and more? Try Talkwyn free: %s"
+msgstr ""
+
+#: includes/Partners/PartnerAccount.php:387
+msgid "Marketing assets"
+msgstr ""
+
+#: includes/Partners/PartnerAccount.php:391
+msgid "Download"
+msgstr ""
+
+#: includes/Partners/PartnerAccount.php:395
+msgid "Copy you can use"
+msgstr ""
+
+#. translators: %s: link
+#: includes/Partners/PartnerAccount.php:399
+#, php-format
+msgid "Please follow our <a href=\"%s\">brand rules</a>: use the logo as provided, write \"Talkwyn\" with a capital T, and don't bid on the Talkwyn name in search ads."
+msgstr ""
+
+#: includes/Partners/PartnerAccount.php:412
+msgid "Social card 1200 × 630"
+msgstr ""
+
+#: includes/Partners/PartnerAccount.php:413
+msgid "Banner 1500 × 500"
+msgstr ""
+
+#: includes/Partners/PartnerAccount.php:414
+msgid "Banner 1584 × 396"
+msgstr ""
+
+#. translators: 1: clicks, 2: conversions
+#: includes/Partners/PartnerAccount.php:464
+#, php-format
+msgid "%1$d clicks and %2$d conversions in this range."
+msgstr ""
+
+#: includes/Partners/PartnerAccount.php:474
+msgid "Conversions"
+msgstr ""
+
+#: includes/Partners/PartnerAccount.php:487
+msgid "Rejected"
+msgstr ""
+
+#: includes/Partners/Program.php:85
+msgid "You have already applied."
+msgstr ""
+
+#: includes/Partners/Program.php:97
+msgid "Your application could not be saved. Please try again."
+msgstr ""
+
+#: includes/Partners/Program.php:160
+msgid "Use 3 to 32 letters, numbers or dashes."
+msgstr ""
+
+#: includes/Partners/Program.php:163
+msgid "You can change your link once. Contact us if you need another change."
+msgstr ""
+
+#: includes/Partners/Program.php:167
+msgid "That link is taken. Try another one."
+msgstr ""
+
+#: includes/Partners/Program.php:189
+msgid "Partner not found."
+msgstr ""
+
+#: includes/Partners/Program.php:193
+msgid "This partner is below the payout threshold."
+msgstr ""
+
+#: includes/Partners/Program.php:197
+msgid "Nothing to pay."
+msgstr ""
+
+#: includes/Partners/Program.php:208
+msgid "not given"
+msgstr ""
+
+#: includes/Plugin.php:73
+msgid "Talkwyn Hub needs WooCommerce to sell and issue licenses. The license API keeps working for existing licenses."
+msgstr ""
+
+#: includes/Plugin.php:80
+msgid "Talkwyn Hub requires the PHP sodium extension and is currently inactive."
+msgstr ""
+
+#: includes/Plugin.php:90
+#: includes/Plugin.php:104
+msgid "Talkwyn Hub:"
+msgstr ""
+
+#: includes/Plugin.php:90
+msgid "TWH_SECRET_KEY (or your WordPress auth salt) has changed since license data was encrypted. Stored keys and the signing key cannot be decrypted. Restore the previous value in wp-config.php."
+msgstr ""
+
+#. translators: %s: PHP code
+#: includes/Plugin.php:107
+#, php-format
+msgid "Add %s to wp-config.php. Until then, license keys and signing keys are encrypted with a key derived from your WordPress auth salt, which breaks if the salts are rotated. When you add the constant, existing data is re-encrypted automatically. Never change or remove it afterwards."
+msgstr ""
+
+#: includes/Support/Settings.php:44
+msgid "Your Talkwyn license is ready"
+msgstr ""
+
+#: includes/Support/Settings.php:45
+msgid ""
+"Hi {customer_name},\n"
+"\n"
+"Thank you for choosing {product_name}. Your {plan} license is ready, and your key is below.\n"
+"\n"
+"To turn on Pro, open Talkwyn in your WordPress dashboard, go to the License tab, and paste the key. Staging and local sites are free and don't use a slot.\n"
+"\n"
+"Sites: {activation_limit}\n"
+"Valid until: {expires_at}\n"
+"\n"
+"You can see your sites, downloads, and invoices in your account at any time.\n"
+"\n"
+"The {site_name} team"
+msgstr ""
+
+#: includes/Support/Settings.php:46
+msgid "Your Talkwyn license renews in {days_left} days"
+msgstr ""
+
+#: includes/Support/Settings.php:47
+msgid ""
+"Hi {customer_name},\n"
+"\n"
+"Your {product_name} license ({plan}, key ending {key_last4}) is due for renewal on {expires_at}.\n"
+"\n"
+"Renew before then to keep updates and support running on your sites. It takes one click and your renewal discount is already applied.\n"
+"\n"
+"The {site_name} team"
+msgstr ""
+
+#: includes/Support/Settings.php:48
+msgid "Your Talkwyn license has expired"
+msgstr ""
+
+#: includes/Support/Settings.php:49
+msgid ""
+"Hi {customer_name},\n"
+"\n"
+"Your {product_name} license ({plan}, key ending {key_last4}) expired on {expires_at}. Pro features keep working on your sites, but updates and support are paused.\n"
+"\n"
+"Renew in one click and everything picks up where it left off, with the same key.\n"
+"\n"
+"The {site_name} team"
+msgstr ""
+
+#: includes/Support/Settings.php:50
+msgid "Your Talkwyn license was renewed"
+msgstr ""
+
+#: includes/Support/Settings.php:51
+msgid ""
+"Hi {customer_name},\n"
+"\n"
+"Thanks for renewing. Your {product_name} license (key ending {key_last4}) is now valid until {expires_at}. Nothing to do on your sites, updates keep coming.\n"
+"\n"
+"The {site_name} team"
+msgstr ""
+
+#: includes/Support/Settings.php:69
+msgid "Confirm your email to start your Talkwyn trial"
+msgstr ""
+
+#: includes/Support/Settings.php:70
+msgid ""
+"Hi {customer_name},\n"
+"\n"
+"Thanks for starting a Talkwyn Pro trial for {trial_site}. Please confirm this is your email address with the button below.\n"
+"\n"
+"Right after you confirm, we create your trial license and your account and send both to you.\n"
+"\n"
+"The link works for 48 hours. If you didn't ask for a trial, you can ignore this email and nothing will happen.\n"
+"\n"
+"The {site_name} team"
+msgstr ""
+
+#: includes/Support/Settings.php:71
+msgid "Your {trial_days}-day Talkwyn Pro trial has started"
+msgstr ""
+
+#: includes/Support/Settings.php:72
+msgid ""
+"Hi {customer_name},\n"
+"\n"
+"Welcome to Talkwyn Pro. Your trial key is below and every Pro feature is yours until {trial_ends_at}.\n"
+"\n"
+"Getting set up takes about five minutes:\n"
+"1. Install Talkwyn on your WordPress site.\n"
+"2. Open Talkwyn, go to the License tab and paste your key.\n"
+"3. Click Scan my site, add a free AI key, and turn the chat on.\n"
+"\n"
+"The trial covers one site. Staging and local sites are free and don't use it.\n"
+"\n"
+"{login_details}\n"
+"\n"
+"The {site_name} team"
+msgstr ""
+
+#: includes/Support/Settings.php:73
+msgid "Your Talkwyn trial has {days_left} days left"
+msgstr ""
+
+#: includes/Support/Settings.php:74
+msgid ""
+"Hi {customer_name},\n"
+"\n"
+"Your Talkwyn Pro trial ends on {trial_ends_at}, in {days_left} days.\n"
+"\n"
+"Here's what you've used so far: {trial_usage}\n"
+"\n"
+"To keep Pro running, pick a plan before the trial ends. You keep the same key, so nothing changes on your site. If you don't upgrade, Talkwyn moves to the free plan and keeps all your settings, chats and leads.\n"
+"\n"
+"The {site_name} team"
+msgstr ""
+
+#: includes/Support/Settings.php:75
+msgid "Your Talkwyn trial has ended"
+msgstr ""
+
+#: includes/Support/Settings.php:76
+msgid ""
+"Hi {customer_name},\n"
+"\n"
+"Your Talkwyn Pro trial ended on {trial_ends_at}.\n"
+"\n"
+"Talkwyn keeps working on the free plan: it still answers visitors, captures leads, and keeps your settings and chat history. Pro features like advanced search and analytics are paused.\n"
+"\n"
+"When you're ready, upgrade in one click and Pro switches back on with the same key.\n"
+"\n"
+"The {site_name} team"
+msgstr ""
+
+#: includes/Support/Settings.php:78
+msgid ""
+"Hi {customer_name},\n"
+"\n"
+"Thanks for upgrading. Your trial is now a {plan} license for {activation_limit} sites, valid until {expires_at}. You keep the same key, so there's nothing to change on your site.\n"
+"\n"
+"The {site_name} team"
+msgstr ""
+
+#: includes/Support/Settings.php:91
+msgid ""
+"Hi {partner_name},\n"
+"\n"
+"Your Talkwyn Partners application is approved.\n"
+"\n"
+"Your referral link: {referral_link}\n"
+"\n"
+"You earn {commission_rate} on paid plans from people you refer, for {cookie_days} days after their click. Your dashboard shows clicks, trials, and commissions as they happen.\n"
+"\n"
+"The {site_name} team"
+msgstr ""
+
+#: includes/Support/Settings.php:92
+msgid "New referral: {amount}"
+msgstr ""
+
+#: includes/Support/Settings.php:93
+msgid ""
+"Hi {partner_name},\n"
+"\n"
+"Someone you referred just bought a {plan} plan. Your commission of {commission} is pending and will be approved after the {approval_days}-day refund window.\n"
+"\n"
+"The {site_name} team"
+msgstr ""
+
+#: includes/Support/Settings.php:94
+msgid "Commission approved: {commission}"
+msgstr ""
+
+#: includes/Support/Settings.php:95
+msgid ""
+"Hi {partner_name},\n"
+"\n"
+"Your commission of {commission} is approved. Payouts go out once your approved balance reaches {payout_threshold}.\n"
+"\n"
+"The {site_name} team"
+msgstr ""
+
+#: includes/Support/Settings.php:96
+msgid "Payout sent: {amount}"
+msgstr ""
+
+#: includes/Support/Settings.php:97
+msgid ""
+"Hi {partner_name},\n"
+"\n"
+"We sent you {amount} by {payout_method}. Reference: {reference}.\n"
+"\n"
+"Thanks for sharing Talkwyn.\n"
+"\n"
+"The {site_name} team"
+msgstr ""
+
+#: includes/Support/Settings.php:98
+msgid "New partner application from {partner_name}"
+msgstr ""
+
+#: includes/Support/Settings.php:99
+msgid ""
+"{partner_name} ({partner_email}) applied to Talkwyn Partners.\n"
+"\n"
+"Website or channel: {website}\n"
+"How they will promote: {promotion}\n"
+"\n"
+"Review the application in Talkwyn Hub, Partners."
+msgstr ""
+
+#: includes/Support/Settings.php:183
+msgid "PayPal"
+msgstr ""
+
+#: includes/Support/Settings.php:184
+msgid "Wise"
+msgstr ""
+
+#: includes/Support/Settings.php:186
+msgid "Payoneer"
+msgstr ""
+
+#: includes/Support/Time.php:65
+#: templates/account/license-detail.php:52
+msgid "Never (lifetime)"
+msgstr ""
+
+#. translators: %d: trial length in days
+#: includes/Trial/Trial.php:132
+#, php-format
+msgid "Cancel anytime before day %d and you won't be charged."
+msgstr ""
+
+#: includes/Trial/Trial.php:133
+msgid "No credit card needed."
+msgstr ""
+
+#: includes/Trial/Trial.php:143
+msgid "Talkwyn Hub trial:"
+msgstr ""
+
+#: includes/Trial/Trial.php:143
+msgid "The \"Card on file\" trial needs WooCommerce Subscriptions and a subscription product with a free trial period, selected in Talkwyn Hub, Settings, Trial. Until then the trial button sends people to the no-card form."
+msgstr ""
+
+#: includes/Trial/Trial.php:197
+msgid "Trials are not available right now."
+msgstr ""
+
+#: includes/Trial/Trial.php:198
+msgid "Please enter a valid email address."
+msgstr ""
+
+#: includes/Trial/Trial.php:199
+msgid "Please use your work or personal email. Temporary inboxes can't start a trial."
+msgstr ""
+
+#: includes/Trial/Trial.php:200
+msgid "Please enter your live website address, like example.com. Local and staging sites are always free and don't need a trial."
+msgstr ""
+
+#: includes/Trial/Trial.php:201
+msgid "This email has already used its free trial. You can pick a plan any time."
+msgstr ""
+
+#: includes/Trial/Trial.php:202
+msgid "This website has already had a free trial. You can pick a plan any time."
+msgstr ""
+
+#: includes/Trial/Trial.php:203
+msgid "Trials are being set up. Please try again soon."
+msgstr ""
+
+#: includes/Trial/Trial.php:204
+msgid "Please try again."
+msgstr ""
+
+#: includes/Trial/Trial.php:205
+msgid "Too many attempts. Please wait a few minutes and try again."
+msgstr ""
+
+#: includes/Trial/Trial.php:206
+msgid "Almost there. We sent a confirmation link to your email. Open it to start your trial (check spam too)."
+msgstr ""
+
+#: includes/Trial/Trial.php:207
+msgid "We already sent you a confirmation link a moment ago. Please check your inbox and spam folder."
+msgstr ""
+
+#: includes/Trial/Trial.php:208
+msgid "This confirmation link has expired or was already used. Please start the trial again."
+msgstr ""
+
+#: includes/Trial/Trial.php:209
+msgid "We could not send the confirmation email right now. Please try again in a few minutes."
+msgstr ""
+
+#: includes/Trial/Trial.php:211
+msgid "Something went wrong. Please try again."
+msgstr ""
+
+#: includes/Trial/Trial.php:487
+msgid "Talkwyn isn't connected to a site yet. Paste your key in the License tab to start."
+msgstr ""
+
+#. translators: 1: site list, 2: date
+#: includes/Trial/Trial.php:500
+#, php-format
+msgid "Talkwyn Pro is running on %1$s, last seen %2$s."
+msgstr ""
+
+#: includes/Trial/Trial.php:502
+msgid "not yet"
+msgstr ""
+
+#: includes/Trial/Trial.php:573
+msgid "Start my free trial"
+msgstr ""
+
+#: includes/Trial/Trial.php:596
+msgid "Your trial has started."
+msgstr ""
+
+#: includes/Trial/Trial.php:596
+msgid "We emailed your license key and your account details. Your key is also in your account."
+msgstr ""
+
+#: includes/Trial/Trial.php:597
+msgid "See it in your account"
+msgstr ""
+
+#: includes/Trial/Trial.php:614
+msgid "Leave this empty"
+msgstr ""
+
+#: includes/Trial/Trial.php:615
+msgid "First name"
+msgstr ""
+
+#: includes/Trial/Trial.php:617
+msgid "Website address (example.com)"
+msgstr ""
+
+#. translators: %d: trial days
+#: includes/Trial/Trial.php:621
+#, php-format
+msgid "Every Pro feature for %d days on one site. We email you a link to confirm your address first."
+msgstr ""
+
+#: includes/Trial/Trial.php:641
+msgid "Sending..."
+msgstr ""
+
+#: includes/Trial/Trial.php:653
+msgid "Check your inbox"
+msgstr ""
+
+#. translators: 1: email, 2: URL
+#: includes/Trial/Trial.php:869
+#, php-format
+msgid "Your key is also saved in your account (%1$s). Log in any time: %2$s"
+msgstr ""
+
+#. translators: 1: email, 2: URL
+#: includes/Trial/Trial.php:874
+#, php-format
+msgid "We created your account with %1$s. Use \"Lost password\" on %2$s to set a password."
+msgstr ""
+
+#. translators: 1: site name, 2: email, 3: set password URL, 4: account URL
+#: includes/Trial/Trial.php:886
+#, php-format
+msgid ""
+"Your account\n"
+"We created a %1$s account for you. Log in with your email: %2$s\n"
+"Set your password (link works for 24 hours): %3$s\n"
+"After that, see your license, downloads and invoices at %4$s"
+msgstr ""
+
+#: includes/Woo/Cart.php:123
+msgid "This renewal link is not valid."
+msgstr ""
+
+#: includes/Woo/Cart.php:132
+msgid "This license cannot be renewed online. Please contact support."
+msgstr ""
+
+#: includes/Woo/Cart.php:137
+msgid "The renewal product is currently unavailable. Please contact support."
+msgstr ""
+
+#: includes/Woo/Cart.php:145
+msgid "Could not add the renewal to your cart."
+msgstr ""
+
+#: includes/Woo/Cart.php:233
+msgid "This upgrade is not available for your license."
+msgstr ""
+
+#: includes/Woo/Cart.php:239
+msgid "Could not add the upgrade to your cart."
+msgstr ""
+
+#: includes/Woo/Cart.php:292
+msgid "Renewal of license"
+msgstr ""
+
+#: includes/Woo/Cart.php:293
+msgid "Upgrade of license"
+msgstr ""
+
+#: includes/Woo/Cart.php:294
+msgid "Upgrade of your trial"
+msgstr ""
+
+#: includes/Woo/Cart.php:302
+#: includes/Woo/Cart.php:314
+msgid "Note"
+msgstr ""
+
+#: includes/Woo/Cart.php:303
+msgid "You keep the same license key. Your yearly term starts today."
+msgstr ""
+
+#: includes/Woo/Cart.php:308
+msgid "Renewal discount"
+msgstr ""
+
+#: includes/Woo/Cart.php:315
+msgid "Prorated for the remaining license term. Your key and expiry date stay the same."
+msgstr ""
+
+#: includes/Woo/Cart.php:365
+msgid "Renewals and upgrades are limited to a quantity of 1."
+msgstr ""
+
+#: includes/Woo/Cart.php:410
+msgid "A license renewal or upgrade in your cart is no longer valid and was removed."
+msgstr ""
+
+#: includes/Woo/Invoices.php:119
+#: includes/Woo/Invoices.php:184
+#: includes/Woo/Invoices.php:262
+#: templates/account/invoice.php:50
+msgid "Invoice"
+msgstr ""
+
+#: includes/Woo/Invoices.php:134
+msgid "View and download invoice"
+msgstr ""
+
+#: includes/Woo/Invoices.php:150
+msgid "View and download your invoice"
+msgstr ""
+
+#. translators: %s: invoice number
+#. translators: %s: order number
+#: includes/Woo/Invoices.php:169
+#: includes/Woo/Invoices.php:211
+#: templates/account/invoice.php:28
+#, php-format
+msgid "Invoice %s"
+msgstr ""
+
+#: includes/Woo/Invoices.php:184
+msgid "This invoice link is not valid, or you need to log in to see it."
+msgstr ""
+
+#. translators: %s: order number
+#: includes/Woo/Invoices.php:213
+#, php-format
+msgid "Order %s (not paid yet)"
+msgstr ""
+
+#: includes/Woo/Invoices.php:258
+msgid "Back to your orders"
+msgstr ""
+
+#: includes/Woo/Invoices.php:259
+msgid "Print or save as PDF"
+msgstr ""
+
+#: includes/Woo/Invoices.php:261
+msgid "Tax ID"
+msgstr ""
+
+#: includes/Woo/Invoices.php:262
+msgid "Order summary"
+msgstr ""
+
+#: includes/Woo/Invoices.php:263
+msgid "Not paid"
+msgstr ""
+
+#: includes/Woo/Invoices.php:264
+#: templates/account/invoice.php:64
+msgid "Billed to"
+msgstr ""
+
+#: includes/Woo/Invoices.php:266
+msgid "Invoice number"
+msgstr ""
+
+#: includes/Woo/Invoices.php:267
+msgid "Invoice date"
+msgstr ""
+
+#: includes/Woo/Invoices.php:268
+msgid "Order number"
+msgstr ""
+
+#: includes/Woo/Invoices.php:269
+msgid "Payment method"
+msgstr ""
+
+#: includes/Woo/Invoices.php:271
+#: templates/account/invoice.php:78
+msgid "Item"
+msgstr ""
+
+#: includes/Woo/Invoices.php:271
+#: templates/account/invoice.php:79
+msgid "Qty"
+msgstr ""
+
+#: includes/Woo/OrderDisplay.php:92
+msgid "Renews license"
+msgstr ""
+
+#: includes/Woo/OrderDisplay.php:92
+msgid "Upgrades license"
+msgstr ""
+
+#: includes/Woo/OrderDisplay.php:101
+#: includes/Woo/OrderDisplay.php:107
+#: templates/account/license-detail.php:42
+#: templates/account/licenses.php:25
+msgid "License key"
+msgstr ""
+
+#: includes/Woo/OrderDisplay.php:101
+msgid "Issued as soon as your payment is confirmed."
+msgstr ""
+
+#: includes/Woo/OrderDisplay.php:203
+msgid "Thanks for your order."
+msgstr ""
+
+#: includes/Woo/OrderDisplay.php:203
+msgid "Your license key appears here and in your email as soon as the payment is confirmed."
+msgstr ""
+
+#: includes/Woo/OrderDisplay.php:212
+msgid "You're in."
+msgstr ""
+
+#: includes/Woo/OrderDisplay.php:213
+msgid "Your license is ready. We've also emailed the key to you."
+msgid_plural "Your licenses are ready. We've also emailed the keys to you."
+msgstr[0] ""
+msgstr[1] ""
+
+#: includes/Woo/OrderDisplay.php:215
+#: templates/emails/branded.php:43
+msgid "Your license key"
+msgid_plural "Your license keys"
+msgstr[0] ""
+msgstr[1] ""
+
+#: includes/Woo/OrderDisplay.php:224
+msgid "Download Talkwyn"
+msgstr ""
+
+#: includes/Woo/OrderDisplay.php:224
+msgid "Get the latest version from your account"
+msgstr ""
+
+#: includes/Woo/OrderDisplay.php:224
+msgid "Get the plugin from the download page"
+msgstr ""
+
+#: includes/Woo/OrderDisplay.php:225
+msgid "Activate your license"
+msgstr ""
+
+#: includes/Woo/OrderDisplay.php:225
+msgid "In WordPress, open Talkwyn, go to the License tab, and paste your key."
+msgstr ""
+
+#: includes/Woo/OrderDisplay.php:226
+msgid "Follow the setup guide"
+msgstr ""
+
+#: includes/Woo/OrderDisplay.php:226
+msgid "Scan your site and go live in about five minutes"
+msgstr ""
+
+#: includes/Woo/OrderDisplay.php:229
+msgid "Manage your licenses and sites"
+msgstr ""
+
+#. translators: %s: masked license keys
+#: includes/Woo/OrderHandler.php:160
+#, php-format
+msgid "Talkwyn Hub issued license keys: %s"
+msgstr ""
+
+#. translators: 1: license id, 2: date
+#: includes/Woo/OrderHandler.php:204
+#, php-format
+msgid "Talkwyn Hub renewed license #%1$d until %2$s."
+msgstr ""
+
+#: includes/Woo/OrderHandler.php:224
+msgid "Talkwyn Hub could not apply the upgrade: license or product mapping not found. Please review."
+msgstr ""
+
+#. translators: 1: license id, 2: plan
+#: includes/Woo/OrderHandler.php:251
+#, php-format
+msgid "Talkwyn Hub upgraded license #%1$d to plan \"%2$s\"."
+msgstr ""
+
+#: includes/Woo/OrderHandler.php:270
+msgid "Talkwyn Hub could not convert the trial: license or product mapping not found. Please review."
+msgstr ""
+
+#. translators: 1: license id, 2: plan
+#: includes/Woo/OrderHandler.php:308
+#, php-format
+msgid "Talkwyn Hub converted trial license #%1$d to plan \"%2$s\"."
+msgstr ""
+
+#: includes/Woo/OrderHandler.php:405
+msgid "Talkwyn Hub suspended the licenses of this order (order put on hold after payment)."
+msgstr ""
+
+#. translators: %d: license id
+#: includes/Woo/OrderHandler.php:516
+#, php-format
+msgid "Renewal/upgrade reversed for license #%d"
+msgstr ""
+
+#. translators: 1: order number, 2: reason
+#: includes/Woo/OrderHandler.php:518
+#, php-format
+msgid "Order %1$s was %2$s. The renewal or upgrade it contained has been rolled back."
+msgstr ""
+
+#: includes/Woo/ProductTab.php:52
+msgid "Select a product"
+msgstr ""
+
+#: includes/Woo/ProductTab.php:69
+msgid "Issue license keys"
+msgstr ""
+
+#: includes/Woo/ProductTab.php:70
+msgid "Create a license key for each unit purchased."
+msgstr ""
+
+#: includes/Woo/ProductTab.php:84
+msgid "For variable products, each variation can override activation limit, duration, plan and features. Empty variation fields inherit these values."
+msgstr ""
+
+#: includes/Woo/ProductTab.php:113
+msgid "Number of production sites. 0 = unlimited. Dev/staging sites never count."
+msgstr ""
+
+#: includes/Woo/ProductTab.php:117
+#: includes/Woo/ProductTab.php:134
+#: includes/Woo/ProductTab.php:150
+#: includes/Woo/ProductTab.php:162
+msgid "Inherit"
+msgstr ""
+
+#: includes/Woo/ProductTab.php:129
+msgid "License duration (days)"
+msgstr ""
+
+#: includes/Woo/ProductTab.php:130
+msgid "0 = lifetime (never expires)."
+msgstr ""
+
+#: includes/Woo/ProductTab.php:147
+msgid "e.g. personal, business, agency, lifetime. Sent to the client plugin."
+msgstr ""
+
+#: includes/Woo/ProductTab.php:159
+msgid "Comma-separated feature flags sent to the client, e.g. pro,white_label."
+msgstr ""
+
+#: includes/Woo/ProductTab.php:194
+msgid "Talkwyn Hub (leave empty to inherit)"
+msgstr ""
+
+#: templates/account/downloads.php:17
+msgid "Downloads appear here for every active license."
+msgstr ""
+
+#: templates/account/downloads.php:22
+msgid "Download links are valid for 10 minutes. Reload this page to get a fresh link. Updates also arrive automatically in your WordPress dashboard."
+msgstr ""
+
+#: templates/account/downloads.php:29
+msgid "Download ZIP"
+msgstr ""
+
+#: templates/account/downloads.php:34
+msgid "What changed"
+msgstr ""
+
+#: templates/account/invoice.php:46
+msgid "Print / Save as PDF"
+msgstr ""
+
+#. translators: %s: order number
+#: templates/account/invoice.php:52
+#, php-format
+msgid "Invoice no. %s"
+msgstr ""
+
+#. translators: %s: date
+#: templates/account/invoice.php:53
+#, php-format
+msgid "Date: %s"
+msgstr ""
+
+#. translators: %s: payment method
+#: templates/account/invoice.php:54
+#, php-format
+msgid "Paid via: %s"
+msgstr ""
+
+#. translators: %s: VAT number
+#: templates/account/invoice.php:71
+#, php-format
+msgid "VAT: %s"
+msgstr ""
+
+#: templates/account/invoice.php:80
+msgid "Total"
+msgstr ""
+
+#: templates/account/invoice.php:101
+msgid "Thank you for your business."
+msgstr ""
+
+#: templates/account/license-detail.php:47
+msgid "Paste it into Talkwyn → Settings → License on your website."
+msgstr ""
+
+#: templates/account/license-detail.php:54
+msgid "renews automatically"
+msgstr ""
+
+#: templates/account/license-detail.php:62
+msgid "Manage subscription"
+msgstr ""
+
+#: templates/account/license-detail.php:62
+msgid "Renew license"
+msgstr ""
+
+#: templates/account/license-detail.php:68
+msgid "Activated sites"
+msgstr ""
+
+#: templates/account/license-detail.php:70
+msgid "This license is not active on any site yet. Paste the key into Talkwyn → Settings → License on your website."
+msgstr ""
+
+#: templates/account/license-detail.php:78
+msgid "Staging, free"
+msgstr ""
+
+#. translators: 1: plugin version, 2: last check date
+#: templates/account/license-detail.php:85
+#, php-format
+msgid "Version %1$s · last check %2$s"
+msgstr ""
+
+#: templates/account/license-detail.php:87
+msgid "never"
+msgstr ""
+
+#: templates/account/license-detail.php:93
+msgid "Deactivate this site? Pro features will stop working there."
+msgstr ""
+
+#: templates/account/license-detail.php:111
+msgid "Move to a bigger plan and keep the same license key. You only pay the difference for the time left on your license."
+msgstr ""
+
+#. translators: %s: number of sites
+#: templates/account/license-detail.php:121
+#: templates/account/license-detail.php:145
+#, php-format
+msgid "%s sites"
+msgstr ""
+
+#: templates/account/license-detail.php:126
+#: templates/account/license-detail.php:150
+msgid "Upgrade now"
+msgstr ""
+
+#: templates/account/license-detail.php:133
+msgid "Keep Pro after your trial"
+msgstr ""
+
+#: templates/account/license-detail.php:134
+msgid "Choose a plan. You keep the same license key and your yearly term starts the day you pay."
+msgstr ""
+
+#: templates/account/licenses.php:21
+msgid "Bought as a guest or received a key?"
+msgstr ""
+
+#: templates/account/licenses.php:21
+msgid "Enter it to add it to your account."
+msgstr ""
+
+#: templates/account/licenses.php:27
+msgid "Add license"
+msgstr ""
+
+#: templates/account/licenses.php:36
+msgid "You have no licenses yet."
+msgstr ""
+
+#: templates/account/licenses.php:37
+msgid "Talkwyn Pro adds paid AI models, analytics, and more sites."
+msgstr ""
+
+#: templates/account/licenses.php:38
+msgid "See plans"
+msgstr ""
+
+#: templates/account/licenses.php:70
+msgid "Renew"
+msgstr ""
+
+#: templates/account/licenses.php:72
+msgid "Manage sites and upgrades"
+msgstr ""

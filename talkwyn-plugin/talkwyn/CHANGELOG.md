@@ -1,5 +1,10 @@
 # Talkwyn changelog
 
+## 2.3.0
+
+### Changed
+- The chat keeps its own look on any theme or page builder: every widget style has ID-level weight, and the send icon, inputs, text and scrollbar are locked against theme rules (including theme-wide scrollbar colours and arrows). Tested against hostile rules such as `button svg { display: none !important }`, theme-wide `::-webkit-scrollbar` colours and arrows, and serif fonts on `p`.
+
 ## 2.2.3
 
 ### Added

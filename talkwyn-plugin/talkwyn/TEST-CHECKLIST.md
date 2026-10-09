@@ -1,4 +1,4 @@
-# Talkwyn 2.2.3 test checklist
+# Talkwyn 2.3.0 test checklist
 
 The full run, including Pro and migration, is in `../QA-CHECKLIST.md`. This list covers what changed in 2.1.0.
 
@@ -36,6 +36,9 @@ The full run, including Pro and migration, is in `../QA-CHECKLIST.md`. This list
 
 ## Leads
 - [ ] Ask about a quote in the chat, choose "Yes, contact me", fill name, email, phone and consent, send: "Lead saved" shows with a reference, and the lead appears under Leads with Source "Chat".
+
+## Theme conflicts
+- [ ] On a theme with heavy button, input, paragraph and scrollbar styles (for example a purple Elementor kit), the chat looks the same as on a plain theme: arrow icon in the send button, slim grey scrollbar without arrows, chat font in answers.
 
 ## Spam
 - [ ] Lead or transcript form sent in under 2.5 seconds is ignored; a normal fill is saved.

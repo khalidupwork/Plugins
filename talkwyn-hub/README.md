@@ -119,9 +119,10 @@ To pull a broken release, uncheck **Active**. Clients then see the previous acti
 
 A 15-day Pro trial that needs no card. Settings live under **Talkwyn Hub → Settings → Trial**: on/off, length, the plan it includes, the reminder days (default 5 and 2 days left), the disposable email list, and the card mode.
 
-- **Start it:** put `[twh_trial_form]` on a page (the website uses `/pricing/#trial`). The form asks for first name, email and website. It has a honeypot, a minimum fill time and a limit of 5 starts per IP per hour.
+- **Start it:** put `[twh_trial_form]` on a page (the website uses `/pricing/#trial`; the header popup uses `[twh_trial_form labels="hidden"]` for placeholders only). The form asks for first name, email and website and sends over AJAX (it still works without JavaScript). It has a honeypot, a minimum fill time, a fresh nonce per submit and a limit of 5 starts per IP per hour.
+- **Confirm first (since 1.4.0):** the form only sends a "Confirm your email" message. Nothing is created until the link in it is opened (valid 48 hours, single use, one email per address every 2 minutes). Opening it creates the customer account if the email has none (role `customer`), issues the trial license, signs a brand-new account in and opens **My Account → Licenses**. The second email carries the key plus a "Set your password" link (24 hours; "Lost password" works any time). Existing accounts get the key added and a "log in any time" line instead, and are never signed in by the link.
 - **One per person and per site:** the same email (Gmail dots and `+tags` ignored), the same domain, disposable emails, `localhost` and dev hosts are refused.
-- **What they get:** a real key for 1 site, emailed at once, with the plan's features. If the visitor is logged in with the same email, it shows in My Account too.
+- **What they get:** a real key for 1 site with the plan's features, in the email and in My Account.
 - **During the trial:** "Trial: X days left" in My Account and in the plugin, reminder emails, and an "Upgrade now" box on the license page.
 - **At the end:** the daily cron expires it and sends "Your trial has ended". The plugin falls back to the free plan.
 - **Upgrade:** keeps the same key. The checkout line is "Upgrade trial to Business" and the term starts on the payment day. A refund turns it back into an ended trial.
@@ -160,7 +161,7 @@ Customers open a printable invoice from **My Account, Orders and invoices** (the
 | Products | Software products, icons, banners and the description shown in "View details" |
 | Partners | Approve or suspend partners, rate override, coupon, code; approve or reject referrals (a reason is required); payouts due, CSV export, mark paid, history; fraud signals (many sales from one IP, buys under 60 seconds after the click, high refund rate) |
 | Logs | Filter by type, license and date |
-| Settings | Email templates (placeholders), reminder days, renewal discount, rate limits, dev domains, log retention, signing keys (view, rotate), delete data on uninstall, system status |
+| Settings | Tabs: General (reminders, renewal discount, rate limits, dev domains, log retention, uninstall), Trial, Partners, Invoices, Emails (one card per template, placeholders click to copy), Signing keys (view, rotate), System status |
 
 All screens require `manage_woocommerce` (filter: `twh_admin_capability`).
 
@@ -185,7 +186,8 @@ To change the layout, copy `templates/emails/branded.php` to `yourtheme/talkwyn-
 | Expired | On expiry, with a one-click renewal link |
 | Renewed | After a renewal payment |
 | Admin notice | License revoked (refund, cancellation, chargeback); a renewal or upgrade rolled back |
-| Trial started | Trial form submitted: key and setup steps |
+| Trial: confirm email | Trial form submitted: one-time link to confirm the address |
+| Trial started | Confirmation link opened: key, setup steps, account and set-password link (`{login_details}`) |
 | Trial reminder | Days left in the trial (default 5 and 2) |
 | Trial ended | Trial expired, with a one-click upgrade link |
 | Trial upgraded | Trial converted to a paid plan |

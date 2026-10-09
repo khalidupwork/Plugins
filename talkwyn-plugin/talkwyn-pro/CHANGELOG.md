@@ -1,5 +1,9 @@
 # Talkwyn Pro changelog
 
+## 1.2.3
+
+- Pro widget styles (product cards and more) use the same ID-level weight as Talkwyn 2.3.0, so themes and page builders cannot restyle them.
+
 ## 1.2.2
 
 - Includes the active talkwyn.com Hub public key in `includes/hub-keys.php`. License responses and updates are verified without any wp-config setting.

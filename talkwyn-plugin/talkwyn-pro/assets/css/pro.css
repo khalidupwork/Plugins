@@ -1,5 +1,5 @@
 /* Talkwyn Pro widget additions. */
-.twc-cards {
+:is(.twc,#twc-boost) .twc-cards {
 	display: flex;
 	gap: 10px;
 	overflow-x: auto;
@@ -8,7 +8,7 @@
 	scroll-snap-type: x mandatory;
 }
 
-.twc-card {
+:is(.twc,#twc-boost) .twc-card {
 	flex: 0 0 200px;
 	scroll-snap-align: start;
 	background: var(--twc-surface, #fff);
@@ -19,7 +19,7 @@
 	flex-direction: column;
 }
 
-.twc-card img {
+:is(.twc,#twc-boost) .twc-card img {
 	width: 100%;
 	aspect-ratio: 4 / 3;
 	object-fit: cover;
@@ -27,7 +27,7 @@
 	background: var(--twc-linen, #F7F3F3);
 }
 
-.twc-card__body {
+:is(.twc,#twc-boost) .twc-card__body {
 	padding: 10px 12px 12px;
 	display: flex;
 	flex-direction: column;
@@ -35,7 +35,7 @@
 	flex: 1 1 auto;
 }
 
-.twc .twc-card__title {
+:is(.twc,#twc-boost) .twc-card__title {
 	color: var(--twc-ink, #1A0F12);
 	font-weight: 700;
 	font-size: 14px;
@@ -43,35 +43,35 @@
 	text-decoration: none;
 }
 
-.twc-card__price {
+:is(.twc,#twc-boost) .twc-card__price {
 	font-size: 14px;
 	color: var(--twc-ink, #1A0F12);
 }
 
-.twc-card__actions {
+:is(.twc,#twc-boost) .twc-card__actions {
 	display: flex;
 	flex-wrap: wrap;
 	gap: 6px;
 	margin-top: auto;
 }
 
-.twc .twc-card__actions .twc-btn {
+:is(.twc,#twc-boost) .twc-card__actions .twc-btn {
 	min-height: 34px;
 	padding: 6px 12px;
 	font-size: 13px;
 	text-decoration: none;
 }
 
-.twc-card__out {
+:is(.twc,#twc-boost) .twc-card__out {
 	font-size: 13px;
 	color: var(--twc-muted, #6B5E61);
 }
 
-.twc.is-away .twc-status::before {
+:is(.twc,#twc-boost).is-away .twc-status::before {
 	background: #94878A;
 }
 
-.twc-teaser {
+:is(.twc,#twc-boost) .twc-teaser {
 	position: absolute;
 	inset-block-end: 76px;
 	inset-inline-end: 0;
@@ -88,13 +88,13 @@
 	animation: twc-in 240ms cubic-bezier(.2, .8, .2, 1);
 }
 
-.twc--left .twc-teaser {
+:is(.twc,#twc-boost).twc--left .twc-teaser {
 	inset-inline-end: auto;
 	inset-inline-start: 0;
 	border-radius: 18px 18px 18px 6px;
 }
 
-.twc .twc-teaser__text {
+:is(.twc,#twc-boost) .twc-teaser__text {
 	padding: 10px 6px 10px 14px;
 	font-size: 15px;
 	line-height: 1.45;
@@ -102,7 +102,7 @@
 	color: var(--twc-ink, #1A0F12);
 }
 
-.twc .twc-teaser__close {
+:is(.twc,#twc-boost) .twc-teaser__close {
 	flex: 0 0 28px;
 	width: 28px;
 	height: 28px;
@@ -112,7 +112,7 @@
 	color: var(--twc-muted, #6B5E61);
 }
 
-.twc-teaser__close svg {
+:is(.twc,#twc-boost) .twc-teaser__close svg {
 	width: 16px;
 	height: 16px;
 	fill: none;
@@ -121,6 +121,6 @@
 	stroke-linecap: round;
 }
 
-.twc.is-open .twc-teaser {
+:is(.twc,#twc-boost).is-open .twc-teaser {
 	display: none;
 }

@@ -4,7 +4,7 @@ Tags: chatbot, ai chatbot, lead generation, multilingual, live chat
 Requires at least: 6.4
 Tested up to: 6.8
 Requires PHP: 8.0
-Stable tag: 2.2.3
+Stable tag: 2.3.0
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
@@ -109,6 +109,9 @@ In your WordPress database. Chats, leads and knowledge stay on your site. Messag
 
 == Changelog ==
 
+= 2.3.0 =
+* Changed: The chat keeps its own look on any theme or page builder: every widget style has ID-level weight, and the send icon, inputs, text and scrollbar are locked against theme rules (including theme-wide scrollbar colours and arrows).
+
 = 2.2.3 =
 * New: the installed Talkwyn version (and the Pro version, when Pro is installed) shows next to the title on Talkwyn screens, so you can confirm an update at a glance.
 
@@ -162,6 +165,9 @@ In your WordPress database. Chats, leads and knowledge stay on your site. Messag
 * Fixed: a full scan removes knowledge of posts that no longer exist.
 
 == Upgrade Notice ==
+
+= 2.3.0 =
+The chat no longer picks up colours, fonts or scrollbars from your theme.
 
 = 2.2.3 =
 Shows the installed version in the Talkwyn header.

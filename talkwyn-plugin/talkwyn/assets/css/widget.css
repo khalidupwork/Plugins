@@ -1,7 +1,7 @@
 /* Talkwyn chat widget. Brand kit v3: white body, Linen bot bubbles with Ink text,
    user bubbles in the owner's colour with Smart Contrast text. */
 
-.twc {
+:is(.twc,#twc-boost) {
 	--twc-brand: #D7263D;
 	--twc-on-brand: #FFFFFF;
 	--twc-ink: #1A0F12;
@@ -25,15 +25,15 @@
 	-webkit-font-smoothing: antialiased;
 }
 
-.twc *,
-.twc *::before,
-.twc *::after {
+:is(.twc,#twc-boost) *,
+:is(.twc,#twc-boost) *::before,
+:is(.twc,#twc-boost) *::after {
 	box-sizing: border-box;
 }
 
-.twc button,
-.twc input,
-.twc textarea {
+:is(.twc,#twc-boost) button,
+:is(.twc,#twc-boost) input,
+:is(.twc,#twc-boost) textarea {
 	font: inherit;
 	color: inherit;
 	letter-spacing: normal;
@@ -44,7 +44,7 @@
 	max-width: none;
 }
 
-.twc button {
+:is(.twc,#twc-boost) button {
 	cursor: pointer;
 	background: none;
 	border: 0;
@@ -56,16 +56,16 @@
 	height: auto;
 }
 
-.twc svg {
+:is(.twc,#twc-boost) svg {
 	display: block;
 }
 
-.twc :focus-visible {
+:is(.twc,#twc-boost) :focus-visible {
 	outline: 2px solid var(--twc-brand);
 	outline-offset: 2px;
 }
 
-.twc-sr {
+:is(.twc,#twc-boost) .twc-sr {
 	position: absolute !important;
 	width: 1px;
 	height: 1px;
@@ -78,31 +78,31 @@
 }
 
 /* Floating position */
-.twc--floating {
+:is(.twc,#twc-boost).twc--floating {
 	position: fixed;
 	inset-block-end: 20px;
 	inset-inline-end: 20px;
 	z-index: 2147483000;
 }
 
-.twc--floating.twc--left {
+:is(.twc,#twc-boost).twc--floating.twc--left {
 	inset-inline-end: auto;
 	inset-inline-start: 20px;
 }
 
 /* Launcher */
-.twc-launcher-wrap {
+:is(.twc,#twc-boost) .twc-launcher-wrap {
 	display: flex;
 	align-items: center;
 	gap: 10px;
 	justify-content: flex-end;
 }
 
-.twc--left .twc-launcher-wrap {
+:is(.twc,#twc-boost).twc--left .twc-launcher-wrap {
 	flex-direction: row-reverse;
 }
 
-.twc-launcher-label {
+:is(.twc,#twc-boost) .twc-launcher-label {
 	background: var(--twc-surface);
 	color: var(--twc-ink);
 	border: 1px solid var(--twc-border);
@@ -114,7 +114,7 @@
 	white-space: nowrap;
 }
 
-.twc .twc-launcher {
+:is(.twc,#twc-boost) .twc-launcher {
 	width: 60px;
 	height: 60px;
 	border-radius: 50%;
@@ -126,21 +126,21 @@
 	transition: transform var(--twc-dur, 200ms) var(--twc-ease), box-shadow 200ms var(--twc-ease);
 }
 
-.twc .twc-launcher:hover {
+:is(.twc,#twc-boost) .twc-launcher:hover {
 	transform: translateY(-2px);
 	box-shadow: 0 16px 36px rgba(26, 15, 18, .26);
 }
 
-.twc-launcher .twc-icon {
+:is(.twc,#twc-boost) .twc-launcher .twc-icon {
 	width: 30px;
 	height: 30px;
 }
 
-.twc-icon {
+:is(.twc,#twc-boost) .twc-icon {
 	fill: currentColor;
 }
 
-.twc-icon .twc-stroke {
+:is(.twc,#twc-boost) .twc-icon .twc-stroke {
 	fill: none;
 	stroke: currentColor;
 	stroke-width: 2;
@@ -148,12 +148,12 @@
 	stroke-linejoin: round;
 }
 
-.twc.is-open .twc-launcher-label {
+:is(.twc,#twc-boost).is-open .twc-launcher-label {
 	display: none;
 }
 
 /* Panel */
-.twc-panel {
+:is(.twc,#twc-boost) .twc-panel {
 	display: flex;
 	flex-direction: column;
 	background: var(--twc-surface);
@@ -163,11 +163,11 @@
 	overflow: hidden;
 }
 
-.twc-panel[hidden] {
+:is(.twc,#twc-boost) .twc-panel[hidden] {
 	display: none !important;
 }
 
-.twc--floating .twc-panel {
+:is(.twc,#twc-boost).twc--floating .twc-panel {
 	position: absolute;
 	inset-block-end: 76px;
 	inset-inline-end: 0;
@@ -176,19 +176,19 @@
 	animation: twc-in 240ms var(--twc-ease);
 }
 
-.twc--floating.twc--left .twc-panel {
+:is(.twc,#twc-boost).twc--floating.twc--left .twc-panel {
 	inset-inline-end: auto;
 	inset-inline-start: 0;
 }
 
-.twc--inline {
+:is(.twc,#twc-boost).twc--inline {
 	position: relative;
 	width: 100%;
 	max-width: 100%;
 	margin: 0 auto;
 }
 
-.twc--inline .twc-panel {
+:is(.twc,#twc-boost).twc--inline .twc-panel {
 	height: var(--twc-inline-height, var(--twc-height));
 	box-shadow: 0 8px 24px rgba(26, 15, 18, .08);
 }
@@ -205,7 +205,7 @@
 }
 
 /* Full screen */
-.twc.is-full .twc-panel {
+:is(.twc,#twc-boost).is-full .twc-panel {
 	position: fixed;
 	inset: 0;
 	width: 100vw;
@@ -215,7 +215,7 @@
 	border: 0;
 }
 
-.twc.is-full .twc-launcher-wrap {
+:is(.twc,#twc-boost).is-full .twc-launcher-wrap {
 	display: none;
 }
 
@@ -225,7 +225,7 @@ html.twc-lock body {
 }
 
 /* Header */
-.twc-header {
+:is(.twc,#twc-boost) .twc-header {
 	display: flex;
 	align-items: center;
 	gap: 12px;
@@ -234,7 +234,7 @@ html.twc-lock body {
 	background: var(--twc-surface);
 }
 
-.twc-avatar {
+:is(.twc,#twc-boost) .twc-avatar {
 	flex: 0 0 auto;
 	width: 40px;
 	height: 40px;
@@ -246,30 +246,30 @@ html.twc-lock body {
 	overflow: hidden;
 }
 
-.twc-avatar .twc-icon {
+:is(.twc,#twc-boost) .twc-avatar .twc-icon {
 	width: 24px;
 	height: 24px;
 }
 
-.twc-avatar img {
+:is(.twc,#twc-boost) .twc-avatar img {
 	width: 100%;
 	height: 100%;
 	object-fit: cover;
 }
 
-.twc-avatar__text {
+:is(.twc,#twc-boost) .twc-avatar__text {
 	font-weight: 700;
 	font-size: 16px;
 }
 
-.twc-identity {
+:is(.twc,#twc-boost) .twc-identity {
 	display: flex;
 	flex-direction: column;
 	min-width: 0;
 	flex: 1 1 auto;
 }
 
-.twc-name {
+:is(.twc,#twc-boost) .twc-name {
 	font-weight: 700;
 	font-size: 16px;
 	line-height: 1.25;
@@ -278,7 +278,7 @@ html.twc-lock body {
 	white-space: nowrap;
 }
 
-.twc-status {
+:is(.twc,#twc-boost) .twc-status {
 	display: inline-flex;
 	align-items: center;
 	gap: 6px;
@@ -286,7 +286,7 @@ html.twc-lock body {
 	color: var(--twc-muted);
 }
 
-.twc-status::before {
+:is(.twc,#twc-boost) .twc-status::before {
 	content: "";
 	width: 8px;
 	height: 8px;
@@ -294,13 +294,13 @@ html.twc-lock body {
 	background: #1F8A5B;
 }
 
-.twc-tools {
+:is(.twc,#twc-boost) .twc-tools {
 	display: flex;
 	align-items: center;
 	gap: 2px;
 }
 
-.twc .twc-head-btn {
+:is(.twc,#twc-boost) .twc-head-btn {
 	width: 36px;
 	height: 36px;
 	border-radius: 10px;
@@ -310,14 +310,14 @@ html.twc-lock body {
 	transition: background 150ms, color 150ms;
 }
 
-.twc .twc-head-btn:hover {
+:is(.twc,#twc-boost) .twc-head-btn:hover {
 	background: var(--twc-linen);
 	color: var(--twc-ink);
 }
 
-.twc-head-btn svg,
-.twc-tool svg,
-.twc-send svg {
+:is(.twc,#twc-boost) .twc-head-btn svg,
+:is(.twc,#twc-boost) .twc-tool svg,
+:is(.twc,#twc-boost) .twc-send svg {
 	width: 20px;
 	height: 20px;
 	fill: none;
@@ -327,19 +327,19 @@ html.twc-lock body {
 	stroke-linejoin: round;
 }
 
-.twc-head-btn .twc-off,
-.twc-sound.is-muted .twc-on,
-.twc.is-full .twc-expand .twc-on {
+:is(.twc,#twc-boost) .twc-head-btn .twc-off,
+:is(.twc,#twc-boost) .twc-sound.is-muted .twc-on,
+:is(.twc,#twc-boost).is-full .twc-expand .twc-on {
 	display: none;
 }
 
-.twc-sound.is-muted .twc-off,
-.twc.is-full .twc-expand .twc-off {
+:is(.twc,#twc-boost) .twc-sound.is-muted .twc-off,
+:is(.twc,#twc-boost).is-full .twc-expand .twc-off {
 	display: inline;
 }
 
 /* Messages */
-.twc-messages {
+:is(.twc,#twc-boost) .twc-messages {
 	flex: 1 1 auto;
 	overflow-y: auto;
 	overscroll-behavior: contain;
@@ -351,18 +351,18 @@ html.twc-lock body {
 	scroll-behavior: smooth;
 }
 
-.twc-msg {
+:is(.twc,#twc-boost) .twc-msg {
 	display: flex;
 	flex-direction: column;
 	align-items: flex-start;
 	max-width: 100%;
 }
 
-.twc-msg--user {
+:is(.twc,#twc-boost) .twc-msg--user {
 	align-items: flex-end;
 }
 
-.twc-bubble {
+:is(.twc,#twc-boost) .twc-bubble {
 	max-width: 78%;
 	padding: 10px 14px;
 	border-radius: 18px;
@@ -372,54 +372,54 @@ html.twc-lock body {
 	word-break: normal;
 }
 
-.twc-msg--bot .twc-bubble {
+:is(.twc,#twc-boost) .twc-msg--bot .twc-bubble {
 	background: var(--twc-linen);
 	color: var(--twc-ink);
 	border-end-start-radius: 6px;
 }
 
-.twc-msg--user .twc-bubble {
+:is(.twc,#twc-boost) .twc-msg--user .twc-bubble {
 	background: var(--twc-brand);
 	color: var(--twc-on-brand);
 	border-end-end-radius: 6px;
 	white-space: pre-wrap;
 }
 
-.twc-bubble p {
+:is(.twc,#twc-boost) .twc-bubble p {
 	margin: 0 0 8px;
 	font-size: inherit;
 	line-height: inherit;
 }
 
-.twc-bubble p:last-child,
-.twc-bubble ul:last-child,
-.twc-bubble ol:last-child {
+:is(.twc,#twc-boost) .twc-bubble p:last-child,
+:is(.twc,#twc-boost) .twc-bubble ul:last-child,
+:is(.twc,#twc-boost) .twc-bubble ol:last-child {
 	margin-bottom: 0;
 }
 
-.twc-bubble ul,
-.twc-bubble ol {
+:is(.twc,#twc-boost) .twc-bubble ul,
+:is(.twc,#twc-boost) .twc-bubble ol {
 	margin: 0 0 8px;
 	padding-inline-start: 20px;
 }
 
-.twc-bubble li {
+:is(.twc,#twc-boost) .twc-bubble li {
 	margin: 2px 0;
 }
 
-.twc-bubble a {
+:is(.twc,#twc-boost) .twc-bubble a {
 	color: inherit;
 	text-decoration: underline;
 	text-underline-offset: 2px;
 	font-weight: 600;
 }
 
-.twc-msg--bot .twc-bubble a {
+:is(.twc,#twc-boost) .twc-msg--bot .twc-bubble a {
 	color: var(--twc-ink);
 	text-decoration-color: var(--twc-brand);
 }
 
-.twc-bubble code {
+:is(.twc,#twc-boost) .twc-bubble code {
 	font-family: ui-monospace, Menlo, monospace;
 	font-size: .9em;
 	background: rgba(26, 15, 18, .06);
@@ -427,7 +427,7 @@ html.twc-lock body {
 	border-radius: 6px;
 }
 
-.twc-sources {
+:is(.twc,#twc-boost) .twc-sources {
 	max-width: 78%;
 	margin-top: 6px;
 	display: flex;
@@ -437,11 +437,11 @@ html.twc-lock body {
 	font-size: 13px;
 }
 
-.twc-sources__label {
+:is(.twc,#twc-boost) .twc-sources__label {
 	color: var(--twc-muted);
 }
 
-.twc-sources a {
+:is(.twc,#twc-boost) .twc-sources a {
 	color: var(--twc-ink);
 	background: var(--twc-surface);
 	border: 1px solid var(--twc-border);
@@ -454,11 +454,11 @@ html.twc-lock body {
 	white-space: nowrap;
 }
 
-.twc-sources a:hover {
+:is(.twc,#twc-boost) .twc-sources a:hover {
 	border-color: var(--twc-brand);
 }
 
-.twc-meta {
+:is(.twc,#twc-boost) .twc-meta {
 	display: flex;
 	align-items: center;
 	gap: 8px;
@@ -466,17 +466,17 @@ html.twc-lock body {
 	min-height: 24px;
 }
 
-.twc-time {
+:is(.twc,#twc-boost) .twc-time {
 	font-size: 12px;
 	color: var(--twc-muted);
 }
 
-.twc-msg-tools {
+:is(.twc,#twc-boost) .twc-msg-tools {
 	display: flex;
 	gap: 2px;
 }
 
-.twc .twc-tool {
+:is(.twc,#twc-boost) .twc-tool {
 	width: 28px;
 	height: 28px;
 	border-radius: 8px;
@@ -485,32 +485,32 @@ html.twc-lock body {
 	color: var(--twc-muted);
 }
 
-.twc .twc-tool svg {
+:is(.twc,#twc-boost) .twc-tool svg {
 	width: 16px;
 	height: 16px;
 }
 
-.twc .twc-tool:hover,
-.twc .twc-tool.is-on {
+:is(.twc,#twc-boost) .twc-tool:hover,
+:is(.twc,#twc-boost) .twc-tool.is-on {
 	color: var(--twc-ink);
 	background: var(--twc-linen);
 }
 
 /* Rising Dots typing indicator */
-.twc-typing .twc-bubble {
+:is(.twc,#twc-boost) .twc-typing .twc-bubble {
 	display: inline-flex;
 	align-items: center;
 	gap: 10px;
 }
 
-.twc-dots {
+:is(.twc,#twc-boost) .twc-dots {
 	display: inline-flex;
 	align-items: flex-end;
 	gap: 4px;
 	height: 16px;
 }
 
-.twc-dots i {
+:is(.twc,#twc-boost) .twc-dots i {
 	width: 7px;
 	height: 7px;
 	border-radius: 50%;
@@ -519,12 +519,12 @@ html.twc-lock body {
 	animation: twc-rise 1.2s var(--twc-ease) infinite;
 }
 
-.twc-dots i:nth-child(2) {
+:is(.twc,#twc-boost) .twc-dots i:nth-child(2) {
 	animation-delay: .15s;
 	margin-bottom: 3px;
 }
 
-.twc-dots i:nth-child(3) {
+:is(.twc,#twc-boost) .twc-dots i:nth-child(3) {
 	animation-delay: .3s;
 	margin-bottom: 6px;
 	background: var(--twc-brand);
@@ -542,24 +542,24 @@ html.twc-lock body {
 	}
 }
 
-.twc-typing__label {
+:is(.twc,#twc-boost) .twc-typing__label {
 	font-size: 13px;
 	color: var(--twc-muted);
 }
 
 /* Suggestions */
-.twc-suggestions {
+:is(.twc,#twc-boost) .twc-suggestions {
 	display: flex;
 	flex-wrap: wrap;
 	gap: 8px;
 	padding: 0 16px 10px;
 }
 
-.twc-suggestions:empty {
+:is(.twc,#twc-boost) .twc-suggestions:empty {
 	display: none;
 }
 
-.twc .twc-chip {
+:is(.twc,#twc-boost) .twc-chip {
 	border: 1px solid var(--twc-border);
 	background: var(--twc-surface);
 	border-radius: 999px;
@@ -570,13 +570,13 @@ html.twc-lock body {
 	transition: border-color 150ms, background 150ms;
 }
 
-.twc .twc-chip:hover {
+:is(.twc,#twc-boost) .twc-chip:hover {
 	border-color: var(--twc-brand);
 	background: #FFF1F2;
 }
 
 /* Composer */
-.twc-compose {
+:is(.twc,#twc-boost) .twc-compose {
 	display: flex;
 	align-items: flex-end;
 	gap: 8px;
@@ -588,11 +588,11 @@ html.twc-lock body {
 	transition: border-color 150ms;
 }
 
-.twc-compose:focus-within {
+:is(.twc,#twc-boost) .twc-compose:focus-within {
 	border-color: var(--twc-ink);
 }
 
-.twc .twc-compose textarea {
+:is(.twc,#twc-boost) .twc-compose textarea {
 	flex: 1 1 auto;
 	min-width: 0;
 	border: 0;
@@ -609,11 +609,11 @@ html.twc-lock body {
 	box-shadow: none;
 }
 
-.twc .twc-compose textarea:focus-visible {
+:is(.twc,#twc-boost) .twc-compose textarea:focus-visible {
 	outline: 0;
 }
 
-.twc .twc-send {
+:is(.twc,#twc-boost) .twc-send {
 	flex: 0 0 44px;
 	width: 44px;
 	height: 44px;
@@ -625,22 +625,22 @@ html.twc-lock body {
 	transition: transform 150ms, opacity 150ms;
 }
 
-.twc .twc-send:hover {
+:is(.twc,#twc-boost) .twc-send:hover {
 	transform: translateY(-1px);
 }
 
-[dir="rtl"] .twc-send svg,
-.twc[dir="rtl"] .twc-send svg {
+:is(.twc,#twc-boost)[dir="rtl"] .twc-send svg, [dir="rtl"] :is(.twc,#twc-boost) .twc-send svg,
+:is(.twc,#twc-boost)[dir="rtl"] .twc-send svg {
 	transform: scaleX(-1);
 }
 
-.twc.is-busy .twc-send {
+:is(.twc,#twc-boost).is-busy .twc-send {
 	opacity: .5;
 	pointer-events: none;
 }
 
 /* Footer */
-.twc-foot {
+:is(.twc,#twc-boost) .twc-foot {
 	padding: 0 16px 12px;
 	display: flex;
 	flex-wrap: wrap;
@@ -651,40 +651,40 @@ html.twc-lock body {
 	color: var(--twc-muted);
 }
 
-.twc-foot:empty {
+:is(.twc,#twc-boost) .twc-foot:empty {
 	display: none;
 }
 
-.twc-privacy {
+:is(.twc,#twc-boost) .twc-privacy {
 	margin: 0;
 	flex: 1 1 200px;
 	font-size: 12px;
 	line-height: 1.4;
 }
 
-.twc-handoff {
+:is(.twc,#twc-boost) .twc-handoff {
 	font-weight: 600;
 	color: var(--twc-ink);
 	text-decoration: underline;
 	text-decoration-color: var(--twc-brand);
 }
 
-.twc-handoff:hover {
+:is(.twc,#twc-boost) .twc-handoff:hover {
 	color: var(--twc-ink);
 }
 
 /* Lead offer and form */
-.twc-offer .twc-bubble p {
+:is(.twc,#twc-boost) .twc-offer .twc-bubble p {
 	margin-bottom: 10px;
 }
 
-.twc-offer__actions {
+:is(.twc,#twc-boost) .twc-offer__actions {
 	display: flex;
 	flex-wrap: wrap;
 	gap: 8px;
 }
 
-.twc .twc-btn {
+:is(.twc,#twc-boost) .twc-btn {
 	display: inline-flex;
 	align-items: center;
 	justify-content: center;
@@ -697,37 +697,37 @@ html.twc-lock body {
 	transition: transform 150ms, background 150ms;
 }
 
-.twc .twc-btn--brand {
+:is(.twc,#twc-boost) .twc-btn--brand {
 	background: var(--twc-brand);
 	color: var(--twc-on-brand);
 }
 
-.twc .twc-btn--ghost {
+:is(.twc,#twc-boost) .twc-btn--ghost {
 	background: var(--twc-surface);
 	color: var(--twc-ink);
 	border: 1px solid var(--twc-border);
 }
 
-.twc .twc-btn--block {
+:is(.twc,#twc-boost) .twc-btn--block {
 	width: 100%;
 	min-height: 44px;
 }
 
-.twc .twc-btn:hover {
+:is(.twc,#twc-boost) .twc-btn:hover {
 	transform: translateY(-1px);
 }
 
-.twc .twc-btn:disabled {
+:is(.twc,#twc-boost) .twc-btn:disabled {
 	opacity: .6;
 	transform: none;
 	cursor: default;
 }
 
-.twc-lead {
+:is(.twc,#twc-boost) .twc-lead {
 	align-items: stretch;
 }
 
-.twc-lead__form {
+:is(.twc,#twc-boost) .twc-lead__form {
 	width: min(100%, 340px);
 	background: var(--twc-surface);
 	border: 1px solid var(--twc-border);
@@ -738,12 +738,12 @@ html.twc-lock body {
 	gap: 10px;
 }
 
-.twc-lead__title {
+:is(.twc,#twc-boost) .twc-lead__title {
 	font-size: 15px;
 	font-weight: 700;
 }
 
-.twc-field {
+:is(.twc,#twc-boost) .twc-field {
 	display: flex;
 	flex-direction: column;
 	gap: 4px;
@@ -751,7 +751,7 @@ html.twc-lock body {
 	font-weight: 600;
 }
 
-.twc .twc-field input {
+:is(.twc,#twc-boost) .twc-field input {
 	width: 100%;
 	height: 44px;
 	border: 1px solid var(--twc-border);
@@ -763,11 +763,11 @@ html.twc-lock body {
 	outline: 0;
 }
 
-.twc .twc-field input:focus {
+:is(.twc,#twc-boost) .twc-field input:focus {
 	border-color: var(--twc-ink);
 }
 
-.twc-consent {
+:is(.twc,#twc-boost) .twc-consent {
 	display: flex;
 	gap: 8px;
 	align-items: flex-start;
@@ -775,7 +775,7 @@ html.twc-lock body {
 	line-height: 1.4;
 }
 
-.twc .twc-consent input {
+:is(.twc,#twc-boost) .twc-consent input {
 	width: 18px;
 	height: 18px;
 	margin-top: 1px;
@@ -783,7 +783,7 @@ html.twc-lock body {
 	flex: 0 0 auto;
 }
 
-.twc-hp {
+:is(.twc,#twc-boost) .twc-hp {
 	position: absolute !important;
 	left: -9999px;
 	width: 1px;
@@ -791,23 +791,23 @@ html.twc-lock body {
 	overflow: hidden;
 }
 
-.twc-lead__note {
+:is(.twc,#twc-boost) .twc-lead__note {
 	margin: 0;
 	font-size: 13px;
 	color: var(--twc-error);
 }
 
-.twc-lead__note:empty {
+:is(.twc,#twc-boost) .twc-lead__note:empty {
 	display: none;
 }
 
-.twc-lead__note::before {
+:is(.twc,#twc-boost) .twc-lead__note::before {
 	content: "! ";
 	font-weight: 700;
 }
 
 /* Lead saved: Ink chip */
-.twc-chip-saved {
+:is(.twc,#twc-boost) .twc-chip-saved {
 	display: inline-flex;
 	align-items: center;
 	gap: 6px;
@@ -820,7 +820,7 @@ html.twc-lock body {
 	margin-bottom: 6px;
 }
 
-.twc-chip-saved svg {
+:is(.twc,#twc-boost) .twc-chip-saved svg {
 	width: 14px;
 	height: 14px;
 	fill: none;
@@ -831,11 +831,11 @@ html.twc-lock body {
 }
 
 /* Widget menu */
-.twc-panel {
+:is(.twc,#twc-boost) .twc-panel {
 	position: relative;
 }
 
-.twc-menu {
+:is(.twc,#twc-boost) .twc-menu {
 	position: absolute;
 	inset-block-start: 64px;
 	inset-inline-end: 12px;
@@ -851,11 +851,11 @@ html.twc-lock body {
 	animation: twc-in 160ms var(--twc-ease);
 }
 
-.twc-menu[hidden] {
+:is(.twc,#twc-boost) .twc-menu[hidden] {
 	display: none;
 }
 
-.twc .twc-menu__item {
+:is(.twc,#twc-boost) .twc-menu__item {
 	display: flex;
 	align-items: center;
 	gap: 10px;
@@ -870,13 +870,13 @@ html.twc-lock body {
 	line-height: 1.3;
 }
 
-.twc .twc-menu__item:hover,
-.twc .twc-menu__item:focus-visible {
+:is(.twc,#twc-boost) .twc-menu__item:hover,
+:is(.twc,#twc-boost) .twc-menu__item:focus-visible {
 	background: var(--twc-linen);
 	outline: 0;
 }
 
-.twc-menu__item svg {
+:is(.twc,#twc-boost) .twc-menu__item svg {
 	width: 18px;
 	height: 18px;
 	flex: 0 0 18px;
@@ -888,49 +888,49 @@ html.twc-lock body {
 	color: var(--twc-muted);
 }
 
-.twc-menu__item[data-id="add_chat"] {
+:is(.twc,#twc-boost) .twc-menu__item[data-id="add_chat"] {
 	border-top: 1px solid var(--twc-border);
 	border-radius: 0 0 10px 10px;
 	margin-top: 4px;
 	color: var(--twc-brand);
 }
 
-.twc-menu__item[data-id="add_chat"] svg {
+:is(.twc,#twc-boost) .twc-menu__item[data-id="add_chat"] svg {
 	color: var(--twc-brand);
 }
 
-.twc-head-btn svg circle {
+:is(.twc,#twc-boost) .twc-head-btn svg circle {
 	fill: currentColor;
 	stroke: none;
 }
 
-.twc-sheet {
+:is(.twc,#twc-boost) .twc-sheet {
 	align-items: stretch;
 }
 
-.twc-sheet .twc-offer__actions {
+:is(.twc,#twc-boost) .twc-sheet .twc-offer__actions {
 	margin-top: 2px;
 }
 
-.twc-langs {
+:is(.twc,#twc-boost) .twc-langs {
 	display: flex;
 	flex-wrap: wrap;
 	gap: 6px;
 }
 
-.twc .twc-langs .twc-chip {
+:is(.twc,#twc-boost) .twc-langs .twc-chip {
 	padding: 6px 12px;
 	font-size: 13px;
 }
 
-.twc .twc-chip.is-on {
+:is(.twc,#twc-boost) .twc-chip.is-on {
 	background: var(--twc-ink);
 	border-color: var(--twc-ink);
 	color: #FFFFFF;
 }
 
 /* "Powered by Talkwyn" badge: a Linen pill */
-.twc .twc-badge {
+:is(.twc,#twc-boost) .twc-badge {
 	display: inline-flex;
 	align-items: center;
 	gap: 6px;
@@ -945,41 +945,41 @@ html.twc-lock body {
 	margin-inline-start: auto;
 }
 
-.twc .twc-badge:hover {
+:is(.twc,#twc-boost) .twc-badge:hover {
 	color: var(--twc-ink);
 }
 
-.twc-badge svg {
+:is(.twc,#twc-boost) .twc-badge svg {
 	width: 13px;
 	height: 13px;
 	fill: #D7263D;
 }
 
 /* Small screens */
-@media (max-width: 640px) {
-	.twc--floating {
+:is(.twc,#twc-boost) @media (max-width: 640px) {
+	:is(.twc,#twc-boost).twc--floating {
 		inset-block-end: 14px;
 		inset-inline-end: 14px;
 	}
 
-	.twc--floating.twc--left {
+	:is(.twc,#twc-boost).twc--floating.twc--left {
 		inset-inline-start: 14px;
 	}
 
-	.twc--floating .twc-panel {
+	:is(.twc,#twc-boost).twc--floating .twc-panel {
 		width: calc(100vw - 28px);
 		height: calc(100vh - 100px);
 	}
 
-	.twc-bubble {
+	:is(.twc,#twc-boost) .twc-bubble {
 		max-width: 85%;
 	}
 }
 
 @media (prefers-reduced-motion: reduce) {
-	.twc *,
-	.twc *::before,
-	.twc *::after {
+	:is(.twc,#twc-boost) *,
+:is(.twc,#twc-boost) *::before,
+:is(.twc,#twc-boost) *::after {
 		animation: none !important;
 		transition: none !important;
 		scroll-behavior: auto !important;
@@ -987,13 +987,13 @@ html.twc-lock body {
 }
 
 @media print {
-	.twc--floating {
+	:is(.twc,#twc-boost).twc--floating {
 		display: none !important;
 	}
 }
 
 /* Launcher pulse: a soft ring until the visitor opens the chat once. */
-.twc--pulse:not(.is-open):not(.twc--seen) .twc-launcher {
+:is(.twc,#twc-boost).twc--pulse:not(.is-open):not(.twc--seen) .twc-launcher {
 	animation: twc-pulse 2.4s var(--twc-ease) 1.2s 4;
 }
 
@@ -1004,29 +1004,126 @@ html.twc-lock body {
 }
 
 /* Optional brand gradient header. */
-.twc--gradient .twc-header {
+:is(.twc,#twc-boost).twc--gradient .twc-header {
 	background: var(--twc-brand);
 	background: linear-gradient(135deg, var(--twc-brand), color-mix(in srgb, var(--twc-brand) 72%, #1A0F12));
 	color: var(--twc-on-brand);
 	border-bottom-color: transparent;
 }
 
-.twc--gradient .twc-status,
-.twc--gradient .twc .twc-head-btn,
-.twc.twc--gradient .twc-head-btn {
+:is(.twc,#twc-boost).twc--gradient .twc-status,
+:is(.twc,#twc-boost).twc--gradient .twc .twc-head-btn,
+:is(.twc,#twc-boost).twc--gradient .twc-head-btn {
 	color: var(--twc-on-brand);
 }
 
-.twc--gradient .twc-status {
+:is(.twc,#twc-boost).twc--gradient .twc-status {
 	opacity: .85;
 }
 
-.twc.twc--gradient .twc-head-btn:hover {
+:is(.twc,#twc-boost).twc--gradient .twc-head-btn:hover {
 	background: rgba(255, 255, 255, .16);
 }
 
 @media (prefers-reduced-motion: reduce) {
-	.twc--pulse .twc-launcher {
+	:is(.twc,#twc-boost).twc--pulse .twc-launcher {
 		animation: none !important;
 	}
+}
+
+/* ==========================================================================
+   Guard rails against theme and page builder CSS.
+   Every rule above has ID-level weight through :is(.twc,#twc-boost). The few
+   properties themes most often force with !important are locked here too.
+   ========================================================================== */
+:is(.twc,#twc-boost) svg {
+	display: block !important;
+	visibility: visible !important;
+	opacity: 1 !important;
+	max-width: none !important;
+}
+
+:is(.twc,#twc-boost) .twc-send svg {
+	width: 20px !important;
+	height: 20px !important;
+	fill: none !important;
+	stroke: currentColor !important;
+	stroke-width: 2.2 !important;
+}
+
+:is(.twc,#twc-boost) .twc-send {
+	background: var(--twc-ink) !important;
+	color: #fff !important;
+	border: 0 !important;
+	box-shadow: none !important;
+	padding: 0 !important;
+	min-width: 0 !important;
+	min-height: 0 !important;
+}
+
+:is(.twc,#twc-boost) button,
+:is(.twc,#twc-boost) input,
+:is(.twc,#twc-boost) textarea,
+:is(.twc,#twc-boost) select {
+	font-family: var(--twc-font) !important;
+	text-transform: none !important;
+	letter-spacing: normal !important;
+	text-shadow: none !important;
+	float: none !important;
+}
+
+:is(.twc,#twc-boost) .twc-compose textarea,
+:is(.twc,#twc-boost) .twc-compose input {
+	background: transparent !important;
+	border: 0 !important;
+	box-shadow: none !important;
+	outline: 0 !important;
+	color: var(--twc-ink) !important;
+	margin: 0 !important;
+}
+
+/* Our own slim scrollbar: theme-wide ::-webkit-scrollbar rules (arrows, colours) stay out. */
+:is(.twc,#twc-boost) .twc-messages,
+:is(.twc,#twc-boost) .twc-menu,
+:is(.twc,#twc-boost) .twc-sheet {
+	scrollbar-width: thin !important;
+	scrollbar-color: rgba(26, 15, 18, .18) transparent !important;
+}
+
+:is(.twc,#twc-boost) ::-webkit-scrollbar {
+	width: 6px !important;
+	height: 6px !important;
+	background: transparent !important;
+}
+
+:is(.twc,#twc-boost) ::-webkit-scrollbar-track {
+	background: transparent !important;
+	border: 0 !important;
+	box-shadow: none !important;
+}
+
+:is(.twc,#twc-boost) ::-webkit-scrollbar-thumb {
+	background: rgba(26, 15, 18, .18) !important;
+	border: 0 !important;
+	border-radius: 999px !important;
+}
+
+:is(.twc,#twc-boost) ::-webkit-scrollbar-button {
+	display: none !important;
+	width: 0 !important;
+	height: 0 !important;
+}
+
+/* Text inside the chat always uses the chat font and sizes, never the theme's. */
+:is(.twc,#twc-boost) :is(p, li, ul, ol, a, span, strong, b, em, i, small, label, time, h1, h2, h3, h4, h5, h6, blockquote, code, pre, table, td, th) {
+	font-family: inherit;
+	letter-spacing: normal;
+	text-transform: none;
+	text-shadow: none;
+}
+
+:is(.twc,#twc-boost) :is(p, li) {
+	font-size: inherit;
+	line-height: inherit;
+	color: inherit;
 }

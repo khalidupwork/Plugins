@@ -1433,14 +1433,14 @@ label.twa-toggle {
 	margin: 2px 4px 12px;
 }
 
-.twa-preview__chat.twc {
+:is(.twa-preview__chat,#twc-boost).twc.twc {
 	position: relative;
 	display: flex;
 	flex-direction: column;
 	gap: 14px;
 }
 
-.twa-preview__chat .twc-panel {
+:is(.twa-preview__chat,#twc-boost).twc .twc-panel {
 	position: relative;
 	height: auto;
 	width: 100%;
@@ -1448,12 +1448,12 @@ label.twa-toggle {
 	animation: none;
 }
 
-.twa-preview__chat .twc-messages {
+:is(.twa-preview__chat,#twc-boost).twc .twc-messages {
 	max-height: 290px;
 	overflow: hidden;
 }
 
-.twa-preview__chat .twc-compose {
+:is(.twa-preview__chat,#twc-boost).twc .twc-compose {
 	align-items: center;
 }
 
@@ -1463,16 +1463,16 @@ label.twa-toggle {
 	padding: 9px 0;
 }
 
-.twa-preview__chat .twc-launcher-wrap {
+:is(.twa-preview__chat,#twc-boost).twc .twc-launcher-wrap {
 	justify-content: flex-end;
 }
 
-.twa-preview__chat.twc--left .twc-launcher-wrap {
+:is(.twa-preview__chat,#twc-boost).twc.twc--left .twc-launcher-wrap {
 	flex-direction: row-reverse;
 	justify-content: flex-end;
 }
 
-.twa-preview__chat .twc-launcher {
+:is(.twa-preview__chat,#twc-boost).twc .twc-launcher {
 	cursor: default;
 }
 
@@ -1975,23 +1975,23 @@ label.twa-toggle {
 	text-transform: none;
 }
 
-.twa-preview__chat .twc-messages {
+:is(.twa-preview__chat,#twc-boost).twc .twc-messages {
 	max-height: none;
 }
 
-.twa-preview__chat .twc-head-btn,
-.twa-preview__chat .twc-tool,
-.twa-preview__chat .twc-menu__item,
-.twa-preview__chat .twc-badge,
-.twa-preview__chat .twc-sources a {
+:is(.twa-preview__chat,#twc-boost).twc .twc-head-btn,
+:is(.twa-preview__chat,#twc-boost).twc .twc-tool,
+:is(.twa-preview__chat,#twc-boost).twc .twc-menu__item,
+:is(.twa-preview__chat,#twc-boost).twc .twc-badge,
+:is(.twa-preview__chat,#twc-boost).twc .twc-sources a {
 	cursor: default;
 }
 
-.twa-preview__chat .twc-menu-btn {
+:is(.twa-preview__chat,#twc-boost).twc .twc-menu-btn {
 	cursor: pointer;
 }
 
-.twa-preview__chat.twc--pulse .twc-launcher {
+:is(.twa-preview__chat,#twc-boost).twc.twc--pulse .twc-launcher {
 	animation-iteration-count: infinite;
 }
 
