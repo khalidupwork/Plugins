@@ -44,3 +44,25 @@ To do:
 4. Record the `utm_source` of each referral visit (today only the partner is stored).
 5. Docs page "How Talkwyn Partners works" with the link formats, cookie rules and payout schedule.
 6. Check cookie consent mode with a consent plugin (the referral cookie waits for consent when that setting is on).
+
+## Plugin Check report (saved for later, do not start until asked)
+
+Report from the Plugin Check tool on talkwyn.com, all categories plus AI analysis, run on 2026-10-09 against the free plugin 2.3.1. Full CSV: `plugin-check/talkwyn-2.3.1-plugin-check-2026-10-09.csv` (53 rows: 13 errors, 40 warnings).
+
+Errors:
+- [ ] `class-talkwyn-frontend.php:225` wp_enqueue_script() with an external resource (offloaded script).
+- [ ] `class-talkwyn-frontend.php:321` __() with placeholders has no "translators:" comment.
+- [ ] `class-talkwyn-providers.php:76` and `class-talkwyn-leads.php:77` flagged as offloading content to a remote service.
+- [ ] `class-talkwyn-providers.php:527, 543` exception messages not escaped ($res, $code, $msg).
+- [ ] `admin/class-talkwyn-admin.php:255` output not escaped ('self').
+- [ ] `class-talkwyn-indexer.php:94` suppress_filters set to true.
+- [ ] `readme.txt` Tested up to 6.8, current WordPress is 7.1.
+
+Warnings:
+- [ ] Direct DB queries with table names from `$t[...]` not escaped: admin, indexer, privacy, retriever, db, migration (about 25 rows).
+- [ ] `class-talkwyn-privacy.php:122` $wpdb->prepare() gets 1 replacement, expects 2.
+- [ ] `class-talkwyn-retriever.php:72, 99` interpolated SQL.
+- [ ] Direct AI provider calls (OpenRouter, Groq, Gemini): checker suggests the WordPress 7.0 AI Client (wp_ai_client_prompt()). Decide: keep, or add the AI Client as an extra provider.
+- [ ] WPML hook names (wpml_post_language_details, wpml_register_single_string, wpml_translate_single_string) not prefixed. These are WPML's own hooks; likely add a phpcs ignore comment.
+- [ ] readme plugin name differs from the plugin header name.
+- [ ] MIGRATION.md and HOOKS.md in the plugin root: leave them out of the release ZIP.
