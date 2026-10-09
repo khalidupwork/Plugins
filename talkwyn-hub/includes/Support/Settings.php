@@ -41,6 +41,7 @@ final class Settings {
 			'delete_on_uninstall'               => 0,
 			'admin_notify_email'                => '',
 			'email_from_name'                   => '',
+			'email_from_address'                => '',
 			'email_license_subject'             => __( 'Your Talkwyn license is ready', 'talkwyn-hub' ),
 			'email_license_body'                => __( "Hi {customer_name},\n\nThank you for choosing {product_name}. Your {plan} license is ready in your account.\n\nTo turn on Pro, copy your key from your account, open Talkwyn in your WordPress dashboard, go to the License tab, and paste it. Staging and local sites are free and don't use a slot.\n\nSites: {activation_limit}\nValid until: {expires_at}\n\nYou can see your sites, downloads, and invoices in your account at any time.\n\nThe {site_name} team", 'talkwyn-hub' ),
 			'email_reminder_subject'            => __( 'Your Talkwyn license renews in {days_left} days', 'talkwyn-hub' ),

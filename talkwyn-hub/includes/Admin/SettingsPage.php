@@ -213,7 +213,11 @@ final class SettingsPage {
 				</p>
 				<table class="form-table" role="presentation">
 					<tr><th><label for="twh-from"><?php esc_html_e( 'From name', 'talkwyn-hub' ); ?></label></th>
-						<td><input id="twh-from" name="email_from_name" type="text" class="regular-text" value="<?php echo esc_attr( (string) $s['email_from_name'] ); ?>" placeholder="<?php echo esc_attr( (string) get_bloginfo( 'name' ) ); ?>"></td></tr>
+						<td><input id="twh-from" name="email_from_name" type="text" class="regular-text" value="<?php echo esc_attr( (string) $s['email_from_name'] ); ?>" placeholder="<?php echo esc_attr( (string) get_bloginfo( 'name' ) ); ?>">
+						<p class="description"><?php esc_html_e( 'Shown as the sender of every Talkwyn Hub email, for example Talkwyn. Empty uses the site title.', 'talkwyn-hub' ); ?></p></td></tr>
+					<tr><th><label for="twh-from-address"><?php esc_html_e( 'From email', 'talkwyn-hub' ); ?></label></th>
+						<td><input id="twh-from-address" name="email_from_address" type="email" class="regular-text" value="<?php echo esc_attr( (string) $s['email_from_address'] ); ?>" placeholder="hello@<?php echo esc_attr( (string) wp_parse_url( home_url(), PHP_URL_HOST ) ); ?>">
+						<p class="description"><?php esc_html_e( 'Use a mailbox on your own domain, the same one your SMTP plugin sends from. Empty keeps the WordPress default (wordpress@ your domain).', 'talkwyn-hub' ); ?></p></td></tr>
 					<tr><th><label for="twh-admin-email"><?php esc_html_e( 'Admin notifications to', 'talkwyn-hub' ); ?></label></th>
 						<td><input id="twh-admin-email" name="admin_notify_email" type="email" class="regular-text" value="<?php echo esc_attr( (string) $s['admin_notify_email'] ); ?>" placeholder="<?php echo esc_attr( (string) get_option( 'admin_email' ) ); ?>"></td></tr>
 				</table>
@@ -307,6 +311,7 @@ final class SettingsPage {
 			'email_keys'          => empty( $_POST['email_keys'] ) ? 0 : 1,
 			'admin_notify_email'  => sanitize_email( wp_unslash( $_POST['admin_notify_email'] ?? '' ) ),
 			'email_from_name'     => sanitize_text_field( wp_unslash( $_POST['email_from_name'] ?? '' ) ),
+			'email_from_address'  => sanitize_email( wp_unslash( $_POST['email_from_address'] ?? '' ) ),
 		);
 		$methods  = array_intersect( array_map( 'sanitize_key', (array) wp_unslash( $_POST['partner_methods'] ?? array() ) ), array( 'paypal', 'wise', 'bank', 'payoneer' ) );
 		$values   = array_merge(

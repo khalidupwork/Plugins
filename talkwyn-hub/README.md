@@ -99,6 +99,8 @@ On the license detail page in My Account, customers see more expensive plans of 
 
 ## 4. Upload a release
 
+Upload a stable release for every paid product (Talkwyn Pro) before you sell it or open trials. Without one, customers see no Pro download in their account and get no updates. Since 1.6.1 the Hub screens show a warning while a product has no stable release.
+
 1. Build the Talkwyn Pro ZIP. It must contain the plugin folder, e.g. `talkwyn/talkwyn.php`.
 2. **Talkwyn Hub → Releases → Upload a release**:
    - Pick the product, choose the ZIP and enter the version.
@@ -193,6 +195,14 @@ Emails are branded HTML with a plain-text version for clients that don't show HT
 - the key in a Blush panel
 - one Ink pill button
 - a footer
+
+### Sender name and address (since 1.6.1)
+
+Under **Talkwyn Hub → Settings → Emails**:
+- **From name**, for example `Talkwyn`. Empty uses the site title, never "WordPress".
+- **From email**, for example `hello@talkwyn.com`. Use a mailbox on your own domain, the same one your SMTP plugin logs in with. Empty keeps the WordPress default `wordpress@yourdomain`.
+
+These apply to Hub emails only. WooCommerce has its own sender under WooCommerce → Settings → Emails. To change every WordPress email (password resets too), set the same name and address in your SMTP plugin and turn on its "force from" options.
 
 Subjects and message text are edited under **Talkwyn Hub → Settings**. They are plain text with placeholders; line breaks become paragraphs.
 

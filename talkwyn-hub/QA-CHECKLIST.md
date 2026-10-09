@@ -144,6 +144,13 @@ Run this on a staging copy of talkwyn.com with Stripe in **test mode** (card `42
 - [ ] `GET /wp-json/talkwyn-hub/v1/partners/terms` returns the current settings.
 - [ ] Turn Partners off → `?ref=` does nothing, My Account → Partners says the program is closed.
 
+## 15. Email sender and release warning (1.6.1)
+
+- [ ] Settings → Emails: From name and From email empty → a trial email arrives from the site title (not "WordPress").
+- [ ] From name `Talkwyn`, From email `hello@talkwyn.com` → trial and license emails arrive from "Talkwyn <hello@talkwyn.com>".
+- [ ] Delete every stable release of Talkwyn Pro → every Hub screen shows "No release uploaded: Talkwyn Pro" with an Upload link. Other admin screens do not.
+- [ ] Upload the Pro ZIP as stable → the warning is gone, and a customer with a trial sees "Talkwyn Pro .zip" on the dashboard and Talkwyn Pro under Downloads.
+
 ## 14. Keys only in the account (1.6.0)
 
 - [ ] Keys in emails off: the trial welcome and license emails show `TALK-****-****-****-XXXX` and an "Open your dashboard" button; the full key is on My Account → Licenses.

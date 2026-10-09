@@ -2,22 +2,22 @@
 # This file is distributed under the GPL-2.0-or-later.
 msgid ""
 msgstr ""
-"Project-Id-Version: Talkwyn Hub 1.6.0\n"
+"Project-Id-Version: Talkwyn Hub 1.6.1\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/talkwyn-hub\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2026-10-09T11:46:17+00:00\n"
+"POT-Creation-Date: 2026-10-09T20:11:05+00:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "X-Generator: WP-CLI 2.12.0\n"
 "X-Domain: talkwyn-hub\n"
 
 #. Plugin Name of the plugin
 #: talkwyn-hub.php
-#: includes/Admin/Admin.php:47
-#: includes/Admin/Admin.php:124
+#: includes/Admin/Admin.php:48
+#: includes/Admin/Admin.php:146
 #: includes/Woo/ProductTab.php:38
 msgid "Talkwyn Hub"
 msgstr ""
@@ -41,8 +41,8 @@ msgstr ""
 #: includes/Account/Account.php:84
 #: includes/Account/Account.php:96
 #: includes/Account/App.php:116
-#: includes/Admin/Admin.php:49
-#: includes/Admin/Admin.php:84
+#: includes/Admin/Admin.php:50
+#: includes/Admin/Admin.php:106
 #: includes/Admin/LicensesPage.php:71
 #: templates/account/overview.php:65
 msgid "Licenses"
@@ -54,7 +54,7 @@ msgid "Software downloads"
 msgstr ""
 
 #: includes/Account/Account.php:122
-#: includes/Admin/Admin.php:168
+#: includes/Admin/Admin.php:190
 msgid "Copied!"
 msgstr ""
 
@@ -149,7 +149,7 @@ msgid "The license was added to your account."
 msgstr ""
 
 #: includes/Account/Account.php:359
-#: includes/Admin/SettingsPage.php:365
+#: includes/Admin/SettingsPage.php:370
 msgid "Trial ended"
 msgstr ""
 
@@ -322,25 +322,25 @@ msgstr ""
 msgid "%s ago"
 msgstr ""
 
-#: includes/Admin/Admin.php:48
-#: includes/Admin/Admin.php:83
+#: includes/Admin/Admin.php:49
+#: includes/Admin/Admin.php:105
 #: includes/Admin/Dashboard.php:110
 msgid "Dashboard"
 msgstr ""
 
-#: includes/Admin/Admin.php:50
-#: includes/Admin/Admin.php:85
+#: includes/Admin/Admin.php:51
+#: includes/Admin/Admin.php:107
 #: includes/Admin/ReleasesPage.php:55
 msgid "Releases"
 msgstr ""
 
-#: includes/Admin/Admin.php:51
-#: includes/Admin/Admin.php:86
+#: includes/Admin/Admin.php:52
+#: includes/Admin/Admin.php:108
 msgid "Products"
 msgstr ""
 
-#: includes/Admin/Admin.php:52
-#: includes/Admin/Admin.php:87
+#: includes/Admin/Admin.php:53
+#: includes/Admin/Admin.php:109
 #: includes/Admin/PartnersPage.php:168
 #: includes/Admin/PartnersPage.php:175
 #: includes/Admin/SettingsPage.php:58
@@ -349,135 +349,148 @@ msgstr ""
 msgid "Partners"
 msgstr ""
 
-#: includes/Admin/Admin.php:53
-#: includes/Admin/Admin.php:88
+#: includes/Admin/Admin.php:54
+#: includes/Admin/Admin.php:110
 #: includes/Admin/SubscribersPage.php:30
 msgid "Subscribers"
 msgstr ""
 
-#: includes/Admin/Admin.php:54
-#: includes/Admin/Admin.php:89
+#: includes/Admin/Admin.php:55
+#: includes/Admin/Admin.php:111
 msgid "Logs"
 msgstr ""
 
-#: includes/Admin/Admin.php:55
-#: includes/Admin/Admin.php:90
+#: includes/Admin/Admin.php:56
+#: includes/Admin/Admin.php:112
 #: includes/Admin/PartnersPage.php:218
 #: includes/Admin/SettingsPage.php:52
 msgid "Settings"
 msgstr ""
 
-#: includes/Admin/Admin.php:124
+#: includes/Admin/Admin.php:86
+msgid "No release uploaded:"
+msgstr ""
+
+#: includes/Admin/Admin.php:86
+msgid "Customers with a license or trial see no download button in their account and get no updates until you upload a stable release."
+msgstr ""
+
+#: includes/Admin/Admin.php:86
+#: includes/Admin/ReleasesPage.php:72
+msgid "Upload a release"
+msgstr ""
+
+#: includes/Admin/Admin.php:146
 msgid "Licenses, trials, releases and partners for talkwyn.com"
 msgstr ""
 
-#: includes/Admin/Admin.php:125
+#: includes/Admin/Admin.php:147
 #: includes/Admin/ReleasesPage.php:102
 msgid "Upload release"
 msgstr ""
 
-#: includes/Admin/Admin.php:125
+#: includes/Admin/Admin.php:147
 #: includes/Admin/LicensesPage.php:72
 #: includes/Admin/LicensesPage.php:452
 #: includes/Admin/LicensesPage.php:482
 msgid "Create license"
 msgstr ""
 
-#: includes/Admin/Admin.php:126
+#: includes/Admin/Admin.php:148
 msgid "Talkwyn Hub sections"
 msgstr ""
 
-#: includes/Admin/Admin.php:169
+#: includes/Admin/Admin.php:191
 msgid "Are you sure?"
 msgstr ""
 
-#: includes/Admin/Admin.php:205
+#: includes/Admin/Admin.php:227
 #: includes/Admin/LicensesPage.php:105
 #: includes/Api/Subscribe.php:121
 msgid "You are not allowed to do this."
 msgstr ""
 
-#: includes/Admin/Admin.php:220
+#: includes/Admin/Admin.php:242
 msgid "Saved."
 msgstr ""
 
-#: includes/Admin/Admin.php:221
+#: includes/Admin/Admin.php:243
 msgid "License created."
 msgstr ""
 
-#: includes/Admin/Admin.php:222
+#: includes/Admin/Admin.php:244
 msgid "License email sent."
 msgstr ""
 
-#: includes/Admin/Admin.php:223
+#: includes/Admin/Admin.php:245
 msgid "The email could not be sent."
 msgstr ""
 
-#: includes/Admin/Admin.php:224
+#: includes/Admin/Admin.php:246
 msgid "Site deactivated."
 msgstr ""
 
-#: includes/Admin/Admin.php:225
+#: includes/Admin/Admin.php:247
 msgid "Bulk action applied."
 msgstr ""
 
-#: includes/Admin/Admin.php:226
+#: includes/Admin/Admin.php:248
 msgid "Status not changed. To reactivate an expired license, set a future expiry date first."
 msgstr ""
 
-#: includes/Admin/Admin.php:227
+#: includes/Admin/Admin.php:249
 msgid "Release uploaded."
 msgstr ""
 
-#: includes/Admin/Admin.php:228
+#: includes/Admin/Admin.php:250
 msgid "Deleted."
 msgstr ""
 
-#: includes/Admin/Admin.php:229
+#: includes/Admin/Admin.php:251
 msgid "This product still has licenses or releases and cannot be deleted."
 msgstr ""
 
-#: includes/Admin/Admin.php:230
+#: includes/Admin/Admin.php:252
 msgid "Upload failed. Please choose a valid ZIP file."
 msgstr ""
 
-#: includes/Admin/Admin.php:231
+#: includes/Admin/Admin.php:253
 msgid "The ZIP does not contain a WordPress plugin with a \"Plugin Name\" header."
 msgstr ""
 
-#: includes/Admin/Admin.php:232
+#: includes/Admin/Admin.php:254
 msgid "The version you entered does not match the \"Version\" header of the plugin inside the ZIP."
 msgstr ""
 
-#: includes/Admin/Admin.php:233
+#: includes/Admin/Admin.php:255
 msgid "This version already exists for this product and channel."
 msgstr ""
 
-#: includes/Admin/Admin.php:234
+#: includes/Admin/Admin.php:256
 msgid "The release directory is not writable."
 msgstr ""
 
-#: includes/Admin/Admin.php:235
+#: includes/Admin/Admin.php:257
 msgid "Please check the form and try again."
 msgstr ""
 
-#: includes/Admin/Admin.php:236
+#: includes/Admin/Admin.php:258
 msgid "A product with this slug already exists."
 msgstr ""
 
-#: includes/Admin/Admin.php:237
+#: includes/Admin/Admin.php:259
 msgid "A new signing key was generated. Add its public key to your client plugin before promoting it."
 msgstr ""
 
-#: includes/Admin/Admin.php:238
+#: includes/Admin/Admin.php:260
 msgid "The next signing key is now active."
 msgstr ""
 
-#: includes/Admin/Admin.php:239
+#: includes/Admin/Admin.php:261
 msgid "Payout recorded and the partner was emailed."
 msgstr ""
 
-#: includes/Admin/Admin.php:240
+#: includes/Admin/Admin.php:262
 msgid "Add a reason before rejecting a referral. The partner sees it."
 msgstr ""
 
@@ -605,7 +618,7 @@ msgstr ""
 #: includes/Admin/LicensesTable.php:61
 #: includes/Admin/PartnersPage.php:218
 #: includes/Admin/PartnersPage.php:310
-#: includes/Admin/SettingsPage.php:251
+#: includes/Admin/SettingsPage.php:255
 #: includes/Partners/PartnerAccount.php:300
 msgid "Status"
 msgstr ""
@@ -792,7 +805,7 @@ msgid "Expires"
 msgstr ""
 
 #: includes/Admin/LicensesTable.php:64
-#: includes/Admin/SettingsPage.php:253
+#: includes/Admin/SettingsPage.php:257
 msgid "Created"
 msgstr ""
 
@@ -1201,10 +1214,6 @@ msgstr ""
 msgid "ZIPs are stored in a protected uploads folder (.htaccess deny + random names). For maximum protection, define TWH_RELEASES_DIR in wp-config.php with a path outside the web root. On Nginx, deny access to /wp-content/uploads/talkwyn-hub-releases/ in the server config."
 msgstr ""
 
-#: includes/Admin/ReleasesPage.php:72
-msgid "Upload a release"
-msgstr ""
-
 #: includes/Admin/ReleasesPage.php:83
 msgid "Plugin ZIP"
 msgstr ""
@@ -1294,7 +1303,7 @@ msgid "file missing"
 msgstr ""
 
 #: includes/Admin/ReleasesPage.php:139
-#: includes/Admin/SettingsPage.php:280
+#: includes/Admin/SettingsPage.php:284
 msgid "Yes"
 msgstr ""
 
@@ -1362,7 +1371,7 @@ msgid "Signing keys"
 msgstr ""
 
 #: includes/Admin/SettingsPage.php:62
-#: includes/Admin/SettingsPage.php:278
+#: includes/Admin/SettingsPage.php:282
 msgid "System status"
 msgstr ""
 
@@ -1512,7 +1521,7 @@ msgid "Payout methods"
 msgstr ""
 
 #: includes/Admin/SettingsPage.php:153
-#: includes/Support/Settings.php:195
+#: includes/Support/Settings.php:196
 msgid "Bank transfer"
 msgstr ""
 
@@ -1611,154 +1620,166 @@ msgid "From name"
 msgstr ""
 
 #: includes/Admin/SettingsPage.php:217
+msgid "Shown as the sender of every Talkwyn Hub email, for example Talkwyn. Empty uses the site title."
+msgstr ""
+
+#: includes/Admin/SettingsPage.php:218
+msgid "From email"
+msgstr ""
+
+#: includes/Admin/SettingsPage.php:220
+msgid "Use a mailbox on your own domain, the same one your SMTP plugin sends from. Empty keeps the WordPress default (wordpress@ your domain)."
+msgstr ""
+
+#: includes/Admin/SettingsPage.php:221
 msgid "Admin notifications to"
 msgstr ""
 
-#: includes/Admin/SettingsPage.php:225
+#: includes/Admin/SettingsPage.php:229
 msgid "Subject"
 msgstr ""
 
-#: includes/Admin/SettingsPage.php:227
+#: includes/Admin/SettingsPage.php:231
 msgid "Text"
 msgstr ""
 
-#: includes/Admin/SettingsPage.php:236
+#: includes/Admin/SettingsPage.php:240
 msgid "Uninstall"
 msgstr ""
 
-#: includes/Admin/SettingsPage.php:238
+#: includes/Admin/SettingsPage.php:242
 msgid "Data"
 msgstr ""
 
-#: includes/Admin/SettingsPage.php:239
+#: includes/Admin/SettingsPage.php:243
 msgid "Delete all data on uninstall (licenses, activations, releases, logs, signing keys, settings and release ZIPs). This cannot be undone."
 msgstr ""
 
-#: includes/Admin/SettingsPage.php:242
+#: includes/Admin/SettingsPage.php:246
 msgid "Save settings"
 msgstr ""
 
-#: includes/Admin/SettingsPage.php:246
+#: includes/Admin/SettingsPage.php:250
 msgid "Signing keys (Ed25519)"
 msgstr ""
 
-#: includes/Admin/SettingsPage.php:247
+#: includes/Admin/SettingsPage.php:251
 msgid "Embed the public key(s) in the client plugin. To rotate: 1) generate the next key, 2) ship a client release that trusts both keys, 3) once most sites have updated, promote the next key."
 msgstr ""
 
-#: includes/Admin/SettingsPage.php:250
+#: includes/Admin/SettingsPage.php:254
 msgid "Key ID"
 msgstr ""
 
-#: includes/Admin/SettingsPage.php:252
+#: includes/Admin/SettingsPage.php:256
 msgid "Public key (base64)"
 msgstr ""
 
-#: includes/Admin/SettingsPage.php:269
+#: includes/Admin/SettingsPage.php:273
 msgid "Generate next key"
 msgstr ""
 
-#: includes/Admin/SettingsPage.php:271
+#: includes/Admin/SettingsPage.php:275
 msgid "Promote next key to active"
 msgstr ""
 
-#: includes/Admin/SettingsPage.php:280
+#: includes/Admin/SettingsPage.php:284
 msgid "TWH_SECRET_KEY defined"
 msgstr ""
 
-#: includes/Admin/SettingsPage.php:280
+#: includes/Admin/SettingsPage.php:284
 msgid "No, using the WordPress salt fallback"
 msgstr ""
 
-#: includes/Admin/SettingsPage.php:281
+#: includes/Admin/SettingsPage.php:285
 msgid "Release directory"
 msgstr ""
 
-#: includes/Admin/SettingsPage.php:281
+#: includes/Admin/SettingsPage.php:285
 msgid "Writable"
 msgstr ""
 
-#: includes/Admin/SettingsPage.php:281
+#: includes/Admin/SettingsPage.php:285
 msgid "Not writable"
 msgstr ""
 
-#: includes/Admin/SettingsPage.php:282
+#: includes/Admin/SettingsPage.php:286
 msgid "WooCommerce Subscriptions"
 msgstr ""
 
-#: includes/Admin/SettingsPage.php:282
+#: includes/Admin/SettingsPage.php:286
 msgid "Active, automatic renewals"
 msgstr ""
 
-#: includes/Admin/SettingsPage.php:282
+#: includes/Admin/SettingsPage.php:286
 msgid "Not active, manual renewal flow"
 msgstr ""
 
-#: includes/Admin/SettingsPage.php:283
+#: includes/Admin/SettingsPage.php:287
 msgid "Daily cron scheduled"
 msgstr ""
 
-#: includes/Admin/SettingsPage.php:283
+#: includes/Admin/SettingsPage.php:287
 msgid "Not scheduled"
 msgstr ""
 
-#: includes/Admin/SettingsPage.php:284
+#: includes/Admin/SettingsPage.php:288
 msgid "API base URL"
 msgstr ""
 
-#: includes/Admin/SettingsPage.php:285
+#: includes/Admin/SettingsPage.php:289
 msgid "Default dev patterns"
 msgstr ""
 
-#: includes/Admin/SettingsPage.php:358
+#: includes/Admin/SettingsPage.php:363
 msgid "License issued"
 msgstr ""
 
-#: includes/Admin/SettingsPage.php:359
+#: includes/Admin/SettingsPage.php:364
 msgid "Expiry reminder (before expiry)"
 msgstr ""
 
-#: includes/Admin/SettingsPage.php:360
+#: includes/Admin/SettingsPage.php:365
 msgid "License expired"
 msgstr ""
 
-#: includes/Admin/SettingsPage.php:361
+#: includes/Admin/SettingsPage.php:366
 msgid "License renewed"
 msgstr ""
 
-#: includes/Admin/SettingsPage.php:362
+#: includes/Admin/SettingsPage.php:367
 msgid "Trial: confirm email (first email)"
 msgstr ""
 
-#: includes/Admin/SettingsPage.php:363
+#: includes/Admin/SettingsPage.php:368
 msgid "Trial started: key and account (after confirming)"
 msgstr ""
 
-#: includes/Admin/SettingsPage.php:364
+#: includes/Admin/SettingsPage.php:369
 msgid "Trial reminder (days left)"
 msgstr ""
 
-#: includes/Admin/SettingsPage.php:366
+#: includes/Admin/SettingsPage.php:371
 msgid "Trial upgraded to paid"
 msgstr ""
 
-#: includes/Admin/SettingsPage.php:367
+#: includes/Admin/SettingsPage.php:372
 msgid "Partner approved"
 msgstr ""
 
-#: includes/Admin/SettingsPage.php:368
+#: includes/Admin/SettingsPage.php:373
 msgid "Partner: new referral (pending)"
 msgstr ""
 
-#: includes/Admin/SettingsPage.php:369
+#: includes/Admin/SettingsPage.php:374
 msgid "Partner: commission approved"
 msgstr ""
 
-#: includes/Admin/SettingsPage.php:370
+#: includes/Admin/SettingsPage.php:375
 msgid "Partner: payout sent"
 msgstr ""
 
-#: includes/Admin/SettingsPage.php:371
+#: includes/Admin/SettingsPage.php:376
 msgid "Admin: new partner application"
 msgstr ""
 
@@ -1937,12 +1958,12 @@ msgid "Upgrade in one click"
 msgstr ""
 
 #: includes/Email/Mailer.php:256
-#: includes/Support/Settings.php:80
+#: includes/Support/Settings.php:81
 msgid "Welcome to Talkwyn Pro"
 msgstr ""
 
 #: includes/Email/Mailer.php:257
-#: includes/Support/Settings.php:93
+#: includes/Support/Settings.php:94
 msgid "You're a Talkwyn Partner"
 msgstr ""
 
@@ -2347,11 +2368,11 @@ msgstr ""
 msgid "Add %s to wp-config.php. Until then, license keys and signing keys are encrypted with a key derived from your WordPress auth salt, which breaks if the salts are rotated. When you add the constant, existing data is re-encrypted automatically. Never change or remove it afterwards."
 msgstr ""
 
-#: includes/Support/Settings.php:44
+#: includes/Support/Settings.php:45
 msgid "Your Talkwyn license is ready"
 msgstr ""
 
-#: includes/Support/Settings.php:45
+#: includes/Support/Settings.php:46
 msgid ""
 "Hi {customer_name},\n"
 "\n"
@@ -2367,11 +2388,11 @@ msgid ""
 "The {site_name} team"
 msgstr ""
 
-#: includes/Support/Settings.php:46
+#: includes/Support/Settings.php:47
 msgid "Your Talkwyn license renews in {days_left} days"
 msgstr ""
 
-#: includes/Support/Settings.php:47
+#: includes/Support/Settings.php:48
 msgid ""
 "Hi {customer_name},\n"
 "\n"
@@ -2382,11 +2403,11 @@ msgid ""
 "The {site_name} team"
 msgstr ""
 
-#: includes/Support/Settings.php:48
+#: includes/Support/Settings.php:49
 msgid "Your Talkwyn license has expired"
 msgstr ""
 
-#: includes/Support/Settings.php:49
+#: includes/Support/Settings.php:50
 msgid ""
 "Hi {customer_name},\n"
 "\n"
@@ -2397,11 +2418,11 @@ msgid ""
 "The {site_name} team"
 msgstr ""
 
-#: includes/Support/Settings.php:50
+#: includes/Support/Settings.php:51
 msgid "Your Talkwyn license was renewed"
 msgstr ""
 
-#: includes/Support/Settings.php:51
+#: includes/Support/Settings.php:52
 msgid ""
 "Hi {customer_name},\n"
 "\n"
@@ -2410,11 +2431,11 @@ msgid ""
 "The {site_name} team"
 msgstr ""
 
-#: includes/Support/Settings.php:72
+#: includes/Support/Settings.php:73
 msgid "Confirm your email to start your Talkwyn trial"
 msgstr ""
 
-#: includes/Support/Settings.php:73
+#: includes/Support/Settings.php:74
 msgid ""
 "Hi {customer_name},\n"
 "\n"
@@ -2427,11 +2448,11 @@ msgid ""
 "The {site_name} team"
 msgstr ""
 
-#: includes/Support/Settings.php:74
+#: includes/Support/Settings.php:75
 msgid "Your {trial_days}-day Talkwyn Pro trial has started"
 msgstr ""
 
-#: includes/Support/Settings.php:75
+#: includes/Support/Settings.php:76
 msgid ""
 "Hi {customer_name},\n"
 "\n"
@@ -2449,11 +2470,11 @@ msgid ""
 "The {site_name} team"
 msgstr ""
 
-#: includes/Support/Settings.php:76
+#: includes/Support/Settings.php:77
 msgid "Your Talkwyn trial has {days_left} days left"
 msgstr ""
 
-#: includes/Support/Settings.php:77
+#: includes/Support/Settings.php:78
 msgid ""
 "Hi {customer_name},\n"
 "\n"
@@ -2466,11 +2487,11 @@ msgid ""
 "The {site_name} team"
 msgstr ""
 
-#: includes/Support/Settings.php:78
+#: includes/Support/Settings.php:79
 msgid "Your Talkwyn trial has ended"
 msgstr ""
 
-#: includes/Support/Settings.php:79
+#: includes/Support/Settings.php:80
 msgid ""
 "Hi {customer_name},\n"
 "\n"
@@ -2483,7 +2504,7 @@ msgid ""
 "The {site_name} team"
 msgstr ""
 
-#: includes/Support/Settings.php:81
+#: includes/Support/Settings.php:82
 msgid ""
 "Hi {customer_name},\n"
 "\n"
@@ -2492,7 +2513,7 @@ msgid ""
 "The {site_name} team"
 msgstr ""
 
-#: includes/Support/Settings.php:94
+#: includes/Support/Settings.php:95
 msgid ""
 "Hi {partner_name},\n"
 "\n"
@@ -2505,11 +2526,11 @@ msgid ""
 "The {site_name} team"
 msgstr ""
 
-#: includes/Support/Settings.php:95
+#: includes/Support/Settings.php:96
 msgid "New referral: {amount}"
 msgstr ""
 
-#: includes/Support/Settings.php:96
+#: includes/Support/Settings.php:97
 msgid ""
 "Hi {partner_name},\n"
 "\n"
@@ -2518,11 +2539,11 @@ msgid ""
 "The {site_name} team"
 msgstr ""
 
-#: includes/Support/Settings.php:97
+#: includes/Support/Settings.php:98
 msgid "Commission approved: {commission}"
 msgstr ""
 
-#: includes/Support/Settings.php:98
+#: includes/Support/Settings.php:99
 msgid ""
 "Hi {partner_name},\n"
 "\n"
@@ -2531,11 +2552,11 @@ msgid ""
 "The {site_name} team"
 msgstr ""
 
-#: includes/Support/Settings.php:99
+#: includes/Support/Settings.php:100
 msgid "Payout sent: {amount}"
 msgstr ""
 
-#: includes/Support/Settings.php:100
+#: includes/Support/Settings.php:101
 msgid ""
 "Hi {partner_name},\n"
 "\n"
@@ -2546,11 +2567,11 @@ msgid ""
 "The {site_name} team"
 msgstr ""
 
-#: includes/Support/Settings.php:101
+#: includes/Support/Settings.php:102
 msgid "New partner application from {partner_name}"
 msgstr ""
 
-#: includes/Support/Settings.php:102
+#: includes/Support/Settings.php:103
 msgid ""
 "{partner_name} ({partner_email}) applied to Talkwyn Partners.\n"
 "\n"
@@ -2560,15 +2581,15 @@ msgid ""
 "Review the application in Talkwyn Hub, Partners."
 msgstr ""
 
-#: includes/Support/Settings.php:193
+#: includes/Support/Settings.php:194
 msgid "PayPal"
 msgstr ""
 
-#: includes/Support/Settings.php:194
+#: includes/Support/Settings.php:195
 msgid "Wise"
 msgstr ""
 
-#: includes/Support/Settings.php:196
+#: includes/Support/Settings.php:197
 msgid "Payoneer"
 msgstr ""
 

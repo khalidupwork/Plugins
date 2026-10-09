@@ -389,8 +389,15 @@ final class Mailer {
 	 */
 	private static function deliver( string $to, string $subject, string $html, string $text = '' ): bool {
 		$from_name = (string) Settings::get( 'email_from_name' );
+		if ( '' === $from_name ) {
+			$from_name = wp_specialchars_decode( (string) get_bloginfo( 'name' ), ENT_QUOTES );
+		}
+		$from_addr = (string) Settings::get( 'email_from_address' );
 		$name_cb   = static function ( $name ) use ( $from_name ) {
 			return '' !== $from_name ? $from_name : $name;
+		};
+		$addr_cb   = static function ( $email ) use ( $from_addr ) {
+			return is_email( $from_addr ) ? $from_addr : $email;
 		};
 		$alt_cb    = static function ( $phpmailer ) use ( $text ) {
 			if ( '' !== $text ) {
@@ -398,10 +405,12 @@ final class Mailer {
 			}
 		};
 		add_filter( 'wp_mail_from_name', $name_cb, 99 );
+		add_filter( 'wp_mail_from', $addr_cb, 99 );
 		add_action( 'phpmailer_init', $alt_cb );
 		$sent = wp_mail( $to, $subject, $html, array( 'Content-Type: text/html; charset=UTF-8' ) );
 		remove_action( 'phpmailer_init', $alt_cb );
 		remove_filter( 'wp_mail_from_name', $name_cb, 99 );
+		remove_filter( 'wp_mail_from', $addr_cb, 99 );
 		return (bool) $sent;
 	}
 }

@@ -28,6 +28,7 @@ final class Admin {
 		add_action( 'admin_menu', array( self::class, 'menu' ) );
 		add_action( 'admin_enqueue_scripts', array( self::class, 'assets' ) );
 		add_action( 'admin_notices', array( self::class, 'notices' ) );
+		add_action( 'admin_notices', array( self::class, 'notice_missing_release' ) );
 		add_filter( 'admin_body_class', array( self::class, 'body_class' ) );
 		add_action( 'in_admin_header', array( self::class, 'header' ) );
 
@@ -62,6 +63,27 @@ final class Admin {
 		// phpcs:ignore WordPress.Security.NonceVerification.Recommended -- screen detection only.
 		$page = isset( $_GET['page'] ) ? sanitize_key( wp_unslash( $_GET['page'] ) ) : '';
 		return 0 === strpos( $page, 'twh-' );
+	}
+
+	/**
+	 * Warns when a paid product has no stable release: customers then see no
+	 * download button in their account and get no updates.
+	 */
+	public static function notice_missing_release(): void {
+		if ( ! self::is_hub_screen() || ! current_user_can( 'manage_options' ) ) {
+			return;
+		}
+		$free    = (string) apply_filters( 'twh_free_product', 'talkwyn' );
+		$missing = array();
+		foreach ( \TWH\Repository\Products::all() as $product ) {
+			if ( $free !== (string) $product['slug'] && ! \TWH\Repository\Releases::latest( (int) $product['id'], 'stable' ) ) {
+				$missing[] = (string) $product['name'];
+			}
+		}
+		if ( ! $missing ) {
+			return;
+		}
+		echo '<div class="notice notice-warning"><p><strong>' . esc_html__( 'No release uploaded:', 'talkwyn-hub' ) . '</strong> ' . esc_html( implode( ', ', $missing ) ) . '. ' . esc_html__( 'Customers with a license or trial see no download button in their account and get no updates until you upload a stable release.', 'talkwyn-hub' ) . ' <a href="' . esc_url( admin_url( 'admin.php?page=twh-releases' ) ) . '">' . esc_html__( 'Upload a release', 'talkwyn-hub' ) . '</a></p></div>';
 	}
 
 	/**
