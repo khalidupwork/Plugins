@@ -1,8 +1,9 @@
-# Talkwyn 2.3.2 test checklist
+# Talkwyn 2.3.3 test checklist
 
 The full run, including Pro and migration, is in `../QA-CHECKLIST.md`. This list covers what changed in 2.1.0.
 
-## Plugin Check (2.3.2)
+## Plugin Check (2.3.2, 2.3.3)
+- [ ] Knowledge, Clear knowledge empties the page and site entries; Rescan fills them again.
 - [ ] Run Tools, Plugin Check on Talkwyn with all categories: no errors. The only warnings left are the AI provider suggestions.
 - [ ] Dashboard, Knowledge, Leads and Conversations tabs show the same numbers as before. Rescan, Clear knowledge, Export leads and Clear conversations work.
 - [ ] Test connection with a wrong key: the error text shows quotes normally, not `&#039;`.

@@ -1,5 +1,11 @@
 # Talkwyn changelog
 
+## 2.3.3
+
+### Changed
+- Clear knowledge and the stale chunk cleanup pass their `LIKE 'post:%'` and `LIKE 'site:%'` patterns as prepared values with `$wpdb->esc_like()`, as the second Plugin Check run asked. Same rows are removed.
+- The only Plugin Check items left are the AI provider suggestions (warnings, not errors).
+
 ## 2.3.2
 
 ### Changed

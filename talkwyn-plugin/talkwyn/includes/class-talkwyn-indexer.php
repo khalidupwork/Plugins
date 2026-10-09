@@ -124,7 +124,7 @@ class Talkwyn_Indexer {
 		self::guard();
 		global $wpdb;
 		$t = Talkwyn_DB::tables();
-		$wpdb->query( $wpdb->prepare( "DELETE FROM %i WHERE source_key LIKE 'post:%%' OR source_key LIKE 'site:%%'", $t['chunks'] ) ); // phpcs:ignore WordPress.DB.DirectDatabaseQuery
+		$wpdb->query( $wpdb->prepare( 'DELETE FROM %i WHERE source_key LIKE %s OR source_key LIKE %s', $t['chunks'], $wpdb->esc_like( 'post:' ) . '%', $wpdb->esc_like( 'site:' ) . '%' ) ); // phpcs:ignore WordPress.DB.DirectDatabaseQuery
 		do_action( 'talkwyn_index_cleared' );
 		wp_send_json_success( array( 'chunks' => self::count() ) );
 	}
@@ -257,8 +257,8 @@ class Talkwyn_Indexer {
 		$types  = self::post_types();
 		$holder = implode( ',', array_fill( 0, count( $types ), '%s' ) );
 		$sql    = "DELETE c FROM %i c LEFT JOIN %i p ON p.ID = c.source_id
-			WHERE c.source_key LIKE 'post:%%' AND ( p.ID IS NULL OR p.post_status <> 'publish' OR p.post_password <> '' OR p.post_type NOT IN ({$holder}) )";
-		return (int) $wpdb->query( $wpdb->prepare( $sql, array_merge( array( $t['chunks'], $wpdb->posts ), $types ) ) ); // phpcs:ignore WordPress.DB.PreparedSQL.NotPrepared,WordPress.DB.DirectDatabaseQuery,PluginCheck.Security.DirectDB.UnescapedDBParameter -- $sql only holds placeholders.
+			WHERE c.source_key LIKE %s AND ( p.ID IS NULL OR p.post_status <> 'publish' OR p.post_password <> '' OR p.post_type NOT IN ({$holder}) )";
+		return (int) $wpdb->query( $wpdb->prepare( $sql, array_merge( array( $t['chunks'], $wpdb->posts, $wpdb->esc_like( 'post:' ) . '%' ), $types ) ) ); // phpcs:ignore WordPress.DB.PreparedSQL.NotPrepared,WordPress.DB.DirectDatabaseQuery,PluginCheck.Security.DirectDB.UnescapedDBParameter -- $sql only holds placeholders.
 	}
 
 	/**
