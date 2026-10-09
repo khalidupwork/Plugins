@@ -944,3 +944,72 @@
 		render();
 	}
 }() );
+
+/*
+ * Docs: filter the sidebar, close the sidebar on phones, and mark the
+ * "On this page" link for the section in view.
+ */
+( function () {
+	var menu = document.querySelector( '[data-tw-docs-menu]' );
+	if ( ! menu ) {
+		return;
+	}
+	if ( window.matchMedia( '(max-width: 999px)' ).matches ) {
+		menu.removeAttribute( 'open' );
+	}
+	var input = menu.querySelector( '[data-tw-docs-filter]' );
+	var none = menu.querySelector( '[data-tw-docs-none]' );
+	if ( input ) {
+		input.addEventListener( 'input', function () {
+			var q = input.value.trim().toLowerCase();
+			var shown = 0;
+			menu.querySelectorAll( '.tw-docs__group' ).forEach( function ( group ) {
+				var any = false;
+				group.querySelectorAll( 'li' ).forEach( function ( li ) {
+					var hit = ! q || li.textContent.toLowerCase().indexOf( q ) !== -1;
+					li.hidden = ! hit;
+					any = any || hit;
+					shown += hit ? 1 : 0;
+				} );
+				group.hidden = ! any;
+			} );
+			if ( none ) {
+				none.hidden = shown > 0;
+			}
+		} );
+	}
+	var links = Array.prototype.slice.call( document.querySelectorAll( '.tw-docs-app .tw-toc a[href^="#"]' ) );
+	if ( ! links.length || ! ( 'IntersectionObserver' in window ) ) {
+		return;
+	}
+	var byId = {};
+	links.forEach( function ( a ) {
+		byId[ decodeURIComponent( a.getAttribute( 'href' ).slice( 1 ) ) ] = a;
+	} );
+	var heads = Object.keys( byId ).map( function ( id ) {
+		return document.getElementById( id );
+	} ).filter( Boolean );
+	var visible = {};
+	var mark = function ( id ) {
+		links.forEach( function ( a ) {
+			a.removeAttribute( 'aria-current' );
+		} );
+		if ( byId[ id ] ) {
+			byId[ id ].setAttribute( 'aria-current', 'true' );
+		}
+	};
+	var spy = new IntersectionObserver( function ( entries ) {
+		entries.forEach( function ( e ) {
+			visible[ e.target.id ] = e.isIntersecting;
+		} );
+		for ( var i = 0; i < heads.length; i++ ) {
+			if ( visible[ heads[ i ].id ] ) {
+				mark( heads[ i ].id );
+				return;
+			}
+		}
+	}, { rootMargin: '-80px 0px -65% 0px' } );
+	heads.forEach( function ( h ) {
+		spy.observe( h );
+	} );
+}() );

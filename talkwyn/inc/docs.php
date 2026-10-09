@@ -139,16 +139,23 @@ add_shortcode(
 	'tw_docs_nav',
 	static function () {
 		$current = is_singular( 'doc' ) ? get_queried_object_id() : 0;
-		$html    = '<nav class="tw-docs__nav" aria-label="' . esc_attr__( 'Docs', 'talkwyn' ) . '">';
+		$archive = get_post_type_archive_link( 'doc' );
+		$html    = '<nav class="tw-docs__nav" aria-label="' . esc_attr__( 'Docs', 'talkwyn' ) . '"><details class="tw-docs__menu" open data-tw-docs-menu>'
+			. '<summary class="tw-docs__toggle">' . talkwyn_icon( 'book-open', 18 ) . '<span>' . esc_html__( 'Browse the docs', 'talkwyn' ) . '</span>' . talkwyn_icon( 'chevron-down', 16 ) . '</summary>'
+			. '<a class="tw-docs__home" href="' . esc_url( $archive ? $archive : home_url( '/docs/' ) ) . '">' . talkwyn_icon( 'book-open', 18 ) . '<span>' . esc_html__( 'Talkwyn docs', 'talkwyn' ) . '</span></a>'
+			. '<label class="tw-docs__search">' . talkwyn_icon( 'search', 16 ) . '<span class="screen-reader-text">' . esc_html__( 'Search the docs', 'talkwyn' ) . '</span><input type="search" placeholder="' . esc_attr__( 'Search the docs', 'talkwyn' ) . '" data-tw-docs-filter autocomplete="off"></label>';
 		foreach ( talkwyn_docs_grouped() as $group ) {
-			$html .= '<h2>' . esc_html( $group['term'] ? $group['term']->name : __( 'Guides', 'talkwyn' ) ) . '</h2><ul>';
+			$html .= '<div class="tw-docs__group"><h2>' . esc_html( $group['term'] ? $group['term']->name : __( 'Guides', 'talkwyn' ) ) . '</h2><ul>';
 			foreach ( $group['docs'] as $doc ) {
 				$aria  = $doc->ID === $current ? ' aria-current="page"' : '';
-				$html .= '<li><a href="' . esc_url( get_permalink( $doc ) ) . '"' . $aria . '>' . esc_html( get_the_title( $doc ) ) . '</a></li>';
+				$html .= '<li><a href="' . esc_url( get_permalink( $doc ) ) . '"' . $aria . '>' . talkwyn_icon( 'file-text', 16 ) . '<span>' . esc_html( get_the_title( $doc ) ) . '</span></a></li>';
 			}
-			$html .= '</ul>';
+			$html .= '</ul></div>';
 		}
-		return $html . '</nav>';
+		$html .= '<p class="tw-docs__none" hidden data-tw-docs-none>' . esc_html__( 'No guide matches. Try another word, or ask us.', 'talkwyn' ) . '</p>';
+		$html .= '<div class="tw-docs__help"><strong>' . esc_html__( 'Stuck on a step?', 'talkwyn' ) . '</strong><span>' . esc_html__( 'A real person replies by email.', 'talkwyn' ) . '</span>'
+			. '<a href="' . esc_url( home_url( '/contact/' ) ) . '">' . talkwyn_icon( 'mail', 16 ) . esc_html__( 'Contact support', 'talkwyn' ) . '</a></div>';
+		return $html . '</details></nav>';
 	}
 );
 
@@ -240,6 +247,40 @@ add_shortcode(
 		}
 		return $html . '</ul></nav></aside>';
 	}
+);
+
+/**
+ * Reading time and last update under a doc title.
+ */
+add_shortcode(
+	'tw_doc_meta',
+	static function () {
+		if ( ! is_singular() ) {
+			return '';
+		}
+		$id      = get_queried_object_id();
+		$words   = str_word_count( wp_strip_all_tags( (string) get_post_field( 'post_content', $id ) ) );
+		$minutes = max( 1, (int) round( $words / 220 ) );
+		return '<p class="tw-docs__meta"><span>' . talkwyn_icon( 'clock', 16 )
+			/* translators: %d: minutes */
+			. esc_html( sprintf( _n( '%d min read', '%d min read', $minutes, 'talkwyn' ), $minutes ) ) . '</span><span>' . talkwyn_icon( 'refresh-cw', 16 )
+			/* translators: %s: date */
+			. esc_html( sprintf( __( 'Updated %s', 'talkwyn' ), get_the_modified_date( '', $id ) ) ) . '</span></p>';
+	}
+);
+
+/**
+ * Numbered step headings in docs ("1. Install the plugin") get a round number badge.
+ */
+add_filter(
+	'render_block_core/heading',
+	static function ( $html ) {
+		if ( ! is_singular( 'doc' ) ) {
+			return $html;
+		}
+		return (string) preg_replace( '/(<h2[^>]*>)\\s*(\\d{1,2})\\.\\s+/', '$1<span class="tw-step-n" aria-hidden="true">$2</span><span class="screen-reader-text">$2. </span>', (string) $html, 1 );
+	},
+	20
 );
 
 add_shortcode(
@@ -511,6 +552,180 @@ add_filter(
 				return in_array( $m[1], $hidden, true ) ? $m[2] : $m[0];
 			},
 			(string) $content
+		);
+	},
+	20
+);
+
+/**
+ * Screenshots used in docs and guides (assets/docs). Key => file, alt text, default caption, narrow.
+ * Sample chats use made-up businesses and are captioned as examples.
+ *
+ * @return array<string, array{0: string, 1: string, 2: string, 3: bool}>
+ */
+function talkwyn_doc_shots(): array {
+	return array(
+		'plugins'       => array( 'plugins.webp', __( 'The WordPress Plugins screen with Talkwyn installed and active', 'talkwyn' ), __( 'Talkwyn installed and active under Plugins.', 'talkwyn' ), false ),
+		'scan'          => array( 'scan.webp', __( 'The Talkwyn Knowledge tab with the Scan entire site button and counts of pages, posts and products read', 'talkwyn' ), __( 'Rescan any time under Talkwyn, Knowledge, and see what was read.', 'talkwyn' ), false ),
+		'providers'     => array( 'providers.webp', __( 'Talkwyn AI providers fallback order with Groq first and Google Gemini second, both with a key added', 'talkwyn' ), __( 'Two free providers: Groq first, Gemini as the backup.', 'talkwyn' ), false ),
+		'appearance'    => array( 'appearance.webp', __( 'Talkwyn appearance settings with name, welcome message and suggested questions next to a live preview of the chat', 'talkwyn' ), __( 'Appearance settings with a live preview of your chat.', 'talkwyn' ), false ),
+		'conversations' => array( 'conversations.webp', __( 'The Talkwyn Conversations tab with sample chats from a bakery, one opened to show the question and the answer', 'talkwyn' ), __( 'Talkwyn, Conversations: every chat, with the answer and the provider that replied.', 'talkwyn' ), false ),
+		'lead-email'    => array( 'lead-email.webp', __( 'Example Talkwyn lead email for a sample real estate agency with the visitor name, email, phone, page and question', 'talkwyn' ), __( 'Example: the lead email gives you the visitor\'s details and their question. The full chat is in WordPress under Talkwyn, Conversations.', 'talkwyn' ), false ),
+		'woo'           => array( 'woo-attributes.webp', __( 'A WooCommerce product with Size, Color and Material attributes filled in', 'talkwyn' ), __( 'Filled-in product attributes give the chatbot something real to answer from.', 'talkwyn' ), false ),
+		'chat-sources'  => array( 'chat-sources.webp', __( 'Sample chat answering an opening hours question, with its source page listed under the answer', 'talkwyn' ), __( 'A first answer, with the page it came from.', 'talkwyn' ), true ),
+		'chat-offer'    => array( 'chat-offer.webp', __( 'Sample chat: a visitor asks to book, Talkwyn answers and asks whether the team may contact them', 'talkwyn' ), __( 'The chatbot asks first. The form opens only after Yes.', 'talkwyn' ), true ),
+		'chat-delivery' => array( 'chat-delivery.webp', __( 'Sample chat: a visitor asks about Saturday delivery and gets the answer with a source link', 'talkwyn' ), __( 'A chatbot can answer on the spot.', 'talkwyn' ), true ),
+		'chat-dental'   => array( 'chat-dental.webp', __( 'Sample dental clinic chat: Saturday opening hours answered with a link to the contact page', 'talkwyn' ), __( 'Example: an hours question answered from the clinic\'s own page.', 'talkwyn' ), true ),
+		'chat-hotel'    => array( 'chat-hotel.webp', __( 'Sample hotel chat: check-in time and parking answered with links to two pages', 'talkwyn' ), __( 'Example: arrival questions answered from the hotel\'s own pages.', 'talkwyn' ), true ),
+		'chat-spanish'  => array( 'chat-spanish.webp', __( 'Sample store chat in Spanish about shipping to Puerto Rico, with the English shipping page as the source', 'talkwyn' ), __( 'Example: a question in Spanish, an answer in Spanish.', 'talkwyn' ), true ),
+		'chat-arabic'   => array( 'chat-arabic.webp', __( 'Sample chat in Arabic shown right to left, with the English product name and the price kept as written', 'talkwyn' ), __( 'Arabic shown right to left, with names and prices kept as written.', 'talkwyn' ), true ),
+		'chat-viewing'  => array( 'chat-viewing.webp', __( 'Sample real estate chat: Saturday viewing times answered, then an offer for the team to get in touch', 'talkwyn' ), __( 'Help first, then offer a follow-up.', 'talkwyn' ), true ),
+		'chat-night'    => array( 'chat-night.webp', __( 'Sample chat after hours: the chatbot explains the team replies the next working day and offers to pass the request on', 'talkwyn' ), __( 'Answer what you can, then ask before collecting details.', 'talkwyn' ), true ),
+	);
+}
+
+/**
+ * Diagrams drawn in HTML (no image). Key => type (flow, compare, outline) and content.
+ *
+ * @return array<string, array<string, mixed>>
+ */
+function talkwyn_doc_diagrams(): array {
+	return array(
+		're-answer'   => array( 'flow', array( __( 'A buyer asks about a listing', 'talkwyn' ), __( 'The chatbot finds the listing page on your site', 'talkwyn' ), __( 'It answers and links to the listing', 'talkwyn' ) ) ),
+		're-leads'    => array( 'flow', array( __( 'Answer the question', 'talkwyn' ), __( 'Ask budget, area and timeline', 'talkwyn' ), __( 'Ask for contact details', 'talkwyn' ), __( 'Email the lead to the agency', 'talkwyn' ) ) ),
+		'kinds'       => array( 'compare', __( 'Plugin inside WordPress', 'talkwyn' ), array( __( 'Runs on your own site', 'talkwyn' ), __( 'Chats and leads stay in your WordPress database', 'talkwyn' ) ), __( 'Hosted service', 'talkwyn' ), array( __( 'Runs on the vendor\'s servers', 'talkwyn' ), __( 'Connects to WordPress with a script or plugin', 'talkwyn' ), __( 'Chats are stored by the vendor', 'talkwyn' ) ) ),
+		'es-flow'     => array( 'flow', array( __( 'A visitor asks in Spanish', 'talkwyn' ), __( 'The chatbot searches your English pages', 'talkwyn' ), __( 'It replies in Spanish, with a link to the English page', 'talkwyn' ) ) ),
+		'hi-flow'     => array( 'flow', array( __( 'A visitor asks about delivery in Hindi', 'talkwyn' ), __( 'The chatbot reads your English shipping page', 'talkwyn' ), __( 'It replies in Hindi, with a link to that page', 'talkwyn' ) ) ),
+		'faq-index'   => array( 'flow', array( __( 'FAQ, shipping and product pages', 'talkwyn' ), __( 'One chatbot index', 'talkwyn' ), __( 'A visitor asks in the chat', 'talkwyn' ), __( 'The reply links back to the FAQ page', 'talkwyn' ) ) ),
+		'faq-page'    => array( 'outline', __( 'A FAQ page a chatbot can answer from', 'talkwyn' ), array( __( 'Each question is a heading', 'talkwyn' ), __( 'The first sentence answers it directly', 'talkwyn' ), __( 'A link to the full policy page', 'talkwyn' ) ) ),
+		'question-log' => array( 'outline', __( 'A one week question log, three columns', 'talkwyn' ), array( __( 'The question, in the customer\'s own words', 'talkwyn' ), __( 'How many times it came up this week', 'talkwyn' ), __( 'The page that answers it, or "missing"', 'talkwyn' ) ) ),
+		'shipping'    => array( 'outline', __( 'Shipping and returns page, one heading per question', 'talkwyn' ), array( __( 'Where we ship', 'talkwyn' ), __( 'Costs', 'talkwyn' ), __( 'Delivery times', 'talkwyn' ), __( 'Tracking', 'talkwyn' ), __( 'Returns', 'talkwyn' ), __( 'Refunds', 'talkwyn' ), __( 'How to start a return', 'talkwyn' ) ) ),
+		'scan-scope'  => array( 'compare', __( 'Read by the scan', 'talkwyn' ), array( __( 'Published pages and posts', 'talkwyn' ), __( 'WooCommerce products', 'talkwyn' ), __( 'Menus', 'talkwyn' ), __( 'Custom fields, when you turn them on', 'talkwyn' ), __( 'Elementor content', 'talkwyn' ) ), __( 'Never read', 'talkwyn' ), array( __( 'Drafts and private content', 'talkwyn' ), __( 'Password protected pages', 'talkwyn' ), __( 'User accounts and passwords', 'talkwyn' ) ) ),
+	);
+}
+
+/**
+ * One docs visual: a screenshot or an HTML diagram.
+ *
+ * @param string $key     Visual key.
+ * @param string $caption Caption, empty for the screenshot's default.
+ */
+function talkwyn_doc_shot_html( string $key, string $caption = '' ): string {
+	$shots = talkwyn_doc_shots();
+	if ( isset( $shots[ $key ] ) ) {
+		list( $file, $alt, $default, $narrow ) = $shots[ $key ];
+		$path = TALKWYN_THEME_DIR . '/assets/docs/' . $file;
+		$size = is_readable( $path ) ? (array) wp_getimagesize( $path ) : array();
+		return '<figure class="tw-figure tw-figure--shot' . ( $narrow ? ' tw-figure--narrow' : '' ) . '"><img class="tw-shot-img" src="' . esc_url( TALKWYN_THEME_URL . '/assets/docs/' . $file . '?v=' . TALKWYN_THEME_VERSION ) . '" alt="' . esc_attr( $alt ) . '"'
+			. ( isset( $size[0], $size[1] ) ? ' width="' . (int) $size[0] . '" height="' . (int) $size[1] . '"' : '' ) . ' loading="lazy" decoding="async">'
+			. '<figcaption>' . esc_html( '' !== $caption ? $caption : $default ) . '</figcaption></figure>';
+	}
+	$diagrams = talkwyn_doc_diagrams();
+	if ( ! isset( $diagrams[ $key ] ) ) {
+		return '';
+	}
+	$d    = $diagrams[ $key ];
+	$list = static function ( array $items ): string {
+		return '<ul>' . implode( '', array_map( static fn( $i ) => '<li>' . esc_html( $i ) . '</li>', $items ) ) . '</ul>';
+	};
+	if ( 'flow' === $d[0] ) {
+		$body = '<ol class="tw-dflow">';
+		foreach ( $d[1] as $n => $step ) {
+			$body .= '<li><span class="tw-dflow__n">' . (int) ( $n + 1 ) . '</span><span>' . esc_html( $step ) . '</span></li>';
+		}
+		$body .= '</ol>';
+	} elseif ( 'compare' === $d[0] ) {
+		$body = '<div class="tw-dcompare"><div><strong>' . esc_html( $d[1] ) . '</strong>' . $list( $d[2] ) . '</div><div><strong>' . esc_html( $d[3] ) . '</strong>' . $list( $d[4] ) . '</div></div>';
+	} else {
+		$body = '<div class="tw-doutline"><strong>' . esc_html( $d[1] ) . '</strong>' . $list( $d[2] ) . '</div>';
+	}
+	return '<figure class="tw-figure tw-figure--diagram">' . $body . ( '' !== $caption ? '<figcaption>' . esc_html( $caption ) . '</figcaption>' : '' ) . '</figure>';
+}
+
+// [tw_shot key="scan" caption="..."]: a docs screenshot or diagram.
+add_shortcode(
+	'tw_shot',
+	static function ( $atts ) {
+		$atts = shortcode_atts(
+			array(
+				'key'     => '',
+				'caption' => '',
+			),
+			$atts,
+			'tw_shot'
+		);
+		return talkwyn_doc_shot_html( sanitize_key( $atts['key'] ), (string) $atts['caption'] );
+	}
+);
+
+/**
+ * Placeholder label (start of the old "Screenshot of ..." text) => visual key, '' to drop it,
+ * and an optional caption that replaces the old one.
+ *
+ * @return array<string, array{0: string, 1?: string}>
+ */
+function talkwyn_doc_placeholder_map(): array {
+	return array(
+		'groq console'                                    => array( '' ),
+		'cloudflare dashboard'                            => array( '' ),
+		'chart placeholder'                               => array( '' ),
+		'buyer question goes to the chatbot'              => array( 're-answer' ),
+		'real estate lead flow'                           => array( 're-leads' ),
+		'two kinds of chatbot'                            => array( 'kinds' ),
+		'asks a question in spanish, the chatbot searches' => array( 'es-flow' ),
+		'asks about delivery in hindi'                    => array( 'hi-flow' ),
+		'faq page, shipping page and product pages feed'  => array( 'faq-index' ),
+		'annotated example of a well structured faq'      => array( 'faq-page' ),
+		'simple spreadsheet'                              => array( 'question-log' ),
+		'outline of a shipping and returns page'          => array( 'shipping' ),
+		'what the chatbot scan includes'                  => array( 'scan-scope' ),
+		'side by side comparison'                         => array( 'chat-delivery' ),
+		'arabic question'                                 => array( 'chat-arabic' ),
+		'saturday viewings'                               => array( 'chat-viewing' ),
+		'sample dental clinic'                            => array( 'chat-dental' ),
+		'ships to puerto rico'                            => array( 'chat-spanish' ),
+		'example lead email'                              => array( 'lead-email', __( 'Example: the lead email gives you the visitor\'s details and their question. The full chat is in WordPress under Talkwyn, Conversations.', 'talkwyn' ) ),
+		'talkwyn settings screen'                         => array( 'appearance' ),
+		'chat window at night'                            => array( 'chat-night' ),
+		'sample hotel website'                            => array( 'chat-hotel' ),
+		'chat history list'                               => array( 'conversations' ),
+		'add new plugin'                                  => array( 'plugins', __( 'Talkwyn installed and active under Plugins.', 'talkwyn' ) ),
+		'scan my site'                                    => array( 'scan', __( 'Rescan any time under Talkwyn, Knowledge, and see what was read.', 'talkwyn' ) ),
+		'appearance settings'                             => array( 'appearance', __( 'Appearance settings with a live preview of your chat.', 'talkwyn' ) ),
+		'ai provider'                                     => array( 'providers' ),
+		'opening hours'                                   => array( 'chat-sources' ),
+		'asks to book'                                    => array( 'chat-offer' ),
+		'woocommerce product edit'                        => array( 'woo' ),
+	);
+}
+
+/**
+ * Pages imported before theme 2.11.0 still hold "Screenshot of ..." placeholder boxes.
+ * Show the real screenshot or diagram instead, keeping the page's own caption, and drop
+ * the boxes for third-party screens (Groq console, Cloudflare dashboard) and the cost
+ * chart that had no data behind it.
+ */
+add_filter(
+	'the_content',
+	static function ( $html ) {
+		// One FAQ answer said the lead email carries the whole chat; it carries the last question.
+		$html = str_replace( 'The details the visitor entered in the short form, plus the conversation.', 'The details the visitor entered in the short form and the question they asked. The full conversation is saved in WordPress under Talkwyn, Conversations.', (string) $html );
+		if ( false === strpos( $html, 'tw-shot"' ) ) {
+			return $html;
+		}
+		return (string) preg_replace_callback(
+			'#<figure class="tw-figure">\s*<div class="tw-shot"[^>]*aria-label="([^"]*)".*?(?:<figcaption>(.*?)</figcaption>)?\s*</figure>#s',
+			static function ( $m ) {
+				$label = strtolower( html_entity_decode( $m[1], ENT_QUOTES ) );
+				foreach ( talkwyn_doc_placeholder_map() as $needle => $to ) {
+					if ( false !== strpos( $label, $needle ) ) {
+						$caption = $to[1] ?? html_entity_decode( wp_strip_all_tags( (string) ( $m[2] ?? '' ) ), ENT_QUOTES );
+						return '' === $to[0] ? '' : talkwyn_doc_shot_html( $to[0], $caption );
+					}
+				}
+				return $m[0];
+			},
+			(string) $html
 		);
 	},
 	20

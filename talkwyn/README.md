@@ -132,6 +132,23 @@ The header (mega menu), footer and the end-of-page CTA band are dynamic blocks r
 
 "Was this helpful?" answers are stored per doc. The Docs list shows a "Helpful (yes / no)" column.
 
+Since 2.11.0 a doc page is a full-width app: a sidebar with a search box (filters the guide list as you type) and a "Stuck on a step?" card, a 760px reading column with reading time and last update, and "On this page" on the right that highlights the section in view. On phones the sidebar folds into a "Browse the docs" button. An H2 that starts with a number ("1. Install the plugin") gets a round step badge.
+
+### Screenshots and diagrams
+
+`[tw_shot key="scan"]` prints a screenshot from `assets/docs` with its alt text and caption. Add `caption="..."` to change the caption. Keys:
+
+| Key | Shows |
+|---|---|
+| `plugins`, `scan`, `providers`, `appearance`, `conversations`, `woo` | Real WordPress and Talkwyn admin screens |
+| `lead-email` | A real lead email, with sample visitor details |
+| `chat-sources`, `chat-offer`, `chat-delivery`, `chat-dental`, `chat-hotel`, `chat-spanish`, `chat-arabic`, `chat-viewing`, `chat-night` | The real chat widget with sample businesses, captioned as examples |
+| `re-answer`, `re-leads`, `es-flow`, `hi-flow`, `faq-index` | Step diagrams drawn in HTML |
+| `kinds`, `scan-scope` | Two-column comparisons drawn in HTML |
+| `faq-page`, `question-log`, `shipping` | Outlines drawn in HTML |
+
+Pages imported from an older theme still hold grey "Screenshot of ..." boxes in the database. They are swapped for the matching screenshot or diagram when the page is shown, so nothing needs re-importing. Boxes for third-party screens (Groq console, Cloudflare dashboard) and a cost chart without data are hidden. To refresh a screenshot, replace the file in `assets/docs` with one of the same name (WebP, about 1600px wide) and bump the theme version.
+
 ## Adding a blog post
 
 1. Go to Posts → Add New. Pick one category (Guides, Multilingual, WordPress, Comparisons or Industries). Tags are noindex and not used.
