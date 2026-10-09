@@ -1,5 +1,10 @@
 # Talkwyn changelog
 
+## 2.3.5
+
+### Changed
+- Plugin name is "Talkwyn" in both the plugin header and `readme.txt`. WordPress.org builds the plugin address (slug) from this name, so it becomes `talkwyn`, the same as the text domain. The names still match, so Plugin Check stays clean.
+
 ## 2.3.4
 
 ### Changed
