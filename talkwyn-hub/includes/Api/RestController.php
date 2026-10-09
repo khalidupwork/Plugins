@@ -503,7 +503,7 @@ final class RestController {
 	 * @param string $path     Absolute path.
 	 * @param string $filename Download file name.
 	 */
-	private static function stream( string $path, string $filename ): void {
+	public static function stream( string $path, string $filename ): void {
 		while ( ob_get_level() > 0 ) {
 			ob_end_clean();
 		}

@@ -144,6 +144,16 @@ Run this on a staging copy of talkwyn.com with Stripe in **test mode** (card `42
 - [ ] `GET /wp-json/talkwyn-hub/v1/partners/terms` returns the current settings.
 - [ ] Turn Partners off → `?ref=` does nothing, My Account → Partners says the program is closed.
 
+## 13. Customer dashboard (1.5.0)
+
+- [ ] Logged out, /my-account/ shows the normal login form.
+- [ ] Logged in with a trial: sidebar, top bar with Log out, "Welcome back", 3 stat cards, features list, current plan with site slots, Your sites (Live or Dev).
+- [ ] Create product `talkwyn`, upload the free ZIP as a release: **Download .zip** downloads `talkwyn-<version>.zip`. With an active license, **Talkwyn Pro .zip** downloads the Pro release.
+- [ ] Downloads page lists "Talkwyn (free plugin)" first, then Pro for active licenses.
+- [ ] A customer with no license sees 0 stats, "Unlock with Pro", **Start free 15-day trial**, Free plan.
+- [ ] Billing shows Orders and invoices plus Billing address tabs; Account shows the details form; Support opens /contact/.
+- [ ] Phone width: the sidebar turns into a top menu that scrolls sideways; stats sit in three small columns.
+
 ## 12. Admin screens (1.4.0)
 
 - [ ] Every Talkwyn Hub screen shows the pink header with the version, the two header buttons and the page tabs. The active page is dark.

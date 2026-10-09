@@ -235,6 +235,20 @@ final class Account {
 				'changelog' => wp_kses_post( Markdown::to_html( (string) $release['changelog'] ) ),
 			);
 		}
+		// The free plugin is always available to every customer.
+		$free_product = Products::find_by_slug( (string) apply_filters( 'twh_free_product', 'talkwyn' ) );
+		$free_release = $free_product ? Releases::latest( (int) $free_product['id'], 'stable' ) : null;
+		array_unshift(
+			$items,
+			array(
+				'product'   => __( 'Talkwyn (free plugin)', 'talkwyn-hub' ),
+				'version'   => $free_release ? (string) $free_release['version'] : '',
+				'date'      => $free_release ? (string) $free_release['released_at'] : '',
+				'size'      => $free_release ? (int) $free_release['file_size'] : 0,
+				'url'       => App::free_download_url(),
+				'changelog' => $free_release ? wp_kses_post( Markdown::to_html( (string) $free_release['changelog'] ) ) : '',
+			)
+		);
 		self::template( 'account/downloads.php', array( 'items' => $items ) );
 	}
 

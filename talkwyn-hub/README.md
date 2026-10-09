@@ -149,6 +149,15 @@ Every paid order gets the next invoice number (prefix plus five digits, for exam
 
 Customers open a printable invoice from **My Account, Orders and invoices** (the Invoice button), from the order page, and from the link in their order email. The page has a "Print or save as PDF" button. A link only opens for the customer, a shop manager, or someone holding the order key from the email. Older `/my-account/twh-invoice/ID/` links redirect to the new invoice. If a dedicated PDF invoice plugin is active, Talkwyn Hub leaves invoices to it.
 
+## 5d. Customer dashboard (since 1.5.0)
+
+Logged-in customers see My Account as a full-screen dashboard: a sidebar (Overview, Downloads, Licenses, Billing, Account, Partner, Support, a "Need more sites?" box and their name), a top bar with the page title and **Log out**, and the WooCommerce pages inside it. Logged-out visitors still get the normal login page.
+
+- **Overview:** welcome line; a download banner (free plugin, plus **Talkwyn Pro .zip** with an active license); Pro features included, connected sites (used/limit) and licenses; "Features in your plan" (or "Unlock with Pro" with a trial button); the current plan with site slots and end date; the latest sites with Live or Dev.
+- **Free plugin download:** create a product with the slug `talkwyn` under **Talkwyn Hub → Products** and upload the free plugin ZIP as its release. Logged-in customers download it from the dashboard and the Downloads page. Without that release the button goes to `/download/` (filter `twh_free_download_fallback`).
+- **Billing** holds Orders and invoices plus Billing address; **Account** is the WooCommerce account details form; **Support** links to `/contact/` (filter `twh_account_support_url`).
+- Override the layout from the theme with `talkwyn-hub/account/app.php` and `talkwyn-hub/account/overview.php`, change the menu with `twh_account_nav`, the feature list with `twh_account_plan_features`, or turn the layout off with `add_filter( 'twh_account_app', '__return_false' )`.
+
 ## 6. Admin
 
 | Screen | What you can do |

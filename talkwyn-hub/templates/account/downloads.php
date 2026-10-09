@@ -23,11 +23,13 @@ endif;
 <?php foreach ( $items as $twh_item ) : ?>
 	<article class="twh-license-card twh-download">
 		<header class="twh-license-card__head">
-			<h3 class="twh-license-card__title"><?php echo esc_html( $twh_item['product'] ); ?> <span class="twh-plan"><?php echo esc_html( $twh_item['version'] ); ?></span></h3>
+			<h3 class="twh-license-card__title"><?php echo esc_html( $twh_item['product'] ); ?><?php if ( '' !== $twh_item['version'] ) : ?> <span class="twh-plan"><?php echo esc_html( $twh_item['version'] ); ?></span><?php endif; ?></h3>
 		</header>
 		<div class="twh-actions">
 			<a class="button twh-btn" href="<?php echo esc_url( $twh_item['url'] ); ?>"><?php esc_html_e( 'Download ZIP', 'talkwyn-hub' ); ?></a>
-			<span class="twh-muted"><?php echo esc_html( Time::human( $twh_item['date'] ) . ( $twh_item['size'] ? ' · ' . size_format( $twh_item['size'] ) : '' ) ); ?></span>
+			<?php if ( '' !== $twh_item['date'] ) : ?>
+				<span class="twh-muted"><?php echo esc_html( Time::human( $twh_item['date'] ) . ( $twh_item['size'] ? ' · ' . size_format( $twh_item['size'] ) : '' ) ); ?></span>
+			<?php endif; ?>
 		</div>
 		<?php if ( '' !== $twh_item['changelog'] ) : ?>
 			<details class="twh-changelog-toggle">

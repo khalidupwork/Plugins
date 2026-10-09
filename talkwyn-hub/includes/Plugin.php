@@ -53,6 +53,7 @@ final class Plugin {
 			Woo\OrderDisplay::init();
 			Woo\Invoices::init();
 			Account\Account::init();
+			Account\App::init();
 		} else {
 			add_action( 'admin_notices', array( self::class, 'notice_woocommerce' ) );
 		}
