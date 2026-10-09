@@ -156,7 +156,7 @@ final class Stream {
 					$text = trim( (string) call_user_func( $registry[ $id ]['call'], $messages, $s ) );
 				}
 			} catch ( \Exception $e ) {
-				$errors[] = $id . ': ' . $e->getMessage();
+				$errors[] = $id . ': ' . wp_specialchars_decode( $e->getMessage(), ENT_QUOTES );
 				$text     = trim( self::visible( $acc ) );
 				if ( '' === $text ) {
 					continue;
@@ -214,7 +214,7 @@ final class Stream {
 		}
 		if ( 'anthropic' === $id ) {
 			return array(
-				'url'     => 'https://api.anthropic.com/v1/messages',
+				'url'     => 'https://api.anthropic.com/v1/messages', // phpcs:ignore PluginCheck.CodeAnalysis.AIProvider.DirectIntegration -- the site owner picks this provider and adds their own key; listed under External services.
 				'headers' => Providers::anthropic_headers( (string) $s['anthropic_key'] ),
 				'body'    => Providers::anthropic_body( $messages, $s, true ),
 				'format'  => 'anthropic',
@@ -329,12 +329,12 @@ final class Stream {
 		$err  = curl_error( $ch ); // phpcs:ignore WordPress.WP.AlternativeFunctions.curl_curl_error
 		curl_close( $ch ); // phpcs:ignore WordPress.WP.AlternativeFunctions.curl_curl_close
 		if ( false === $ok ) {
-			throw new \Exception( '' !== $err ? $err : 'Stream failed' );
+			throw new \Exception( esc_html( '' !== $err ? $err : 'Stream failed' ) );
 		}
 		if ( $code < 200 || $code > 299 ) {
 			$data = json_decode( $raw, true );
 			$msg  = is_array( $data ) ? (string) ( $data['error']['message'] ?? ( $data['message'] ?? '' ) ) : '';
-			throw new \Exception( 'HTTP ' . $code . ( '' !== $msg ? ': ' . $msg : '' ) );
+			throw new \Exception( esc_html( 'HTTP ' . $code . ( '' !== $msg ? ': ' . $msg : '' ) ) );
 		}
 	}
 }

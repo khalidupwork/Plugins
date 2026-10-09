@@ -34,7 +34,7 @@ final class Insights {
 		$t     = \Talkwyn_DB::tables();
 		$since = gmdate( 'Y-m-d H:i:s', time() - $days * DAY_IN_SECONDS );
 
-		$per_day = (array) $wpdb->get_results( $wpdb->prepare( "SELECT DATE(created_gmt) AS d, COUNT(DISTINCT session_id) AS c FROM {$t['logs']} WHERE role = 'user' AND created_gmt >= %s GROUP BY d ORDER BY d ASC", $since ), ARRAY_A ); // phpcs:ignore WordPress.DB
+		$per_day = (array) $wpdb->get_results( $wpdb->prepare( "SELECT DATE(created_gmt) AS d, COUNT(DISTINCT session_id) AS c FROM %i WHERE role = 'user' AND created_gmt >= %s GROUP BY d ORDER BY d ASC", $t['logs'], $since ), ARRAY_A ); // phpcs:ignore WordPress.DB
 		$days_map = array();
 		for ( $i = $days - 1; $i >= 0; $i-- ) {
 			$days_map[ gmdate( 'Y-m-d', time() - $i * DAY_IN_SECONDS ) ] = 0;
@@ -45,9 +45,9 @@ final class Insights {
 			}
 		}
 		$chats = array_sum( $days_map );
-		$leads = (int) $wpdb->get_var( $wpdb->prepare( "SELECT COUNT(*) FROM {$t['leads']} WHERE created_gmt >= %s", $since ) ); // phpcs:ignore WordPress.DB
+		$leads = (int) $wpdb->get_var( $wpdb->prepare( "SELECT COUNT(*) FROM %i WHERE created_gmt >= %s", $t['leads'], $since ) ); // phpcs:ignore WordPress.DB
 
-		$questions = (array) $wpdb->get_results( $wpdb->prepare( "SELECT message FROM {$t['logs']} WHERE role = 'user' AND created_gmt >= %s ORDER BY id DESC LIMIT 5000", $since ), ARRAY_A ); // phpcs:ignore WordPress.DB
+		$questions = (array) $wpdb->get_results( $wpdb->prepare( "SELECT message FROM %i WHERE role = 'user' AND created_gmt >= %s ORDER BY id DESC LIMIT 5000", $t['logs'], $since ), ARRAY_A ); // phpcs:ignore WordPress.DB
 		$top       = array();
 		foreach ( $questions as $q ) {
 			$text = trim( (string) $q['message'] );
@@ -70,9 +70,9 @@ final class Insights {
 			}
 		);
 
-		$pages = (array) $wpdb->get_results( $wpdb->prepare( "SELECT l.page_url AS url, COUNT(*) AS c FROM {$t['logs']} l INNER JOIN (SELECT session_id, MIN(id) AS mid FROM {$t['logs']} WHERE role = 'user' AND created_gmt >= %s GROUP BY session_id) f ON f.mid = l.id GROUP BY l.page_url ORDER BY c DESC LIMIT 10", $since ), ARRAY_A ); // phpcs:ignore WordPress.DB
+		$pages = (array) $wpdb->get_results( $wpdb->prepare( "SELECT l.page_url AS url, COUNT(*) AS c FROM %i l INNER JOIN (SELECT session_id, MIN(id) AS mid FROM %i WHERE role = 'user' AND created_gmt >= %s GROUP BY session_id) f ON f.mid = l.id GROUP BY l.page_url ORDER BY c DESC LIMIT 10", $t['logs'], $t['logs'], $since ), ARRAY_A ); // phpcs:ignore WordPress.DB
 
-		$replies   = (array) $wpdb->get_results( $wpdb->prepare( "SELECT provider, meta, response_ms, feedback FROM {$t['logs']} WHERE role = 'assistant' AND created_gmt >= %s ORDER BY id DESC LIMIT 10000", $since ), ARRAY_A ); // phpcs:ignore WordPress.DB
+		$replies   = (array) $wpdb->get_results( $wpdb->prepare( "SELECT provider, meta, response_ms, feedback FROM %i WHERE role = 'assistant' AND created_gmt >= %s ORDER BY id DESC LIMIT 10000", $t['logs'], $since ), ARRAY_A ); // phpcs:ignore WordPress.DB
 		$providers = array();
 		$ai        = 0;
 		$fallback  = 0;
@@ -138,13 +138,13 @@ final class Insights {
 	public static function inbox( int $limit = 100 ): array {
 		global $wpdb;
 		$t    = \Talkwyn_DB::tables();
-		$rows = (array) $wpdb->get_results( $wpdb->prepare( "SELECT id, created_gmt, session_id, message, page_url, meta, feedback FROM {$t['logs']} WHERE role = 'assistant' AND ( meta LIKE %s OR feedback = 'not_helpful' ) AND meta NOT LIKE %s ORDER BY id DESC LIMIT %d", '%"answered":0%', '%"resolved":1%', $limit ), ARRAY_A ); // phpcs:ignore WordPress.DB
+		$rows = (array) $wpdb->get_results( $wpdb->prepare( "SELECT id, created_gmt, session_id, message, page_url, meta, feedback FROM %i WHERE role = 'assistant' AND ( meta LIKE %s OR feedback = 'not_helpful' ) AND meta NOT LIKE %s ORDER BY id DESC LIMIT %d", $t['logs'], '%"answered":0%', '%"resolved":1%', $limit ), ARRAY_A ); // phpcs:ignore WordPress.DB
 		$out  = array();
 		foreach ( $rows as $row ) {
 			$meta     = json_decode( (string) $row['meta'], true );
 			$question = is_array( $meta ) ? (string) ( $meta['question'] ?? '' ) : '';
 			if ( '' === $question ) {
-				$question = (string) $wpdb->get_var( $wpdb->prepare( "SELECT message FROM {$t['logs']} WHERE session_id = %s AND role = 'user' AND id < %d ORDER BY id DESC LIMIT 1", $row['session_id'], $row['id'] ) ); // phpcs:ignore WordPress.DB
+				$question = (string) $wpdb->get_var( $wpdb->prepare( "SELECT message FROM %i WHERE session_id = %s AND role = 'user' AND id < %d ORDER BY id DESC LIMIT 1", $t['logs'], $row['session_id'], $row['id'] ) ); // phpcs:ignore WordPress.DB
 			}
 			$out[] = array(
 				'id'       => (int) $row['id'],
@@ -166,7 +166,7 @@ final class Insights {
 	public static function resolve( int $log_id ): void {
 		global $wpdb;
 		$t    = \Talkwyn_DB::tables();
-		$meta = json_decode( (string) $wpdb->get_var( $wpdb->prepare( "SELECT meta FROM {$t['logs']} WHERE id = %d", $log_id ) ), true ); // phpcs:ignore WordPress.DB
+		$meta = json_decode( (string) $wpdb->get_var( $wpdb->prepare( "SELECT meta FROM %i WHERE id = %d", $t['logs'], $log_id ) ), true ); // phpcs:ignore WordPress.DB
 		$meta = is_array( $meta ) ? $meta : array();
 		$meta['resolved'] = 1;
 		$wpdb->update( $t['logs'], array( 'meta' => wp_json_encode( $meta ) ), array( 'id' => $log_id ), array( '%s' ), array( '%d' ) ); // phpcs:ignore WordPress.DB

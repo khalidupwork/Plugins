@@ -112,7 +112,7 @@ final class Admin {
 			'badfile'   => array( 'error', __( 'That file is not a Talkwyn settings export.', 'talkwyn-pro' ) ),
 		);
 		if ( isset( $messages[ $code ] ) ) {
-			$detail = isset( $_GET['detail'] ) ? sanitize_text_field( rawurldecode( wp_unslash( $_GET['detail'] ) ) ) : ''; // phpcs:ignore WordPress.Security.NonceVerification.Recommended
+			$detail = isset( $_GET['detail'] ) ? sanitize_text_field( wp_unslash( $_GET['detail'] ) ) : ''; // phpcs:ignore WordPress.Security.NonceVerification.Recommended
 			echo '<div class="notice notice-' . esc_attr( $messages[ $code ][0] ) . ' is-dismissible"><p>' . esc_html( $messages[ $code ][1] . ( '' !== $detail ? ' ' . $detail : '' ) ) . '</p></div>';
 		}
 	}

@@ -193,7 +193,7 @@ if ( ! class_exists( 'Talkwyn_License_Client' ) ) :
 		public function activate( string $key ) {
 			$key = strtoupper( (string) preg_replace( '/\s+/', '', $key ) );
 			if ( ! preg_match( '/^[A-Z]{2,10}(-[A-Z0-9]{4}){4}$/', $key ) ) {
-				return new WP_Error( 'invalid_key', __( 'Please enter a valid license key (e.g. TALK-XXXX-XXXX-XXXX-XXXX).', 'talkwyn' ) );
+				return new WP_Error( 'invalid_key', __( 'Please enter a valid license key (e.g. TALK-XXXX-XXXX-XXXX-XXXX).', 'talkwyn-pro' ) );
 			}
 			$res = $this->request( 'license/activate', $key );
 			if ( ! $res['ok'] ) {
@@ -220,7 +220,7 @@ if ( ! class_exists( 'Talkwyn_License_Client' ) ) :
 			delete_option( $this->cfg['prefix'] . '_state' );
 			$this->flush_update_cache();
 			if ( ! $res['ok'] && ! empty( $res['network'] ) ) {
-				return new WP_Error( 'network', __( 'The license was removed from this site, but the license server could not be reached. Free the slot from your account if needed.', 'talkwyn' ) );
+				return new WP_Error( 'network', __( 'The license was removed from this site, but the license server could not be reached. Free the slot from your account if needed.', 'talkwyn-pro' ) );
 			}
 			return true;
 		}
@@ -315,7 +315,7 @@ if ( ! class_exists( 'Talkwyn_License_Client' ) ) :
 				'ok'      => false,
 				'network' => true,
 				'code'    => 'network',
-				'message' => __( 'The license server could not be reached. Please try again later.', 'talkwyn' ),
+				'message' => __( 'The license server could not be reached. Please try again later.', 'talkwyn-pro' ),
 			);
 			if ( is_wp_error( $response ) ) {
 				return $network;
@@ -325,13 +325,13 @@ if ( ! class_exists( 'Talkwyn_License_Client' ) ) :
 				$code = (int) wp_remote_retrieve_response_code( $response );
 				if ( 429 === $code ) {
 					$network['code']    = 'rate_limited';
-					$network['message'] = __( 'Too many requests. Please wait a few minutes and try again.', 'talkwyn' );
+					$network['message'] = __( 'Too many requests. Please wait a few minutes and try again.', 'talkwyn-pro' );
 				}
 				return $network;
 			}
 			if ( ! $this->verify( $json['data'], (string) $json['signature'] ) ) {
 				$network['code']    = 'bad_signature';
-				$network['message'] = __( 'The license server response could not be verified.', 'talkwyn' );
+				$network['message'] = __( 'The license server response could not be verified.', 'talkwyn-pro' );
 				return $network;
 			}
 			$data = $json['data'];
@@ -341,7 +341,7 @@ if ( ! class_exists( 'Talkwyn_License_Client' ) ) :
 			}
 			if ( abs( (int) ( $data['server_time'] ?? 0 ) - time() ) > self::MAX_CLOCK_SKEW ) {
 				$network['code']    = 'clock_skew';
-				$network['message'] = __( 'Your server clock differs from the license server by more than 10 minutes. Please fix the server time.', 'talkwyn' );
+				$network['message'] = __( 'Your server clock differs from the license server by more than 10 minutes. Please fix the server time.', 'talkwyn-pro' );
 				return $network;
 			}
 			if ( empty( $json['success'] ) ) {
@@ -487,8 +487,8 @@ if ( ! class_exists( 'Talkwyn_License_Client' ) ) :
 			);
 			if ( empty( $info['package'] ) ) {
 				$item->upgrade_notice = ! empty( $info['renew_url'] )
-					? __( 'Renew your license to get this update.', 'talkwyn' )
-					: __( 'Activate your license to get this update.', 'talkwyn' );
+					? __( 'Renew your license to get this update.', 'talkwyn-pro' )
+					: __( 'Activate your license to get this update.', 'talkwyn-pro' );
 			}
 			if ( version_compare( (string) $this->cfg['version'], (string) $info['new_version'], '<' ) ) {
 				$transient->response[ $this->cfg['plugin_base'] ] = $item;
@@ -550,7 +550,7 @@ if ( ! class_exists( 'Talkwyn_License_Client' ) ) :
 			}
 			$info = $this->update_info( true );
 			if ( empty( $info['package'] ) ) {
-				return new WP_Error( 'talkwyn_no_package', __( 'Your license does not allow this update. Please check your license.', 'talkwyn' ) );
+				return new WP_Error( 'talkwyn_no_package', __( 'Your license does not allow this update. Please check your license.', 'talkwyn-pro' ) );
 			}
 			$file = download_url( (string) $info['package'], 300 );
 			if ( is_wp_error( $file ) ) {
@@ -628,26 +628,26 @@ if ( ! class_exists( 'Talkwyn_License_Client' ) ) :
 			$trial  = 'active' === $status && ! empty( $state['is_trial'] );
 			$ended  = 'expired' === $status && ! empty( $state['trial_ended'] );
 			$labels = array(
-				'active'        => __( 'Active', 'talkwyn' ),
-				'inactive'      => __( 'Not activated', 'talkwyn' ),
-				'expired'       => __( 'Expired', 'talkwyn' ),
-				'revoked'       => __( 'Revoked', 'talkwyn' ),
-				'suspended'     => __( 'Suspended', 'talkwyn' ),
-				'invalid_key'   => __( 'Invalid key', 'talkwyn' ),
-				'wrong_product' => __( 'Wrong product', 'talkwyn' ),
+				'active'        => __( 'Active', 'talkwyn-pro' ),
+				'inactive'      => __( 'Not activated', 'talkwyn-pro' ),
+				'expired'       => __( 'Expired', 'talkwyn-pro' ),
+				'revoked'       => __( 'Revoked', 'talkwyn-pro' ),
+				'suspended'     => __( 'Suspended', 'talkwyn-pro' ),
+				'invalid_key'   => __( 'Invalid key', 'talkwyn-pro' ),
+				'wrong_product' => __( 'Wrong product', 'talkwyn-pro' ),
 			);
 			$masked = '' === $key ? '' : substr( $key, 0, 5 ) . '****-****-****-' . substr( $key, -4 );
 			$action = $this->cfg['prefix'] . '_action';
 			?>
 			<div class="talkwyn-license-box" style="max-width:640px;background:#fff;border:1px solid #dcdcde;border-radius:6px;padding:16px 20px">
-				<h2 style="margin-top:0"><?php esc_html_e( 'License', 'talkwyn' ); ?>
+				<h2 style="margin-top:0"><?php esc_html_e( 'License', 'talkwyn-pro' ); ?>
 					<span style="display:inline-block;margin-left:8px;padding:1px 10px;border-radius:999px;font-size:12px;color:#fff;background:<?php echo esc_attr( $color ); ?>">
 					<?php
 					if ( $trial ) {
 						/* translators: %d: days left */
-						echo esc_html( sprintf( _n( 'Trial: %d day left', 'Trial: %d days left', $this->trial_days_left(), 'talkwyn' ), $this->trial_days_left() ) );
+						echo esc_html( sprintf( _n( 'Trial: %d day left', 'Trial: %d days left', $this->trial_days_left(), 'talkwyn-pro' ), $this->trial_days_left() ) );
 					} elseif ( $ended ) {
-						esc_html_e( 'Trial ended', 'talkwyn' );
+						esc_html_e( 'Trial ended', 'talkwyn-pro' );
 					} else {
 						echo esc_html( $labels[ $status ] ?? $status );
 					}
@@ -659,49 +659,49 @@ if ( ! class_exists( 'Talkwyn_License_Client' ) ) :
 					<?php wp_nonce_field( $action ); ?>
 					<?php if ( '' === $key ) : ?>
 						<p>
-							<label for="talkwyn-license-key" class="screen-reader-text"><?php esc_html_e( 'License key', 'talkwyn' ); ?></label>
+							<label for="talkwyn-license-key" class="screen-reader-text"><?php esc_html_e( 'License key', 'talkwyn-pro' ); ?></label>
 							<input id="talkwyn-license-key" name="license_key" type="text" class="regular-text code" placeholder="TALK-XXXX-XXXX-XXXX-XXXX" autocomplete="off" spellcheck="false" required>
-							<button type="submit" name="do" value="activate" class="button button-primary"><?php esc_html_e( 'Activate', 'talkwyn' ); ?></button>
+							<button type="submit" name="do" value="activate" class="button button-primary"><?php esc_html_e( 'Activate', 'talkwyn-pro' ); ?></button>
 						</p>
 					<?php else : ?>
 						<table class="form-table" role="presentation" style="margin-top:0">
-							<tr><th><?php esc_html_e( 'License key', 'talkwyn' ); ?></th><td><code><?php echo esc_html( $masked ); ?></code></td></tr>
+							<tr><th><?php esc_html_e( 'License key', 'talkwyn-pro' ); ?></th><td><code><?php echo esc_html( $masked ); ?></code></td></tr>
 							<?php if ( ! empty( $state['plan'] ) ) : ?>
-								<tr><th><?php esc_html_e( 'Plan', 'talkwyn' ); ?></th><td><?php echo esc_html( ucfirst( (string) $state['plan'] ) ); ?></td></tr>
+								<tr><th><?php esc_html_e( 'Plan', 'talkwyn-pro' ); ?></th><td><?php echo esc_html( ucfirst( (string) $state['plan'] ) ); ?></td></tr>
 							<?php endif; ?>
-							<tr><th><?php esc_html_e( 'Expires', 'talkwyn' ); ?></th><td>
+							<tr><th><?php esc_html_e( 'Expires', 'talkwyn-pro' ); ?></th><td>
 								<?php
 								echo empty( $state['expires_at'] )
-									? esc_html__( 'Never (lifetime)', 'talkwyn' )
+									? esc_html__( 'Never (lifetime)', 'talkwyn-pro' )
 									: esc_html( wp_date( (string) get_option( 'date_format' ), (int) strtotime( (string) $state['expires_at'] ) ) );
 								?>
 							</td></tr>
 							<?php if ( isset( $state['activation_limit'] ) ) : ?>
-								<tr><th><?php esc_html_e( 'Sites', 'talkwyn' ); ?></th><td>
+								<tr><th><?php esc_html_e( 'Sites', 'talkwyn-pro' ); ?></th><td>
 									<?php
-									echo esc_html( (int) ( $state['activations_used'] ?? 0 ) . ' / ' . ( 0 === (int) $state['activation_limit'] ? __( 'Unlimited', 'talkwyn' ) : (int) $state['activation_limit'] ) );
+									echo esc_html( (int) ( $state['activations_used'] ?? 0 ) . ' / ' . ( 0 === (int) $state['activation_limit'] ? __( 'Unlimited', 'talkwyn-pro' ) : (int) $state['activation_limit'] ) );
 									if ( ! empty( $state['is_dev_site'] ) ) {
-										echo ' <em>(' . esc_html__( 'this dev/staging site does not count', 'talkwyn' ) . ')</em>';
+										echo ' <em>(' . esc_html__( 'this dev/staging site does not count', 'talkwyn-pro' ) . ')</em>';
 									}
 									?>
 								</td></tr>
 							<?php endif; ?>
 							<?php if ( ! empty( $state['last_check'] ) ) : ?>
-								<tr><th><?php esc_html_e( 'Last check', 'talkwyn' ); ?></th><td><?php echo esc_html( human_time_diff( (int) $state['last_check'] ) . ' ' . __( 'ago', 'talkwyn' ) ); ?></td></tr>
+								<tr><th><?php esc_html_e( 'Last check', 'talkwyn-pro' ); ?></th><td><?php echo esc_html( human_time_diff( (int) $state['last_check'] ) . ' ' . __( 'ago', 'talkwyn-pro' ) ); ?></td></tr>
 							<?php endif; ?>
 						</table>
 						<p>
-							<button type="submit" name="do" value="check" class="button"><?php esc_html_e( 'Check now', 'talkwyn' ); ?></button>
-							<button type="submit" name="do" value="deactivate" class="button" onclick="return confirm('<?php echo esc_js( __( 'Deactivate the license on this site?', 'talkwyn' ) ); ?>');"><?php esc_html_e( 'Deactivate', 'talkwyn' ); ?></button>
+							<button type="submit" name="do" value="check" class="button"><?php esc_html_e( 'Check now', 'talkwyn-pro' ); ?></button>
+							<button type="submit" name="do" value="deactivate" class="button" onclick="return confirm('<?php echo esc_js( __( 'Deactivate the license on this site?', 'talkwyn-pro' ) ); ?>');"><?php esc_html_e( 'Deactivate', 'talkwyn-pro' ); ?></button>
 							<?php if ( $trial || $ended ) : ?>
-								<a class="button button-primary" href="<?php echo esc_url( $ended && ! empty( $state['upgrade_url'] ) ? (string) $state['upgrade_url'] : (string) $this->cfg['upgrade_url'] ); ?>" target="_blank" rel="noopener noreferrer"><?php esc_html_e( 'Upgrade to keep Pro', 'talkwyn' ); ?></a>
+								<a class="button button-primary" href="<?php echo esc_url( $ended && ! empty( $state['upgrade_url'] ) ? (string) $state['upgrade_url'] : (string) $this->cfg['upgrade_url'] ); ?>" target="_blank" rel="noopener noreferrer"><?php esc_html_e( 'Upgrade to keep Pro', 'talkwyn-pro' ); ?></a>
 							<?php elseif ( ! empty( $state['renew_url'] ) && 'expired' === $status ) : ?>
-								<a class="button button-primary" href="<?php echo esc_url( (string) $state['renew_url'] ); ?>" target="_blank" rel="noopener noreferrer"><?php esc_html_e( 'Renew license', 'talkwyn' ); ?></a>
+								<a class="button button-primary" href="<?php echo esc_url( (string) $state['renew_url'] ); ?>" target="_blank" rel="noopener noreferrer"><?php esc_html_e( 'Renew license', 'talkwyn-pro' ); ?></a>
 							<?php endif; ?>
 						</p>
 					<?php endif; ?>
 				</form>
-				<p><a href="<?php echo esc_url( (string) $this->cfg['manage_url'] ); ?>" target="_blank" rel="noopener noreferrer"><?php esc_html_e( 'Manage license', 'talkwyn' ); ?> &rarr;</a></p>
+				<p><a href="<?php echo esc_url( (string) $this->cfg['manage_url'] ); ?>" target="_blank" rel="noopener noreferrer"><?php esc_html_e( 'Manage license', 'talkwyn-pro' ); ?> &rarr;</a></p>
 			</div>
 			<?php
 		}
@@ -712,7 +712,7 @@ if ( ! class_exists( 'Talkwyn_License_Client' ) ) :
 		public function handle_form(): void {
 			$action = $this->cfg['prefix'] . '_action';
 			if ( ! current_user_can( (string) $this->cfg['capability'] ) ) {
-				wp_die( esc_html__( 'You are not allowed to do this.', 'talkwyn' ), '', array( 'response' => 403 ) );
+				wp_die( esc_html__( 'You are not allowed to do this.', 'talkwyn-pro' ), '', array( 'response' => 403 ) );
 			}
 			check_admin_referer( $action );
 			$do     = isset( $_POST['do'] ) ? sanitize_key( wp_unslash( $_POST['do'] ) ) : '';
@@ -726,7 +726,7 @@ if ( ! class_exists( 'Talkwyn_License_Client' ) ) :
 				$state  = $this->state();
 				$result = ( 'active' === ( $state['status'] ?? '' ) && empty( $state['offline_since'] ) ) ? true : new WP_Error( (string) ( $state['last_error'] ?? 'error' ), $this->error_message( (string) ( $state['last_error'] ?? '' ) ) );
 			}
-			$notice = is_wp_error( $result ) ? array( 'error', $result->get_error_message() ) : array( 'success', __( 'License updated.', 'talkwyn' ) );
+			$notice = is_wp_error( $result ) ? array( 'error', $result->get_error_message() ) : array( 'success', __( 'License updated.', 'talkwyn-pro' ) );
 			set_transient( $this->cfg['prefix'] . '_notice_' . get_current_user_id(), $notice, MINUTE_IN_SECONDS );
 			wp_safe_redirect( wp_get_referer() ? wp_get_referer() : admin_url() );
 			exit;
@@ -756,7 +756,7 @@ if ( ! class_exists( 'Talkwyn_License_Client' ) ) :
 					esc_html(
 						sprintf(
 							/* translators: %d: days */
-							__( 'The license server could not be reached. Pro features stay active for %d more day(s). Please make sure your site can connect to talkwyn.com.', 'talkwyn' ),
+							__( 'The license server could not be reached. Pro features stay active for %d more day(s). Please make sure your site can connect to talkwyn.com.', 'talkwyn-pro' ),
 							max( 0, $left )
 						)
 					)
@@ -767,9 +767,9 @@ if ( ! class_exists( 'Talkwyn_License_Client' ) ) :
 			if ( 'expired' === $status && ! empty( $state['trial_ended'] ) ) {
 				printf(
 					'<div class="notice notice-warning"><p><strong>Talkwyn Pro:</strong> %s <a href="%s" target="_blank" rel="noopener noreferrer">%s</a></p></div>',
-					esc_html__( 'Your Pro trial has ended. Talkwyn keeps working on the free plan. Upgrade with the same key to bring Pro back.', 'talkwyn' ),
+					esc_html__( 'Your Pro trial has ended. Talkwyn keeps working on the free plan. Upgrade with the same key to bring Pro back.', 'talkwyn-pro' ),
 					esc_url( ! empty( $state['upgrade_url'] ) ? (string) $state['upgrade_url'] : (string) $this->cfg['manage_url'] ),
-					esc_html__( 'Upgrade', 'talkwyn' )
+					esc_html__( 'Upgrade', 'talkwyn-pro' )
 				);
 				return;
 			}
@@ -779,12 +779,12 @@ if ( ! class_exists( 'Talkwyn_License_Client' ) ) :
 					esc_html(
 						sprintf(
 							/* translators: %d: days left */
-							_n( 'Your Pro trial ends in %d day. Upgrade to keep your Pro features, leads and settings.', 'Your Pro trial ends in %d days. Upgrade to keep your Pro features, leads and settings.', $this->trial_days_left(), 'talkwyn' ),
+							_n( 'Your Pro trial ends in %d day. Upgrade to keep your Pro features, leads and settings.', 'Your Pro trial ends in %d days. Upgrade to keep your Pro features, leads and settings.', $this->trial_days_left(), 'talkwyn-pro' ),
 							$this->trial_days_left()
 						)
 					),
 					esc_url( ! empty( $this->cfg['upgrade_url'] ) ? (string) $this->cfg['upgrade_url'] : (string) $this->cfg['manage_url'] ),
-					esc_html__( 'See plans', 'talkwyn' )
+					esc_html__( 'See plans', 'talkwyn-pro' )
 				);
 			}
 			if ( in_array( $status, array( 'expired', 'revoked', 'suspended', 'invalid_key' ), true ) ) {
@@ -793,12 +793,12 @@ if ( ! class_exists( 'Talkwyn_License_Client' ) ) :
 					'<div class="notice notice-error"><p><strong>Talkwyn Pro:</strong> %s <a href="%s" target="_blank" rel="noopener noreferrer">%s</a></p></div>',
 					esc_html( $this->error_message( $status ) ),
 					esc_url( $link ),
-					esc_html( 'expired' === $status ? __( 'Renew now', 'talkwyn' ) : __( 'Manage license', 'talkwyn' ) )
+					esc_html( 'expired' === $status ? __( 'Renew now', 'talkwyn-pro' ) : __( 'Manage license', 'talkwyn-pro' ) )
 				);
 			} elseif ( 'active' === $status && empty( $state['site_active'] ) ) {
 				printf(
 					'<div class="notice notice-warning"><p><strong>Talkwyn Pro:</strong> %s</p></div>',
-					esc_html__( 'This site was deactivated from your account. Activate the license again in Talkwyn → Settings → License.', 'talkwyn' )
+					esc_html__( 'This site was deactivated from your account. Activate the license again in Talkwyn → Settings → License.', 'talkwyn-pro' )
 				);
 			}
 		}
@@ -882,14 +882,14 @@ if ( ! class_exists( 'Talkwyn_License_Client' ) ) :
 		 */
 		private function error_message( string $code ): string {
 			$messages = array(
-				'expired'       => __( 'Your license has expired. Pro features keep working; renew to get updates and support again.', 'talkwyn' ),
-				'revoked'       => __( 'Your license has been revoked.', 'talkwyn' ),
-				'suspended'     => __( 'Your license is suspended. Please contact support.', 'talkwyn' ),
-				'invalid_key'   => __( 'Your license key is not valid.', 'talkwyn' ),
-				'wrong_product' => __( 'This license key is for a different product.', 'talkwyn' ),
-				'limit_reached' => __( 'Your license has reached its site limit.', 'talkwyn' ),
+				'expired'       => __( 'Your license has expired. Pro features keep working; renew to get updates and support again.', 'talkwyn-pro' ),
+				'revoked'       => __( 'Your license has been revoked.', 'talkwyn-pro' ),
+				'suspended'     => __( 'Your license is suspended. Please contact support.', 'talkwyn-pro' ),
+				'invalid_key'   => __( 'Your license key is not valid.', 'talkwyn-pro' ),
+				'wrong_product' => __( 'This license key is for a different product.', 'talkwyn-pro' ),
+				'limit_reached' => __( 'Your license has reached its site limit.', 'talkwyn-pro' ),
 			);
-			return $messages[ $code ] ?? __( 'The license server could not be reached. Please try again later.', 'talkwyn' );
+			return $messages[ $code ] ?? __( 'The license server could not be reached. Please try again later.', 'talkwyn-pro' );
 		}
 	}
 

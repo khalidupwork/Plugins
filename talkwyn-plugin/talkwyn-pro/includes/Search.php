@@ -139,8 +139,8 @@ final class Search {
 		$t = \Talkwyn_DB::tables();
 		$v = Installer::tables()['vectors'];
 		return array(
-			'chunks'  => (int) $wpdb->get_var( "SELECT COUNT(*) FROM {$t['chunks']}" ), // phpcs:ignore WordPress.DB
-			'vectors' => (int) $wpdb->get_var( $wpdb->prepare( "SELECT COUNT(*) FROM {$v} WHERE model = %s", self::model() ) ), // phpcs:ignore WordPress.DB
+			'chunks'  => (int) $wpdb->get_var( $wpdb->prepare( "SELECT COUNT(*) FROM %i", $t['chunks'] ) ), // phpcs:ignore WordPress.DB
+			'vectors' => (int) $wpdb->get_var( $wpdb->prepare( "SELECT COUNT(*) FROM %i WHERE model = %s", $v, self::model() ) ), // phpcs:ignore WordPress.DB
 		);
 	}
 
@@ -151,7 +151,7 @@ final class Search {
 		global $wpdb;
 		$t = \Talkwyn_DB::tables();
 		$v = Installer::tables()['vectors'];
-		$wpdb->query( "DELETE v FROM {$v} v LEFT JOIN {$t['chunks']} c ON c.id = v.chunk_id WHERE c.id IS NULL" ); // phpcs:ignore WordPress.DB
+		$wpdb->query( $wpdb->prepare( "DELETE v FROM %i v LEFT JOIN %i c ON c.id = v.chunk_id WHERE c.id IS NULL", $v, $t['chunks'] ) ); // phpcs:ignore WordPress.DB
 	}
 
 	/**
@@ -171,7 +171,7 @@ final class Search {
 		}
 		$t    = \Talkwyn_DB::tables();
 		$v    = Installer::tables()['vectors'];
-		$rows = (array) $wpdb->get_results( $wpdb->prepare( "SELECT c.id, c.title, c.chunk_text FROM {$t['chunks']} c LEFT JOIN {$v} v ON v.chunk_id = c.id AND v.model = %s WHERE v.chunk_id IS NULL ORDER BY c.id ASC LIMIT %d", $model, self::BATCH ), ARRAY_A ); // phpcs:ignore WordPress.DB
+		$rows = (array) $wpdb->get_results( $wpdb->prepare( "SELECT c.id, c.title, c.chunk_text FROM %i c LEFT JOIN %i v ON v.chunk_id = c.id AND v.model = %s WHERE v.chunk_id IS NULL ORDER BY c.id ASC LIMIT %d", $t['chunks'], $v, $model, self::BATCH ), ARRAY_A ); // phpcs:ignore WordPress.DB
 		if ( ! $rows ) {
 			return array(
 				'embedded' => 0,
@@ -189,7 +189,7 @@ final class Search {
 			return array(
 				'embedded' => 0,
 				'done'     => true,
-				'error'    => $e->getMessage(),
+				'error'    => wp_specialchars_decode( $e->getMessage(), ENT_QUOTES ),
 			);
 		}
 		$count = 0;
@@ -239,7 +239,7 @@ final class Search {
 				);
 			}
 			$res  = wp_remote_post(
-				'https://generativelanguage.googleapis.com/v1beta/models/' . rawurlencode( $model ) . ':batchEmbedContents',
+				'https://generativelanguage.googleapis.com/v1beta/models/' . rawurlencode( $model ) . ':batchEmbedContents', // phpcs:ignore PluginCheck.CodeAnalysis.AIProvider.DirectIntegration -- the site owner picks this provider and adds their own key; listed under External services.
 				array(
 					'timeout' => 30,
 					'headers' => array(
@@ -257,7 +257,7 @@ final class Search {
 				(array) ( $data['embeddings'] ?? array() )
 			);
 		}
-		$url  = 'openai' === $id ? 'https://api.openai.com/v1/embeddings' : 'https://api.mistral.ai/v1/embeddings';
+		$url  = 'openai' === $id ? 'https://api.openai.com/v1/embeddings' : 'https://api.mistral.ai/v1/embeddings'; // phpcs:ignore PluginCheck.CodeAnalysis.AIProvider.DirectIntegration -- the site owner picks this provider and adds their own key; listed under External services.
 		$res  = wp_remote_post(
 			$url,
 			array(
@@ -404,7 +404,7 @@ final class Search {
 		$top    = array();
 		$offset = 0;
 		do {
-			$batch = (array) $wpdb->get_results( $wpdb->prepare( "SELECT chunk_id, vec FROM {$v} WHERE model = %s AND dims = %d LIMIT %d OFFSET %d", $model, count( $qv ), 500, $offset ), ARRAY_A ); // phpcs:ignore WordPress.DB
+			$batch = (array) $wpdb->get_results( $wpdb->prepare( "SELECT chunk_id, vec FROM %i WHERE model = %s AND dims = %d LIMIT %d OFFSET %d", $v, $model, count( $qv ), 500, $offset ), ARRAY_A ); // phpcs:ignore WordPress.DB
 			foreach ( $batch as $row ) {
 				$top[ (int) $row['chunk_id'] ] = self::dot( $qv, self::unpack( (string) $row['vec'] ) );
 			}
@@ -428,7 +428,7 @@ final class Search {
 		}
 		$t      = \Talkwyn_DB::tables();
 		$holder = implode( ',', array_fill( 0, count( $ids ), '%d' ) );
-		$rows   = (array) $wpdb->get_results( $wpdb->prepare( "SELECT id, source_key, source_type, source_url, source_lang, title, chunk_text FROM {$t['chunks']} WHERE id IN ({$holder})", $ids ), ARRAY_A ); // phpcs:ignore WordPress.DB
+		$rows   = (array) $wpdb->get_results( $wpdb->prepare( "SELECT id, source_key, source_type, source_url, source_lang, title, chunk_text FROM %i WHERE id IN ({$holder})", array_merge( array( $t['chunks'] ), $ids ) ), ARRAY_A ); // phpcs:ignore WordPress.DB,PluginCheck.Security.DirectDB.UnescapedDBParameter -- $holder is a list of %d placeholders.
 		$out    = array();
 		foreach ( $rows as $row ) {
 			$out[ (int) $row['id'] ] = $row;

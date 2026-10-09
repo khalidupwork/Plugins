@@ -2,6 +2,11 @@
 
 Use a clean WordPress 6.4+ site on PHP 8.0+ with Talkwyn 2.1.0 active.
 
+## Plugin Check (1.2.4)
+- [ ] Plugin Check on Talkwyn Pro: only the update checker items (expected, Pro is not on WordPress.org) and, until the free plugin is live there, the "Requires Plugins" warning.
+- [ ] Insights, Unanswered inbox, Smart search status and rebuild, Q and A list and Sources list show the same data as 1.2.3.
+- [ ] License tab: activate, deactivate and error messages show normally.
+
 ## Install and dependency
 - [ ] Activate Pro without Talkwyn: notice "Talkwyn Pro needs the free Talkwyn plugin." and nothing breaks.
 - [ ] Activate Pro with Talkwyn older than 2.1.0 (for example 2.0.0): notice "Talkwyn Pro needs Talkwyn 2.1.0 or newer."

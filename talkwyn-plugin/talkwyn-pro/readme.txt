@@ -1,8 +1,9 @@
 === Talkwyn Pro ===
 Requires at least: 6.4
+Tested up to: 7.1
 Requires PHP: 8.0
 Requires Plugins: talkwyn
-Stable tag: 1.2.3
+Stable tag: 1.2.4
 License: GPLv2 or later
 
 Pro add-on for the free Talkwyn plugin. Sold and delivered from talkwyn.com with a free 15-day trial.
@@ -34,12 +35,15 @@ Before building a release, put the active Hub public key in `includes/hub-keys.p
 == External services ==
 
 * talkwyn.com (Talkwyn Hub): license activation, daily checks and updates. Sends the license key, site URL, an instance ID, and the WordPress, PHP and plugin versions.
-* OpenAI, Anthropic, Mistral, DeepSeek: when you add a key, visitor messages and relevant site text are sent to answer them.
+* OpenAI, Anthropic, Mistral, DeepSeek, Groq, OpenRouter: when you add a key, visitor messages and relevant site text are sent to answer them.
 * OpenAI, Mistral or Google Gemini embeddings: when smart search is on, your site text and visitor questions are sent to create embeddings.
 * Slack and Telegram: lead details are sent when you add a webhook or bot.
 * Pages you add by URL or sitemap are fetched from their sites.
 
 == Changelog ==
+
+= 1.2.4 =
+* Code cleanup from the WordPress Plugin Check report: prepared table names, escaped error messages, the license screen uses the Talkwyn Pro text domain, and Tested up to 7.1.
 
 = 1.2.3 =
 * Product cards and other Pro chat parts keep their look on any theme, matching Talkwyn 2.3.0.

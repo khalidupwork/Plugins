@@ -51,3 +51,7 @@ During a key rotation, list both the `active` and `next` public keys in `public_
 | `_transient_{prefix}_update_info` | Cached `update/check` response (6 h) | n/a |
 
 Delete these in your plugin's `uninstall.php`, and clear the cron hook `{prefix}_daily_check`.
+
+## Text domain
+
+The client's strings use the `talkwyn-pro` text domain, so the file matches Talkwyn Pro byte for byte. If you ship it inside another plugin, replace `'talkwyn-pro'` with that plugin's text domain so WordPress Plugin Check does not report a mismatch.

@@ -37,7 +37,7 @@ final class Extract {
 			case 'pdf':
 				return self::pdf( $raw );
 		}
-		throw new \Exception( 'Unsupported file type: ' . $ext );
+		throw new \Exception( esc_html( 'Unsupported file type: ' . $ext ) );
 	}
 
 	/**

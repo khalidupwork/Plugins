@@ -43,7 +43,7 @@ final class Knowledge {
 	public static function qa_all(): array {
 		global $wpdb;
 		$t = Installer::tables()['qa'];
-		return (array) $wpdb->get_results( "SELECT * FROM {$t} ORDER BY id DESC", ARRAY_A ); // phpcs:ignore WordPress.DB
+		return (array) $wpdb->get_results( $wpdb->prepare( "SELECT * FROM %i ORDER BY id DESC", $t ), ARRAY_A ); // phpcs:ignore WordPress.DB
 	}
 
 	/**
@@ -105,7 +105,7 @@ final class Knowledge {
 			return $preset;
 		}
 		global $wpdb;
-		$wpdb->query( $wpdb->prepare( 'UPDATE ' . Installer::tables()['qa'] . ' SET hits = hits + 1 WHERE id = %d', (int) $best['id'] ) ); // phpcs:ignore WordPress.DB
+		$wpdb->query( $wpdb->prepare( "UPDATE %i SET hits = hits + 1 WHERE id = %d", Installer::tables()['qa'], (int) $best['id'] ) ); // phpcs:ignore WordPress.DB
 		return array(
 			'text'     => (string) $best['answer'],
 			'provider' => 'custom-answer',
@@ -119,7 +119,7 @@ final class Knowledge {
 	 */
 	private static function qa_index( int $id ): void {
 		global $wpdb;
-		$row = $wpdb->get_row( $wpdb->prepare( 'SELECT * FROM ' . Installer::tables()['qa'] . ' WHERE id = %d', $id ), ARRAY_A ); // phpcs:ignore WordPress.DB
+		$row = $wpdb->get_row( $wpdb->prepare( "SELECT * FROM %i WHERE id = %d", Installer::tables()['qa'], $id ), ARRAY_A ); // phpcs:ignore WordPress.DB
 		\Talkwyn_Indexer::remove_source( 'qa:' . $id );
 		if ( $row ) {
 			\Talkwyn_Indexer::store_chunks( 'qa:' . $id, 'qa', $id, '', (string) $row['question'], 'Question: ' . $row['question'] . "\nAnswer: " . $row['answer'], current_time( 'mysql', true ), '' );
@@ -179,7 +179,7 @@ final class Knowledge {
 	public static function sources(): array {
 		global $wpdb;
 		$t = Installer::tables()['sources'];
-		return (array) $wpdb->get_results( "SELECT * FROM {$t} ORDER BY id DESC LIMIT 500", ARRAY_A ); // phpcs:ignore WordPress.DB
+		return (array) $wpdb->get_results( $wpdb->prepare( "SELECT * FROM %i ORDER BY id DESC LIMIT 500", $t ), ARRAY_A ); // phpcs:ignore WordPress.DB
 	}
 
 	/**
@@ -198,7 +198,7 @@ final class Knowledge {
 		$t   = Installer::tables()['sources'];
 		$now = current_time( 'mysql', true );
 		if ( ! $id ) {
-			$id = (int) $wpdb->get_var( $wpdb->prepare( "SELECT id FROM {$t} WHERE type = %s AND ref = %s", $type, $ref ) ); // phpcs:ignore WordPress.DB
+			$id = (int) $wpdb->get_var( $wpdb->prepare( "SELECT id FROM %i WHERE type = %s AND ref = %s", $t, $type, $ref ) ); // phpcs:ignore WordPress.DB
 		}
 		$row = array(
 			'type'        => $type,
@@ -385,7 +385,7 @@ final class Knowledge {
 		self::guard( 'talkwyn_pro_source_refresh' );
 		global $wpdb;
 		$id  = absint( $_REQUEST['id'] ?? 0 ); // phpcs:ignore WordPress.Security.NonceVerification.Recommended
-		$row = $wpdb->get_row( $wpdb->prepare( 'SELECT * FROM ' . Installer::tables()['sources'] . ' WHERE id = %d', $id ), ARRAY_A ); // phpcs:ignore WordPress.DB
+		$row = $wpdb->get_row( $wpdb->prepare( "SELECT * FROM %i WHERE id = %d", Installer::tables()['sources'], $id ), ARRAY_A ); // phpcs:ignore WordPress.DB
 		if ( $row ) {
 			if ( 'file' === $row['type'] ) {
 				self::index_attachment( (int) $row['ref'], $id );
