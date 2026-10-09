@@ -97,13 +97,35 @@ final class Mailer {
 	 * @param string               $key     Plain key.
 	 * @param string               $name    First name entered on the form.
 	 */
-	public static function send_trial_welcome( array $license, string $key, string $name = '' ): bool {
-		$vars                  = self::vars( $license );
-		$vars['{license_key}'] = $key;
+	public static function send_trial_welcome( array $license, string $key, string $name = '', string $login_details = '' ): bool {
+		$vars                    = self::vars( $license );
+		$vars['{license_key}']   = $key;
+		$vars['{login_details}'] = $login_details;
 		if ( '' !== $name ) {
 			$vars['{customer_name}'] = $name;
 		}
 		return self::send( self::recipient( $license ), 'trial_welcome', $vars, array( $key ) );
+	}
+
+	/**
+	 * First trial email: confirm the address before any license or account is created.
+	 *
+	 * @param string $to          Email entered on the form.
+	 * @param string $name        First name entered on the form.
+	 * @param string $site        Website entered on the form.
+	 * @param string $confirm_url One-time confirmation link.
+	 */
+	public static function send_trial_confirm( string $to, string $name, string $site, string $confirm_url ): bool {
+		return self::send_type(
+			$to,
+			'trial_confirm',
+			array(
+				'{customer_name}' => '' !== $name ? $name : __( 'there', 'talkwyn-hub' ),
+				'{trial_site}'    => $site,
+				'{confirm_url}'   => $confirm_url,
+				'{trial_days}'    => (string) (int) Settings::get( 'trial_days' ),
+			)
+		);
 	}
 
 	/**
@@ -188,7 +210,7 @@ final class Mailer {
 	 * @return string[]
 	 */
 	public static function placeholders(): array {
-		return array( '{customer_name}', '{license_key}', '{key_last4}', '{product_name}', '{plan}', '{expires_at}', '{days_left}', '{activation_limit}', '{renew_url}', '{account_url}', '{site_name}', '{order_number}', '{trial_ends_at}', '{trial_days}', '{trial_usage}', '{upgrade_url}' );
+		return array( '{customer_name}', '{license_key}', '{key_last4}', '{product_name}', '{plan}', '{expires_at}', '{days_left}', '{activation_limit}', '{renew_url}', '{account_url}', '{site_name}', '{order_number}', '{trial_ends_at}', '{trial_days}', '{trial_usage}', '{upgrade_url}', '{confirm_url}', '{trial_site}', '{login_details}' );
 	}
 
 	/**
@@ -226,6 +248,7 @@ final class Mailer {
 		$layouts = array_merge(
 			$layouts,
 			array(
+				'trial_confirm'       => array( __( 'Confirm your email', 'talkwyn-hub' ), __( 'Confirm and start my trial', 'talkwyn-hub' ), $vars['{confirm_url}'] ?? '' ),
 				'trial_welcome'       => array( __( 'Your Pro trial has started', 'talkwyn-hub' ), __( 'Read the setup guide', 'talkwyn-hub' ), (string) apply_filters( 'twh_setup_guide_url', home_url( '/docs/getting-started/' ) ) ),
 				'trial_reminder'      => array( __( 'Your trial ends soon', 'talkwyn-hub' ), __( 'Choose a plan', 'talkwyn-hub' ), $upgrade ),
 				'trial_ended'         => array( __( 'Your trial has ended', 'talkwyn-hub' ), __( 'Upgrade in one click', 'talkwyn-hub' ), $upgrade ),
@@ -258,7 +281,12 @@ final class Mailer {
 			return false;
 		}
 		$subject = strtr( (string) Settings::get( 'email_' . $type . '_subject' ), $vars );
-		$text    = trim( strtr( (string) Settings::get( 'email_' . $type . '_body' ), $vars ) );
+		$body    = (string) Settings::get( 'email_' . $type . '_body' );
+		$text    = trim( strtr( $body, $vars ) );
+		if ( ! empty( $vars['{login_details}'] ) && false === strpos( $body, '{login_details}' ) ) {
+			// Older saved templates have no {login_details}: still tell the customer how to log in.
+			$text .= "\n\n" . $vars['{login_details}'];
+		}
 		$layout  = self::layout( $type, $vars );
 
 		$html = self::render(

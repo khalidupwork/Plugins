@@ -39,12 +39,23 @@ final class Trial {
 	public const ACTION    = 'twh_start_trial';
 
 	/**
+	 * How long a confirmation link works.
+	 */
+	public const CONFIRM_TTL = 2 * DAY_IN_SECONDS;
+
+	/**
 	 * Register hooks.
 	 */
 	public static function init(): void {
 		add_shortcode( self::SHORTCODE, array( self::class, 'shortcode' ) );
 		add_action( 'admin_post_nopriv_' . self::ACTION, array( self::class, 'handle_form' ) );
 		add_action( 'admin_post_' . self::ACTION, array( self::class, 'handle_form' ) );
+		add_action( 'wp_ajax_nopriv_' . self::ACTION, array( self::class, 'handle_ajax' ) );
+		add_action( 'wp_ajax_' . self::ACTION, array( self::class, 'handle_ajax' ) );
+		add_action( 'wp_ajax_nopriv_twh_trial_nonce', array( self::class, 'ajax_nonce' ) );
+		add_action( 'wp_ajax_twh_trial_nonce', array( self::class, 'ajax_nonce' ) );
+		add_action( 'wp_loaded', array( self::class, 'handle_confirm_link' ), 25 );
+		add_action( 'wp_enqueue_scripts', array( self::class, 'assets' ) );
 		add_action( 'wp_loaded', array( self::class, 'handle_upgrade_link' ), 30 );
 		add_action( 'twh_license_issued', array( self::class, 'mark_card_trial' ), 10, 2 );
 		add_action( 'twh_license_renewed', array( self::class, 'end_card_trial_on_renewal' ), 5 );
@@ -192,6 +203,10 @@ final class Trial {
 			'not_ready'        => __( 'Trials are being set up. Please try again soon.', 'talkwyn-hub' ),
 			'spam'             => __( 'Please try again.', 'talkwyn-hub' ),
 			'rate_limited'     => __( 'Too many attempts. Please wait a few minutes and try again.', 'talkwyn-hub' ),
+			'confirm_sent'     => __( 'Almost there. We sent a confirmation link to your email. Open it to start your trial (check spam too).', 'talkwyn-hub' ),
+			'confirm_resent'   => __( 'We already sent you a confirmation link a moment ago. Please check your inbox and spam folder.', 'talkwyn-hub' ),
+			'link_expired'     => __( 'This confirmation link has expired or was already used. Please start the trial again.', 'talkwyn-hub' ),
+			'mail_failed'      => __( 'We could not send the confirmation email right now. Please try again in a few minutes.', 'talkwyn-hub' ),
 		);
 		return $messages[ $code ] ?? __( 'Something went wrong. Please try again.', 'talkwyn-hub' );
 	}
@@ -213,7 +228,7 @@ final class Trial {
 		if ( ! $soft ) {
 			return new \WP_Error( 'not_ready', self::message( 'not_ready' ) );
 		}
-		$partner = class_exists( Tracking::class ) ? Tracking::current_partner_id() : 0;
+		$partner = isset( $input['partner_id'] ) ? (int) $input['partner_id'] : ( class_exists( Tracking::class ) ? Tracking::current_partner_id() : 0 );
 		$ends    = time() + self::days() * DAY_IN_SECONDS;
 
 		$created = LicenseService::issue(
@@ -245,7 +260,7 @@ final class Trial {
 		);
 		$license = Licenses::find( $created['id'] );
 		if ( $license ) {
-			Mailer::send_trial_welcome( $license, $created['key'], sanitize_text_field( $input['name'] ) );
+			Mailer::send_trial_welcome( $license, $created['key'], sanitize_text_field( $input['name'] ), (string) ( $input['login_details'] ?? '' ) );
 		}
 
 		/**
@@ -550,10 +565,17 @@ final class Trial {
 	/**
 	 * [twh_trial_form] The start-trial form (no-card mode) or a checkout button (card mode).
 	 *
-	 * @param array<string, string>|string $atts Attributes: button (label).
+	 * @param array<string, string>|string $atts Attributes: button (label), labels ("hidden" shows placeholders only).
 	 */
 	public static function shortcode( $atts = array() ): string {
-		$atts = shortcode_atts( array( 'button' => __( 'Start my free trial', 'talkwyn-hub' ) ), $atts, self::SHORTCODE );
+		$atts = shortcode_atts(
+			array(
+				'button' => __( 'Start my free trial', 'talkwyn-hub' ),
+				'labels' => 'visible',
+			),
+			$atts,
+			self::SHORTCODE
+		);
 		wp_enqueue_style( 'twh-account', TWH_URL . 'assets/css/account.css', array(), TWH_VERSION );
 		if ( ! self::enabled() ) {
 			return '<p class="twh-trial-off">' . esc_html( self::message( 'disabled' ) ) . '</p>';
@@ -562,87 +584,305 @@ final class Trial {
 			$url = add_query_arg( 'add-to-cart', (int) Settings::get( 'trial_product_id' ), wc_get_checkout_url() );
 			return '<p><a class="twh-btn tw-btn tw-btn--brand" href="' . esc_url( $url ) . '" data-tw-event="trial_start" data-tw-location="trial_form">' . esc_html( $atts['button'] ) . '</a></p>';
 		}
+		self::assets();
 
 		// phpcs:disable WordPress.Security.NonceVerification.Recommended -- display of a redirect result only.
 		$status = isset( $_GET['twh_trial'] ) ? sanitize_key( wp_unslash( $_GET['twh_trial'] ) ) : '';
 		// phpcs:enable
-		$user = wp_get_current_user();
-		$out  = '';
+		$user   = wp_get_current_user();
+		$hidden = 'hidden' === $atts['labels'];
+		$out    = '';
 		if ( 'started' === $status ) {
-			return '<div class="twh-trial-done" role="status"><p class="twh-trial-done__title">' . esc_html__( 'Your trial has started.', 'talkwyn-hub' ) . '</p><p>' . esc_html__( 'We emailed your license key and the setup steps. Check your inbox (and spam folder) in a minute.', 'talkwyn-hub' ) . '</p>'
+			return '<div class="twh-trial-done" role="status"><p class="twh-trial-done__title">' . esc_html__( 'Your trial has started.', 'talkwyn-hub' ) . '</p><p>' . esc_html__( 'We emailed your license key and your account details. Your key is also in your account.', 'talkwyn-hub' ) . '</p>'
 				. ( is_user_logged_in() ? '<p><a href="' . esc_url( wc_get_account_endpoint_url( 'licenses' ) ) . '">' . esc_html__( 'See it in your account', 'talkwyn-hub' ) . '</a></p>' : '' ) . '</div>';
 		}
-		if ( '' !== $status ) {
-			$out .= '<p class="twh-notice twh-notice--error" role="alert">' . esc_html( self::message( $status ) ) . '</p>';
+		if ( in_array( $status, array( 'confirm_sent', 'confirm_resent' ), true ) ) {
+			return self::sent_box( self::message( $status ) );
 		}
-		$out .= '<form class="twh-trial-form" method="post" action="' . esc_url( admin_url( 'admin-post.php' ) ) . '">'
+		$field = static function ( string $id, string $name, string $type, string $label, string $placeholder, string $value, string $extra ) use ( $hidden ): string {
+			return '<p class="twh-field"><label for="' . esc_attr( $id ) . '"' . ( $hidden ? ' class="screen-reader-text"' : '' ) . '>' . esc_html( $label ) . '</label>'
+				. '<input id="' . esc_attr( $id ) . '" name="' . esc_attr( $name ) . '" type="' . esc_attr( $type ) . '" placeholder="' . esc_attr( $hidden ? $label : $placeholder ) . '" value="' . esc_attr( $value ) . '" required ' . $extra . '></p>';
+		};
+		$uid  = wp_unique_id( 'twh-trial-' );
+		$out .= '<div class="twh-trial" id="' . esc_attr( $uid ) . '">';
+		$out .= '<p class="twh-notice twh-notice--error" role="alert"' . ( '' === $status ? ' hidden' : '' ) . '>' . ( '' !== $status ? esc_html( self::message( $status ) ) : '' ) . '</p>';
+		$out .= '<form class="twh-trial-form' . ( $hidden ? ' twh-trial-form--compact' : '' ) . '" method="post" action="' . esc_url( admin_url( 'admin-post.php' ) ) . '" data-twh-trial novalidate>'
 			. '<input type="hidden" name="action" value="' . esc_attr( self::ACTION ) . '">'
 			. wp_nonce_field( self::ACTION, '_twh_nonce', true, false )
 			. '<input type="hidden" name="twh_t" value="' . esc_attr( (string) time() ) . '">'
 			. '<input type="hidden" name="twh_back" value="' . esc_url( get_permalink() ? get_permalink() : home_url( '/' ) ) . '">'
 			. '<p class="twh-hp" aria-hidden="true"><label>' . esc_html__( 'Leave this empty', 'talkwyn-hub' ) . ' <input type="text" name="twh_website" tabindex="-1" autocomplete="off"></label></p>'
-			. '<p><label for="twh-trial-name">' . esc_html__( 'First name', 'talkwyn-hub' ) . '</label><input id="twh-trial-name" name="twh_name" type="text" autocomplete="given-name" required value="' . esc_attr( $user->first_name ) . '"></p>'
-			. '<p><label for="twh-trial-email">' . esc_html__( 'Email', 'talkwyn-hub' ) . '</label><input id="twh-trial-email" name="twh_email" type="email" autocomplete="email" required value="' . esc_attr( $user->user_email ) . '"></p>'
-			. '<p><label for="twh-trial-site">' . esc_html__( 'Website address', 'talkwyn-hub' ) . '</label><input id="twh-trial-site" name="twh_site" type="text" inputmode="url" placeholder="example.com" required></p>'
+			. $field( $uid . '-name', 'twh_name', 'text', __( 'First name', 'talkwyn-hub' ), '', (string) $user->first_name, 'autocomplete="given-name"' )
+			. $field( $uid . '-email', 'twh_email', 'email', __( 'Email', 'talkwyn-hub' ), '', (string) $user->user_email, 'autocomplete="email"' )
+			. $field( $uid . '-site', 'twh_site', 'text', __( 'Website address (example.com)', 'talkwyn-hub' ), 'example.com', '', 'inputmode="url" autocomplete="url"' )
 			. '<p><button type="submit" class="twh-btn tw-btn tw-btn--brand" data-tw-event="trial_start" data-tw-location="trial_form">' . esc_html( $atts['button'] ) . '</button></p>'
 			. '<p class="twh-trial-fine">' . esc_html( self::card_policy_text() ) . ' '
 			/* translators: %d: trial days */
-			. esc_html( sprintf( __( 'Every Pro feature for %d days on one site. Then you choose: upgrade, or keep the free plan.', 'talkwyn-hub' ), self::days() ) ) . '</p>'
-			. '</form>';
+			. esc_html( sprintf( __( 'Every Pro feature for %d days on one site. We email you a link to confirm your address first.', 'talkwyn-hub' ), self::days() ) ) . '</p>'
+			. '</form></div>';
 		return $out;
 	}
 
 	/**
-	 * Handle the start-trial form.
+	 * Form assets. Loaded on every front-end page while trials are on, because the
+	 * website's "Start free trial" popup prints the form in the footer.
+	 */
+	public static function assets(): void {
+		if ( is_admin() || ! self::enabled() || wp_script_is( 'twh-trial', 'enqueued' ) ) {
+			return;
+		}
+		wp_enqueue_style( 'twh-account', TWH_URL . 'assets/css/account.css', array(), TWH_VERSION );
+		wp_enqueue_script( 'twh-trial', TWH_URL . 'assets/js/trial.js', array(), TWH_VERSION, true );
+		wp_localize_script(
+			'twh-trial',
+			'twhTrial',
+			array(
+				'ajax'    => admin_url( 'admin-ajax.php' ),
+				'sending' => __( 'Sending...', 'talkwyn-hub' ),
+				'error'   => self::message( 'spam' ),
+			)
+		);
+	}
+
+	/**
+	 * "Check your inbox" box shown after the form.
+	 *
+	 * @param string $message Message.
+	 */
+	public static function sent_box( string $message ): string {
+		return '<div class="twh-trial-done twh-trial-done--sent" role="status"><p class="twh-trial-done__title">' . esc_html__( 'Check your inbox', 'talkwyn-hub' ) . '</p><p>' . esc_html( $message ) . '</p></div>';
+	}
+
+	/**
+	 * Fresh nonce for the trial form (pages may be cached for longer than a nonce lives).
+	 */
+	public static function ajax_nonce(): void {
+		nocache_headers();
+		wp_send_json_success( array( 'nonce' => wp_create_nonce( self::ACTION ) ) );
+	}
+
+	/**
+	 * Handle the start-trial form without JavaScript (redirects back with a status).
 	 */
 	public static function handle_form(): void {
 		$back = isset( $_POST['twh_back'] ) ? esc_url_raw( wp_unslash( $_POST['twh_back'] ) ) : home_url( '/pricing/' );
 		$back = wp_validate_redirect( $back, home_url( '/pricing/' ) );
-		$fail = static function ( string $code ) use ( $back ): void {
-			wp_safe_redirect( add_query_arg( 'twh_trial', $code, $back ) . '#trial' );
-			exit;
-		};
-		if ( ! isset( $_POST['_twh_nonce'] ) || ! wp_verify_nonce( sanitize_text_field( wp_unslash( $_POST['_twh_nonce'] ) ), self::ACTION ) ) {
-			$fail( 'spam' );
+		$code = self::request_trial( $_POST ); // phpcs:ignore WordPress.Security.NonceVerification.Missing -- verified inside request_trial().
+		wp_safe_redirect( add_query_arg( 'twh_trial', $code, $back ) . '#trial' );
+		exit;
+	}
+
+	/**
+	 * Handle the start-trial form over AJAX.
+	 */
+	public static function handle_ajax(): void {
+		nocache_headers();
+		$code = self::request_trial( $_POST ); // phpcs:ignore WordPress.Security.NonceVerification.Missing -- verified inside request_trial().
+		$ok   = in_array( $code, array( 'confirm_sent', 'confirm_resent' ), true );
+		$data = array(
+			'code'    => $code,
+			'message' => self::message( $code ),
+			'html'    => $ok ? self::sent_box( self::message( $code ) ) : '',
+		);
+		if ( $ok ) {
+			wp_send_json_success( $data );
+		}
+		wp_send_json_error( $data, 'rate_limited' === $code ? 429 : 400 );
+	}
+
+	/**
+	 * Step 1 of 2: check the form and email a confirmation link. No license or account yet.
+	 *
+	 * @param array<string, mixed> $post Raw POST data.
+	 * @return string Status code (confirm_sent, confirm_resent or an error code).
+	 */
+	public static function request_trial( array $post ): string {
+		if ( ! isset( $post['_twh_nonce'] ) || ! wp_verify_nonce( sanitize_text_field( wp_unslash( $post['_twh_nonce'] ) ), self::ACTION ) ) {
+			return 'spam';
 		}
 		// Honeypot and minimum fill time (bots submit instantly).
-		$started = absint( $_POST['twh_t'] ?? 0 );
-		if ( ! empty( $_POST['twh_website'] ) || ( $started && time() - $started < 3 ) ) {
-			$fail( 'spam' );
+		$started = absint( $post['twh_t'] ?? 0 );
+		if ( ! empty( $post['twh_website'] ) || ( $started && time() - $started < 3 ) ) {
+			return 'spam';
 		}
 		$ip_key = 'twh_trial_rl_' . md5( Secrets::hash_ip( \TWH\Support\Request::ip() ) );
 		$hits   = (int) get_transient( $ip_key );
 		if ( $hits >= 5 ) {
-			$fail( 'rate_limited' );
+			return 'rate_limited';
 		}
 		set_transient( $ip_key, $hits + 1, HOUR_IN_SECONDS );
 
+		$name  = sanitize_text_field( wp_unslash( $post['twh_name'] ?? '' ) );
+		$email = sanitize_email( wp_unslash( $post['twh_email'] ?? '' ) );
+		$site  = sanitize_text_field( wp_unslash( $post['twh_site'] ?? '' ) );
+		$code  = self::eligibility( $email, $site );
+		if ( '' !== $code ) {
+			return $code;
+		}
+
+		// One confirmation email per address every few minutes.
+		$throttle = 'twh_trial_mail_' . md5( TrialPolicy::canonical_email( $email ) );
+		if ( get_transient( $throttle ) ) {
+			return 'confirm_resent';
+		}
+
+		$token = wp_generate_password( 40, false, false );
+		set_transient(
+			self::request_key( $token ),
+			array(
+				'name'       => $name,
+				'email'      => $email,
+				'site_url'   => $site,
+				'partner_id' => class_exists( Tracking::class ) ? Tracking::current_partner_id() : 0,
+				'back'       => isset( $post['twh_back'] ) ? esc_url_raw( wp_unslash( $post['twh_back'] ) ) : '',
+				'created'    => time(),
+			),
+			self::CONFIRM_TTL
+		);
+		$url = add_query_arg( 'twh_trial_confirm', rawurlencode( $token ), home_url( '/' ) );
+		if ( ! Mailer::send_trial_confirm( $email, $name, Domain::normalize( $site ), $url ) ) {
+			delete_transient( self::request_key( $token ) );
+			return 'mail_failed';
+		}
+		set_transient( $throttle, 1, 2 * MINUTE_IN_SECONDS );
+		Events::log( 'trial_request', null, array( 'domain' => Domain::normalize( $site ) ), '' );
+		return 'confirm_sent';
+	}
+
+	/**
+	 * Storage key for a pending request. Only a hash of the token is stored.
+	 *
+	 * @param string $token Token from the link.
+	 */
+	private static function request_key( string $token ): string {
+		return 'twh_trial_req_' . substr( hash( 'sha256', $token . '|' . wp_salt( 'nonce' ) ), 0, 40 );
+	}
+
+	/**
+	 * Step 2 of 2: the link in the confirmation email. Creates or finds the account,
+	 * issues the trial license and emails the key with login details.
+	 */
+	public static function handle_confirm_link(): void {
+		// phpcs:disable WordPress.Security.NonceVerification.Recommended -- the one-time token replaces a nonce so the link works from email.
+		if ( empty( $_GET['twh_trial_confirm'] ) || is_admin() || wp_doing_ajax() ) {
+			return;
+		}
+		$token = sanitize_text_field( wp_unslash( $_GET['twh_trial_confirm'] ) );
+		// phpcs:enable
+		nocache_headers();
+		$key     = self::request_key( $token );
+		$request = get_transient( $key );
+		$pricing = home_url( '/pricing/' );
+		if ( ! is_array( $request ) ) {
+			wp_safe_redirect( add_query_arg( 'twh_trial', 'link_expired', $pricing ) . '#trial' );
+			exit;
+		}
+		delete_transient( $key ); // Single use.
+		$back = wp_validate_redirect( (string) $request['back'], $pricing );
+
+		list( $user_id, $is_new ) = self::account_for( (string) $request['email'], (string) $request['name'] );
+		$details                  = self::login_details( $user_id, $is_new );
+
 		$result = self::start(
 			array(
-				'name'     => sanitize_text_field( wp_unslash( $_POST['twh_name'] ?? '' ) ),
-				'email'    => sanitize_email( wp_unslash( $_POST['twh_email'] ?? '' ) ),
-				'site_url' => sanitize_text_field( wp_unslash( $_POST['twh_site'] ?? '' ) ),
-				'user_id'  => self::owner_for( sanitize_email( wp_unslash( $_POST['twh_email'] ?? '' ) ) ),
+				'name'          => (string) $request['name'],
+				'email'         => (string) $request['email'],
+				'site_url'      => (string) $request['site_url'],
+				'user_id'       => $user_id,
+				'partner_id'    => (int) $request['partner_id'],
+				'login_details' => $details,
 			)
 		);
 		if ( is_wp_error( $result ) ) {
-			$fail( $result->get_error_code() );
+			wp_safe_redirect( add_query_arg( 'twh_trial', $result->get_error_code(), $back ) . '#trial' );
+			exit;
+		}
+
+		// A brand-new customer account was just proven by this email link: sign it in.
+		$user = $user_id ? get_userdata( $user_id ) : false;
+		if ( $is_new && $user && ! user_can( $user, 'edit_posts' ) && ! is_user_logged_in() ) {
+			wp_set_current_user( $user_id );
+			wp_set_auth_cookie( $user_id, true );
+		}
+		if ( is_user_logged_in() && get_current_user_id() === $user_id && function_exists( 'wc_get_account_endpoint_url' ) ) {
+			wp_safe_redirect( add_query_arg( 'twh_trial', 'started', wc_get_account_endpoint_url( 'licenses' ) ) );
+			exit;
 		}
 		wp_safe_redirect( add_query_arg( 'twh_trial', 'started', $back ) . '#trial' );
 		exit;
 	}
 
 	/**
-	 * Attach the trial to the logged-in customer only when the email is theirs.
-	 * Guests receive the key by email and can add it to an account later.
+	 * Find the account for a confirmed email, or create a customer account.
 	 *
-	 * @param string $email Email entered.
+	 * @param string $email Confirmed email.
+	 * @param string $name  First name.
+	 * @return array{0: int, 1: bool} User id (0 if none could be made) and whether it is new.
 	 */
-	private static function owner_for( string $email ): int {
-		$user = wp_get_current_user();
-		if ( $user->ID && 0 === strcasecmp( (string) $user->user_email, $email ) ) {
-			return (int) $user->ID;
+	private static function account_for( string $email, string $name ): array {
+		$existing = get_user_by( 'email', $email );
+		if ( $existing ) {
+			return array( (int) $existing->ID, false );
 		}
-		return 0;
+		$base  = sanitize_user( (string) strstr( $email, '@', true ), true );
+		$base  = '' !== $base ? $base : 'customer';
+		$login = $base;
+		$i     = 1;
+		while ( username_exists( $login ) ) {
+			$login = $base . ( ++$i );
+		}
+		$id = wp_insert_user(
+			array(
+				'user_login' => $login,
+				'user_email' => $email,
+				'user_pass'  => wp_generate_password( 24 ),
+				'first_name' => $name,
+				'role'       => get_role( 'customer' ) ? 'customer' : (string) get_option( 'default_role', 'subscriber' ),
+			)
+		);
+		if ( is_wp_error( $id ) ) {
+			return array( 0, false );
+		}
+		/**
+		 * Fires after a trial created a customer account.
+		 *
+		 * @param int $user_id User id.
+		 */
+		do_action( 'twh_trial_account_created', (int) $id );
+		return array( (int) $id, true );
+	}
+
+	/**
+	 * Login lines for the welcome email.
+	 *
+	 * @param int  $user_id User id.
+	 * @param bool $is_new  Whether the account was just created.
+	 */
+	private static function login_details( int $user_id, bool $is_new ): string {
+		$user = $user_id ? get_userdata( $user_id ) : false;
+		if ( ! $user ) {
+			return '';
+		}
+		$account = function_exists( 'wc_get_account_endpoint_url' ) ? wc_get_account_endpoint_url( 'licenses' ) : home_url( '/' );
+		if ( ! $is_new ) {
+			/* translators: 1: email, 2: URL */
+			return sprintf( __( "Your key is also saved in your account (%1\$s). Log in any time: %2\$s", 'talkwyn-hub' ), $user->user_email, $account );
+		}
+		$reset = get_password_reset_key( $user );
+		if ( is_wp_error( $reset ) ) {
+			/* translators: 1: email, 2: URL */
+			return sprintf( __( "We created your account with %1\$s. Use \"Lost password\" on %2\$s to set a password.", 'talkwyn-hub' ), $user->user_email, $account );
+		}
+		$set = function_exists( 'wc_get_page_permalink' )
+			? add_query_arg(
+				array(
+					'key' => $reset,
+					'id'  => $user->ID,
+				),
+				wc_get_endpoint_url( 'lost-password', '', wc_get_page_permalink( 'myaccount' ) )
+			)
+			: network_site_url( 'wp-login.php?action=rp&key=' . $reset . '&login=' . rawurlencode( $user->user_login ), 'login' );
+		/* translators: 1: site name, 2: email, 3: set password URL, 4: account URL */
+		return sprintf( __( "Your account\nWe created a %1\$s account for you. Log in with your email: %2\$s\nSet your password (link works for 24 hours): %3\$s\nAfter that, see your license, downloads and invoices at %4\$s", 'talkwyn-hub' ), wp_specialchars_decode( (string) get_bloginfo( 'name' ), ENT_QUOTES ), $user->user_email, $set, $account );
 	}
 }

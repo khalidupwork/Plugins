@@ -107,7 +107,7 @@ function talkwyn_waitlist_shortcode( $atts ): string {
 		. '<p class="tw-small">' . esc_html( $text ) . '</p>'
 		. $count
 		. talkwyn_form_notice( 'waitlist' )
-		. '<form class="tw-form" method="post" action="' . esc_url( admin_url( 'admin-post.php' ) ) . '#waitlist" data-tw-waitlist>'
+		. '<form class="tw-form" method="post" action="' . esc_url( admin_url( 'admin-post.php' ) ) . '#waitlist" data-tw-waitlist data-tw-ajax="waitlist">'
 		. talkwyn_form_hidden( 'waitlist' )
 		. '<label for="' . esc_attr( $uid ) . '-email">' . esc_html__( 'Email', 'talkwyn' ) . '<input id="' . esc_attr( $uid ) . '-email" type="email" name="tw_email" autocomplete="email" required maxlength="190" placeholder="you@business.com"></label>'
 		. '<label for="' . esc_attr( $uid ) . '-platform">' . esc_html__( 'Platform', 'talkwyn' ) . '<select id="' . esc_attr( $uid ) . '-platform" name="tw_platform">' . $select . '</select></label>'

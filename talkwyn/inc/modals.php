@@ -40,7 +40,7 @@ function talkwyn_modal_login_form(): string {
  */
 function talkwyn_modal_trial_form(): string {
 	if ( shortcode_exists( 'twh_trial_form' ) ) {
-		return do_shortcode( '[twh_trial_form]' );
+		return do_shortcode( '[twh_trial_form labels="hidden"]' );
 	}
 	return '<a class="tw-pill tw-pill--red tw-pill--block" href="' . esc_url( home_url( '/pricing/#trial' ) ) . '">' . esc_html__( 'Start my free trial', 'talkwyn' ) . '</a>';
 }
@@ -66,7 +66,7 @@ add_action(
 			. '<div class="tw-modal__head"><span class="tw-modal__badge">' . talkwyn_icon( 'sparkles', 16 ) . esc_html__( 'Free trial', 'talkwyn' ) . '</span>'
 			/* translators: %d: trial days */
 			. '<h2 id="tw-modal-trial-title">' . esc_html( sprintf( __( 'Try every Pro feature free for %d days', 'talkwyn' ), $days ) ) . '</h2>'
-			. '<p>' . esc_html__( 'Your license key arrives by email. Upgrade with the same key, or keep the free plan.', 'talkwyn' ) . '</p></div>'
+			. '<p>' . esc_html__( 'Confirm your email, then your license key and account arrive right away. Upgrade with the same key, or keep the free plan.', 'talkwyn' ) . '</p></div>'
 			. '<div class="tw-modal__body" data-tw-modal-body></div>'
 			. '<template data-tw-modal-tpl>' . talkwyn_modal_trial_form() . '</template></dialog>';
 		}

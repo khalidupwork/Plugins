@@ -805,3 +805,76 @@
 		open( 'trial' );
 	}
 }() );
+
+/* Site forms (contact, waitlist) send over AJAX and show the result in place.
+   Without JavaScript they post and redirect back as before. */
+( function () {
+	'use strict';
+	function notice( form, type, text ) {
+		var el = form.previousElementSibling;
+		if ( ! el || ! el.classList || ! el.classList.contains( 'tw-notice' ) ) {
+			el = document.createElement( 'p' );
+			form.parentNode.insertBefore( el, form );
+		}
+		el.className = 'tw-notice tw-notice--' + type;
+		el.setAttribute( 'role', 'status' );
+		el.textContent = text;
+		return el;
+	}
+	document.addEventListener( 'submit', function ( e ) {
+		var form = e.target;
+		if ( ! form.matches || ! form.matches( 'form[data-tw-ajax]' ) || ! window.fetch || ! window.FormData ) {
+			return;
+		}
+		e.preventDefault();
+		if ( ! form.reportValidity() ) {
+			return;
+		}
+		var name = form.getAttribute( 'data-tw-ajax' );
+		var btn = form.querySelector( 'button[type="submit"]' );
+		var label = btn ? btn.innerHTML : '';
+		if ( btn ) {
+			btn.disabled = true;
+			btn.setAttribute( 'aria-busy', 'true' );
+		}
+		// getAttribute: the form has a field named "action", which hides form.action.
+		var post = ( form.getAttribute( 'action' ) || '' ).split( '#' )[ 0 ];
+		var ajax = post.replace( 'admin-post.php', 'admin-ajax.php' );
+		var reset = function () {
+			if ( btn ) {
+				btn.disabled = false;
+				btn.removeAttribute( 'aria-busy' );
+				btn.innerHTML = label;
+			}
+		};
+		fetch( ajax + '?action=talkwyn_form_nonce&form=' + encodeURIComponent( name ), { credentials: 'same-origin', cache: 'no-store' } )
+			.then( function ( r ) {
+				return r.json();
+			} )
+			.then( function ( n ) {
+				var data = new FormData( form );
+				data.set( 'tw_ajax', '1' );
+				if ( n && n.success && n.data && n.data.nonce ) {
+					data.set( '_tw_nonce', n.data.nonce );
+				}
+				return fetch( post, { method: 'POST', body: data, credentials: 'same-origin' } );
+			} )
+			.then( function ( r ) {
+				return r.json();
+			} )
+			.then( function ( res ) {
+				var el = notice( form, res.type || 'error', res.message || '' );
+				if ( res.success ) {
+					form.hidden = true;
+					el.setAttribute( 'tabindex', '-1' );
+					el.focus();
+					return;
+				}
+				reset();
+			} )
+			.catch( function () {
+				form.removeAttribute( 'data-tw-ajax' );
+				HTMLFormElement.prototype.submit.call( form );
+			} );
+	} );
+}() );

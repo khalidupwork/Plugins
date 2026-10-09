@@ -1297,3 +1297,4 @@ main > .wp-block-post-content:first-child > :first-child, .tw-main--landing > .w
 	.tw-flist--wide .tw-flist__group:not(.tw-flist__group--pro) > .tw-vcard__rows:has(> li:last-child:is(:nth-child(4), :nth-child(8), :nth-child(10))) { grid-template-columns: repeat(2, minmax(0, 1fr)); }
 }
 .tw-flist--wide > .tw-flist__foot { max-inline-size: none; }
+form[hidden], .tw-form[hidden] { display: none !important; }

@@ -16,17 +16,29 @@ defined( 'ABSPATH' ) || exit;
  */
 function talkwyn_form_notice( string $form ): string {
 	// phpcs:ignore WordPress.Security.NonceVerification.Recommended -- display only.
-	$status   = isset( $_GET['tw_form'], $_GET['tw_status'] ) && $form === $_GET['tw_form'] ? sanitize_key( wp_unslash( $_GET['tw_status'] ) ) : '';
+	$status  = isset( $_GET['tw_form'], $_GET['tw_status'] ) && $form === $_GET['tw_form'] ? sanitize_key( wp_unslash( $_GET['tw_status'] ) ) : '';
+	$message = talkwyn_form_message( $form, $status );
+	if ( ! $message ) {
+		return '';
+	}
+	return '<p class="tw-notice tw-notice--' . esc_attr( $message[0] ) . '" role="status">' . esc_html( $message[1] ) . '</p>';
+}
+
+/**
+ * Message for a form status.
+ *
+ * @param string $form   Form id.
+ * @param string $status Status code.
+ * @return array{0: string, 1: string}|null Type (success|error) and text.
+ */
+function talkwyn_form_message( string $form, string $status ): ?array {
 	$messages = array(
 		'sent'    => array( 'success', 'contact' === $form ? __( 'Thanks. Your message is on its way, and we will reply by email soon.', 'talkwyn' ) : __( 'You are on the list. Check your inbox for a confirmation, and we will email you the day it launches.', 'talkwyn' ) ),
 		'invalid' => array( 'error', __( 'Please check the form. A valid email address is required.', 'talkwyn' ) ),
 		'limited' => array( 'error', __( 'Too many attempts. Please try again in a few minutes.', 'talkwyn' ) ),
 		'failed'  => array( 'error', __( 'Something went wrong. Please email us directly instead.', 'talkwyn' ) ),
 	);
-	if ( ! isset( $messages[ $status ] ) ) {
-		return '';
-	}
-	return '<p class="tw-notice tw-notice--' . esc_attr( $messages[ $status ][0] ) . '" role="status">' . esc_html( $messages[ $status ][1] ) . '</p>';
+	return $messages[ $status ] ?? null;
 }
 
 /**
@@ -46,7 +58,7 @@ function talkwyn_form_hidden( string $form ): string {
 add_shortcode(
 	'tw_contact_form',
 	static function () {
-		return talkwyn_form_notice( 'contact' ) . '<form class="tw-form" method="post" action="' . esc_url( admin_url( 'admin-post.php' ) ) . '#contact-form" id="contact-form">'
+		return talkwyn_form_notice( 'contact' ) . '<form class="tw-form" method="post" action="' . esc_url( admin_url( 'admin-post.php' ) ) . '#contact-form" id="contact-form" data-tw-ajax="contact">'
 			. talkwyn_form_hidden( 'contact' )
 			. '<label>' . esc_html__( 'Your name', 'talkwyn' ) . '<input type="text" name="tw_name" autocomplete="name" required maxlength="100"></label>'
 			. '<label>' . esc_html__( 'Email', 'talkwyn' ) . '<input type="email" name="tw_email" autocomplete="email" required maxlength="190"></label>'
@@ -65,6 +77,16 @@ function talkwyn_handle_form(): void {
 	$form = isset( $_POST['tw_form'] ) ? sanitize_key( wp_unslash( $_POST['tw_form'] ) ) : '';
 	$back = isset( $_POST['tw_back'] ) ? esc_url_raw( wp_unslash( $_POST['tw_back'] ) ) : home_url( '/' );
 	$go   = static function ( string $status ) use ( $form, $back ) {
+		if ( ! empty( $_POST['tw_ajax'] ) ) { // phpcs:ignore WordPress.Security.NonceVerification.Missing -- only picks the response format.
+			$message = talkwyn_form_message( $form, $status );
+			wp_send_json(
+				array(
+					'success' => 'sent' === $status,
+					'type'    => $message ? $message[0] : 'error',
+					'message' => $message ? $message[1] : '',
+				)
+			);
+		}
 		wp_safe_redirect(
 			add_query_arg(
 				array(
@@ -115,4 +137,18 @@ function talkwyn_handle_form(): void {
 	$go( $sent ? 'sent' : 'failed' );
 }
 add_action( 'admin_post_talkwyn_form', 'talkwyn_handle_form' );
+
+/**
+ * Fresh nonce for a site form (cached pages can hold one that has expired).
+ */
+function talkwyn_form_nonce(): void {
+	$form = isset( $_GET['form'] ) ? sanitize_key( wp_unslash( $_GET['form'] ) ) : ''; // phpcs:ignore WordPress.Security.NonceVerification.Recommended -- returns a nonce, changes nothing.
+	nocache_headers();
+	if ( ! in_array( $form, array( 'contact', 'waitlist' ), true ) ) {
+		wp_send_json_error();
+	}
+	wp_send_json_success( array( 'nonce' => wp_create_nonce( 'talkwyn_form_' . $form ) ) );
+}
+add_action( 'wp_ajax_talkwyn_form_nonce', 'talkwyn_form_nonce' );
+add_action( 'wp_ajax_nopriv_talkwyn_form_nonce', 'talkwyn_form_nonce' );
 add_action( 'admin_post_nopriv_talkwyn_form', 'talkwyn_handle_form' );

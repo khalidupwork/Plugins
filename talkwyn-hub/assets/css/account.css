@@ -178,3 +178,11 @@
 	.twh-qr { inline-size: 132px; }
 	.twh-snippet { flex-direction: column; }
 }
+.twh-trial-form--compact { gap: 10px; }
+.twh-trial-form--compact .twh-field { gap: 0; }
+.twh-trial-form .twh-btn[disabled] { opacity: .7; cursor: progress; }
+.twh-trial .twh-notice[hidden] { display: none; }
+.twh-trial .twh-notice { margin: 0 0 12px; }
+.twh-trial-done--sent { background: var(--tw-blush, #FFF1F2); }
+.twh-trial-done--sent .twh-trial-done__title::before { content: ""; display: inline-block; inline-size: 10px; block-size: 10px; margin-inline-end: 8px; border-radius: 50%; background: var(--tw-brand, #D7263D); vertical-align: middle; }
+.twh-trial-done__title:focus { outline: none; }
