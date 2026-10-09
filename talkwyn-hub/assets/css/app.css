@@ -219,7 +219,7 @@ body.twh-app-body {
 	place-items: center;
 	width: 36px;
 	height: 36px;
-	border-radius: 10px;
+	border-radius: 50%;
 	border: 1px solid var(--twh-line);
 	color: var(--twh-muted);
 }
@@ -238,7 +238,7 @@ body.twh-app-body {
 	box-sizing: border-box;
 	height: 44px;
 	padding: 0 18px;
-	border-radius: 12px;
+	border-radius: 999px;
 	border: 1px solid transparent;
 	font-family: var(--twh-body);
 	font-size: 15px;
@@ -846,7 +846,7 @@ body.twh-app-body {
 	justify-content: center;
 	height: 42px;
 	padding: 0 18px;
-	border-radius: 12px;
+	border-radius: 999px;
 	border: 0;
 	background: var(--twh-red);
 	color: #fff;
