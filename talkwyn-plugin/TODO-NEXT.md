@@ -27,3 +27,20 @@
 ## Questions still open
 - Pro tabs in the free plugin: hide or preview card?
 - "Start free trial" target: talkwyn.com/pricing/#trial or another page?
+
+## Partner referrals (saved for later, do not start until asked)
+
+How it works today (Talkwyn Hub 1.1.0+):
+- A customer applies in My Account, Partner. The admin approves under Talkwyn Hub, Partners, and the partner gets an email with their link.
+- After approval the Partner page shows their link (`talkwyn.com/r/CODE`, or `?ref=CODE` on any page, or `/r/CODE?to=/pricing/`), a link builder, a QR code, banners, clicks and conversions, and pending, approved and paid totals.
+- A click stores a signed first-party cookie for 60 days (last click wins). A partner coupon also counts at checkout.
+- A paid order creates a pending commission (20% on new sales). A trial started from the link pays when it upgrades. Refunds and chargebacks reject it. After 30 days the daily cron approves it, and partners above the payout threshold show under Payouts.
+- The free plugin's "Powered by Talkwyn" badge and "Add chat to your website" menu item use the partner code from Appearance, so agencies earn from sites they build.
+
+To do:
+1. Full test on talkwyn.com: apply, approve, open the link in a private window, start a trial and upgrade, buy a plan, refund one order, run the cron, mark a payout paid.
+2. Check the Partner page inside the new dashboard layout (approved state: link, QR, builder, charts, payouts) and polish its design.
+3. Admin report: clicks and conversions per partner and per source (`utm_source=badge`, `widget_menu`, links, coupons), so we can see what the plugin badge brings in.
+4. Record the `utm_source` of each referral visit (today only the partner is stored).
+5. Docs page "How Talkwyn Partners works" with the link formats, cookie rules and payout schedule.
+6. Check cookie consent mode with a consent plugin (the referral cookie waits for consent when that setting is on).

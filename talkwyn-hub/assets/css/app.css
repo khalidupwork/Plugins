@@ -876,3 +876,108 @@ body.twh-app-body {
 	border-radius: 0;
 	padding: 0;
 }
+
+/* Downloads: one row per product, name on the left, button on the right. */
+.twh-app .twh-download {
+	grid-template-columns: minmax(0, 1fr) auto;
+	align-items: center;
+	margin-bottom: 14px;
+}
+
+.twh-app .twh-download .twh-license-card__head {
+	grid-column: 1;
+}
+
+.twh-app .twh-download .twh-actions {
+	grid-column: 2;
+	grid-row: 1;
+	gap: 16px;
+}
+
+.twh-app .twh-download .twh-actions .twh-muted {
+	order: -1;
+	font-size: 14px;
+}
+
+.twh-app .twh-download .twh-changelog-toggle {
+	grid-column: 1 / -1;
+}
+
+.twh-app .twh-download .twh-license-card__title {
+	margin: 0;
+	font-size: 18px;
+}
+
+.twh-app .twh-app__panel > .twh-muted:first-child {
+	margin: 0 0 16px;
+	padding: 12px 16px;
+	border-radius: 14px;
+	background: #F7F3F3;
+	font-size: 14px;
+}
+
+/* Sidebar on short screens: tighter spacing, slim scrollbar without arrows. */
+.twh-app__side {
+	scrollbar-width: thin;
+	scrollbar-color: rgba(26, 15, 18, .15) transparent;
+}
+
+.twh-app__side::-webkit-scrollbar {
+	width: 6px;
+}
+
+.twh-app__side::-webkit-scrollbar-thumb {
+	background: rgba(26, 15, 18, .15);
+	border-radius: 999px;
+}
+
+.twh-app__side::-webkit-scrollbar-button {
+	display: none;
+	height: 0;
+}
+
+@media (min-width: 861px) and (max-height: 960px) {
+	.twh-app__side {
+		padding-top: 18px;
+	}
+
+	.twh-app__brand {
+		padding-bottom: 14px;
+	}
+
+	.twh-app__link {
+		padding: 9px 14px;
+	}
+
+	.twh-app__promo {
+		padding: 16px;
+	}
+
+	.twh-app__promo p {
+		margin-bottom: 10px;
+		font-size: 13px;
+	}
+
+	.twh-app__user {
+		margin-top: 12px;
+		padding-top: 12px;
+	}
+}
+
+@media (min-width: 861px) and (max-height: 760px) {
+	.twh-app__promo p:not(.twh-app__promo-title) {
+		display: none;
+	}
+}
+
+@media (max-width: 600px) {
+	.twh-app .twh-download {
+		grid-template-columns: minmax(0, 1fr);
+	}
+
+	.twh-app .twh-download .twh-actions {
+		grid-column: 1;
+		grid-row: auto;
+		flex-direction: row;
+	}
+}
