@@ -28,6 +28,8 @@ final class Admin {
 		add_action( 'admin_menu', array( self::class, 'menu' ) );
 		add_action( 'admin_enqueue_scripts', array( self::class, 'assets' ) );
 		add_action( 'admin_notices', array( self::class, 'notices' ) );
+		add_filter( 'admin_body_class', array( self::class, 'body_class' ) );
+		add_action( 'in_admin_header', array( self::class, 'header' ) );
 
 		LicensesPage::init();
 		ReleasesPage::init();
@@ -54,6 +56,99 @@ final class Admin {
 	}
 
 	/**
+	 * Whether the current admin screen belongs to the Hub.
+	 */
+	public static function is_hub_screen(): bool {
+		// phpcs:ignore WordPress.Security.NonceVerification.Recommended -- screen detection only.
+		$page = isset( $_GET['page'] ) ? sanitize_key( wp_unslash( $_GET['page'] ) ) : '';
+		return 0 === strpos( $page, 'twh-' );
+	}
+
+	/**
+	 * Body class for Hub screens.
+	 *
+	 * @param string $classes Classes.
+	 */
+	public static function body_class( $classes ): string {
+		return self::is_hub_screen() ? $classes . ' twh-admin' : (string) $classes;
+	}
+
+	/**
+	 * Hub pages for the top navigation.
+	 *
+	 * @return array<string, array{0: string, 1: string}> Slug => label, icon.
+	 */
+	public static function pages(): array {
+		return array(
+			'twh-dashboard'   => array( __( 'Dashboard', 'talkwyn-hub' ), 'grid' ),
+			'twh-licenses'    => array( __( 'Licenses', 'talkwyn-hub' ), 'key' ),
+			'twh-releases'    => array( __( 'Releases', 'talkwyn-hub' ), 'box' ),
+			'twh-products'    => array( __( 'Products', 'talkwyn-hub' ), 'tag' ),
+			'twh-partners'    => array( __( 'Partners', 'talkwyn-hub' ), 'users' ),
+			'twh-subscribers' => array( __( 'Subscribers', 'talkwyn-hub' ), 'mail' ),
+			'twh-logs'        => array( __( 'Logs', 'talkwyn-hub' ), 'list' ),
+			'twh-settings'    => array( __( 'Settings', 'talkwyn-hub' ), 'cog' ),
+		);
+	}
+
+	/**
+	 * Small stroke icon.
+	 *
+	 * @param string $name Icon name.
+	 */
+	public static function icon( string $name ): string {
+		$paths = array(
+			'grid'   => '<rect x="3" y="3" width="7" height="9" rx="1.5"/><rect x="14" y="3" width="7" height="5" rx="1.5"/><rect x="14" y="12" width="7" height="9" rx="1.5"/><rect x="3" y="16" width="7" height="5" rx="1.5"/>',
+			'key'    => '<circle cx="7.5" cy="15.5" r="4.5"/><path d="m10.7 12.3 9.8-9.8M17 6l3 3M14.5 8.5l2 2"/>',
+			'box'    => '<path d="M21 8 12 3 3 8v8l9 5 9-5Z"/><path d="m3 8 9 5 9-5M12 13v8"/>',
+			'tag'    => '<path d="M20.6 13.4 13.4 20.6a2 2 0 0 1-2.8 0L3 13V3h10l7.6 7.6a2 2 0 0 1 0 2.8Z"/><circle cx="7.5" cy="7.5" r="1.5"/>',
+			'users'  => '<circle cx="9" cy="8" r="4"/><path d="M2 21a7 7 0 0 1 14 0M16 3.5a4 4 0 0 1 0 8M22 21a7 7 0 0 0-4-6.3"/>',
+			'mail'   => '<rect x="3" y="5" width="18" height="14" rx="2"/><path d="m3 7 9 6 9-6"/>',
+			'list'   => '<path d="M8 6h13M8 12h13M8 18h13M3 6h.01M3 12h.01M3 18h.01"/>',
+			'cog'    => '<circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.7 1.7 0 0 0 .3 1.8l.1.1a2 2 0 1 1-2.8 2.8l-.1-.1a1.7 1.7 0 0 0-1.8-.3 1.7 1.7 0 0 0-1 1.5V21a2 2 0 1 1-4 0v-.1a1.7 1.7 0 0 0-1.1-1.5 1.7 1.7 0 0 0-1.8.3l-.1.1a2 2 0 1 1-2.8-2.8l.1-.1a1.7 1.7 0 0 0 .3-1.8 1.7 1.7 0 0 0-1.5-1H3a2 2 0 1 1 0-4h.1a1.7 1.7 0 0 0 1.5-1.1 1.7 1.7 0 0 0-.3-1.8l-.1-.1a2 2 0 1 1 2.8-2.8l.1.1a1.7 1.7 0 0 0 1.8.3H9a1.7 1.7 0 0 0 1-1.5V3a2 2 0 1 1 4 0v.1a1.7 1.7 0 0 0 1 1.5 1.7 1.7 0 0 0 1.8-.3l.1-.1a2 2 0 1 1 2.8 2.8l-.1.1a1.7 1.7 0 0 0-.3 1.8V9a1.7 1.7 0 0 0 1.5 1H21a2 2 0 1 1 0 4h-.1a1.7 1.7 0 0 0-1.5 1Z"/>',
+			'plus'   => '<path d="M12 5v14M5 12h14"/>',
+			'upload' => '<path d="M12 15V3M7 8l5-5 5 5M4 15v4a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-4"/>',
+		);
+		return '<svg class="twh-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false">' . ( $paths[ $name ] ?? '' ) . '</svg>';
+	}
+
+	/**
+	 * Brand header and page navigation on every Hub screen.
+	 */
+	public static function header(): void {
+		if ( ! self::is_hub_screen() || ! current_user_can( self::cap() ) ) {
+			return;
+		}
+		// phpcs:ignore WordPress.Security.NonceVerification.Recommended -- navigation only.
+		$current = isset( $_GET['page'] ) ? sanitize_key( wp_unslash( $_GET['page'] ) ) : '';
+		echo '<div class="twh-shell"><header class="twh-hero"><div class="twh-hero__brand"><span class="twh-hero__mark"><img src="' . esc_url( TWH_URL . 'assets/img/talkwyn-mark.svg' ) . '" alt="" width="40" height="40"></span><div><strong class="twh-hero__title">' . esc_html__( 'Talkwyn Hub', 'talkwyn-hub' ) . ' <span class="twh-ver">v' . esc_html( TWH_VERSION ) . '</span></strong><span class="twh-hero__sub">' . esc_html__( 'Licenses, trials, releases and partners for talkwyn.com', 'talkwyn-hub' ) . '</span></div></div>';
+		echo '<div class="twh-hero__actions"><a class="twh-btn twh-btn--light" href="' . esc_url( admin_url( 'admin.php?page=twh-releases' ) ) . '">' . self::icon( 'upload' ) . esc_html__( 'Upload release', 'talkwyn-hub' ) . '</a><a class="twh-btn twh-btn--ink" href="' . esc_url( admin_url( 'admin.php?page=twh-licenses&action=new' ) ) . '">' . self::icon( 'plus' ) . esc_html__( 'Create license', 'talkwyn-hub' ) . '</a></div></header>'; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- static SVG.
+		echo '<nav class="twh-nav" aria-label="' . esc_attr__( 'Talkwyn Hub sections', 'talkwyn-hub' ) . '">';
+		foreach ( self::pages() as $slug => $page ) {
+			echo '<a class="twh-nav__item' . ( $slug === $current ? ' is-active' : '' ) . '" href="' . esc_url( admin_url( 'admin.php?page=' . $slug ) ) . '"' . ( $slug === $current ? ' aria-current="page"' : '' ) . '>' . self::icon( $page[1] ) . '<span>' . esc_html( $page[0] ) . '</span></a>'; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- static SVG.
+		}
+		echo '</nav></div>';
+	}
+
+	/**
+	 * Brand fonts from the plugin (no outside requests).
+	 */
+	private static function font_css(): string {
+		$css = '';
+		foreach ( array(
+			array( 'Figtree', 'figtree-latin-400-normal', 400 ),
+			array( 'Figtree', 'figtree-latin-500-normal', 500 ),
+			array( 'Figtree', 'figtree-latin-600-normal', 600 ),
+			array( 'Figtree', 'figtree-latin-700-normal', 700 ),
+			array( 'Plus Jakarta Sans', 'plus-jakarta-sans-latin-700-normal', 700 ),
+			array( 'Plus Jakarta Sans', 'plus-jakarta-sans-latin-800-normal', 800 ),
+		) as $f ) {
+			$css .= '@font-face{font-family:"' . $f[0] . '";src:url(' . esc_url( TWH_URL . 'assets/fonts/' . $f[1] . '.woff2' ) . ') format("woff2");font-weight:' . (int) $f[2] . ';font-style:normal;font-display:swap}';
+		}
+		return $css;
+	}
+
+	/**
 	 * Assets on our screens.
 	 *
 	 * @param string $hook Screen hook.
@@ -63,6 +158,7 @@ final class Admin {
 			return;
 		}
 		wp_enqueue_style( 'twh-admin', TWH_URL . 'assets/css/admin.css', array(), TWH_VERSION );
+		wp_add_inline_style( 'twh-admin', self::font_css() );
 		wp_enqueue_script( 'twh-admin', TWH_URL . 'assets/js/admin.js', array(), TWH_VERSION, true );
 		wp_localize_script(
 			'twh-admin',

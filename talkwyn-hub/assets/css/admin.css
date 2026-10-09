@@ -40,3 +40,732 @@
 .twh-inline-form{margin:0}
 .twh-inline-form label{display:inline-block;margin-bottom:4px}
 .twh-table td{vertical-align:top}
+
+/* ==========================================================================
+   Talkwyn Hub admin: Talkwyn website style (Linen, Ink, Talkwyn Red).
+   Everything is scoped to body.twh-admin so other screens are untouched.
+   ========================================================================== */
+body.twh-admin {
+	--twh-red: #D7263D;
+	--twh-red-600: #B81D33;
+	--twh-ink: #1A0F12;
+	--twh-linen: #F7F3F3;
+	--twh-blush: #FFF1F2;
+	--twh-border: #EEE7E8;
+	--twh-border-strong: #DDD3D5;
+	--twh-muted: #6B5E61;
+	--twh-success: #1F8A5B;
+	--twh-display: "Plus Jakarta Sans", "Figtree", system-ui, sans-serif;
+	--twh-body: "Figtree", system-ui, -apple-system, "Segoe UI", sans-serif;
+	background: #FBF8F8;
+}
+
+body.twh-admin #wpbody-content,
+body.twh-admin .twh-shell {
+	font-family: var(--twh-body);
+	color: var(--twh-ink);
+}
+
+.twh-shell {
+	max-width: 1320px;
+	margin: 16px 20px 0 0;
+}
+
+.twh-admin .twh-wrap {
+	max-width: 1320px;
+	margin: 18px 20px 40px 0;
+	font-size: 14px;
+}
+
+/* Header band */
+.twh-hero {
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	gap: 18px;
+	flex-wrap: wrap;
+	padding: 22px 26px;
+	border-radius: 28px;
+	background: radial-gradient(520px 220px at 88% 0%, rgba(215, 38, 61, .14), rgba(215, 38, 61, 0)), linear-gradient(135deg, #FFE4E8, #FFF6F7);
+	border: 1px solid #F6D9DE;
+}
+
+.twh-hero__brand {
+	display: flex;
+	align-items: center;
+	gap: 14px;
+}
+
+.twh-hero__mark {
+	display: grid;
+	place-items: center;
+	width: 52px;
+	height: 52px;
+	border-radius: 16px;
+	background: #fff;
+	box-shadow: 0 8px 20px rgba(26, 15, 18, .08);
+}
+
+.twh-hero__title {
+	display: flex;
+	align-items: center;
+	gap: 8px;
+	font-family: var(--twh-display);
+	font-size: 24px;
+	font-weight: 800;
+	letter-spacing: -.02em;
+	color: var(--twh-ink);
+}
+
+.twh-hero__sub {
+	display: block;
+	margin-top: 2px;
+	color: var(--twh-muted);
+}
+
+.twh-hero__actions {
+	display: flex;
+	gap: 10px;
+	flex-wrap: wrap;
+}
+
+.twh-ver {
+	display: inline-flex;
+	align-items: center;
+	height: 22px;
+	padding: 0 9px;
+	border-radius: 999px;
+	background: #fff;
+	border: 1px solid var(--twh-border);
+	color: var(--twh-muted);
+	font-family: var(--twh-body);
+	font-size: 12px;
+	font-weight: 700;
+	letter-spacing: 0;
+}
+
+/* Page navigation */
+.twh-nav {
+	display: flex;
+	gap: 4px;
+	margin-top: 16px;
+	padding: 6px;
+	background: #fff;
+	border: 1px solid var(--twh-border);
+	border-radius: 999px;
+	overflow-x: auto;
+	scrollbar-width: none;
+}
+
+.twh-nav::-webkit-scrollbar {
+	display: none;
+}
+
+.twh-nav__item {
+	display: inline-flex;
+	flex: none;
+	align-items: center;
+	gap: 7px;
+	padding: 9px 14px;
+	border-radius: 999px;
+	color: var(--twh-muted);
+	font-weight: 600;
+	font-size: 13.5px;
+	text-decoration: none;
+	white-space: nowrap;
+}
+
+.twh-nav__item:hover {
+	background: var(--twh-linen);
+	color: var(--twh-ink);
+}
+
+.twh-nav__item.is-active {
+	background: var(--twh-ink);
+	color: #fff;
+}
+
+.twh-icon {
+	width: 16px;
+	height: 16px;
+	flex: none;
+	fill: none;
+	stroke: currentColor;
+	stroke-width: 2;
+	stroke-linecap: round;
+	stroke-linejoin: round;
+}
+
+/* Headings */
+.twh-admin .twh-wrap h1 {
+	display: flex;
+	align-items: center;
+	gap: 10px;
+	flex-wrap: wrap;
+	margin: 6px 0 14px;
+	padding: 0;
+	font-family: var(--twh-display);
+	font-size: 22px;
+	font-weight: 800;
+	letter-spacing: -.02em;
+	color: var(--twh-ink);
+}
+
+.twh-admin .twh-wrap h2 {
+	font-family: var(--twh-display);
+	font-size: 17px;
+	font-weight: 800;
+	letter-spacing: -.01em;
+	color: var(--twh-ink);
+	margin: 26px 0 10px;
+}
+
+.twh-admin .twh-wrap .description,
+.twh-admin .twh-muted {
+	color: var(--twh-muted);
+}
+
+/* Buttons: pill shape everywhere on Hub screens */
+.twh-btn,
+.twh-admin .twh-wrap .button,
+.twh-admin .twh-wrap .page-title-action,
+.twh-admin .twh-wrap input[type=submit].button {
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	gap: 8px;
+	box-sizing: border-box;
+	height: 40px;
+	min-height: 0;
+	margin: 0;
+	padding: 0 18px;
+	border-radius: 999px;
+	border: 1px solid var(--twh-border-strong);
+	background: #fff;
+	color: var(--twh-ink);
+	font-family: var(--twh-body);
+	font-size: 13.5px;
+	font-weight: 700;
+	line-height: 1;
+	text-decoration: none;
+	white-space: nowrap;
+	vertical-align: middle;
+	box-shadow: none;
+	cursor: pointer;
+	transition: background .15s ease, border-color .15s ease, color .15s ease;
+}
+
+.twh-admin .twh-wrap .button:hover,
+.twh-admin .twh-wrap .page-title-action:hover,
+.twh-btn--light:hover {
+	border-color: var(--twh-ink);
+	color: var(--twh-ink);
+	background: #fff;
+}
+
+.twh-btn--ink,
+.twh-admin .twh-wrap .button-primary,
+.twh-admin .twh-wrap input[type=submit].button-primary {
+	background: var(--twh-ink);
+	border-color: var(--twh-ink);
+	color: #fff;
+}
+
+.twh-btn--ink:hover,
+.twh-admin .twh-wrap input[type=submit].button-primary:hover,
+.twh-admin .twh-wrap .button-primary:hover,
+.twh-admin .twh-wrap .button-primary:focus {
+	background: #000;
+	border-color: #000;
+	color: #fff;
+}
+
+.twh-btn--red {
+	background: var(--twh-red);
+	border-color: var(--twh-red);
+	color: #fff;
+}
+
+.twh-btn--red:hover {
+	background: var(--twh-red-600);
+	border-color: var(--twh-red-600);
+	color: #fff;
+}
+
+.twh-btn--light {
+	background: #fff;
+}
+
+.twh-admin .twh-wrap .button-small {
+	height: 32px;
+	padding: 0 12px;
+	font-size: 12.5px;
+}
+
+.twh-admin .twh-wrap .button-link-delete,
+.twh-admin .twh-wrap .button.delete {
+	color: #B42318;
+}
+
+.twh-admin a:focus,
+.twh-admin button:focus,
+.twh-admin .button:focus {
+	box-shadow: none;
+	outline: 0;
+}
+
+.twh-admin a:focus-visible,
+.twh-admin button:focus-visible,
+.twh-admin .button:focus-visible {
+	outline: 2px solid var(--twh-red);
+	outline-offset: 2px;
+}
+
+/* Fields */
+.twh-admin .twh-wrap input[type=text],
+.twh-admin .twh-wrap input[type=email],
+.twh-admin .twh-wrap input[type=url],
+.twh-admin .twh-wrap input[type=number],
+.twh-admin .twh-wrap input[type=search],
+.twh-admin .twh-wrap input[type=date],
+.twh-admin .twh-wrap input[type=password],
+.twh-admin .twh-wrap select,
+.twh-admin .twh-wrap textarea {
+	box-sizing: border-box;
+	min-height: 40px;
+	padding: 8px 12px;
+	border: 1px solid var(--twh-border-strong);
+	border-radius: 12px;
+	background-color: #fff;
+	color: var(--twh-ink);
+	font-family: var(--twh-body);
+	font-size: 14px;
+	box-shadow: none;
+}
+
+.twh-admin .twh-wrap select {
+	padding-right: 32px;
+	background-position: right 10px top 55%;
+}
+
+.twh-admin .twh-wrap textarea {
+	min-height: 0;
+	line-height: 1.5;
+}
+
+.twh-admin .twh-wrap input:focus,
+.twh-admin .twh-wrap select:focus,
+.twh-admin .twh-wrap textarea:focus {
+	border-color: var(--twh-ink);
+	box-shadow: 0 0 0 3px rgba(215, 38, 61, .16);
+	outline: 0;
+}
+
+.twh-admin .twh-wrap input[type=checkbox],
+.twh-admin .twh-wrap input[type=radio] {
+	border-color: var(--twh-border-strong);
+}
+
+.twh-admin .twh-wrap input[type=checkbox]:checked {
+	background: var(--twh-red);
+	border-color: var(--twh-red);
+}
+
+.twh-admin .twh-wrap input[type=checkbox]:checked::before {
+	content: url("data:image/svg+xml;utf8,%3Csvg%20xmlns%3D%27http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%27%20viewBox%3D%270%200%2020%2020%27%3E%3Cpath%20d%3D%27M14.83%204.89l1.34.94-5.81%208.38H9.02L5.78%209.67l1.34-1.25%202.57%202.4z%27%20fill%3D%27%23ffffff%27%2F%3E%3C%2Fsvg%3E");
+}
+
+.twh-admin .twh-wrap input[type=radio]:checked::before {
+	background: var(--twh-red);
+}
+
+.twh-admin .twh-wrap code {
+	border-radius: 6px;
+	background: var(--twh-linen);
+	padding: 2px 6px;
+}
+
+/* Settings rows become cards */
+.twh-admin .twh-wrap .form-table {
+	border-collapse: separate;
+	border-spacing: 0;
+	background: #fff;
+	border: 1px solid var(--twh-border);
+	border-radius: 22px;
+	margin: 0 0 18px;
+	overflow: hidden;
+}
+
+.twh-admin .twh-wrap .form-table th {
+	width: 240px;
+	padding: 18px 12px 18px 24px;
+	font-weight: 700;
+	color: var(--twh-ink);
+}
+
+.twh-admin .twh-wrap .form-table td {
+	padding: 16px 24px 16px 12px;
+}
+
+.twh-admin .twh-wrap .form-table tr + tr th,
+.twh-admin .twh-wrap .form-table tr + tr td {
+	border-top: 1px solid var(--twh-border);
+}
+
+.twh-admin .twh-wrap .form-table td p.description {
+	margin-top: 6px;
+	font-size: 13px;
+}
+
+/* Lists and tables */
+.twh-admin .twh-wrap .widefat {
+	border: 1px solid var(--twh-border);
+	border-radius: 20px;
+	border-collapse: separate;
+	border-spacing: 0;
+	overflow: hidden;
+	box-shadow: none;
+	background: #fff;
+}
+
+.twh-admin .twh-wrap .widefat thead th,
+.twh-admin .twh-wrap .widefat thead td,
+.twh-admin .twh-wrap .widefat tfoot th,
+.twh-admin .twh-wrap .widefat tfoot td {
+	background: var(--twh-linen);
+	border-bottom: 1px solid var(--twh-border);
+	color: var(--twh-ink);
+	font-weight: 700;
+	font-size: 13px;
+	padding: 12px 14px;
+}
+
+.twh-admin .twh-wrap .widefat td,
+.twh-admin .twh-wrap .widefat tbody th {
+	padding: 12px 14px;
+	color: var(--twh-ink);
+	vertical-align: middle;
+}
+
+.twh-admin .twh-wrap .striped > tbody > :nth-child(odd) {
+	background: #FDFBFB;
+}
+
+.twh-admin .twh-wrap .widefat tbody tr + tr td,
+.twh-admin .twh-wrap .widefat tbody tr + tr th {
+	border-top: 1px solid var(--twh-border);
+}
+
+.twh-admin .twh-wrap .widefat a {
+	color: var(--twh-ink);
+	font-weight: 600;
+}
+
+.twh-admin .twh-wrap .widefat a:hover {
+	color: var(--twh-red);
+}
+
+.twh-admin .twh-wrap .tablenav {
+	height: auto;
+	margin: 10px 0;
+	display: flex;
+	align-items: center;
+	gap: 8px;
+	flex-wrap: wrap;
+}
+
+.twh-admin .twh-wrap .subsubsub {
+	float: none;
+	display: flex;
+	gap: 4px;
+	flex-wrap: wrap;
+	margin: 6px 0 10px;
+}
+
+.twh-admin .twh-wrap .subsubsub li {
+	color: transparent;
+}
+
+.twh-admin .twh-wrap .subsubsub a {
+	display: inline-block;
+	padding: 6px 12px;
+	border-radius: 999px;
+	background: #fff;
+	border: 1px solid var(--twh-border);
+	color: var(--twh-muted);
+	font-weight: 600;
+	text-decoration: none;
+}
+
+.twh-admin .twh-wrap .subsubsub a.current {
+	background: var(--twh-ink);
+	border-color: var(--twh-ink);
+	color: #fff;
+}
+
+.twh-admin .twh-wrap .subsubsub .count {
+	color: inherit;
+	opacity: .7;
+}
+
+/* Dashboard */
+.twh-admin .twh-wrap .twh-cards {
+	grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+	gap: 14px;
+}
+
+.twh-admin .twh-stat,
+.twh-admin .twh-panel {
+	background: #fff;
+	border: 1px solid var(--twh-border);
+	border-radius: 22px;
+	padding: 18px 20px;
+}
+
+.twh-admin .twh-stat__label {
+	color: var(--twh-muted);
+	font-size: 12px;
+	font-weight: 700;
+	letter-spacing: .06em;
+}
+
+.twh-admin .twh-stat__value {
+	font-family: var(--twh-display);
+	font-size: 28px;
+	font-weight: 800;
+	letter-spacing: -.02em;
+	color: var(--twh-ink);
+}
+
+.twh-admin .twh-stat__value a {
+	color: var(--twh-ink);
+}
+
+.twh-admin .twh-panel h2 {
+	margin-top: 4px;
+}
+
+/* Badges in brand tones */
+.twh-admin .twh-badge {
+	padding: 2px 10px;
+	font-weight: 700;
+}
+
+.twh-admin .twh-badge--active {
+	background: #E7F5EE;
+	color: #14593B;
+}
+
+/* Notices */
+.twh-admin .notice {
+	border-radius: 16px;
+	border: 1px solid var(--twh-border);
+	border-left-width: 4px;
+	box-shadow: none;
+	margin: 12px 20px 0 0;
+	max-width: 1280px;
+}
+
+.twh-admin .notice-success {
+	border-left-color: var(--twh-success);
+}
+
+.twh-admin .notice-error {
+	border-left-color: var(--twh-red);
+}
+
+/* Settings tabs */
+.twh-tabs {
+	display: flex;
+	gap: 4px;
+	flex-wrap: wrap;
+	margin: 4px 0 18px;
+	padding: 6px;
+	background: #fff;
+	border: 1px solid var(--twh-border);
+	border-radius: 18px;
+}
+
+.twh-tabs__item {
+	display: inline-flex;
+	align-items: center;
+	gap: 7px;
+	padding: 9px 14px;
+	border: 0;
+	border-radius: 12px;
+	background: none;
+	color: var(--twh-muted);
+	font-family: var(--twh-body);
+	font-size: 13.5px;
+	font-weight: 700;
+	cursor: pointer;
+}
+
+.twh-tabs__item:hover {
+	background: var(--twh-linen);
+	color: var(--twh-ink);
+}
+
+.twh-tabs__item.is-active {
+	background: var(--twh-blush);
+	color: var(--twh-red);
+}
+
+.twh-tabpanel[hidden] {
+	display: none;
+}
+
+.twh-tabpanel > h2:first-child {
+	margin-top: 0;
+}
+
+.twh-panel-intro {
+	margin: -4px 0 14px;
+	color: var(--twh-muted);
+	max-width: 760px;
+}
+
+.twh-savebar {
+	margin: 18px 0 0;
+	display: flex;
+	justify-content: flex-end;
+}
+
+.twh-savebar[hidden] {
+	display: none;
+}
+
+.twh-admin .twh-wrap .twh-savebar .button {
+	height: 48px;
+	padding: 0 26px;
+	box-shadow: 0 12px 30px rgba(26, 15, 18, .2);
+}
+
+/* Desktop: a tall Save tab on the right edge, like the Talkwyn plugin. */
+@media (min-width: 783px) {
+	.twh-savebar {
+		position: fixed;
+		inset-inline-end: 0;
+		inset-block-start: 50%;
+		transform: translateY(-50%);
+		z-index: 20;
+		margin: 0;
+	}
+
+	.twh-admin .twh-wrap .twh-savebar .button {
+		writing-mode: vertical-rl;
+		transform: rotate(180deg);
+		height: auto;
+		min-height: 170px;
+		padding: 22px 14px;
+		border-radius: 0 18px 18px 0;
+		box-shadow: 8px 0 30px rgba(26, 15, 18, .22);
+	}
+
+	body.twh-admin .twh-wrap:has(.twh-savebar:not([hidden])) {
+		padding-inline-end: 40px;
+	}
+}
+
+/* Email templates as a list of cards that open one at a time */
+.twh-emails {
+	display: grid;
+	gap: 10px;
+}
+
+.twh-email {
+	background: #fff;
+	border: 1px solid var(--twh-border);
+	border-radius: 18px;
+}
+
+.twh-email > summary {
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	gap: 12px;
+	padding: 14px 20px;
+	font-weight: 700;
+	cursor: pointer;
+	list-style: none;
+}
+
+.twh-email > summary::-webkit-details-marker {
+	display: none;
+}
+
+.twh-email > summary::after {
+	content: "+";
+	font-size: 18px;
+	color: var(--twh-muted);
+}
+
+.twh-email[open] > summary::after {
+	content: "-";
+}
+
+.twh-email__subject {
+	flex: 1;
+	min-width: 0;
+	color: var(--twh-muted);
+	font-weight: 500;
+	white-space: nowrap;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	text-align: right;
+}
+
+.twh-email__body {
+	display: grid;
+	gap: 10px;
+	padding: 0 20px 18px;
+}
+
+.twh-email__body label {
+	font-weight: 700;
+	font-size: 13px;
+}
+
+.twh-placeholders {
+	display: flex;
+	flex-wrap: wrap;
+	gap: 6px;
+	margin: 0 0 14px;
+}
+
+.twh-status-ok {
+	color: var(--twh-success);
+	font-weight: 700;
+}
+
+.twh-status-bad {
+	color: #B42318;
+	font-weight: 700;
+}
+
+@media (max-width: 782px) {
+	.twh-shell,
+	.twh-admin .twh-wrap {
+		margin-right: 10px;
+	}
+
+	.twh-admin .twh-wrap .form-table th {
+		width: auto;
+		padding-bottom: 0;
+	}
+}
+
+/* A settings table inside a panel does not need its own card. */
+.twh-admin .twh-wrap .twh-panel .form-table {
+	border: 0;
+	border-radius: 0;
+	background: none;
+}
+
+.twh-admin .twh-wrap .twh-panel .form-table th {
+	padding-left: 0;
+}
+
+.twh-admin .twh-wrap .twh-panel .form-table td {
+	padding-right: 0;
+}

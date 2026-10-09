@@ -49,12 +49,29 @@ final class SettingsPage {
 		);
 		?>
 		<div class="wrap twh-wrap">
-			<h1><?php esc_html_e( 'Talkwyn Hub settings', 'talkwyn-hub' ); ?></h1>
+			<h1><?php esc_html_e( 'Settings', 'talkwyn-hub' ); ?></h1>
+			<nav class="twh-tabs" role="tablist" aria-label="<?php esc_attr_e( 'Settings sections', 'talkwyn-hub' ); ?>">
+				<?php
+				foreach ( array(
+					'general'  => __( 'General', 'talkwyn-hub' ),
+					'trial'    => __( 'Trial', 'talkwyn-hub' ),
+					'partners' => __( 'Partners', 'talkwyn-hub' ),
+					'invoices' => __( 'Invoices', 'talkwyn-hub' ),
+					'emails'   => __( 'Emails', 'talkwyn-hub' ),
+					'keys'     => __( 'Signing keys', 'talkwyn-hub' ),
+					'status'   => __( 'System status', 'talkwyn-hub' ),
+				) as $twh_tab => $twh_label ) :
+					?>
+					<button type="button" class="twh-tabs__item" role="tab" data-tab="<?php echo esc_attr( $twh_tab ); ?>"><?php echo esc_html( $twh_label ); ?></button>
+				<?php endforeach; ?>
+			</nav>
 
 			<form method="post" action="<?php echo esc_url( admin_url( 'admin-post.php' ) ); ?>">
 				<input type="hidden" name="action" value="twh_save_settings">
+				<input type="hidden" name="twh_tab" value="general">
 				<?php wp_nonce_field( 'twh_save_settings' ); ?>
 
+				<section class="twh-tabpanel" data-tab="general">
 				<h2><?php esc_html_e( 'Renewals & reminders', 'talkwyn-hub' ); ?></h2>
 				<table class="form-table" role="presentation">
 					<tr><th><label for="twh-reminder-days"><?php esc_html_e( 'Reminder days', 'talkwyn-hub' ); ?></label></th>
@@ -65,6 +82,9 @@ final class SettingsPage {
 						<p class="description"><?php esc_html_e( 'Applied to manual renewals (when WooCommerce Subscriptions is not used).', 'talkwyn-hub' ); ?></p></td></tr>
 				</table>
 
+				</section>
+
+				<section class="twh-tabpanel" data-tab="trial">
 				<h2 id="trial"><?php esc_html_e( 'Trial', 'talkwyn-hub' ); ?></h2>
 				<table class="form-table" role="presentation">
 					<tr><th><?php esc_html_e( 'Free Pro trial', 'talkwyn-hub' ); ?></th>
@@ -85,7 +105,7 @@ final class SettingsPage {
 							<label><input type="radio" name="trial_card_mode" value="card" <?php checked( (string) $s['trial_card_mode'], 'card' ); ?>> <?php esc_html_e( 'Card on file: the trial starts at checkout with a $0 first period and converts to paid automatically. Needs WooCommerce Subscriptions.', 'talkwyn-hub' ); ?></label>
 						</fieldset>
 						<?php if ( 'card' === $s['trial_card_mode'] && ! \TWH\Trial\Trial::card_mode_ready() ) : ?>
-							<p class="description" style="color:#b32d2e"><?php esc_html_e( 'Not ready: activate WooCommerce Subscriptions and choose a subscription product with a free trial below.', 'talkwyn-hub' ); ?></p>
+							<p class="description twh-status-bad"><?php esc_html_e( 'Not ready: activate WooCommerce Subscriptions and choose a subscription product with a free trial below.', 'talkwyn-hub' ); ?></p>
 						<?php endif; ?></td></tr>
 					<tr><th><label for="twh-trial-product"><?php esc_html_e( 'Trial product (card mode)', 'talkwyn-hub' ); ?></label></th>
 						<td><input id="twh-trial-product" name="trial_product_id" type="number" min="0" value="<?php echo (int) $s['trial_product_id']; ?>" class="small-text">
@@ -98,6 +118,9 @@ final class SettingsPage {
 						<p class="description"><?php esc_html_e( 'Disposable email services, one per line. Subdomains are blocked too.', 'talkwyn-hub' ); ?></p></td></tr>
 				</table>
 
+				</section>
+
+				<section class="twh-tabpanel" data-tab="partners">
 				<h2 id="partners"><?php esc_html_e( 'Partners', 'talkwyn-hub' ); ?></h2>
 				<table class="form-table" role="presentation">
 					<tr><th><?php esc_html_e( 'Talkwyn Partners', 'talkwyn-hub' ); ?></th>
@@ -132,8 +155,11 @@ final class SettingsPage {
 						<label><input name="partner_respect_consent" type="checkbox" value="1" <?php checked( (int) $s['partner_respect_consent'], 1 ); ?>> <?php esc_html_e( 'Only set the referral cookie after cookie consent when a consent plugin is active', 'talkwyn-hub' ); ?></label></td></tr>
 				</table>
 
+				</section>
+
+				<section class="twh-tabpanel" data-tab="invoices">
 				<h2 id="invoices"><?php esc_html_e( 'Invoices', 'talkwyn-hub' ); ?></h2>
-				<p class="description"><?php esc_html_e( 'Every paid order gets the next invoice number. Customers open a printable invoice from My Account, Orders and from their order email, and can save it as a PDF.', 'talkwyn-hub' ); ?></p>
+				<p class="twh-panel-intro"><?php esc_html_e( 'Every paid order gets the next invoice number. Customers open a printable invoice from My Account, Orders and from their order email, and can save it as a PDF.', 'talkwyn-hub' ); ?></p>
 				<table class="form-table" role="presentation">
 					<tr><th><label for="twh-inv-prefix"><?php esc_html_e( 'Number prefix', 'talkwyn-hub' ); ?></label></th>
 						<td><input id="twh-inv-prefix" name="invoice_prefix" type="text" value="<?php echo esc_attr( (string) $s['invoice_prefix'] ); ?>" class="small-text">
@@ -151,7 +177,10 @@ final class SettingsPage {
 						<p class="description"><?php esc_html_e( 'For example payment terms or a thank-you line.', 'talkwyn-hub' ); ?></p></td></tr>
 				</table>
 
-				<h2><?php esc_html_e( 'API', 'talkwyn-hub' ); ?></h2>
+				</section>
+
+				<section class="twh-tabpanel" data-tab="general">
+				<h2><?php esc_html_e( 'API and domains', 'talkwyn-hub' ); ?></h2>
 				<table class="form-table" role="presentation">
 					<tr><th><?php esc_html_e( 'Rate limit', 'talkwyn-hub' ); ?></th>
 						<td><input name="rate_limit_requests" type="number" min="1" value="<?php echo (int) $s['rate_limit_requests']; ?>" class="small-text">
@@ -166,34 +195,48 @@ final class SettingsPage {
 						<p class="description"><?php esc_html_e( '0 keeps logs forever.', 'talkwyn-hub' ); ?></p></td></tr>
 				</table>
 
+				</section>
+
+				<section class="twh-tabpanel" data-tab="emails">
 				<h2><?php esc_html_e( 'Emails', 'talkwyn-hub' ); ?></h2>
-				<p class="description">
-					<?php esc_html_e( 'Emails use the branded Talkwyn layout (override it from your theme at talkwyn-hub/emails/branded.php). Placeholders:', 'talkwyn-hub' ); ?>
-					<code><?php echo esc_html( implode( ' ', Mailer::placeholders() ) ); ?></code>
+				<p class="twh-panel-intro"><?php esc_html_e( 'Emails use the branded Talkwyn layout (override it from your theme at talkwyn-hub/emails/branded.php). You can use these placeholders in any subject or text:', 'talkwyn-hub' ); ?></p>
+				<p class="twh-placeholders">
+					<?php foreach ( Mailer::placeholders() as $twh_ph ) : ?>
+						<code class="twh-copyable"><?php echo esc_html( $twh_ph ); ?></code>
+					<?php endforeach; ?>
 				</p>
 				<table class="form-table" role="presentation">
 					<tr><th><label for="twh-from"><?php esc_html_e( 'From name', 'talkwyn-hub' ); ?></label></th>
 						<td><input id="twh-from" name="email_from_name" type="text" class="regular-text" value="<?php echo esc_attr( (string) $s['email_from_name'] ); ?>" placeholder="<?php echo esc_attr( (string) get_bloginfo( 'name' ) ); ?>"></td></tr>
 					<tr><th><label for="twh-admin-email"><?php esc_html_e( 'Admin notifications to', 'talkwyn-hub' ); ?></label></th>
 						<td><input id="twh-admin-email" name="admin_notify_email" type="email" class="regular-text" value="<?php echo esc_attr( (string) $s['admin_notify_email'] ); ?>" placeholder="<?php echo esc_attr( (string) get_option( 'admin_email' ) ); ?>"></td></tr>
-					<?php foreach ( $texts as $type => $label ) : ?>
-						<tr><th><?php echo esc_html( $label ); ?></th>
-							<td>
-								<input name="email_<?php echo esc_attr( $type ); ?>_subject" type="text" class="large-text" value="<?php echo esc_attr( (string) $s[ 'email_' . $type . '_subject' ] ); ?>">
-								<textarea name="email_<?php echo esc_attr( $type ); ?>_body" rows="8" class="large-text"><?php echo esc_textarea( (string) $s[ 'email_' . $type . '_body' ] ); ?></textarea>
-							</td></tr>
-					<?php endforeach; ?>
 				</table>
+				<div class="twh-emails">
+					<?php foreach ( $texts as $type => $label ) : ?>
+						<details class="twh-email">
+							<summary><span><?php echo esc_html( $label ); ?></span><span class="twh-email__subject"><?php echo esc_html( (string) $s[ 'email_' . $type . '_subject' ] ); ?></span></summary>
+							<div class="twh-email__body">
+								<label for="twh-email-<?php echo esc_attr( $type ); ?>-subject"><?php esc_html_e( 'Subject', 'talkwyn-hub' ); ?></label>
+								<input id="twh-email-<?php echo esc_attr( $type ); ?>-subject" name="email_<?php echo esc_attr( $type ); ?>_subject" type="text" class="large-text" value="<?php echo esc_attr( (string) $s[ 'email_' . $type . '_subject' ] ); ?>">
+								<label for="twh-email-<?php echo esc_attr( $type ); ?>-body"><?php esc_html_e( 'Text', 'talkwyn-hub' ); ?></label>
+								<textarea id="twh-email-<?php echo esc_attr( $type ); ?>-body" name="email_<?php echo esc_attr( $type ); ?>_body" rows="8" class="large-text"><?php echo esc_textarea( (string) $s[ 'email_' . $type . '_body' ] ); ?></textarea>
+							</div>
+						</details>
+					<?php endforeach; ?>
+				</div>
+				</section>
 
+				<section class="twh-tabpanel" data-tab="general">
 				<h2><?php esc_html_e( 'Uninstall', 'talkwyn-hub' ); ?></h2>
 				<table class="form-table" role="presentation">
 					<tr><th><?php esc_html_e( 'Data', 'talkwyn-hub' ); ?></th>
 						<td><label><input name="delete_on_uninstall" type="checkbox" value="1" <?php checked( (int) $s['delete_on_uninstall'], 1 ); ?>> <?php esc_html_e( 'Delete all data on uninstall (licenses, activations, releases, logs, signing keys, settings and release ZIPs). This cannot be undone.', 'talkwyn-hub' ); ?></label></td></tr>
 				</table>
-				<?php submit_button(); ?>
+				</section>
+				<div class="twh-savebar"><button type="submit" class="button button-primary"><?php esc_html_e( 'Save settings', 'talkwyn-hub' ); ?></button></div>
 			</form>
 
-			<hr>
+			<section class="twh-tabpanel" data-tab="keys">
 			<h2><?php esc_html_e( 'Signing keys (Ed25519)', 'talkwyn-hub' ); ?></h2>
 			<p class="description"><?php esc_html_e( 'Embed the public key(s) in the client plugin. To rotate: 1) generate the next key, 2) ship a client release that trusts both keys, 3) once most sites have updated, promote the next key.', 'talkwyn-hub' ); ?></p>
 			<table class="widefat striped">
@@ -223,15 +266,19 @@ final class SettingsPage {
 				<?php endif; ?>
 			</form>
 
+			</section>
+
+			<section class="twh-tabpanel" data-tab="status">
 			<h2><?php esc_html_e( 'System status', 'talkwyn-hub' ); ?></h2>
 			<table class="widefat striped twh-status">
-				<tr><td><?php esc_html_e( 'TWH_SECRET_KEY defined', 'talkwyn-hub' ); ?></td><td><?php echo Secrets::has_constant() ? '✅' : '⚠️ ' . esc_html__( 'Using the WordPress salt fallback', 'talkwyn-hub' ); ?></td></tr>
-				<tr><td><?php esc_html_e( 'Release directory', 'talkwyn-hub' ); ?></td><td><code><?php echo esc_html( Storage::dir() ); ?></code> <?php echo Storage::ensure_dir() ? '✅' : '❌'; ?></td></tr>
+				<tr><td><?php esc_html_e( 'TWH_SECRET_KEY defined', 'talkwyn-hub' ); ?></td><td><?php echo Secrets::has_constant() ? '<span class="twh-status-ok">' . esc_html__( 'Yes', 'talkwyn-hub' ) . '</span>' : '<span class="twh-status-bad">' . esc_html__( 'No, using the WordPress salt fallback', 'talkwyn-hub' ) . '</span>'; ?></td></tr>
+				<tr><td><?php esc_html_e( 'Release directory', 'talkwyn-hub' ); ?></td><td><code><?php echo esc_html( Storage::dir() ); ?></code> <?php echo Storage::ensure_dir() ? '<span class="twh-status-ok">' . esc_html__( 'Writable', 'talkwyn-hub' ) . '</span>' : '<span class="twh-status-bad">' . esc_html__( 'Not writable', 'talkwyn-hub' ) . '</span>'; ?></td></tr>
 				<tr><td><?php esc_html_e( 'WooCommerce Subscriptions', 'talkwyn-hub' ); ?></td><td><?php echo \TWH\Woo\Subscriptions::active() ? esc_html__( 'Active, automatic renewals', 'talkwyn-hub' ) : esc_html__( 'Not active, manual renewal flow', 'talkwyn-hub' ); ?></td></tr>
-				<tr><td><?php esc_html_e( 'Daily cron scheduled', 'talkwyn-hub' ); ?></td><td><?php echo wp_next_scheduled( 'twh_daily' ) ? esc_html( wp_date( 'Y-m-d H:i', (int) wp_next_scheduled( 'twh_daily' ) ) ) : '❌'; ?></td></tr>
+				<tr><td><?php esc_html_e( 'Daily cron scheduled', 'talkwyn-hub' ); ?></td><td><?php echo wp_next_scheduled( 'twh_daily' ) ? esc_html( wp_date( 'Y-m-d H:i', (int) wp_next_scheduled( 'twh_daily' ) ) ) : '<span class="twh-status-bad">' . esc_html__( 'Not scheduled', 'talkwyn-hub' ) . '</span>'; ?></td></tr>
 				<tr><td><?php esc_html_e( 'API base URL', 'talkwyn-hub' ); ?></td><td><code><?php echo esc_html( rest_url( 'talkwyn-hub/v1/' ) ); ?></code></td></tr>
 				<tr><td><?php esc_html_e( 'Default dev patterns', 'talkwyn-hub' ); ?></td><td><small><?php echo esc_html( implode( ', ', Domain::DEFAULT_DEV_PATTERNS ) ); ?></small></td></tr>
 			</table>
+			</section>
 		</div>
 		<?php
 	}
@@ -290,7 +337,8 @@ final class SettingsPage {
 		}
 		Settings::save( $values );
 		flush_rewrite_rules( false ); // The /r/CODE rule depends on the pretty links setting.
-		Admin::redirect( 'twh-settings', 'saved' );
+		$tab = sanitize_key( wp_unslash( $_POST['twh_tab'] ?? 'general' ) );
+		Admin::redirect( 'twh-settings', 'saved', array( 'tab' => in_array( $tab, array( 'general', 'trial', 'partners', 'invoices', 'emails' ), true ) ? $tab : 'general' ) );
 	}
 
 	/**
@@ -324,10 +372,10 @@ final class SettingsPage {
 		$do = sanitize_key( wp_unslash( $_POST['do'] ?? '' ) );
 		if ( 'generate_next' === $do ) {
 			SigningKeys::generate_next();
-			Admin::redirect( 'twh-settings', 'key_next' );
+			Admin::redirect( 'twh-settings', 'key_next', array( 'tab' => 'keys' ) );
 		}
 		if ( 'promote_next' === $do && SigningKeys::promote_next() ) {
-			Admin::redirect( 'twh-settings', 'key_promoted' );
+			Admin::redirect( 'twh-settings', 'key_promoted', array( 'tab' => 'keys' ) );
 		}
 		Admin::redirect( 'twh-settings', 'invalid' );
 	}

@@ -107,10 +107,7 @@ final class Dashboard {
 		);
 		?>
 		<div class="wrap twh-wrap">
-			<h1><?php esc_html_e( 'Talkwyn Hub', 'talkwyn-hub' ); ?>
-				<a class="page-title-action" href="<?php echo esc_url( admin_url( 'admin.php?page=twh-licenses&action=new' ) ); ?>"><?php esc_html_e( 'Create license', 'talkwyn-hub' ); ?></a>
-				<a class="page-title-action" href="<?php echo esc_url( admin_url( 'admin.php?page=twh-releases' ) ); ?>"><?php esc_html_e( 'Upload release', 'talkwyn-hub' ); ?></a>
-			</h1>
+			<h1><?php esc_html_e( 'Dashboard', 'talkwyn-hub' ); ?></h1>
 			<div class="twh-cards">
 				<?php foreach ( $cards as $card ) : ?>
 					<div class="twh-stat">
