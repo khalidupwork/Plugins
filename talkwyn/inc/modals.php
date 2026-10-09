@@ -30,6 +30,7 @@ function talkwyn_modal_login_form(): string {
 		. '<a href="' . esc_url( $lost ) . '">' . esc_html__( 'Forgot password?', 'talkwyn' ) . '</a></p>'
 		. wp_nonce_field( 'woocommerce-login', 'woocommerce-login-nonce', true, false )
 		. '<input type="hidden" name="redirect" value="' . esc_url( $account ) . '">'
+		. talkwyn_captcha_field( 'account' )
 		. '<p><button class="tw-pill tw-pill--red tw-pill--block" type="submit" name="login" value="' . esc_attr__( 'Log in', 'talkwyn' ) . '">' . esc_html__( 'Log in', 'talkwyn' ) . '</button></p>'
 		. ( $register ? '<p class="tw-mform__alt">' . esc_html__( 'New here?', 'talkwyn' ) . ' <a href="' . esc_url( $account ) . '#register">' . esc_html__( 'Create an account', 'talkwyn' ) . '</a></p>' : '' )
 		. '</form>';

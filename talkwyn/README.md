@@ -3,7 +3,7 @@
 Block theme for talkwyn.com (v3, Talkwyn Red). It works with WooCommerce and the Talkwyn Hub plugin (licenses, free trial, partners, updates, My Account screens and emails).
 
 - Requires WordPress 6.5+, PHP 8.0+.
-- Light only. There is no dark mode and no theme switcher. Colors: Talkwyn Red `#D7263D`, Ink `#1A0F12`, Linen `#F7F3F3`, Blush gradient. Fonts: Plus Jakarta Sans (headings and UI), Figtree (body), JetBrains Mono (keys).
+- Light only. There is no dark mode and no theme switcher. Colors: Talkwyn Red `#D7263D`, Ink `#1A0F12`, Linen `#F7F3F3`, Blush gradient. Fonts: Plus Jakarta Sans (headings and UI), Inter (body), JetBrains Mono (keys).
 - Fonts are self-hosted, so the theme makes no Google Fonts requests. Licenses are in `assets/fonts/`.
 - Layouts are RTL-ready: logical CSS properties throughout, and Arabic and Hindi fonts are applied by `:lang()`. Chinese, Japanese and Korean use system fonts.
 
@@ -50,6 +50,8 @@ Block theme for talkwyn.com (v3, Talkwyn Red). It works with WooCommerce and the
 | Show waitlist count | Shows "N people are waiting for Shopify" on integration pages. Off by default. |
 | Waitlist | Sign-ups are stored under **Waitlist** in the admin menu (email, platform, website), with a platform filter and **Export CSV**. Each sign-up gets a confirmation email, and you get a notice. |
 | Contact email | Where contact form messages and waitlist alerts go. |
+| Contact messages | Since 2.10.0 every contact form message is also saved under **Contact messages** in the admin menu (name, email, website, topic, page, message), with a red count of unread messages and a **Reply by email** button. If an email does not arrive, the message is still there. |
+| Spam protection | Since 2.10.0. Add a free Cloudflare Turnstile site key and secret key (dash.cloudflare.com, Turnstile, Add widget, add your domain) and tick the forms to protect: contact, waitlist, free trial form and popup (Talkwyn Hub 1.6.2 or newer), and the WooCommerce log in, register and lost password forms (including the Log in popup). Empty keys turn the check off everywhere. The Turnstile script loads only when a form with a check is on screen. On the contact, waitlist and trial forms the honeypot, fill time and rate limits keep running either way. |
 | Social links | Only the filled ones appear in the footer. |
 | Analytics | `none`, `ga4` (Measurement ID) or `plausible` (domain and script URL). Logged-in editors are never tracked. |
 | Live demo shortcode | When the Talkwyn plugin runs on this site, paste its inline shortcode and the homepage demo becomes the real chatbot. Until then the demo is a scripted preview and says so. |

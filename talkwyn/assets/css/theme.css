@@ -1298,3 +1298,36 @@ main > .wp-block-post-content:first-child > :first-child, .tw-main--landing > .w
 }
 .tw-flist--wide > .tw-flist__foot { max-inline-size: none; }
 form[hidden], .tw-form[hidden] { display: none !important; }
+
+/* v4.0: Inter body text, contact card, footer credit, spam check. */
+body { font-feature-settings: "cv11" 0, "ss01" 0; -webkit-font-smoothing: antialiased; }
+
+/* Contact page: one centred card, two columns on wide screens. */
+.tw-contact-card { max-inline-size: 760px; margin-inline: auto; background: #FFFFFF; border-radius: var(--tw-r-xl, 28px); padding: clamp(24px, 4vw, 44px); box-shadow: 0 0 0 1px var(--tw-border), 0 24px 60px rgba(26, 15, 18, .08); }
+.tw-contact-card__head { margin-block-end: 24px; }
+.tw-contact-card__title { margin: 0 0 6px; font-family: var(--tw-font-display); font-size: var(--tw-text-h3); font-weight: 800; letter-spacing: -.02em; line-height: 1.2; }
+.tw-contact-card__sub { margin: 0; color: var(--tw-text-muted); font-size: var(--tw-text-sm); }
+.tw-contact-card .tw-notice { margin: 0 0 16px; }
+.tw-form--contact { max-inline-size: none; grid-template-columns: 1fr; gap: 18px; }
+@media (min-width: 640px) { .tw-form--contact { grid-template-columns: 1fr 1fr; } }
+.tw-form--contact > .tw-form__full, .tw-form--contact > .tw-hp { grid-column: 1 / -1; }
+.tw-form--contact label { font-size: var(--tw-text-sm); }
+.tw-form--contact textarea { min-block-size: 150px; resize: vertical; }
+.tw-form--contact select { appearance: none; background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='M1 1.5l5 5 5-5' fill='none' stroke='%231A0F12' stroke-width='1.6' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E"); background-repeat: no-repeat; background-position: right 16px center; padding-inline-end: 40px; }
+.tw-form :where(input, textarea, select)::placeholder { color: var(--tw-n-400); opacity: 1; }
+.tw-form__foot { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 12px 24px; }
+.tw-form__foot .tw-small { margin: 0; flex: 1 1 260px; }
+
+/* Footer credit: "Made with (heart) by Vyntic Studio". */
+.tw-ftr__credit { display: inline-flex; align-items: center; gap: 6px; font-weight: 500; }
+.tw-ftr__heart { inline-size: 15px; block-size: 15px; fill: var(--tw-red-400, #F0566B); flex: none; }
+.tw-ftr__credit a { color: #FFFFFF; font-weight: 600; text-decoration: underline; text-underline-offset: 3px; text-decoration-color: rgba(255, 255, 255, .35); }
+.tw-ftr__credit a:hover { text-decoration-color: currentColor; }
+
+/* Spam check box keeps its height so the form does not jump when it loads. */
+.tw-captcha { min-block-size: 65px; }
+.tw-mform .tw-captcha, .tw-modal .twh-trial-form .tw-captcha { margin: 0; }
+
+/* Trial popup: one type scale. Title 26px, every other line 15px. */
+.tw-modal .twh-trial-done p, .tw-modal .twh-trial-fine, .tw-modal p { font-size: var(--tw-text-sm); }
+.tw-modal .twh-trial-done .twh-trial-done__title { font-size: 1.125rem; }

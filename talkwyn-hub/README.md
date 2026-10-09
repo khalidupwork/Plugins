@@ -131,6 +131,14 @@ A 15-day Pro trial that needs no card. Settings live under **Talkwyn Hub → Set
 - **Card mode (optional):** set **Card on file** and pick a WooCommerce Subscriptions product with a free trial period. The trial is then a subscription that charges on day 16 unless cancelled. Until that product exists, the no-card form is used and an admin notice says why.
 - **Reporting:** the Dashboard shows trials started, active, trial-to-paid rate and average days to convert.
 
+### Spam check on the trial form (since 1.6.2)
+
+Two filters let a theme or plugin add a captcha to the trial form:
+- `twh_trial_form_extra` (string): markup printed before the button.
+- `twh_trial_verify` (bool, submitted fields): return anything other than `true` to refuse the request. The visitor sees "Please complete the spam check and try again."
+
+On a failed request `trial.js` fires the `twh:trial_error` event (`detail.form`), so the widget can be reset. The Talkwyn theme 2.10.0 uses these for Cloudflare Turnstile (Appearance, Talkwyn Site Settings, Spam protection).
+
 ## 5b. Partners (referral program, since 1.1.0)
 
 Settings live under **Talkwyn Hub → Settings → Partners**: on/off, commission on new sales (default 20%), on renewals (default 0, first payment only), cookie days (60), approval delay (30 days, the refund window), payout threshold (50) and payout methods.

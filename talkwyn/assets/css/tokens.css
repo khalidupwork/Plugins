@@ -43,16 +43,16 @@
   --tw-text-display: var(--tw-text-hero);
 
   /* Type */
-  --tw-font-display: "Plus Jakarta Sans", "Figtree", system-ui, sans-serif;
-  --tw-font-body: "Figtree", system-ui, -apple-system, "Segoe UI", "Noto Sans Arabic", "Noto Sans Devanagari", sans-serif;
+  --tw-font-display: "Plus Jakarta Sans", "Inter", system-ui, sans-serif;
+  --tw-font-body: "Inter", system-ui, -apple-system, "Segoe UI", "Noto Sans Arabic", "Noto Sans Devanagari", sans-serif;
   --tw-font-mono: "JetBrains Mono", ui-monospace, Menlo, monospace;
   --tw-text-hero: clamp(2.75rem, 6.5vw, 4.75rem);   /* 44 to 76px, weight 700, tracking -0.04em */
   --tw-text-h1: clamp(2.25rem, 5vw, 3.5rem);
   --tw-text-h2: clamp(1.875rem, 4vw, 2.75rem);
   --tw-text-h3: 1.5rem;
   --tw-text-h4: 1.25rem;
-  --tw-text-lg: 1.1875rem;
-  --tw-text-base: 1.0625rem;
+  --tw-text-lg: 1.125rem;
+  --tw-text-base: 1rem;
   --tw-text-sm: 0.9375rem;
   --tw-text-xs: 0.8125rem;
 

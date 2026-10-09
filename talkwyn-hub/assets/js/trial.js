@@ -65,10 +65,12 @@
 						return;
 					}
 					show( box, d.message || cfg.error );
+					document.dispatchEvent( new CustomEvent( 'twh:trial_error', { detail: { form: form } } ) );
 					done();
 				} )
 				.catch( function () {
 					show( box, cfg.error );
+					document.dispatchEvent( new CustomEvent( 'twh:trial_error', { detail: { form: form } } ) );
 					done();
 				} );
 		} );

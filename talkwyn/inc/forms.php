@@ -2,7 +2,9 @@
 /**
  * Lightweight forms: contact and waitlist (see waitlist.php). No form plugin needed.
  *
- * Spam protection: nonce, honeypot field, minimum fill time and a per-IP rate limit.
+ * Spam protection: nonce, honeypot field, minimum fill time, a per-IP rate limit and,
+ * when set up, a Cloudflare Turnstile check (captcha.php). Contact messages are also
+ * saved under Contact messages in the admin (messages.php).
  *
  * @package Talkwyn
  */
@@ -37,6 +39,7 @@ function talkwyn_form_message( string $form, string $status ): ?array {
 		'invalid' => array( 'error', __( 'Please check the form. A valid email address is required.', 'talkwyn' ) ),
 		'limited' => array( 'error', __( 'Too many attempts. Please try again in a few minutes.', 'talkwyn' ) ),
 		'failed'  => array( 'error', __( 'Something went wrong. Please email us directly instead.', 'talkwyn' ) ),
+		'captcha' => array( 'error', talkwyn_captcha_message() ),
 	);
 	return $messages[ $status ] ?? null;
 }
@@ -58,15 +61,19 @@ function talkwyn_form_hidden( string $form ): string {
 add_shortcode(
 	'tw_contact_form',
 	static function () {
-		return talkwyn_form_notice( 'contact' ) . '<form class="tw-form" method="post" action="' . esc_url( admin_url( 'admin-post.php' ) ) . '#contact-form" id="contact-form" data-tw-ajax="contact">'
+		return '<div class="tw-contact-card">'
+			. '<div class="tw-contact-card__head"><h2 class="tw-contact-card__title">' . esc_html__( 'Send us a message', 'talkwyn' ) . '</h2>'
+			. '<p class="tw-contact-card__sub">' . esc_html__( 'A real person reads every message and replies by email, usually within one business day.', 'talkwyn' ) . '</p></div>'
+			. talkwyn_form_notice( 'contact' ) . '<form class="tw-form tw-form--contact" method="post" action="' . esc_url( admin_url( 'admin-post.php' ) ) . '#contact-form" id="contact-form" data-tw-ajax="contact">'
 			. talkwyn_form_hidden( 'contact' )
-			. '<label>' . esc_html__( 'Your name', 'talkwyn' ) . '<input type="text" name="tw_name" autocomplete="name" required maxlength="100"></label>'
-			. '<label>' . esc_html__( 'Email', 'talkwyn' ) . '<input type="email" name="tw_email" autocomplete="email" required maxlength="190"></label>'
+			. '<label>' . esc_html__( 'Your name', 'talkwyn' ) . '<input type="text" name="tw_name" autocomplete="name" required maxlength="100" placeholder="' . esc_attr__( 'Jane Smith', 'talkwyn' ) . '"></label>'
+			. '<label>' . esc_html__( 'Email', 'talkwyn' ) . '<input type="email" name="tw_email" autocomplete="email" required maxlength="190" placeholder="you@business.com"></label>'
 			. '<label>' . esc_html__( 'Website (optional)', 'talkwyn' ) . '<input type="url" name="tw_site" autocomplete="url" maxlength="190" placeholder="https://"></label>'
 			. '<label>' . esc_html__( 'Topic', 'talkwyn' ) . '<select name="tw_topic"><option>' . esc_html__( 'Question before buying', 'talkwyn' ) . '</option><option>' . esc_html__( 'Help with my license or setup', 'talkwyn' ) . '</option><option>' . esc_html__( 'Agency or partnership', 'talkwyn' ) . '</option><option>' . esc_html__( 'Something else', 'talkwyn' ) . '</option></select></label>'
-			. '<label>' . esc_html__( 'Message', 'talkwyn' ) . '<textarea name="tw_message" rows="6" required maxlength="5000"></textarea></label>'
-			. '<p class="tw-small">' . wp_kses_post( sprintf( /* translators: %s: privacy URL */ __( 'We use your details only to reply to you. See our <a href="%s">privacy policy</a>.', 'talkwyn' ), esc_url( home_url( '/privacy/' ) ) ) ) . '</p>'
-			. '<p><button class="tw-pill tw-pill--ink" type="submit">' . esc_html__( 'Send message', 'talkwyn' ) . '</button></p></form>';
+			. '<label class="tw-form__full">' . esc_html__( 'Message', 'talkwyn' ) . '<textarea name="tw_message" rows="6" required maxlength="5000" placeholder="' . esc_attr__( 'Tell us about your site and what you need.', 'talkwyn' ) . '"></textarea></label>'
+			. ( talkwyn_captcha_on( 'contact' ) ? '<div class="tw-form__full">' . talkwyn_captcha_field( 'contact' ) . '</div>' : '' )
+			. '<div class="tw-form__full tw-form__foot"><p class="tw-small">' . wp_kses_post( sprintf( /* translators: %s: privacy URL */ __( 'We use your details only to reply to you. See our <a href="%s">privacy policy</a>.', 'talkwyn' ), esc_url( home_url( '/privacy/' ) ) ) ) . '</p>'
+			. '<button class="tw-pill tw-pill--red" type="submit">' . esc_html__( 'Send message', 'talkwyn' ) . '</button></div></form></div>';
 	}
 );
 
@@ -114,6 +121,10 @@ function talkwyn_handle_form(): void {
 	}
 	set_transient( $limit, $count + 1, 15 * MINUTE_IN_SECONDS );
 
+	if ( ! talkwyn_captcha_verify( $form ) ) {
+		$go( 'captcha' );
+	}
+
 	$email = sanitize_email( wp_unslash( $_POST['tw_email'] ?? '' ) );
 	if ( ! is_email( $email ) ) {
 		$go( 'invalid' );
@@ -132,9 +143,21 @@ function talkwyn_handle_form(): void {
 	if ( '' === $name || '' === $message ) {
 		$go( 'invalid' );
 	}
-	$body = "Name: {$name}\nEmail: {$email}\nWebsite: {$site}\nTopic: {$topic}\n\n{$message}\n";
-	$sent = wp_mail( $to, '[Talkwyn contact] ' . $topic, $body, array( 'Reply-To: ' . $name . ' <' . $email . '>' ) );
-	$go( $sent ? 'sent' : 'failed' );
+	// Saved under Contact messages first, so a lost email loses nothing.
+	$saved = talkwyn_message_add(
+		array(
+			'name'    => $name,
+			'email'   => $email,
+			'site'    => $site,
+			'topic'   => $topic,
+			'message' => $message,
+			'page'    => $back,
+		)
+	);
+	$body  = "Name: {$name}\nEmail: {$email}\nWebsite: {$site}\nTopic: {$topic}\n\n{$message}\n";
+	$body .= $saved ? "\n" . admin_url( 'post.php?post=' . $saved . '&action=edit' ) . "\n" : '';
+	$sent  = wp_mail( $to, '[Talkwyn contact] ' . $topic, $body, array( 'Reply-To: ' . $name . ' <' . $email . '>' ) );
+	$go( $sent || $saved ? 'sent' : 'failed' );
 }
 add_action( 'admin_post_talkwyn_form', 'talkwyn_handle_form' );
 

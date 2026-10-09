@@ -202,6 +202,7 @@ final class Trial {
 			'domain_used'      => __( 'This website has already had a free trial. You can pick a plan any time.', 'talkwyn-hub' ),
 			'not_ready'        => __( 'Trials are being set up. Please try again soon.', 'talkwyn-hub' ),
 			'spam'             => __( 'Please try again.', 'talkwyn-hub' ),
+			'captcha'          => __( 'Please complete the spam check and try again.', 'talkwyn-hub' ),
 			'rate_limited'     => __( 'Too many attempts. Please wait a few minutes and try again.', 'talkwyn-hub' ),
 			'confirm_sent'     => __( 'Almost there. We sent a confirmation link to your email. Open it to start your trial (check spam too).', 'talkwyn-hub' ),
 			'confirm_resent'   => __( 'We already sent you a confirmation link a moment ago. Please check your inbox and spam folder.', 'talkwyn-hub' ),
@@ -615,6 +616,12 @@ final class Trial {
 			. $field( $uid . '-name', 'twh_name', 'text', __( 'First name', 'talkwyn-hub' ), '', (string) $user->first_name, 'autocomplete="given-name"' )
 			. $field( $uid . '-email', 'twh_email', 'email', __( 'Email', 'talkwyn-hub' ), '', (string) $user->user_email, 'autocomplete="email"' )
 			. $field( $uid . '-site', 'twh_site', 'text', __( 'Website address (example.com)', 'talkwyn-hub' ), 'example.com', '', 'inputmode="url" autocomplete="url"' )
+			/**
+			 * Extra markup before the button, for example a spam check widget.
+			 *
+			 * @param string $html Markup.
+			 */
+			. wp_kses_post( (string) apply_filters( 'twh_trial_form_extra', '' ) )
 			. '<p><button type="submit" class="twh-btn tw-btn tw-btn--brand" data-tw-event="trial_start" data-tw-location="trial_form">' . esc_html( $atts['button'] ) . '</button></p>'
 			. '<p class="twh-trial-fine">' . esc_html( self::card_policy_text() ) . ' '
 			/* translators: %d: trial days */
@@ -711,6 +718,17 @@ final class Trial {
 			return 'rate_limited';
 		}
 		set_transient( $ip_key, $hits + 1, HOUR_IN_SECONDS );
+
+		/**
+		 * Extra check before a trial request is accepted, for example a captcha.
+		 * Return true to accept.
+		 *
+		 * @param bool                 $ok   True so far.
+		 * @param array<string, mixed> $post Submitted fields.
+		 */
+		if ( true !== apply_filters( 'twh_trial_verify', true, $post ) ) {
+			return 'captcha';
+		}
 
 		$name  = sanitize_text_field( wp_unslash( $post['twh_name'] ?? '' ) );
 		$email = sanitize_email( wp_unslash( $post['twh_email'] ?? '' ) );

@@ -95,7 +95,7 @@
 				{
 					"slug": "display",
 					"name": "Plus Jakarta Sans",
-					"fontFamily": "\"Plus Jakarta Sans\", \"Figtree\", system-ui, sans-serif",
+					"fontFamily": "\"Plus Jakarta Sans\", Inter, system-ui, sans-serif",
 					"fontFace": [
 						{
 							"fontFamily": "Plus Jakarta Sans",
@@ -128,43 +128,43 @@
 				},
 				{
 					"slug": "body",
-					"name": "Figtree",
-					"fontFamily": "Figtree, system-ui, -apple-system, \"Segoe UI\", \"Noto Sans Arabic\", \"Noto Sans Devanagari\", sans-serif",
+					"name": "Inter",
+					"fontFamily": "Inter, system-ui, -apple-system, \"Segoe UI\", \"Noto Sans Arabic\", \"Noto Sans Devanagari\", sans-serif",
 					"fontFace": [
 						{
-							"fontFamily": "Figtree",
+							"fontFamily": "Inter",
 							"fontWeight": "400",
 							"fontStyle": "normal",
 							"fontDisplay": "swap",
 							"src": [
-								"file:./assets/fonts/figtree-latin-400-normal.woff2"
+								"file:./assets/fonts/inter-latin-400-normal.woff2"
 							]
 						},
 						{
-							"fontFamily": "Figtree",
+							"fontFamily": "Inter",
 							"fontWeight": "500",
 							"fontStyle": "normal",
 							"fontDisplay": "swap",
 							"src": [
-								"file:./assets/fonts/figtree-latin-500-normal.woff2"
+								"file:./assets/fonts/inter-latin-500-normal.woff2"
 							]
 						},
 						{
-							"fontFamily": "Figtree",
+							"fontFamily": "Inter",
 							"fontWeight": "600",
 							"fontStyle": "normal",
 							"fontDisplay": "swap",
 							"src": [
-								"file:./assets/fonts/figtree-latin-600-normal.woff2"
+								"file:./assets/fonts/inter-latin-600-normal.woff2"
 							]
 						},
 						{
-							"fontFamily": "Figtree",
+							"fontFamily": "Inter",
 							"fontWeight": "700",
 							"fontStyle": "normal",
 							"fontDisplay": "swap",
 							"src": [
-								"file:./assets/fonts/figtree-latin-700-normal.woff2"
+								"file:./assets/fonts/inter-latin-700-normal.woff2"
 							]
 						}
 					]
@@ -197,7 +197,7 @@
 				{
 					"slug": "arabic",
 					"name": "Noto Sans Arabic",
-					"fontFamily": "\"Noto Sans Arabic\", Figtree, sans-serif",
+					"fontFamily": "\"Noto Sans Arabic\", Inter, sans-serif",
 					"fontFace": [
 						{
 							"fontFamily": "Noto Sans Arabic",
@@ -244,7 +244,7 @@
 				{
 					"slug": "devanagari",
 					"name": "Noto Sans Devanagari",
-					"fontFamily": "\"Noto Sans Devanagari\", Figtree, sans-serif",
+					"fontFamily": "\"Noto Sans Devanagari\", Inter, sans-serif",
 					"fontFace": [
 						{
 							"fontFamily": "Noto Sans Devanagari",

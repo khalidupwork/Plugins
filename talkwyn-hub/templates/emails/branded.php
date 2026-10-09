@@ -31,7 +31,7 @@ $twh_keys = (array) $args['keys'];
 					</td>
 				</tr>
 				<tr>
-					<td style="padding:32px;font-family:Figtree,-apple-system,'Segoe UI',Roboto,Helvetica,Arial,sans-serif;font-size:16px;line-height:1.6;color:#1A0F12;">
+					<td style="padding:32px;font-family:Inter,-apple-system,'Segoe UI',Roboto,Helvetica,Arial,sans-serif;font-size:16px;line-height:1.6;color:#1A0F12;">
 						<?php if ( '' !== (string) $args['heading'] ) : ?>
 							<h1 style="margin:0 0 16px;font-size:24px;line-height:1.25;font-weight:800;color:#1A0F12;"><?php echo esc_html( (string) $args['heading'] ); ?></h1>
 						<?php endif; ?>
@@ -52,7 +52,7 @@ $twh_keys = (array) $args['keys'];
 							<table role="presentation" cellpadding="0" cellspacing="0" style="margin:28px 0 8px;">
 								<tr>
 									<td style="border-radius:999px;background:#1A0F12;">
-										<a href="<?php echo esc_url( (string) $args['url'] ); ?>" style="display:inline-block;padding:14px 28px;font-family:Figtree,-apple-system,'Segoe UI',Roboto,Helvetica,Arial,sans-serif;font-size:16px;font-weight:600;color:#FFFFFF;text-decoration:none;border-radius:999px;"><?php echo esc_html( (string) $args['button'] ); ?></a>
+										<a href="<?php echo esc_url( (string) $args['url'] ); ?>" style="display:inline-block;padding:14px 28px;font-family:Inter,-apple-system,'Segoe UI',Roboto,Helvetica,Arial,sans-serif;font-size:16px;font-weight:600;color:#FFFFFF;text-decoration:none;border-radius:999px;"><?php echo esc_html( (string) $args['button'] ); ?></a>
 									</td>
 								</tr>
 							</table>
@@ -60,7 +60,7 @@ $twh_keys = (array) $args['keys'];
 					</td>
 				</tr>
 				<tr>
-					<td style="padding:20px 32px;border-top:1px solid #EEE7E8;font-family:Figtree,-apple-system,'Segoe UI',Roboto,Helvetica,Arial,sans-serif;font-size:13px;line-height:1.5;color:#6B5E61;">
+					<td style="padding:20px 32px;border-top:1px solid #EEE7E8;font-family:Inter,-apple-system,'Segoe UI',Roboto,Helvetica,Arial,sans-serif;font-size:13px;line-height:1.5;color:#6B5E61;">
 						<?php echo esc_html( (string) $args['footer'] ); ?> · <a href="<?php echo esc_url( home_url( '/' ) ); ?>" style="color:#D7263D;"><?php echo esc_html( (string) wp_parse_url( home_url(), PHP_URL_HOST ) ); ?></a>
 					</td>
 				</tr>

@@ -63,7 +63,7 @@ add_action(
 
 		$fonts = TALKWYN_THEME_URL . '/assets/fonts/';
 		printf( '<link rel="preload" href="%s" as="font" type="font/woff2" crossorigin>' . "\n", esc_url( $fonts . 'plus-jakarta-sans-latin-700-normal.woff2' ) );
-		printf( '<link rel="preload" href="%s" as="font" type="font/woff2" crossorigin>' . "\n", esc_url( $fonts . 'figtree-latin-400-normal.woff2' ) );
+		printf( '<link rel="preload" href="%s" as="font" type="font/woff2" crossorigin>' . "\n", esc_url( $fonts . 'inter-latin-400-normal.woff2' ) );
 
 		$brand = TALKWYN_THEME_URL . '/assets/brand/';
 		// Talkwyn favicon set (a Site Icon chosen under Settings, General takes over when set).

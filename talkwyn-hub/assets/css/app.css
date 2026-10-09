@@ -9,8 +9,8 @@ body.twh-app-body {
 	--twh-line: #EEE7E8;
 	--twh-line-strong: #DDD3D5;
 	--twh-muted: #6B5E61;
-	--twh-display: var(--tw-font-display, "Plus Jakarta Sans", "Figtree", system-ui, sans-serif);
-	--twh-body: var(--tw-font-body, "Figtree", system-ui, -apple-system, "Segoe UI", sans-serif);
+	--twh-display: var(--tw-font-display, "Plus Jakarta Sans", "Inter", system-ui, sans-serif);
+	--twh-body: var(--tw-font-body, "Inter", system-ui, -apple-system, "Segoe UI", sans-serif);
 	margin: 0;
 	background: var(--twh-bg);
 	color: var(--twh-ink);

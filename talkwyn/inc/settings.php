@@ -37,6 +37,12 @@ function talkwyn_settings_defaults(): array {
 		'free_zip_url'        => '',
 		'waitlist_action'     => '',
 		'contact_email'       => '',
+		'turnstile_site_key'  => '',
+		'turnstile_secret'    => '',
+		'captcha_contact'     => 1,
+		'captcha_waitlist'    => 1,
+		'captcha_trial'       => 1,
+		'captcha_account'     => 1,
 		'social_x'            => '',
 		'social_linkedin'     => '',
 		'social_facebook'     => '',
@@ -453,6 +459,7 @@ function talkwyn_settings_fields(): array {
 			array( 'waitlist_show_count', __( 'Show the live waitlist count on integration pages', 'talkwyn' ), 'checkbox' ),
 			array( 'demo_shortcode', __( 'Live demo shortcode (when the Talkwyn plugin runs on this site), e.g. [talkwyn_chat mode="inline" profile="demo-clinic"]', 'talkwyn' ), 'text' ),
 		),
+		__( 'Spam protection', 'talkwyn' )    => talkwyn_captcha_settings_fields(),
 		__( 'Free trial', 'talkwyn' )         => array(
 			array( 'trial_days', __( 'Trial length in days (Talkwyn Hub on this site overrides this)', 'talkwyn' ), 'number' ),
 			array(
@@ -523,6 +530,23 @@ function talkwyn_settings_fields(): array {
 			array( 'plausible_src', __( 'Plausible script URL', 'talkwyn' ), 'url' ),
 		),
 	);
+}
+
+/**
+ * Spam check fields: Cloudflare Turnstile keys, then one switch per form.
+ *
+ * @return array<int, array<int, mixed>>
+ */
+function talkwyn_captcha_settings_fields(): array {
+	$fields = array(
+		array( 'turnstile_site_key', __( 'Cloudflare Turnstile site key (free at dash.cloudflare.com, Turnstile, Add widget). Empty = no spam check.', 'talkwyn' ), 'text' ),
+		array( 'turnstile_secret', __( 'Cloudflare Turnstile secret key', 'talkwyn' ), 'password' ),
+	);
+	foreach ( talkwyn_captcha_forms() as $key => $label ) {
+		/* translators: %s: form name */
+		$fields[] = array( $key, sprintf( __( 'Spam check on: %s', 'talkwyn' ), $label ), 'checkbox' );
+	}
+	return $fields;
 }
 
 /**

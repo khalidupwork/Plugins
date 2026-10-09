@@ -870,6 +870,9 @@
 					el.focus();
 					return;
 				}
+				if ( window.twCaptchaReset ) {
+					window.twCaptchaReset( form );
+				}
 				reset();
 			} )
 			.catch( function () {
@@ -877,4 +880,67 @@
 				HTMLFormElement.prototype.submit.call( form );
 			} );
 	} );
+}() );
+
+/*
+ * Spam check (Cloudflare Turnstile). Each form with a check has an empty
+ * .tw-captcha box. The Turnstile script loads only once such a box is visible,
+ * and boxes inside a popup render when the popup opens.
+ */
+( function () {
+	var cfg = window.twCaptcha;
+	if ( ! cfg || ! cfg.key ) {
+		return;
+	}
+	var loading = false;
+	function render() {
+		document.querySelectorAll( '.tw-captcha:not([data-tw-id])' ).forEach( function ( el ) {
+			if ( ! el.offsetParent ) {
+				return;
+			}
+			if ( ! window.turnstile ) {
+				if ( ! loading ) {
+					loading = true;
+					var s = document.createElement( 'script' );
+					s.src = cfg.src;
+					s.async = true;
+					document.head.appendChild( s );
+				}
+				return;
+			}
+			el.setAttribute( 'data-tw-id', window.turnstile.render( el, {
+				sitekey: cfg.key,
+				action: el.getAttribute( 'data-action' ) || 'form',
+				size: 'flexible',
+				theme: 'light'
+			} ) );
+		} );
+	}
+	window.twCaptchaReady = render;
+	window.twCaptchaReset = function ( form ) {
+		var el = form && form.querySelector( '.tw-captcha[data-tw-id]' );
+		if ( el && window.turnstile ) {
+			window.turnstile.reset( el.getAttribute( 'data-tw-id' ) );
+		}
+	};
+	// The trial form from Talkwyn Hub reports a failed request with this event.
+	document.addEventListener( 'twh:trial_error', function ( e ) {
+		window.twCaptchaReset( e.detail && e.detail.form );
+	} );
+	var queued = false;
+	new MutationObserver( function () {
+		if ( queued ) {
+			return;
+		}
+		queued = true;
+		window.requestAnimationFrame( function () {
+			queued = false;
+			render();
+		} );
+	} ).observe( document.documentElement, { childList: true, subtree: true, attributes: true, attributeFilter: [ 'open', 'hidden' ] } );
+	if ( 'loading' === document.readyState ) {
+		document.addEventListener( 'DOMContentLoaded', render );
+	} else {
+		render();
+	}
 }() );

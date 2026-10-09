@@ -144,6 +144,12 @@ Run this on a staging copy of talkwyn.com with Stripe in **test mode** (card `42
 - [ ] `GET /wp-json/talkwyn-hub/v1/partners/terms` returns the current settings.
 - [ ] Turn Partners off → `?ref=` does nothing, My Account → Partners says the program is closed.
 
+## 16. Trial spam check and popup text (1.6.2)
+
+- [ ] With the Talkwyn theme 2.10.0 and Turnstile keys set: the trial popup and the pricing page form show the Cloudflare check. Without it solved, the form says "Please complete the spam check and try again." and the check resets.
+- [ ] Without keys: no check, the trial works as before.
+- [ ] "Check your inbox" box: title 18px, text 15px, the same size as the text above it in the popup.
+
 ## 15. Email sender and release warning (1.6.1)
 
 - [ ] Settings → Emails: From name and From email empty → a trial email arrives from the site title (not "WordPress").

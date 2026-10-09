@@ -1,6 +1,6 @@
 # Fonts
 
-All fonts are under the SIL Open Font License 1.1 (see the LICENSE files). Headings use Plus Jakarta Sans (600, 700, 800, Latin). They come from Fontsource (`@fontsource/*`), already split into the `latin`, `arabic` and `devanagari` subsets.
+All fonts are under the SIL Open Font License 1.1 (see the LICENSE files). Headings use Plus Jakarta Sans (600, 700, 800, Latin). Body text uses Inter 4.0 (400, 500, 600, 700, Latin), cut from the official OTF files with `pyftsubset` (Latin range, woff2). The other fonts come from Fontsource (`@fontsource/*`), already split into the `latin`, `arabic` and `devanagari` subsets.
 
 ## Smaller cuts
 

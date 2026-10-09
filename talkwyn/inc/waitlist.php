@@ -112,6 +112,7 @@ function talkwyn_waitlist_shortcode( $atts ): string {
 		. '<label for="' . esc_attr( $uid ) . '-email">' . esc_html__( 'Email', 'talkwyn' ) . '<input id="' . esc_attr( $uid ) . '-email" type="email" name="tw_email" autocomplete="email" required maxlength="190" placeholder="you@business.com"></label>'
 		. '<label for="' . esc_attr( $uid ) . '-platform">' . esc_html__( 'Platform', 'talkwyn' ) . '<select id="' . esc_attr( $uid ) . '-platform" name="tw_platform">' . $select . '</select></label>'
 		. '<label class="tw-form__full" for="' . esc_attr( $uid ) . '-site">' . esc_html__( 'Website (optional)', 'talkwyn' ) . '<input id="' . esc_attr( $uid ) . '-site" type="url" name="tw_site" autocomplete="url" maxlength="190" placeholder="https://"></label>'
+		. ( talkwyn_captcha_on( 'waitlist' ) ? '<div class="tw-form__full">' . talkwyn_captcha_field( 'waitlist' ) . '</div>' : '' )
 		. '<p class="tw-form__full"><button class="tw-pill tw-pill--red" type="submit" data-tw-event="waitlist_signup" data-tw-location="' . esc_attr( '' !== $platform ? $platform : 'waitlist' ) . '">' . esc_html__( 'Join the waitlist', 'talkwyn' ) . '</button></p>'
 		. '<p class="tw-small tw-form__full">' . wp_kses_post( sprintf( /* translators: %s: privacy URL */ __( 'We use your email only to tell you about this launch. See our <a href="%s">privacy policy</a>.', 'talkwyn' ), esc_url( home_url( '/privacy/' ) ) ) ) . '</p>'
 		. '</form></div>';

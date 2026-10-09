@@ -435,7 +435,10 @@ function talkwyn_footer_html(): string {
 		. '<div class="tw-ftr__bottom">' . do_shortcode( '[tw_social]' )
 		/* translators: %s: year */
 		. '<p>' . esc_html( sprintf( __( '© %s Talkwyn. All rights reserved.', 'talkwyn' ), gmdate( 'Y' ) ) ) . '</p>'
-		. '<p class="tw-ftr__tag">' . esc_html__( 'Made for businesses that speak every language.', 'talkwyn' ) . '</p></div>'
+		. '<p class="tw-ftr__tag tw-ftr__credit">' . esc_html__( 'Made with', 'talkwyn' )
+		. ' <svg class="tw-ftr__heart" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M12 20.5s-7.5-4.6-9.3-9.4C1.4 7.6 3.6 4 7.2 4c2 0 3.6 1.1 4.8 2.8C13.2 5.1 14.8 4 16.8 4c3.6 0 5.8 3.6 4.5 7.1-1.8 4.8-9.3 9.4-9.3 9.4Z"/></svg>'
+		. '<span class="screen-reader-text">' . esc_html__( 'love', 'talkwyn' ) . '</span> '
+		. esc_html__( 'by', 'talkwyn' ) . ' <a href="https://vyntic.studio/" target="_blank" rel="noopener">Vyntic Studio</a></p></div>'
 		. talkwyn_footer_wordmark()
 		. '</div></div>';
 }
