@@ -67,6 +67,17 @@ Fresh theme (not based on the v0.9.0 zip). Source of truth: the 2026-10-10 maste
 - [x] Ticker speeds up with scroll velocity; section headings slide in; card emojis jump on hover
 - [x] All of it is off for prefers-reduced-motion; tilt/magnet only for fine pointers
 
+## v1.0.0-alpha.5 — auto attention (`assets/js/attract.js`)
+- [x] Idle director: after 4.5s without activity, every ~7.5s ONE visible element performs (max 14 per page, pauses on any
+      pointer/scroll/key, off for reduced motion)
+- [x] Home: ghost finger taps "Add" in the hero phone (until the visitor tries it), featured phone self-swipes, a game card
+      stands up ("Mujhe khelo!"), chaos cards wave, steps 1→2→3 ping, spin lever wiggles, stamps thump, chat bubbles pop
+- [x] Games: an affordable product "calls" you ("Psst… Lambo-Ghanta is calling you"), checkout bar nudges, quiz options
+      shiver, start button shakes; result page: challenge/share buttons beg
+- [x] 👀 corner peeker ("Still scrolling? Concerning.") + one "Still here?" moment after 30s idle
+- [x] Tab title tease when the visitor switches tabs ("👀 Come back… mana kiya tha")
+- [x] Auto taps never reach analytics (`window.__cmkGhost` guard in `CMKUI.track`)
+
 ## Next (in order)
 - [ ] Produce the 90 product images from `assets/img/products/README.md` (start with the 29 in Shop Like You're Rich)
 - [ ] Site icon / OG share image (1200×630) + per-result OG image (needs server-side render or a static set by IQ tier)

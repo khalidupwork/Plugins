@@ -15,6 +15,7 @@
 	 * Event names follow 04-Technical/analytics-event-map.csv.
 	 * ------------------------------------------------------------- */
 	function track(name, params) {
+		if (window.__cmkGhost) { return; } // auto-demo taps are not real players
 		params = params || {};
 		try {
 			window.dataLayer = window.dataLayer || [];

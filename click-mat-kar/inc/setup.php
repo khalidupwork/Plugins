@@ -51,6 +51,7 @@ function cmk_enqueue() {
 	wp_enqueue_script( 'cmk-main', CMK_URI . '/assets/js/main.js', array(), CMK_VERSION, array( 'strategy' => 'defer', 'in_footer' => true ) );
 	wp_localize_script( 'cmk-main', 'CMK', cmk_js_config() );
 	wp_enqueue_script( 'cmk-fx', CMK_URI . '/assets/js/fx.js', array( 'cmk-main' ), CMK_VERSION, array( 'strategy' => 'defer', 'in_footer' => true ) );
+	wp_enqueue_script( 'cmk-attract', CMK_URI . '/assets/js/attract.js', array( 'cmk-main', 'cmk-fx' ), CMK_VERSION, array( 'strategy' => 'defer', 'in_footer' => true ) );
 
 	$cmk_engine = is_singular( 'cmk_game' ) ? cmk_game_engine( get_queried_object_id() ) : '';
 	if ( in_array( $cmk_engine, array( 'shop', 'quiz' ), true ) || is_page( 'result' ) ) {
