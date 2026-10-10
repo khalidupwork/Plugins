@@ -222,6 +222,45 @@ add_action(
 );
 
 /**
+ * Log in and Register as two separate views instead of two narrow columns:
+ * /my-account/ shows the log in form, /my-account/?action=register the register form.
+ * A failed registration stays on the register view.
+ */
+function talkwyn_account_register_view(): bool {
+	if ( 'yes' !== get_option( 'woocommerce_enable_myaccount_registration' ) || is_user_logged_in() ) {
+		return false;
+	}
+	// phpcs:ignore WordPress.Security.NonceVerification -- only picks which form to show; WooCommerce checks the nonce on submit.
+	return ( isset( $_GET['action'] ) && 'register' === sanitize_key( wp_unslash( $_GET['action'] ) ) ) || isset( $_POST['register'] );
+}
+
+add_filter(
+	'body_class',
+	static function ( $classes ) {
+		if ( function_exists( 'is_account_page' ) && is_account_page() && ! is_user_logged_in() ) {
+			$classes[] = talkwyn_account_register_view() ? 'tw-acct-view-register' : 'tw-acct-view-login';
+		}
+		return $classes;
+	}
+);
+add_action(
+	'woocommerce_login_form_end',
+	static function () {
+		if ( 'yes' === get_option( 'woocommerce_enable_myaccount_registration' ) ) {
+			echo '<p class="tw-acct-switch">' . esc_html__( 'New to Talkwyn?', 'talkwyn' ) . ' <a href="' . esc_url( add_query_arg( 'action', 'register', wc_get_page_permalink( 'myaccount' ) ) ) . '">' . esc_html__( 'Create an account', 'talkwyn' ) . '</a></p>';
+		}
+	}
+);
+add_action(
+	'woocommerce_register_form_end',
+	static function () {
+		if ( function_exists( 'is_account_page' ) && is_account_page() ) {
+			echo '<p class="tw-acct-switch">' . esc_html__( 'Already have an account?', 'talkwyn' ) . ' <a href="' . esc_url( wc_get_page_permalink( 'myaccount' ) ) . '">' . esc_html__( 'Log in', 'talkwyn' ) . '</a></p>';
+		}
+	}
+);
+
+/**
  * Clearer account wording.
  */
 add_filter(

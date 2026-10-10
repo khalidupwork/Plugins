@@ -109,8 +109,17 @@
 .tw-acct-login .woocommerce form.login, .tw-acct-login form.login, .tw-acct-login form.register { border: 0 !important; padding: 0 !important; margin: 0 !important; }
 .tw-acct-login form .form-row { display: grid; gap: 6px; margin-block-end: 14px; padding: 0 !important; }
 .tw-acct-login form .input-text { inline-size: 100%; box-sizing: border-box; min-block-size: 48px; padding: 12px 16px !important; border-radius: 14px !important; border: 1.5px solid var(--tw-n-200) !important; }
-.tw-acct-login form .form-row:has(.woocommerce-form-login__submit) { display: flex; flex-direction: row-reverse; justify-content: flex-end; align-items: center; gap: 16px; }
-.tw-acct-login .woocommerce-form-login__submit { min-inline-size: 140px; }
+/* One form at a time (2.16.4): log in by default, register on ?action=register. */
+.tw-acct-login .col2-set { display: block; inline-size: 100%; }
+.tw-acct-login .col2-set::before, .tw-acct-login .col2-set::after { display: none; }
+.tw-acct-login .col2-set > .u-column1, .tw-acct-login .col2-set > .u-column2 { float: none !important; inline-size: 100% !important; max-inline-size: none; margin: 0 !important; padding: 0 !important; }
+.tw-acct-view-login .tw-acct-login .col2-set > .u-column2, .tw-acct-view-register .tw-acct-login .col2-set > .u-column1 { display: none; }
+.tw-acct-login form .form-row:has(.woocommerce-form-login__submit) { display: flex; flex-direction: column; align-items: stretch; gap: 14px; margin-block-start: 4px; }
+.tw-acct-login .woocommerce-form-login__rememberme { display: inline-flex !important; align-items: center; gap: 8px; margin: 0 !important; }
+.tw-acct-login .woocommerce-form-login__submit, .tw-acct-login .woocommerce-form-register__submit { inline-size: 100%; min-block-size: 48px; justify-content: center; margin: 0 !important; }
+.tw-acct-login .lost_password { margin: 14px 0 0; }
+.tw-acct-switch { margin: 18px 0 0; padding-block-start: 16px; border-block-start: 1px solid var(--tw-border); color: var(--tw-text-muted); font-size: .9375rem; }
+.tw-acct-switch a { color: var(--tw-red-700); font-weight: 600; }
 .tw-acct-login .lost_password a { color: var(--tw-red-700); font-weight: 600; }
 .tw-acct-login__aside { display: flex; flex-direction: column; gap: 18px; padding: clamp(24px, 3vw, 36px); border-radius: var(--tw-r-lg); background: var(--tw-band); color: #FFFFFF; }
 .tw-acct-login__aside > * { margin: 0; }
