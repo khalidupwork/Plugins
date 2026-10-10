@@ -4,7 +4,7 @@ Tags: chatbot, ai chatbot, live chat, multilingual, lead generation
 Requires at least: 6.4
 Tested up to: 7.1
 Requires PHP: 8.0
-Stable tag: 2.3.8
+Stable tag: 2.3.9
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
@@ -119,6 +119,9 @@ In your WordPress database. Chats, leads and knowledge stay on your site. Messag
 6. Leads and conversations.
 
 == Changelog ==
+
+= 2.3.9 =
+* Changed: The privacy note and the "Powered by Talkwyn" badge under the chat are smaller (11px and 10.5px), so the footer takes less space.
 
 = 2.3.8 =
 * Changed: The plugin is now called "Talkwyn AI Chatbot: Multilingual Answers and Lead Capture" (slug stays `talkwyn`), with a clearer description, installation steps and FAQ.

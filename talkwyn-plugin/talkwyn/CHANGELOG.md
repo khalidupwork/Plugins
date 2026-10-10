@@ -1,5 +1,10 @@
 # Talkwyn changelog
 
+## 2.3.9
+
+### Changed
+- Chat footer: privacy note 11px (was 12px), badge 10.5px (was 11.5px) with a smaller icon and padding, footer padding 10px.
+
 ## 2.3.8
 
 ### Changed

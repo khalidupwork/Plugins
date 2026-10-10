@@ -1,6 +1,9 @@
-# Talkwyn 2.3.8 test checklist
+# Talkwyn 2.3.9 test checklist
 
 The full run, including Pro and migration, is in `../QA-CHECKLIST.md`. This list covers what changed in 2.1.0.
+
+## 2.3.9
+- [ ] Chat footer: privacy note and badge are small and sit on one line on desktop.
 
 ## 2.3.8
 - [ ] Plugins screen lists "Talkwyn AI Chatbot: Multilingual Answers and Lead Capture", folder `talkwyn`.
