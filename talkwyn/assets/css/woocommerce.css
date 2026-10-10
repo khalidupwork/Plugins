@@ -254,3 +254,20 @@
 .woocommerce .twh-btn--ghost, .woocommerce a.button.twh-btn--ghost, .woocommerce button.button.twh-btn--ghost { background: #FFFFFF !important; color: var(--tw-red-700) !important; box-shadow: inset 0 0 0 1.5px var(--tw-red-200) !important; }
 .woocommerce .twh-btn--ghost:hover { background: var(--tw-red-50) !important; }
 .twh-claim__row .button.twh-btn--ghost { background: var(--tw-red) !important; color: #FFFFFF !important; box-shadow: none !important; }
+
+/* Notice close button: a small round X, not a red pill (2.15.4). */
+.wc-block-components-notice-banner .wc-block-components-notice-banner__dismiss,
+.wc-block-components-notice-banner .wc-block-components-button.wc-block-components-notice-banner__dismiss {
+	background: transparent !important; color: currentColor !important; box-shadow: none !important;
+	inline-size: 32px !important; block-size: 32px !important; min-block-size: 32px !important; min-inline-size: 32px !important;
+	padding: 0 !important; margin: 0 0 0 auto !important; border: 0 !important; border-radius: 50% !important;
+	display: inline-flex !important; align-items: center !important; justify-content: center !important; flex: none !important; opacity: .7;
+}
+.wc-block-components-notice-banner .wc-block-components-notice-banner__dismiss:hover { background: rgba(26, 15, 18, .08) !important; opacity: 1; }
+.wc-block-components-notice-banner .wc-block-components-notice-banner__dismiss svg { inline-size: 20px !important; block-size: 20px !important; fill: currentColor !important; display: block; }
+.wc-block-components-notice-banner .wc-block-components-notice-banner__dismiss .wc-block-components-button__text { display: contents; }
+
+/* Checkout trust notes as a tidy grid of small cards. */
+.tw-checkout .tw-trustline { display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 10px; }
+.tw-checkout .tw-trustline li { border-radius: var(--tw-r-md); padding: 10px 14px; align-items: flex-start; line-height: 1.45; }
+.tw-checkout .tw-trustline li .tw-icon { margin-block-start: 1px; }

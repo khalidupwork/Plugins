@@ -35,13 +35,16 @@ add_shortcode(
 			$names = array_values( array_unique( array_filter( $names ) ) );
 			if ( $names ) {
 				/* translators: %s: payment methods, e.g. "Credit card, PayPal" */
-				$extra .= '<li>' . talkwyn_icon( 'lock', 18 ) . '<span>' . esc_html( sprintf( __( 'Secure payment: %s. We never see your full card number.', 'talkwyn' ), implode( ', ', $names ) ) ) . '</span></li>';
+				$extra .= '<li>' . talkwyn_icon( 'wallet', 18 ) . '<span>' . esc_html( sprintf( __( 'Secure payment: %s. We never see your full card number.', 'talkwyn' ), implode( ', ', $names ) ) ) . '</span></li>';
 			}
 		}
-		if ( is_ssl() ) {
-			$extra .= '<li>' . talkwyn_icon( 'shield-check', 18 ) . '<span>' . esc_html__( 'Encrypted connection (HTTPS).', 'talkwyn' ) . '</span></li>';
+		// Behind Cloudflare or a proxy is_ssl() can be false although visitors use HTTPS.
+		if ( is_ssl() || 'https' === wp_parse_url( home_url(), PHP_URL_SCHEME ) ) {
+			$extra .= '<li>' . talkwyn_icon( 'lock', 18 ) . '<span>' . esc_html__( 'Encrypted, secure checkout (HTTPS).', 'talkwyn' ) . '</span></li>';
 		}
 		$extra .= '<li>' . talkwyn_icon( 'refresh-cw', 18 ) . '<span>' . esc_html__( 'If you do not renew, Pro keeps working. Only updates and support stop.', 'talkwyn' ) . '</span></li>';
+		$extra .= '<li>' . talkwyn_icon( 'layers', 18 ) . '<span>' . esc_html__( 'Staging and local sites never count toward your plan.', 'talkwyn' ) . '</span></li>';
+		$extra .= '<li>' . talkwyn_icon( 'mail', 18 ) . '<span>' . esc_html__( 'Help from the Talkwyn team by email, from setup to your first lead.', 'talkwyn' ) . '</span></li>';
 		return '<ul class="tw-trustline">'
 			. '<li>' . talkwyn_icon( 'shield-check', 18 ) . '<span>' . esc_html( $text ) . ' <a href="' . esc_url( home_url( '/refund-policy/' ) ) . '">' . esc_html__( 'Read the policy', 'talkwyn' ) . '</a></span></li>'
 			. '<li>' . talkwyn_icon( 'key-round', 18 ) . '<span>' . esc_html( $key ) . '</span></li>'
