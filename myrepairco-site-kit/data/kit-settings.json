@@ -1,0 +1,310 @@
+{
+ "system_colors": [
+  {
+   "_id": "primary",
+   "title": "Brand Red",
+   "color": "#C62828"
+  },
+  {
+   "_id": "secondary",
+   "title": "Dark",
+   "color": "#1B1B1F"
+  },
+  {
+   "_id": "text",
+   "title": "Body Text",
+   "color": "#4A4A4A"
+  },
+  {
+   "_id": "accent",
+   "title": "Red Hover",
+   "color": "#A31F1F"
+  }
+ ],
+ "custom_colors": [
+  {
+   "_id": "mrcligh",
+   "title": "Light Background",
+   "color": "#F7F3EF"
+  },
+  {
+   "_id": "mrcwhit",
+   "title": "White",
+   "color": "#FFFFFF"
+  },
+  {
+   "_id": "mrcblus",
+   "title": "Blush",
+   "color": "#F9D9D5"
+  }
+ ],
+ "system_typography": [
+  {
+   "_id": "primary",
+   "title": "Headings",
+   "typography_typography": "custom",
+   "typography_font_family": "Montserrat",
+   "typography_font_weight": "800"
+  },
+  {
+   "_id": "secondary",
+   "title": "Sub Headings",
+   "typography_typography": "custom",
+   "typography_font_family": "Montserrat",
+   "typography_font_weight": "700"
+  },
+  {
+   "_id": "text",
+   "title": "Body",
+   "typography_typography": "custom",
+   "typography_font_family": "Open Sans",
+   "typography_font_weight": "400"
+  },
+  {
+   "_id": "accent",
+   "title": "Buttons",
+   "typography_typography": "custom",
+   "typography_font_family": "Montserrat",
+   "typography_font_weight": "700"
+  }
+ ],
+ "custom_typography": [],
+ "body_background_background": "classic",
+ "body_typography_typography": "custom",
+ "body_typography_font_family": "Open Sans",
+ "body_typography_font_weight": "400",
+ "body_typography_font_size": {
+  "unit": "px",
+  "size": 17,
+  "sizes": []
+ },
+ "body_typography_font_size_mobile": {
+  "unit": "px",
+  "size": 16,
+  "sizes": []
+ },
+ "body_typography_line_height": {
+  "unit": "em",
+  "size": 1.65,
+  "sizes": []
+ },
+ "h1_typography_typography": "custom",
+ "h1_typography_font_family": "Montserrat",
+ "h1_typography_font_weight": "800",
+ "h1_typography_font_size": {
+  "unit": "px",
+  "size": 54,
+  "sizes": []
+ },
+ "h1_typography_font_size_tablet": {
+  "unit": "px",
+  "size": 42,
+  "sizes": []
+ },
+ "h1_typography_font_size_mobile": {
+  "unit": "px",
+  "size": 34,
+  "sizes": []
+ },
+ "h1_typography_line_height": {
+  "unit": "em",
+  "size": 1.2,
+  "sizes": []
+ },
+ "h2_typography_typography": "custom",
+ "h2_typography_font_family": "Montserrat",
+ "h2_typography_font_weight": "800",
+ "h2_typography_font_size": {
+  "unit": "px",
+  "size": 42,
+  "sizes": []
+ },
+ "h2_typography_font_size_tablet": {
+  "unit": "px",
+  "size": 34,
+  "sizes": []
+ },
+ "h2_typography_font_size_mobile": {
+  "unit": "px",
+  "size": 28,
+  "sizes": []
+ },
+ "h2_typography_line_height": {
+  "unit": "em",
+  "size": 1.2,
+  "sizes": []
+ },
+ "h3_typography_typography": "custom",
+ "h3_typography_font_family": "Montserrat",
+ "h3_typography_font_weight": "700",
+ "h3_typography_font_size": {
+  "unit": "px",
+  "size": 22,
+  "sizes": []
+ },
+ "h3_typography_font_size_tablet": {
+  "unit": "px",
+  "size": 21,
+  "sizes": []
+ },
+ "h3_typography_font_size_mobile": {
+  "unit": "px",
+  "size": 20,
+  "sizes": []
+ },
+ "h3_typography_line_height": {
+  "unit": "em",
+  "size": 1.2,
+  "sizes": []
+ },
+ "h4_typography_typography": "custom",
+ "h4_typography_font_family": "Montserrat",
+ "h4_typography_font_weight": "700",
+ "h4_typography_font_size": {
+  "unit": "px",
+  "size": 19,
+  "sizes": []
+ },
+ "h4_typography_font_size_tablet": {
+  "unit": "px",
+  "size": 18,
+  "sizes": []
+ },
+ "h4_typography_font_size_mobile": {
+  "unit": "px",
+  "size": 18,
+  "sizes": []
+ },
+ "h4_typography_line_height": {
+  "unit": "em",
+  "size": 1.2,
+  "sizes": []
+ },
+ "h5_typography_typography": "custom",
+ "h5_typography_font_family": "Montserrat",
+ "h5_typography_font_weight": "700",
+ "h5_typography_font_size": {
+  "unit": "px",
+  "size": 17,
+  "sizes": []
+ },
+ "h5_typography_font_size_tablet": {
+  "unit": "px",
+  "size": 16,
+  "sizes": []
+ },
+ "h5_typography_font_size_mobile": {
+  "unit": "px",
+  "size": 16,
+  "sizes": []
+ },
+ "h5_typography_line_height": {
+  "unit": "em",
+  "size": 1.2,
+  "sizes": []
+ },
+ "h6_typography_typography": "custom",
+ "h6_typography_font_family": "Montserrat",
+ "h6_typography_font_weight": "700",
+ "h6_typography_font_size": {
+  "unit": "px",
+  "size": 14,
+  "sizes": []
+ },
+ "h6_typography_font_size_tablet": {
+  "unit": "px",
+  "size": 14,
+  "sizes": []
+ },
+ "h6_typography_font_size_mobile": {
+  "unit": "px",
+  "size": 13,
+  "sizes": []
+ },
+ "h6_typography_line_height": {
+  "unit": "em",
+  "size": 1.2,
+  "sizes": []
+ },
+ "button_typography_typography": "custom",
+ "button_typography_font_family": "Montserrat",
+ "button_typography_font_weight": "700",
+ "button_typography_font_size": {
+  "unit": "px",
+  "size": 15,
+  "sizes": []
+ },
+ "button_typography_text_transform": "uppercase",
+ "button_typography_letter_spacing": {
+  "unit": "px",
+  "size": 0.5,
+  "sizes": []
+ },
+ "button_background_background": "classic",
+ "button_hover_background_background": "classic",
+ "button_border_radius": {
+  "unit": "px",
+  "top": "6",
+  "right": "6",
+  "bottom": "6",
+  "left": "6",
+  "isLinked": false
+ },
+ "button_padding": {
+  "unit": "px",
+  "top": "16",
+  "right": "30",
+  "bottom": "16",
+  "left": "30",
+  "isLinked": false
+ },
+ "form_field_border_border": "solid",
+ "form_field_border_width": {
+  "unit": "px",
+  "top": "1",
+  "right": "1",
+  "bottom": "1",
+  "left": "1",
+  "isLinked": false
+ },
+ "form_field_border_radius": {
+  "unit": "px",
+  "top": "6",
+  "right": "6",
+  "bottom": "6",
+  "left": "6",
+  "isLinked": false
+ },
+ "form_field_padding": {
+  "unit": "px",
+  "top": "12",
+  "right": "16",
+  "bottom": "12",
+  "left": "16",
+  "isLinked": false
+ },
+ "container_width": {
+  "unit": "px",
+  "size": 1200,
+  "sizes": []
+ },
+ "custom_css": "/* MyRepairCo helper classes - add them under Advanced > CSS Classes. */\n.mrc-card{background:#fff;border-radius:16px;box-shadow:0 10px 30px rgba(27,27,31,.08);padding:34px 26px;transition:transform .2s,box-shadow .2s}\n.mrc-card:hover{transform:translateY(-4px);box-shadow:0 18px 40px rgba(27,27,31,.14)}\n.mrc-on-dark .elementor-heading-title,.mrc-on-dark .elementor-widget-text-editor,.mrc-on-dark .elementor-icon-list-text,.mrc-on-dark .elementor-icon-list-icon i{color:#fff}\n.mrc-on-dark .mrc-card .elementor-heading-title,.mrc-on-dark .mrc-card .elementor-widget-text-editor{color:inherit}\n.mrc-narrow > .e-con-inner{max-width:860px}\n.mrc-eyebrow .elementor-heading-title{display:inline-block;background:var(--e-global-color-primary);color:#fff;padding:7px 16px;border-radius:30px;font-size:13px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase}\n.mrc-small .elementor-heading-title,.mrc-small .elementor-icon-list-text{font-size:14px}\n.mrc-btn-light .elementor-button{background:#fff;color:var(--e-global-color-primary)}\n.mrc-btn-light .elementor-button:hover{background:var(--e-global-color-secondary);color:#fff}\n.mrc-btn-outline-light .elementor-button{background:transparent;border:2px solid #fff;color:#fff}\n.mrc-btn-outline-light .elementor-button:hover{background:#fff;color:var(--e-global-color-primary)}\n.mrc-brand-col{background:var(--e-global-color-primary)}\n.mrc-brand-col .elementor-heading-title{color:#fff}\n.mrc-brand-top{border-radius:14px 14px 0 0}\n.mrc-others-col{background:#EFE7DF}\n.mrc-others-top{border-radius:14px 14px 0 0;margin-top:20px}\n.mrc-compare-row{border-bottom:1px solid rgba(27,27,31,.08)}\n.mrc-photo img{border-radius:16px;aspect-ratio:4/3;object-fit:cover;width:100%}\n.mrc-stats .elementor-counter-title{color:var(--e-global-color-secondary)}\n.mrc-header-main{box-shadow:0 4px 18px rgba(27,27,31,.08)}\n.mrc-footer-menu .elementor-nav-menu--main .elementor-item{text-transform:uppercase;font-weight:700}",
+ "__globals__": {
+  "body_background_color": "globals/colors?id=mrcwhit",
+  "body_color": "globals/colors?id=text",
+  "link_normal_color": "globals/colors?id=primary",
+  "link_hover_color": "globals/colors?id=accent",
+  "h1_color": "globals/colors?id=secondary",
+  "h2_color": "globals/colors?id=secondary",
+  "h3_color": "globals/colors?id=secondary",
+  "h4_color": "globals/colors?id=secondary",
+  "h5_color": "globals/colors?id=secondary",
+  "h6_color": "globals/colors?id=secondary",
+  "button_text_color": "globals/colors?id=mrcwhit",
+  "button_background_color": "globals/colors?id=primary",
+  "button_hover_text_color": "globals/colors?id=mrcwhit",
+  "button_hover_background_color": "globals/colors?id=accent",
+  "form_field_border_color": "globals/colors?id=mrcligh",
+  "form_field_background_color": "globals/colors?id=mrcwhit"
+ }
+}

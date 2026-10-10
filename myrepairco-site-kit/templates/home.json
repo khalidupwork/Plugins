@@ -1,0 +1,5316 @@
+{
+ "version": "0.4",
+ "title": "MyRepairCo Home",
+ "type": "page",
+ "content": [
+  {
+   "id": "aa10007",
+   "elType": "container",
+   "settings": {
+    "content_width": "boxed",
+    "flex_direction": "column",
+    "flex_align_items": "center",
+    "flex_gap": {
+     "unit": "px",
+     "size": 24,
+     "column": "24",
+     "row": "24",
+     "isLinked": true
+    },
+    "padding": {
+     "unit": "px",
+     "top": "160",
+     "right": "20",
+     "bottom": "170",
+     "left": "20",
+     "isLinked": false
+    },
+    "padding_mobile": {
+     "unit": "px",
+     "top": "60",
+     "right": "16",
+     "bottom": "60",
+     "left": "16",
+     "isLinked": false
+    },
+    "css_classes": "mrc-on-dark mrc-narrow",
+    "min_height": {
+     "unit": "vh",
+     "size": 80,
+     "sizes": []
+    },
+    "flex_justify_content": "center",
+    "background_background": "classic",
+    "background_image": {
+     "url": "https://myrepairco.com/wp-content/uploads/2026/05/selective-focus-of-handsome-handyman-repairing-roof-with-coworker.jpg",
+     "id": "",
+     "alt": "",
+     "source": "library"
+    },
+    "background_position": "center center",
+    "background_size": "cover",
+    "background_overlay_background": "classic",
+    "background_overlay_color": "#1B1B1F",
+    "background_overlay_opacity": {
+     "unit": "px",
+     "size": 0.72,
+     "sizes": []
+    },
+    "shape_divider_bottom": "drops",
+    "shape_divider_bottom_color": "#FFFFFF",
+    "shape_divider_bottom_height": {
+     "unit": "px",
+     "size": 70,
+     "sizes": []
+    }
+   },
+   "elements": [
+    {
+     "id": "aa10001",
+     "elType": "widget",
+     "widgetType": "heading",
+     "settings": {
+      "title": "Professional · Trustworthy · Same-Day",
+      "header_size": "h6",
+      "align": "center",
+      "_css_classes": "mrc-eyebrow"
+     },
+     "elements": []
+    },
+    {
+     "id": "aa10002",
+     "elType": "widget",
+     "widgetType": "heading",
+     "settings": {
+      "title": "Our handyman services are all under one roof.",
+      "header_size": "h1",
+      "align": "center"
+     },
+     "elements": []
+    },
+    {
+     "id": "aa10003",
+     "elType": "widget",
+     "widgetType": "text-editor",
+     "settings": {
+      "editor": "<p>It's your home. Not just any handyman will do. Book a background-verified technician for same-day repairs, track them live on your phone, and relax &mdash; every job is backed by our one-year guarantee.</p>",
+      "align": "center"
+     },
+     "elements": []
+    },
+    {
+     "id": "aa10006",
+     "elType": "container",
+     "settings": {
+      "content_width": "full",
+      "flex_direction": "row",
+      "flex_wrap": "wrap",
+      "flex_gap": {
+       "unit": "px",
+       "size": 16,
+       "column": "16",
+       "row": "16",
+       "isLinked": true
+      },
+      "flex_justify_content": "center",
+      "flex_align_items": "stretch",
+      "padding": {
+       "unit": "px",
+       "top": "0",
+       "right": "0",
+       "bottom": "0",
+       "left": "0",
+       "isLinked": false
+      }
+     },
+     "elements": [
+      {
+       "id": "aa10004",
+       "elType": "widget",
+       "widgetType": "button",
+       "settings": {
+        "text": "Schedule a Booking",
+        "link": {
+         "url": "/customer-portal/",
+         "is_external": "",
+         "nofollow": "",
+         "custom_attributes": ""
+        },
+        "align": "center",
+        "size": "md",
+        "selected_icon": {
+         "value": "fas fa-calendar-check",
+         "library": "fa-solid"
+        },
+        "icon_align": "left",
+        "icon_indent": {
+         "unit": "px",
+         "size": 8,
+         "sizes": []
+        }
+       },
+       "elements": []
+      },
+      {
+       "id": "aa10005",
+       "elType": "widget",
+       "widgetType": "button",
+       "settings": {
+        "text": "Call +1 123 456 7890",
+        "link": {
+         "url": "tel:+11234567890",
+         "is_external": "",
+         "nofollow": "",
+         "custom_attributes": ""
+        },
+        "align": "center",
+        "size": "md",
+        "selected_icon": {
+         "value": "fas fa-phone-alt",
+         "library": "fa-solid"
+        },
+        "icon_align": "left",
+        "icon_indent": {
+         "unit": "px",
+         "size": 8,
+         "sizes": []
+        },
+        "_css_classes": "mrc-btn-light"
+       },
+       "elements": []
+      }
+     ],
+     "isInner": true
+    }
+   ],
+   "isInner": false
+  },
+  {
+   "id": "aa10010",
+   "elType": "container",
+   "settings": {
+    "content_width": "boxed",
+    "flex_direction": "column",
+    "flex_align_items": "center",
+    "flex_gap": {
+     "unit": "px",
+     "size": 24,
+     "column": "24",
+     "row": "24",
+     "isLinked": true
+    },
+    "padding": {
+     "unit": "px",
+     "top": "40",
+     "right": "20",
+     "bottom": "40",
+     "left": "20",
+     "isLinked": false
+    },
+    "padding_mobile": {
+     "unit": "px",
+     "top": "60",
+     "right": "16",
+     "bottom": "60",
+     "left": "16",
+     "isLinked": false
+    }
+   },
+   "elements": [
+    {
+     "id": "aa1000f",
+     "elType": "container",
+     "settings": {
+      "content_width": "full",
+      "flex_direction": "row",
+      "flex_wrap": "wrap",
+      "flex_gap": {
+       "unit": "px",
+       "size": 24,
+       "column": "24",
+       "row": "24",
+       "isLinked": true
+      },
+      "flex_justify_content": "center",
+      "flex_align_items": "center",
+      "padding": {
+       "unit": "px",
+       "top": "0",
+       "right": "0",
+       "bottom": "0",
+       "left": "0",
+       "isLinked": false
+      }
+     },
+     "elements": [
+      {
+       "id": "aa10009",
+       "elType": "container",
+       "settings": {
+        "content_width": "full",
+        "flex_direction": "column",
+        "width": {
+         "unit": "%",
+         "size": 8,
+         "sizes": []
+        },
+        "width_tablet": {
+         "unit": "%",
+         "size": 12,
+         "sizes": []
+        },
+        "width_mobile": {
+         "unit": "%",
+         "size": 100,
+         "sizes": []
+        },
+        "flex_align_items": "center",
+        "flex_justify_content": "flex-start",
+        "flex_gap": {
+         "unit": "px",
+         "size": 16,
+         "column": "16",
+         "row": "16",
+         "isLinked": true
+        }
+       },
+       "elements": [
+        {
+         "id": "aa10008",
+         "elType": "widget",
+         "widgetType": "icon",
+         "settings": {
+          "selected_icon": {
+           "value": "fas fa-shipping-fast",
+           "library": "fa-solid"
+          },
+          "view": "default",
+          "size": {
+           "unit": "px",
+           "size": 46,
+           "sizes": []
+          },
+          "__globals__": {
+           "primary_color": "globals/colors?id=primary"
+          }
+         },
+         "elements": []
+        }
+       ],
+       "isInner": true
+      },
+      {
+       "id": "aa1000c",
+       "elType": "container",
+       "settings": {
+        "content_width": "full",
+        "flex_direction": "column",
+        "width": {
+         "unit": "%",
+         "size": 62,
+         "sizes": []
+        },
+        "width_tablet": {
+         "unit": "%",
+         "size": 58,
+         "sizes": []
+        },
+        "width_mobile": {
+         "unit": "%",
+         "size": 100,
+         "sizes": []
+        },
+        "flex_align_items": "flex-start",
+        "flex_justify_content": "flex-start",
+        "flex_gap": {
+         "unit": "px",
+         "size": 16,
+         "column": "16",
+         "row": "16",
+         "isLinked": true
+        }
+       },
+       "elements": [
+        {
+         "id": "aa1000a",
+         "elType": "widget",
+         "widgetType": "heading",
+         "settings": {
+          "title": "Need it fixed today? Same-day technicians are near you.",
+          "header_size": "h4",
+          "align": "left"
+         },
+         "elements": []
+        },
+        {
+         "id": "aa1000b",
+         "elType": "widget",
+         "widgetType": "text-editor",
+         "settings": {
+          "editor": "<p>Small jobs, big relief: leaky faucets, loose outlets, wobbly doors and more. Book now and get a verified tech at your door &mdash; often within hours.</p>",
+          "align": "left"
+         },
+         "elements": []
+        }
+       ],
+       "isInner": true
+      },
+      {
+       "id": "aa1000e",
+       "elType": "container",
+       "settings": {
+        "content_width": "full",
+        "flex_direction": "column",
+        "width": {
+         "unit": "%",
+         "size": 24,
+         "sizes": []
+        },
+        "width_tablet": {
+         "unit": "%",
+         "size": 24,
+         "sizes": []
+        },
+        "width_mobile": {
+         "unit": "%",
+         "size": 100,
+         "sizes": []
+        },
+        "flex_align_items": "flex-start",
+        "flex_justify_content": "center",
+        "flex_gap": {
+         "unit": "px",
+         "size": 16,
+         "column": "16",
+         "row": "16",
+         "isLinked": true
+        }
+       },
+       "elements": [
+        {
+         "id": "aa1000d",
+         "elType": "widget",
+         "widgetType": "button",
+         "settings": {
+          "text": "Book a Tech",
+          "link": {
+           "url": "/customer-portal/",
+           "is_external": "",
+           "nofollow": "",
+           "custom_attributes": ""
+          },
+          "align": "right",
+          "size": "md",
+          "align_mobile": "center"
+         },
+         "elements": []
+        }
+       ],
+       "isInner": true
+      }
+     ],
+     "isInner": true
+    }
+   ],
+   "isInner": false
+  },
+  {
+   "id": "aa10015",
+   "elType": "container",
+   "settings": {
+    "content_width": "boxed",
+    "flex_direction": "column",
+    "flex_align_items": "center",
+    "flex_gap": {
+     "unit": "px",
+     "size": 24,
+     "column": "24",
+     "row": "24",
+     "isLinked": true
+    },
+    "padding": {
+     "unit": "px",
+     "top": "40",
+     "right": "20",
+     "bottom": "70",
+     "left": "20",
+     "isLinked": false
+    },
+    "padding_mobile": {
+     "unit": "px",
+     "top": "60",
+     "right": "16",
+     "bottom": "60",
+     "left": "16",
+     "isLinked": false
+    }
+   },
+   "elements": [
+    {
+     "id": "aa10013",
+     "elType": "container",
+     "settings": {
+      "content_width": "full",
+      "flex_direction": "row",
+      "flex_wrap": "nowrap",
+      "flex_gap": {
+       "unit": "px",
+       "size": 20,
+       "column": "20",
+       "row": "20",
+       "isLinked": true
+      },
+      "flex_justify_content": "center",
+      "flex_align_items": "center",
+      "padding": {
+       "unit": "px",
+       "top": "0",
+       "right": "0",
+       "bottom": "0",
+       "left": "0",
+       "isLinked": false
+      }
+     },
+     "elements": [
+      {
+       "id": "aa10011",
+       "elType": "widget",
+       "widgetType": "image",
+       "settings": {
+        "image": {
+         "url": "{{asset:myrepairco-mascot.png}}",
+         "id": "{{asset_id:myrepairco-mascot.png}}",
+         "alt": "",
+         "source": "library"
+        },
+        "image_size": "full",
+        "align": "center",
+        "width": {
+         "unit": "px",
+         "size": 120,
+         "sizes": []
+        }
+       },
+       "elements": []
+      },
+      {
+       "id": "aa10012",
+       "elType": "widget",
+       "widgetType": "heading",
+       "settings": {
+        "title": "Contact us today!",
+        "header_size": "h2",
+        "align": "left",
+        "__globals__": {
+         "title_color": "globals/colors?id=primary"
+        }
+       },
+       "elements": []
+      }
+     ],
+     "isInner": true
+    },
+    {
+     "id": "aa10014",
+     "elType": "widget",
+     "widgetType": "button",
+     "settings": {
+      "text": "Book Free Estimate",
+      "link": {
+       "url": "/customer-portal/",
+       "is_external": "",
+       "nofollow": "",
+       "custom_attributes": ""
+      },
+      "align": "center",
+      "size": "md",
+      "selected_icon": {
+       "value": "fas fa-clipboard-check",
+       "library": "fa-solid"
+      },
+      "icon_align": "left",
+      "icon_indent": {
+       "unit": "px",
+       "size": 8,
+       "sizes": []
+      }
+     },
+     "elements": []
+    }
+   ],
+   "isInner": false
+  },
+  {
+   "id": "aa10030",
+   "elType": "container",
+   "settings": {
+    "content_width": "boxed",
+    "flex_direction": "column",
+    "flex_align_items": "center",
+    "flex_gap": {
+     "unit": "px",
+     "size": 24,
+     "column": "24",
+     "row": "24",
+     "isLinked": true
+    },
+    "padding": {
+     "unit": "px",
+     "top": "120",
+     "right": "20",
+     "bottom": "90",
+     "left": "20",
+     "isLinked": false
+    },
+    "padding_mobile": {
+     "unit": "px",
+     "top": "60",
+     "right": "16",
+     "bottom": "60",
+     "left": "16",
+     "isLinked": false
+    },
+    "background_background": "classic",
+    "__globals__": {
+     "background_color": "globals/colors?id=mrcligh"
+    },
+    "shape_divider_top": "drops",
+    "shape_divider_top_color": "#FFFFFF",
+    "shape_divider_top_height": {
+     "unit": "px",
+     "size": 60,
+     "sizes": []
+    }
+   },
+   "elements": [
+    {
+     "id": "aa10016",
+     "elType": "widget",
+     "widgetType": "heading",
+     "settings": {
+      "title": "Why Choose Us",
+      "header_size": "h6",
+      "align": "center",
+      "_css_classes": "mrc-eyebrow"
+     },
+     "elements": []
+    },
+    {
+     "id": "aa10017",
+     "elType": "widget",
+     "widgetType": "heading",
+     "settings": {
+      "title": "Why Choose Us?",
+      "header_size": "h2",
+      "align": "center"
+     },
+     "elements": []
+    },
+    {
+     "id": "aa10018",
+     "elType": "widget",
+     "widgetType": "text-editor",
+     "settings": {
+      "editor": "<p>Your reliable partner for quality, convenience, and care in all handyman services.</p>",
+      "align": "center"
+     },
+     "elements": []
+    },
+    {
+     "id": "aa10025",
+     "elType": "container",
+     "settings": {
+      "content_width": "full",
+      "flex_direction": "row",
+      "flex_wrap": "wrap",
+      "flex_gap": {
+       "unit": "px",
+       "size": 30,
+       "column": "30",
+       "row": "30",
+       "isLinked": true
+      },
+      "flex_justify_content": "center",
+      "flex_align_items": "stretch",
+      "padding": {
+       "unit": "px",
+       "top": "0",
+       "right": "0",
+       "bottom": "0",
+       "left": "0",
+       "isLinked": false
+      }
+     },
+     "elements": [
+      {
+       "id": "aa1001a",
+       "elType": "container",
+       "settings": {
+        "content_width": "full",
+        "flex_direction": "column",
+        "width": {
+         "unit": "%",
+         "size": 31,
+         "sizes": []
+        },
+        "width_tablet": {
+         "unit": "%",
+         "size": 47,
+         "sizes": []
+        },
+        "width_mobile": {
+         "unit": "%",
+         "size": 100,
+         "sizes": []
+        },
+        "flex_align_items": "center",
+        "flex_justify_content": "flex-start",
+        "flex_gap": {
+         "unit": "px",
+         "size": 16,
+         "column": "16",
+         "row": "16",
+         "isLinked": true
+        },
+        "css_classes": "mrc-card"
+       },
+       "elements": [
+        {
+         "id": "aa10019",
+         "elType": "widget",
+         "widgetType": "icon-box",
+         "settings": {
+          "selected_icon": {
+           "value": "fas fa-user-shield",
+           "library": "fa-solid"
+          },
+          "view": "stacked",
+          "shape": "circle",
+          "title_text": "Verified Professionals",
+          "description_text": "Our team of certified, background-checked professionals ensures quality and safety in every job. Your home is always in capable, trustworthy hands.",
+          "position": "top",
+          "title_size": "h3",
+          "text_align": "center",
+          "icon_size": {
+           "unit": "px",
+           "size": 30,
+           "sizes": []
+          },
+          "icon_padding": {
+           "unit": "px",
+           "size": 22,
+           "sizes": []
+          },
+          "__globals__": {
+           "primary_color": "globals/colors?id=primary",
+           "secondary_color": "globals/colors?id=mrcwhit"
+          }
+         },
+         "elements": []
+        }
+       ],
+       "isInner": true
+      },
+      {
+       "id": "aa1001c",
+       "elType": "container",
+       "settings": {
+        "content_width": "full",
+        "flex_direction": "column",
+        "width": {
+         "unit": "%",
+         "size": 31,
+         "sizes": []
+        },
+        "width_tablet": {
+         "unit": "%",
+         "size": 47,
+         "sizes": []
+        },
+        "width_mobile": {
+         "unit": "%",
+         "size": 100,
+         "sizes": []
+        },
+        "flex_align_items": "center",
+        "flex_justify_content": "flex-start",
+        "flex_gap": {
+         "unit": "px",
+         "size": 16,
+         "column": "16",
+         "row": "16",
+         "isLinked": true
+        },
+        "css_classes": "mrc-card"
+       },
+       "elements": [
+        {
+         "id": "aa1001b",
+         "elType": "widget",
+         "widgetType": "icon-box",
+         "settings": {
+          "selected_icon": {
+           "value": "fas fa-bolt",
+           "library": "fa-solid"
+          },
+          "view": "stacked",
+          "shape": "circle",
+          "title_text": "Same-Day Dispatch",
+          "description_text": "Tell us what needs fixing and we send the nearest available technician &mdash; often the same day.",
+          "position": "top",
+          "title_size": "h3",
+          "text_align": "center",
+          "icon_size": {
+           "unit": "px",
+           "size": 30,
+           "sizes": []
+          },
+          "icon_padding": {
+           "unit": "px",
+           "size": 22,
+           "sizes": []
+          },
+          "__globals__": {
+           "primary_color": "globals/colors?id=primary",
+           "secondary_color": "globals/colors?id=mrcwhit"
+          }
+         },
+         "elements": []
+        }
+       ],
+       "isInner": true
+      },
+      {
+       "id": "aa1001e",
+       "elType": "container",
+       "settings": {
+        "content_width": "full",
+        "flex_direction": "column",
+        "width": {
+         "unit": "%",
+         "size": 31,
+         "sizes": []
+        },
+        "width_tablet": {
+         "unit": "%",
+         "size": 47,
+         "sizes": []
+        },
+        "width_mobile": {
+         "unit": "%",
+         "size": 100,
+         "sizes": []
+        },
+        "flex_align_items": "center",
+        "flex_justify_content": "flex-start",
+        "flex_gap": {
+         "unit": "px",
+         "size": 16,
+         "column": "16",
+         "row": "16",
+         "isLinked": true
+        },
+        "css_classes": "mrc-card"
+       },
+       "elements": [
+        {
+         "id": "aa1001d",
+         "elType": "widget",
+         "widgetType": "icon-box",
+         "settings": {
+          "selected_icon": {
+           "value": "fas fa-map-marked-alt",
+           "library": "fa-solid"
+          },
+          "view": "stacked",
+          "shape": "circle",
+          "title_text": "Real-Time Tracking",
+          "description_text": "Watch your technician on the map, see their photo and ETA, and get a text when they are on the way.",
+          "position": "top",
+          "title_size": "h3",
+          "text_align": "center",
+          "icon_size": {
+           "unit": "px",
+           "size": 30,
+           "sizes": []
+          },
+          "icon_padding": {
+           "unit": "px",
+           "size": 22,
+           "sizes": []
+          },
+          "__globals__": {
+           "primary_color": "globals/colors?id=primary",
+           "secondary_color": "globals/colors?id=mrcwhit"
+          }
+         },
+         "elements": []
+        }
+       ],
+       "isInner": true
+      },
+      {
+       "id": "aa10020",
+       "elType": "container",
+       "settings": {
+        "content_width": "full",
+        "flex_direction": "column",
+        "width": {
+         "unit": "%",
+         "size": 31,
+         "sizes": []
+        },
+        "width_tablet": {
+         "unit": "%",
+         "size": 47,
+         "sizes": []
+        },
+        "width_mobile": {
+         "unit": "%",
+         "size": 100,
+         "sizes": []
+        },
+        "flex_align_items": "center",
+        "flex_justify_content": "flex-start",
+        "flex_gap": {
+         "unit": "px",
+         "size": 16,
+         "column": "16",
+         "row": "16",
+         "isLinked": true
+        },
+        "css_classes": "mrc-card"
+       },
+       "elements": [
+        {
+         "id": "aa1001f",
+         "elType": "widget",
+         "widgetType": "icon-box",
+         "settings": {
+          "selected_icon": {
+           "value": "fas fa-medal",
+           "library": "fa-solid"
+          },
+          "view": "stacked",
+          "shape": "circle",
+          "title_text": "16+ Years of Experience",
+          "description_text": "Our skilled team tackles every project with precision and care, from quick repairs to bigger fixes.",
+          "position": "top",
+          "title_size": "h3",
+          "text_align": "center",
+          "icon_size": {
+           "unit": "px",
+           "size": 30,
+           "sizes": []
+          },
+          "icon_padding": {
+           "unit": "px",
+           "size": 22,
+           "sizes": []
+          },
+          "__globals__": {
+           "primary_color": "globals/colors?id=primary",
+           "secondary_color": "globals/colors?id=mrcwhit"
+          }
+         },
+         "elements": []
+        }
+       ],
+       "isInner": true
+      },
+      {
+       "id": "aa10022",
+       "elType": "container",
+       "settings": {
+        "content_width": "full",
+        "flex_direction": "column",
+        "width": {
+         "unit": "%",
+         "size": 31,
+         "sizes": []
+        },
+        "width_tablet": {
+         "unit": "%",
+         "size": 47,
+         "sizes": []
+        },
+        "width_mobile": {
+         "unit": "%",
+         "size": 100,
+         "sizes": []
+        },
+        "flex_align_items": "center",
+        "flex_justify_content": "flex-start",
+        "flex_gap": {
+         "unit": "px",
+         "size": 16,
+         "column": "16",
+         "row": "16",
+         "isLinked": true
+        },
+        "css_classes": "mrc-card"
+       },
+       "elements": [
+        {
+         "id": "aa10021",
+         "elType": "widget",
+         "widgetType": "icon-box",
+         "settings": {
+          "selected_icon": {
+           "value": "fas fa-clock",
+           "library": "fa-solid"
+          },
+          "view": "stacked",
+          "shape": "circle",
+          "title_text": "24/7 Services",
+          "description_text": "We're here when you need us, any time of day or night, for urgent fixes and planned projects.",
+          "position": "top",
+          "title_size": "h3",
+          "text_align": "center",
+          "icon_size": {
+           "unit": "px",
+           "size": 30,
+           "sizes": []
+          },
+          "icon_padding": {
+           "unit": "px",
+           "size": 22,
+           "sizes": []
+          },
+          "__globals__": {
+           "primary_color": "globals/colors?id=primary",
+           "secondary_color": "globals/colors?id=mrcwhit"
+          }
+         },
+         "elements": []
+        }
+       ],
+       "isInner": true
+      },
+      {
+       "id": "aa10024",
+       "elType": "container",
+       "settings": {
+        "content_width": "full",
+        "flex_direction": "column",
+        "width": {
+         "unit": "%",
+         "size": 31,
+         "sizes": []
+        },
+        "width_tablet": {
+         "unit": "%",
+         "size": 47,
+         "sizes": []
+        },
+        "width_mobile": {
+         "unit": "%",
+         "size": 100,
+         "sizes": []
+        },
+        "flex_align_items": "center",
+        "flex_justify_content": "flex-start",
+        "flex_gap": {
+         "unit": "px",
+         "size": 16,
+         "column": "16",
+         "row": "16",
+         "isLinked": true
+        },
+        "css_classes": "mrc-card"
+       },
+       "elements": [
+        {
+         "id": "aa10023",
+         "elType": "widget",
+         "widgetType": "icon-box",
+         "settings": {
+          "selected_icon": {
+           "value": "fas fa-shield-alt",
+           "library": "fa-solid"
+          },
+          "view": "stacked",
+          "shape": "circle",
+          "title_text": "One-Year Guarantee",
+          "description_text": "We're not happy until the work's done right &mdash; and every job is backed by a one-year guarantee.",
+          "position": "top",
+          "title_size": "h3",
+          "text_align": "center",
+          "icon_size": {
+           "unit": "px",
+           "size": 30,
+           "sizes": []
+          },
+          "icon_padding": {
+           "unit": "px",
+           "size": 22,
+           "sizes": []
+          },
+          "__globals__": {
+           "primary_color": "globals/colors?id=primary",
+           "secondary_color": "globals/colors?id=mrcwhit"
+          }
+         },
+         "elements": []
+        }
+       ],
+       "isInner": true
+      }
+     ],
+     "isInner": true
+    },
+    {
+     "id": "aa1002e",
+     "elType": "container",
+     "settings": {
+      "content_width": "full",
+      "flex_direction": "row",
+      "flex_wrap": "wrap",
+      "flex_gap": {
+       "unit": "px",
+       "size": 30,
+       "column": "30",
+       "row": "30",
+       "isLinked": true
+      },
+      "flex_justify_content": "center",
+      "flex_align_items": "stretch",
+      "padding": {
+       "unit": "px",
+       "top": "0",
+       "right": "0",
+       "bottom": "0",
+       "left": "0",
+       "isLinked": false
+      },
+      "css_classes": "mrc-stats"
+     },
+     "elements": [
+      {
+       "id": "aa10027",
+       "elType": "container",
+       "settings": {
+        "content_width": "full",
+        "flex_direction": "column",
+        "width": {
+         "unit": "%",
+         "size": 22,
+         "sizes": []
+        },
+        "width_tablet": {
+         "unit": "%",
+         "size": 47,
+         "sizes": []
+        },
+        "width_mobile": {
+         "unit": "%",
+         "size": 100,
+         "sizes": []
+        },
+        "flex_align_items": "flex-start",
+        "flex_justify_content": "flex-start",
+        "flex_gap": {
+         "unit": "px",
+         "size": 16,
+         "column": "16",
+         "row": "16",
+         "isLinked": true
+        }
+       },
+       "elements": [
+        {
+         "id": "aa10026",
+         "elType": "widget",
+         "widgetType": "counter",
+         "settings": {
+          "starting_number": 0,
+          "ending_number": 600,
+          "suffix": "+",
+          "title": "Projects Completed",
+          "__globals__": {
+           "number_color": "globals/colors?id=primary"
+          }
+         },
+         "elements": []
+        }
+       ],
+       "isInner": true
+      },
+      {
+       "id": "aa10029",
+       "elType": "container",
+       "settings": {
+        "content_width": "full",
+        "flex_direction": "column",
+        "width": {
+         "unit": "%",
+         "size": 22,
+         "sizes": []
+        },
+        "width_tablet": {
+         "unit": "%",
+         "size": 47,
+         "sizes": []
+        },
+        "width_mobile": {
+         "unit": "%",
+         "size": 100,
+         "sizes": []
+        },
+        "flex_align_items": "flex-start",
+        "flex_justify_content": "flex-start",
+        "flex_gap": {
+         "unit": "px",
+         "size": 16,
+         "column": "16",
+         "row": "16",
+         "isLinked": true
+        }
+       },
+       "elements": [
+        {
+         "id": "aa10028",
+         "elType": "widget",
+         "widgetType": "counter",
+         "settings": {
+          "starting_number": 0,
+          "ending_number": 16,
+          "suffix": "+",
+          "title": "Years of Experience",
+          "__globals__": {
+           "number_color": "globals/colors?id=primary"
+          }
+         },
+         "elements": []
+        }
+       ],
+       "isInner": true
+      },
+      {
+       "id": "aa1002b",
+       "elType": "container",
+       "settings": {
+        "content_width": "full",
+        "flex_direction": "column",
+        "width": {
+         "unit": "%",
+         "size": 22,
+         "sizes": []
+        },
+        "width_tablet": {
+         "unit": "%",
+         "size": 47,
+         "sizes": []
+        },
+        "width_mobile": {
+         "unit": "%",
+         "size": 100,
+         "sizes": []
+        },
+        "flex_align_items": "flex-start",
+        "flex_justify_content": "flex-start",
+        "flex_gap": {
+         "unit": "px",
+         "size": 16,
+         "column": "16",
+         "row": "16",
+         "isLinked": true
+        }
+       },
+       "elements": [
+        {
+         "id": "aa1002a",
+         "elType": "widget",
+         "widgetType": "counter",
+         "settings": {
+          "starting_number": 0,
+          "ending_number": 24,
+          "suffix": "/7",
+          "title": "Service Availability",
+          "__globals__": {
+           "number_color": "globals/colors?id=primary"
+          }
+         },
+         "elements": []
+        }
+       ],
+       "isInner": true
+      },
+      {
+       "id": "aa1002d",
+       "elType": "container",
+       "settings": {
+        "content_width": "full",
+        "flex_direction": "column",
+        "width": {
+         "unit": "%",
+         "size": 22,
+         "sizes": []
+        },
+        "width_tablet": {
+         "unit": "%",
+         "size": 47,
+         "sizes": []
+        },
+        "width_mobile": {
+         "unit": "%",
+         "size": 100,
+         "sizes": []
+        },
+        "flex_align_items": "flex-start",
+        "flex_justify_content": "flex-start",
+        "flex_gap": {
+         "unit": "px",
+         "size": 16,
+         "column": "16",
+         "row": "16",
+         "isLinked": true
+        }
+       },
+       "elements": [
+        {
+         "id": "aa1002c",
+         "elType": "widget",
+         "widgetType": "counter",
+         "settings": {
+          "starting_number": 0,
+          "ending_number": 1,
+          "suffix": "-Year",
+          "title": "Work Guarantee",
+          "__globals__": {
+           "number_color": "globals/colors?id=primary"
+          }
+         },
+         "elements": []
+        }
+       ],
+       "isInner": true
+      }
+     ],
+     "isInner": true
+    },
+    {
+     "id": "aa1002f",
+     "elType": "widget",
+     "widgetType": "button",
+     "settings": {
+      "text": "Schedule a Booking",
+      "link": {
+       "url": "/customer-portal/",
+       "is_external": "",
+       "nofollow": "",
+       "custom_attributes": ""
+      },
+      "align": "center",
+      "size": "md"
+     },
+     "elements": []
+    }
+   ],
+   "isInner": false
+  },
+  {
+   "id": "aa1003d",
+   "elType": "container",
+   "settings": {
+    "content_width": "boxed",
+    "flex_direction": "column",
+    "flex_align_items": "center",
+    "flex_gap": {
+     "unit": "px",
+     "size": 24,
+     "column": "24",
+     "row": "24",
+     "isLinked": true
+    },
+    "padding": {
+     "unit": "px",
+     "top": "90",
+     "right": "20",
+     "bottom": "90",
+     "left": "20",
+     "isLinked": false
+    },
+    "padding_mobile": {
+     "unit": "px",
+     "top": "60",
+     "right": "16",
+     "bottom": "60",
+     "left": "16",
+     "isLinked": false
+    }
+   },
+   "elements": [
+    {
+     "id": "aa1003c",
+     "elType": "container",
+     "settings": {
+      "content_width": "full",
+      "flex_direction": "row",
+      "flex_wrap": "wrap",
+      "flex_gap": {
+       "unit": "px",
+       "size": 50,
+       "column": "50",
+       "row": "50",
+       "isLinked": true
+      },
+      "flex_justify_content": "center",
+      "flex_align_items": "center",
+      "padding": {
+       "unit": "px",
+       "top": "0",
+       "right": "0",
+       "bottom": "0",
+       "left": "0",
+       "isLinked": false
+      }
+     },
+     "elements": [
+      {
+       "id": "aa10032",
+       "elType": "container",
+       "settings": {
+        "content_width": "full",
+        "flex_direction": "column",
+        "width": {
+         "unit": "%",
+         "size": 45,
+         "sizes": []
+        },
+        "width_tablet": {
+         "unit": "%",
+         "size": 100,
+         "sizes": []
+        },
+        "width_mobile": {
+         "unit": "%",
+         "size": 100,
+         "sizes": []
+        },
+        "flex_align_items": "center",
+        "flex_justify_content": "flex-start",
+        "flex_gap": {
+         "unit": "px",
+         "size": 16,
+         "column": "16",
+         "row": "16",
+         "isLinked": true
+        }
+       },
+       "elements": [
+        {
+         "id": "aa10031",
+         "elType": "widget",
+         "widgetType": "image",
+         "settings": {
+          "image": {
+           "url": "{{asset:phone-booking.png}}",
+           "id": "{{asset_id:phone-booking.png}}",
+           "alt": "",
+           "source": "library"
+          },
+          "image_size": "full",
+          "align": "center",
+          "width": {
+           "unit": "%",
+           "size": 90,
+           "sizes": []
+          }
+         },
+         "elements": []
+        }
+       ],
+       "isInner": true
+      },
+      {
+       "id": "aa1003b",
+       "elType": "container",
+       "settings": {
+        "content_width": "full",
+        "flex_direction": "column",
+        "width": {
+         "unit": "%",
+         "size": 50,
+         "sizes": []
+        },
+        "width_tablet": {
+         "unit": "%",
+         "size": 100,
+         "sizes": []
+        },
+        "width_mobile": {
+         "unit": "%",
+         "size": 100,
+         "sizes": []
+        },
+        "flex_align_items": "flex-start",
+        "flex_justify_content": "center",
+        "flex_gap": {
+         "unit": "px",
+         "size": 16,
+         "column": "16",
+         "row": "16",
+         "isLinked": true
+        }
+       },
+       "elements": [
+        {
+         "id": "aa10033",
+         "elType": "widget",
+         "widgetType": "heading",
+         "settings": {
+          "title": "Our Process",
+          "header_size": "h6",
+          "align": "left",
+          "_css_classes": "mrc-eyebrow"
+         },
+         "elements": []
+        },
+        {
+         "id": "aa10034",
+         "elType": "widget",
+         "widgetType": "heading",
+         "settings": {
+          "title": "How It Works?",
+          "header_size": "h2",
+          "align": "left"
+         },
+         "elements": []
+        },
+        {
+         "id": "aa10035",
+         "elType": "widget",
+         "widgetType": "text-editor",
+         "settings": {
+          "editor": "<p>From booking to completion, our streamlined process ensures hassle-free, efficient handyman services. Just follow the steps below, and we'll handle the rest.</p>",
+          "align": "left"
+         },
+         "elements": []
+        },
+        {
+         "id": "aa10036",
+         "elType": "widget",
+         "widgetType": "icon-box",
+         "settings": {
+          "selected_icon": {
+           "value": "fas fa-mobile-alt",
+           "library": "fa-solid"
+          },
+          "view": "stacked",
+          "shape": "circle",
+          "title_text": "1. Book in minutes",
+          "description_text": "Open the booking page on your phone or computer and tell us what needs fixing.",
+          "position": "left",
+          "title_size": "h4",
+          "text_align": "left",
+          "icon_size": {
+           "unit": "px",
+           "size": 30,
+           "sizes": []
+          },
+          "icon_padding": {
+           "unit": "px",
+           "size": 22,
+           "sizes": []
+          },
+          "__globals__": {
+           "primary_color": "globals/colors?id=primary",
+           "secondary_color": "globals/colors?id=mrcwhit"
+          }
+         },
+         "elements": []
+        },
+        {
+         "id": "aa10037",
+         "elType": "widget",
+         "widgetType": "icon-box",
+         "settings": {
+          "selected_icon": {
+           "value": "fas fa-list-ul",
+           "library": "fa-solid"
+          },
+          "view": "stacked",
+          "shape": "circle",
+          "title_text": "2. Choose your service & time",
+          "description_text": "Pick the service, add a photo or note, and choose \"Today\" or a time that works for you.",
+          "position": "left",
+          "title_size": "h4",
+          "text_align": "left",
+          "icon_size": {
+           "unit": "px",
+           "size": 30,
+           "sizes": []
+          },
+          "icon_padding": {
+           "unit": "px",
+           "size": 22,
+           "sizes": []
+          },
+          "__globals__": {
+           "primary_color": "globals/colors?id=primary",
+           "secondary_color": "globals/colors?id=mrcwhit"
+          }
+         },
+         "elements": []
+        },
+        {
+         "id": "aa10038",
+         "elType": "widget",
+         "widgetType": "icon-box",
+         "settings": {
+          "selected_icon": {
+           "value": "fas fa-user-check",
+           "library": "fa-solid"
+          },
+          "view": "stacked",
+          "shape": "circle",
+          "title_text": "3. Get matched with a verified tech",
+          "description_text": "We dispatch the nearest background-checked technician and send you their name and photo.",
+          "position": "left",
+          "title_size": "h4",
+          "text_align": "left",
+          "icon_size": {
+           "unit": "px",
+           "size": 30,
+           "sizes": []
+          },
+          "icon_padding": {
+           "unit": "px",
+           "size": 22,
+           "sizes": []
+          },
+          "__globals__": {
+           "primary_color": "globals/colors?id=primary",
+           "secondary_color": "globals/colors?id=mrcwhit"
+          }
+         },
+         "elements": []
+        },
+        {
+         "id": "aa10039",
+         "elType": "widget",
+         "widgetType": "icon-box",
+         "settings": {
+          "selected_icon": {
+           "value": "fas fa-map-marker-alt",
+           "library": "fa-solid"
+          },
+          "view": "stacked",
+          "shape": "circle",
+          "title_text": "4. Track them to your door",
+          "description_text": "Follow your technician live on the map and get a text with the arrival time. Pay when the job is done.",
+          "position": "left",
+          "title_size": "h4",
+          "text_align": "left",
+          "icon_size": {
+           "unit": "px",
+           "size": 30,
+           "sizes": []
+          },
+          "icon_padding": {
+           "unit": "px",
+           "size": 22,
+           "sizes": []
+          },
+          "__globals__": {
+           "primary_color": "globals/colors?id=primary",
+           "secondary_color": "globals/colors?id=mrcwhit"
+          }
+         },
+         "elements": []
+        },
+        {
+         "id": "aa1003a",
+         "elType": "widget",
+         "widgetType": "button",
+         "settings": {
+          "text": "Book a Tech Now",
+          "link": {
+           "url": "/customer-portal/",
+           "is_external": "",
+           "nofollow": "",
+           "custom_attributes": ""
+          },
+          "align": "left",
+          "size": "md",
+          "align_mobile": "center"
+         },
+         "elements": []
+        }
+       ],
+       "isInner": true
+      }
+     ],
+     "isInner": true
+    }
+   ],
+   "isInner": false
+  },
+  {
+   "id": "aa1004b",
+   "elType": "container",
+   "settings": {
+    "content_width": "boxed",
+    "flex_direction": "column",
+    "flex_align_items": "center",
+    "flex_gap": {
+     "unit": "px",
+     "size": 24,
+     "column": "24",
+     "row": "24",
+     "isLinked": true
+    },
+    "padding": {
+     "unit": "px",
+     "top": "90",
+     "right": "20",
+     "bottom": "90",
+     "left": "20",
+     "isLinked": false
+    },
+    "padding_mobile": {
+     "unit": "px",
+     "top": "60",
+     "right": "16",
+     "bottom": "60",
+     "left": "16",
+     "isLinked": false
+    },
+    "background_background": "classic",
+    "__globals__": {
+     "background_color": "globals/colors?id=mrcligh"
+    }
+   },
+   "elements": [
+    {
+     "id": "aa1004a",
+     "elType": "container",
+     "settings": {
+      "content_width": "full",
+      "flex_direction": "row",
+      "flex_wrap": "wrap",
+      "flex_gap": {
+       "unit": "px",
+       "size": 50,
+       "column": "50",
+       "row": "50",
+       "isLinked": true
+      },
+      "flex_justify_content": "center",
+      "flex_align_items": "center",
+      "padding": {
+       "unit": "px",
+       "top": "0",
+       "right": "0",
+       "bottom": "0",
+       "left": "0",
+       "isLinked": false
+      }
+     },
+     "elements": [
+      {
+       "id": "aa10047",
+       "elType": "container",
+       "settings": {
+        "content_width": "full",
+        "flex_direction": "column",
+        "width": {
+         "unit": "%",
+         "size": 50,
+         "sizes": []
+        },
+        "width_tablet": {
+         "unit": "%",
+         "size": 100,
+         "sizes": []
+        },
+        "width_mobile": {
+         "unit": "%",
+         "size": 100,
+         "sizes": []
+        },
+        "flex_align_items": "flex-start",
+        "flex_justify_content": "center",
+        "flex_gap": {
+         "unit": "px",
+         "size": 16,
+         "column": "16",
+         "row": "16",
+         "isLinked": true
+        }
+       },
+       "elements": [
+        {
+         "id": "aa1003e",
+         "elType": "widget",
+         "widgetType": "heading",
+         "settings": {
+          "title": "Like Uber, for home repairs",
+          "header_size": "h6",
+          "align": "left",
+          "_css_classes": "mrc-eyebrow"
+         },
+         "elements": []
+        },
+        {
+         "id": "aa1003f",
+         "elType": "widget",
+         "widgetType": "heading",
+         "settings": {
+          "title": "Track your technician in real time",
+          "header_size": "h2",
+          "align": "left"
+         },
+         "elements": []
+        },
+        {
+         "id": "aa10040",
+         "elType": "widget",
+         "widgetType": "text-editor",
+         "settings": {
+          "editor": "<p>No more waiting around all day. As soon as your job is accepted you can see exactly where your technician is and when they will arrive.</p>",
+          "align": "left"
+         },
+         "elements": []
+        },
+        {
+         "id": "aa10045",
+         "elType": "widget",
+         "widgetType": "icon-list",
+         "settings": {
+          "icon_list": [
+           {
+            "_id": "aa10041",
+            "text": "Live map with your technician's location",
+            "selected_icon": {
+             "value": "fas fa-check-circle",
+             "library": "fa-solid"
+            }
+           },
+           {
+            "_id": "aa10042",
+            "text": "Name, photo and background-check badge before they arrive",
+            "selected_icon": {
+             "value": "fas fa-check-circle",
+             "library": "fa-solid"
+            }
+           },
+           {
+            "_id": "aa10043",
+            "text": "Text alerts when your tech is on the way and has arrived",
+            "selected_icon": {
+             "value": "fas fa-check-circle",
+             "library": "fa-solid"
+            }
+           },
+           {
+            "_id": "aa10044",
+            "text": "Upfront pricing &mdash; approve the estimate before work starts",
+            "selected_icon": {
+             "value": "fas fa-check-circle",
+             "library": "fa-solid"
+            }
+           }
+          ],
+          "view": "traditional",
+          "__globals__": {
+           "icon_color": "globals/colors?id=primary"
+          }
+         },
+         "elements": []
+        },
+        {
+         "id": "aa10046",
+         "elType": "widget",
+         "widgetType": "button",
+         "settings": {
+          "text": "Schedule a Booking",
+          "link": {
+           "url": "/customer-portal/",
+           "is_external": "",
+           "nofollow": "",
+           "custom_attributes": ""
+          },
+          "align": "left",
+          "size": "md",
+          "align_mobile": "center"
+         },
+         "elements": []
+        }
+       ],
+       "isInner": true
+      },
+      {
+       "id": "aa10049",
+       "elType": "container",
+       "settings": {
+        "content_width": "full",
+        "flex_direction": "column",
+        "width": {
+         "unit": "%",
+         "size": 45,
+         "sizes": []
+        },
+        "width_tablet": {
+         "unit": "%",
+         "size": 100,
+         "sizes": []
+        },
+        "width_mobile": {
+         "unit": "%",
+         "size": 100,
+         "sizes": []
+        },
+        "flex_align_items": "center",
+        "flex_justify_content": "flex-start",
+        "flex_gap": {
+         "unit": "px",
+         "size": 16,
+         "column": "16",
+         "row": "16",
+         "isLinked": true
+        }
+       },
+       "elements": [
+        {
+         "id": "aa10048",
+         "elType": "widget",
+         "widgetType": "image",
+         "settings": {
+          "image": {
+           "url": "{{asset:phone-tracking.png}}",
+           "id": "{{asset_id:phone-tracking.png}}",
+           "alt": "",
+           "source": "library"
+          },
+          "image_size": "full",
+          "align": "center",
+          "width": {
+           "unit": "%",
+           "size": 90,
+           "sizes": []
+          }
+         },
+         "elements": []
+        }
+       ],
+       "isInner": true
+      }
+     ],
+     "isInner": true
+    }
+   ],
+   "isInner": false
+  },
+  {
+   "id": "aa10061",
+   "elType": "container",
+   "settings": {
+    "content_width": "boxed",
+    "flex_direction": "column",
+    "flex_align_items": "center",
+    "flex_gap": {
+     "unit": "px",
+     "size": 24,
+     "column": "24",
+     "row": "24",
+     "isLinked": true
+    },
+    "padding": {
+     "unit": "px",
+     "top": "90",
+     "right": "20",
+     "bottom": "90",
+     "left": "20",
+     "isLinked": false
+    },
+    "padding_mobile": {
+     "unit": "px",
+     "top": "60",
+     "right": "16",
+     "bottom": "60",
+     "left": "16",
+     "isLinked": false
+    }
+   },
+   "elements": [
+    {
+     "id": "aa1004c",
+     "elType": "widget",
+     "widgetType": "heading",
+     "settings": {
+      "title": "Our Services",
+      "header_size": "h6",
+      "align": "center",
+      "_css_classes": "mrc-eyebrow"
+     },
+     "elements": []
+    },
+    {
+     "id": "aa1004d",
+     "elType": "widget",
+     "widgetType": "heading",
+     "settings": {
+      "title": "A one-stop shop for home repair and maintenance needs",
+      "header_size": "h2",
+      "align": "center"
+     },
+     "elements": []
+    },
+    {
+     "id": "aa1004e",
+     "elType": "widget",
+     "widgetType": "text-editor",
+     "settings": {
+      "editor": "<p>Comprehensive solutions tailored to your home's unique needs, offering quality and reliability across a wide range of handyman tasks. From quick fixes to in-depth repairs, we're here to make your space better, safer, and more comfortable.</p>",
+      "align": "center"
+     },
+     "elements": []
+    },
+    {
+     "id": "aa1005f",
+     "elType": "container",
+     "settings": {
+      "content_width": "full",
+      "flex_direction": "row",
+      "flex_wrap": "wrap",
+      "flex_gap": {
+       "unit": "px",
+       "size": 24,
+       "column": "24",
+       "row": "24",
+       "isLinked": true
+      },
+      "flex_justify_content": "center",
+      "flex_align_items": "stretch",
+      "padding": {
+       "unit": "px",
+       "top": "0",
+       "right": "0",
+       "bottom": "0",
+       "left": "0",
+       "isLinked": false
+      }
+     },
+     "elements": [
+      {
+       "id": "aa10050",
+       "elType": "container",
+       "settings": {
+        "content_width": "full",
+        "flex_direction": "column",
+        "width": {
+         "unit": "%",
+         "size": 22.5,
+         "sizes": []
+        },
+        "width_tablet": {
+         "unit": "%",
+         "size": 47,
+         "sizes": []
+        },
+        "width_mobile": {
+         "unit": "%",
+         "size": 100,
+         "sizes": []
+        },
+        "flex_align_items": "center",
+        "flex_justify_content": "flex-start",
+        "flex_gap": {
+         "unit": "px",
+         "size": 16,
+         "column": "16",
+         "row": "16",
+         "isLinked": true
+        },
+        "css_classes": "mrc-card"
+       },
+       "elements": [
+        {
+         "id": "aa1004f",
+         "elType": "widget",
+         "widgetType": "icon-box",
+         "settings": {
+          "selected_icon": {
+           "value": "fas fa-faucet",
+           "library": "fa-solid"
+          },
+          "view": "stacked",
+          "shape": "circle",
+          "title_text": "Plumbing",
+          "description_text": "Leaky faucets, clogged drains, running toilets and fixture installs.",
+          "position": "top",
+          "title_size": "h4",
+          "text_align": "center",
+          "icon_size": {
+           "unit": "px",
+           "size": 30,
+           "sizes": []
+          },
+          "icon_padding": {
+           "unit": "px",
+           "size": 22,
+           "sizes": []
+          },
+          "__globals__": {
+           "primary_color": "globals/colors?id=primary",
+           "secondary_color": "globals/colors?id=mrcwhit"
+          }
+         },
+         "elements": []
+        }
+       ],
+       "isInner": true
+      },
+      {
+       "id": "aa10052",
+       "elType": "container",
+       "settings": {
+        "content_width": "full",
+        "flex_direction": "column",
+        "width": {
+         "unit": "%",
+         "size": 22.5,
+         "sizes": []
+        },
+        "width_tablet": {
+         "unit": "%",
+         "size": 47,
+         "sizes": []
+        },
+        "width_mobile": {
+         "unit": "%",
+         "size": 100,
+         "sizes": []
+        },
+        "flex_align_items": "center",
+        "flex_justify_content": "flex-start",
+        "flex_gap": {
+         "unit": "px",
+         "size": 16,
+         "column": "16",
+         "row": "16",
+         "isLinked": true
+        },
+        "css_classes": "mrc-card"
+       },
+       "elements": [
+        {
+         "id": "aa10051",
+         "elType": "widget",
+         "widgetType": "icon-box",
+         "settings": {
+          "selected_icon": {
+           "value": "fas fa-bolt",
+           "library": "fa-solid"
+          },
+          "view": "stacked",
+          "shape": "circle",
+          "title_text": "Electrical",
+          "description_text": "Outlets, switches, light fixtures, ceiling fans and breakers.",
+          "position": "top",
+          "title_size": "h4",
+          "text_align": "center",
+          "icon_size": {
+           "unit": "px",
+           "size": 30,
+           "sizes": []
+          },
+          "icon_padding": {
+           "unit": "px",
+           "size": 22,
+           "sizes": []
+          },
+          "__globals__": {
+           "primary_color": "globals/colors?id=primary",
+           "secondary_color": "globals/colors?id=mrcwhit"
+          }
+         },
+         "elements": []
+        }
+       ],
+       "isInner": true
+      },
+      {
+       "id": "aa10054",
+       "elType": "container",
+       "settings": {
+        "content_width": "full",
+        "flex_direction": "column",
+        "width": {
+         "unit": "%",
+         "size": 22.5,
+         "sizes": []
+        },
+        "width_tablet": {
+         "unit": "%",
+         "size": 47,
+         "sizes": []
+        },
+        "width_mobile": {
+         "unit": "%",
+         "size": 100,
+         "sizes": []
+        },
+        "flex_align_items": "center",
+        "flex_justify_content": "flex-start",
+        "flex_gap": {
+         "unit": "px",
+         "size": 16,
+         "column": "16",
+         "row": "16",
+         "isLinked": true
+        },
+        "css_classes": "mrc-card"
+       },
+       "elements": [
+        {
+         "id": "aa10053",
+         "elType": "widget",
+         "widgetType": "icon-box",
+         "settings": {
+          "selected_icon": {
+           "value": "fas fa-tools",
+           "library": "fa-solid"
+          },
+          "view": "stacked",
+          "shape": "circle",
+          "title_text": "Handyman Repairs",
+          "description_text": "Doors, cabinets, drywall patches, caulking and the to-do list.",
+          "position": "top",
+          "title_size": "h4",
+          "text_align": "center",
+          "icon_size": {
+           "unit": "px",
+           "size": 30,
+           "sizes": []
+          },
+          "icon_padding": {
+           "unit": "px",
+           "size": 22,
+           "sizes": []
+          },
+          "__globals__": {
+           "primary_color": "globals/colors?id=primary",
+           "secondary_color": "globals/colors?id=mrcwhit"
+          }
+         },
+         "elements": []
+        }
+       ],
+       "isInner": true
+      },
+      {
+       "id": "aa10056",
+       "elType": "container",
+       "settings": {
+        "content_width": "full",
+        "flex_direction": "column",
+        "width": {
+         "unit": "%",
+         "size": 22.5,
+         "sizes": []
+        },
+        "width_tablet": {
+         "unit": "%",
+         "size": 47,
+         "sizes": []
+        },
+        "width_mobile": {
+         "unit": "%",
+         "size": 100,
+         "sizes": []
+        },
+        "flex_align_items": "center",
+        "flex_justify_content": "flex-start",
+        "flex_gap": {
+         "unit": "px",
+         "size": 16,
+         "column": "16",
+         "row": "16",
+         "isLinked": true
+        },
+        "css_classes": "mrc-card"
+       },
+       "elements": [
+        {
+         "id": "aa10055",
+         "elType": "widget",
+         "widgetType": "icon-box",
+         "settings": {
+          "selected_icon": {
+           "value": "fas fa-blender",
+           "library": "fa-solid"
+          },
+          "view": "stacked",
+          "shape": "circle",
+          "title_text": "Appliance Repair",
+          "description_text": "Washers, dryers, dishwashers, fridges, ovens and disposals.",
+          "position": "top",
+          "title_size": "h4",
+          "text_align": "center",
+          "icon_size": {
+           "unit": "px",
+           "size": 30,
+           "sizes": []
+          },
+          "icon_padding": {
+           "unit": "px",
+           "size": 22,
+           "sizes": []
+          },
+          "__globals__": {
+           "primary_color": "globals/colors?id=primary",
+           "secondary_color": "globals/colors?id=mrcwhit"
+          }
+         },
+         "elements": []
+        }
+       ],
+       "isInner": true
+      },
+      {
+       "id": "aa10058",
+       "elType": "container",
+       "settings": {
+        "content_width": "full",
+        "flex_direction": "column",
+        "width": {
+         "unit": "%",
+         "size": 22.5,
+         "sizes": []
+        },
+        "width_tablet": {
+         "unit": "%",
+         "size": 47,
+         "sizes": []
+        },
+        "width_mobile": {
+         "unit": "%",
+         "size": 100,
+         "sizes": []
+        },
+        "flex_align_items": "center",
+        "flex_justify_content": "flex-start",
+        "flex_gap": {
+         "unit": "px",
+         "size": 16,
+         "column": "16",
+         "row": "16",
+         "isLinked": true
+        },
+        "css_classes": "mrc-card"
+       },
+       "elements": [
+        {
+         "id": "aa10057",
+         "elType": "widget",
+         "widgetType": "icon-box",
+         "settings": {
+          "selected_icon": {
+           "value": "fas fa-fan",
+           "library": "fa-solid"
+          },
+          "view": "stacked",
+          "shape": "circle",
+          "title_text": "HVAC",
+          "description_text": "Thermostats, filters, vents and heating & cooling check-ups.",
+          "position": "top",
+          "title_size": "h4",
+          "text_align": "center",
+          "icon_size": {
+           "unit": "px",
+           "size": 30,
+           "sizes": []
+          },
+          "icon_padding": {
+           "unit": "px",
+           "size": 22,
+           "sizes": []
+          },
+          "__globals__": {
+           "primary_color": "globals/colors?id=primary",
+           "secondary_color": "globals/colors?id=mrcwhit"
+          }
+         },
+         "elements": []
+        }
+       ],
+       "isInner": true
+      },
+      {
+       "id": "aa1005a",
+       "elType": "container",
+       "settings": {
+        "content_width": "full",
+        "flex_direction": "column",
+        "width": {
+         "unit": "%",
+         "size": 22.5,
+         "sizes": []
+        },
+        "width_tablet": {
+         "unit": "%",
+         "size": 47,
+         "sizes": []
+        },
+        "width_mobile": {
+         "unit": "%",
+         "size": 100,
+         "sizes": []
+        },
+        "flex_align_items": "center",
+        "flex_justify_content": "flex-start",
+        "flex_gap": {
+         "unit": "px",
+         "size": 16,
+         "column": "16",
+         "row": "16",
+         "isLinked": true
+        },
+        "css_classes": "mrc-card"
+       },
+       "elements": [
+        {
+         "id": "aa10059",
+         "elType": "widget",
+         "widgetType": "icon-box",
+         "settings": {
+          "selected_icon": {
+           "value": "fas fa-paint-roller",
+           "library": "fa-solid"
+          },
+          "view": "stacked",
+          "shape": "circle",
+          "title_text": "Painting",
+          "description_text": "Interior touch-ups, accent walls, trim, doors and cabinets.",
+          "position": "top",
+          "title_size": "h4",
+          "text_align": "center",
+          "icon_size": {
+           "unit": "px",
+           "size": 30,
+           "sizes": []
+          },
+          "icon_padding": {
+           "unit": "px",
+           "size": 22,
+           "sizes": []
+          },
+          "__globals__": {
+           "primary_color": "globals/colors?id=primary",
+           "secondary_color": "globals/colors?id=mrcwhit"
+          }
+         },
+         "elements": []
+        }
+       ],
+       "isInner": true
+      },
+      {
+       "id": "aa1005c",
+       "elType": "container",
+       "settings": {
+        "content_width": "full",
+        "flex_direction": "column",
+        "width": {
+         "unit": "%",
+         "size": 22.5,
+         "sizes": []
+        },
+        "width_tablet": {
+         "unit": "%",
+         "size": 47,
+         "sizes": []
+        },
+        "width_mobile": {
+         "unit": "%",
+         "size": 100,
+         "sizes": []
+        },
+        "flex_align_items": "center",
+        "flex_justify_content": "flex-start",
+        "flex_gap": {
+         "unit": "px",
+         "size": 16,
+         "column": "16",
+         "row": "16",
+         "isLinked": true
+        },
+        "css_classes": "mrc-card"
+       },
+       "elements": [
+        {
+         "id": "aa1005b",
+         "elType": "widget",
+         "widgetType": "icon-box",
+         "settings": {
+          "selected_icon": {
+           "value": "fas fa-couch",
+           "library": "fa-solid"
+          },
+          "view": "stacked",
+          "shape": "circle",
+          "title_text": "Furniture Assembly",
+          "description_text": "Beds, desks, shelves and flat-pack furniture put together right.",
+          "position": "top",
+          "title_size": "h4",
+          "text_align": "center",
+          "icon_size": {
+           "unit": "px",
+           "size": 30,
+           "sizes": []
+          },
+          "icon_padding": {
+           "unit": "px",
+           "size": 22,
+           "sizes": []
+          },
+          "__globals__": {
+           "primary_color": "globals/colors?id=primary",
+           "secondary_color": "globals/colors?id=mrcwhit"
+          }
+         },
+         "elements": []
+        }
+       ],
+       "isInner": true
+      },
+      {
+       "id": "aa1005e",
+       "elType": "container",
+       "settings": {
+        "content_width": "full",
+        "flex_direction": "column",
+        "width": {
+         "unit": "%",
+         "size": 22.5,
+         "sizes": []
+        },
+        "width_tablet": {
+         "unit": "%",
+         "size": 47,
+         "sizes": []
+        },
+        "width_mobile": {
+         "unit": "%",
+         "size": 100,
+         "sizes": []
+        },
+        "flex_align_items": "center",
+        "flex_justify_content": "flex-start",
+        "flex_gap": {
+         "unit": "px",
+         "size": 16,
+         "column": "16",
+         "row": "16",
+         "isLinked": true
+        },
+        "css_classes": "mrc-card"
+       },
+       "elements": [
+        {
+         "id": "aa1005d",
+         "elType": "widget",
+         "widgetType": "icon-box",
+         "settings": {
+          "selected_icon": {
+           "value": "fas fa-tv",
+           "library": "fa-solid"
+          },
+          "view": "stacked",
+          "shape": "circle",
+          "title_text": "Mounting & Install",
+          "description_text": "TVs, shelves, curtain rods, mirrors, art and smart devices.",
+          "position": "top",
+          "title_size": "h4",
+          "text_align": "center",
+          "icon_size": {
+           "unit": "px",
+           "size": 30,
+           "sizes": []
+          },
+          "icon_padding": {
+           "unit": "px",
+           "size": 22,
+           "sizes": []
+          },
+          "__globals__": {
+           "primary_color": "globals/colors?id=primary",
+           "secondary_color": "globals/colors?id=mrcwhit"
+          }
+         },
+         "elements": []
+        }
+       ],
+       "isInner": true
+      }
+     ],
+     "isInner": true
+    },
+    {
+     "id": "aa10060",
+     "elType": "widget",
+     "widgetType": "button",
+     "settings": {
+      "text": "View All Services",
+      "link": {
+       "url": "/services/",
+       "is_external": "",
+       "nofollow": "",
+       "custom_attributes": ""
+      },
+      "align": "center",
+      "size": "md"
+     },
+     "elements": []
+    }
+   ],
+   "isInner": false
+  },
+  {
+   "id": "aa10094",
+   "elType": "container",
+   "settings": {
+    "content_width": "boxed",
+    "flex_direction": "column",
+    "flex_align_items": "center",
+    "flex_gap": {
+     "unit": "px",
+     "size": 24,
+     "column": "24",
+     "row": "24",
+     "isLinked": true
+    },
+    "padding": {
+     "unit": "px",
+     "top": "30",
+     "right": "20",
+     "bottom": "90",
+     "left": "20",
+     "isLinked": false
+    },
+    "padding_mobile": {
+     "unit": "px",
+     "top": "60",
+     "right": "16",
+     "bottom": "60",
+     "left": "16",
+     "isLinked": false
+    }
+   },
+   "elements": [
+    {
+     "id": "aa10068",
+     "elType": "widget",
+     "widgetType": "heading",
+     "settings": {
+      "title": "Why homeowners switch to MyRepairCo",
+      "header_size": "h2",
+      "align": "center"
+     },
+     "elements": []
+    },
+    {
+     "id": "aa10093",
+     "elType": "container",
+     "settings": {
+      "content_width": "boxed",
+      "boxed_width": {
+       "unit": "px",
+       "size": 900,
+       "sizes": []
+      },
+      "flex_direction": "column",
+      "flex_gap": {
+       "unit": "px",
+       "size": 0,
+       "column": "0",
+       "row": "0",
+       "isLinked": true
+      },
+      "padding": {
+       "unit": "px",
+       "top": "0",
+       "right": "0",
+       "bottom": "0",
+       "left": "0",
+       "isLinked": false
+      }
+     },
+     "elements": [
+      {
+       "id": "aa10067",
+       "elType": "container",
+       "settings": {
+        "content_width": "full",
+        "flex_direction": "row",
+        "flex_wrap": "nowrap",
+        "flex_gap": {
+         "unit": "px",
+         "size": 0,
+         "column": "0",
+         "row": "0",
+         "isLinked": true
+        },
+        "flex_justify_content": "center",
+        "flex_align_items": "stretch",
+        "padding": {
+         "unit": "px",
+         "top": "0",
+         "right": "0",
+         "bottom": "0",
+         "left": "0",
+         "isLinked": false
+        }
+       },
+       "elements": [
+        {
+         "id": "aa10062",
+         "elType": "container",
+         "settings": {
+          "content_width": "full",
+          "flex_direction": "column",
+          "width": {
+           "unit": "%",
+           "size": 50,
+           "sizes": []
+          },
+          "width_tablet": {
+           "unit": "%",
+           "size": 50,
+           "sizes": []
+          },
+          "width_mobile": {
+           "unit": "%",
+           "size": 46,
+           "sizes": []
+          },
+          "flex_align_items": "flex-start",
+          "flex_justify_content": "flex-start",
+          "flex_gap": {
+           "unit": "px",
+           "size": 16,
+           "column": "16",
+           "row": "16",
+           "isLinked": true
+          }
+         },
+         "elements": [],
+         "isInner": true
+        },
+        {
+         "id": "aa10064",
+         "elType": "container",
+         "settings": {
+          "content_width": "full",
+          "flex_direction": "column",
+          "width": {
+           "unit": "%",
+           "size": 25,
+           "sizes": []
+          },
+          "width_tablet": {
+           "unit": "%",
+           "size": 25,
+           "sizes": []
+          },
+          "width_mobile": {
+           "unit": "%",
+           "size": 27,
+           "sizes": []
+          },
+          "flex_align_items": "center",
+          "flex_justify_content": "center",
+          "flex_gap": {
+           "unit": "px",
+           "size": 16,
+           "column": "16",
+           "row": "16",
+           "isLinked": true
+          },
+          "css_classes": "mrc-brand-col mrc-brand-top",
+          "padding": {
+           "unit": "px",
+           "top": "26",
+           "right": "8",
+           "bottom": "26",
+           "left": "8",
+           "isLinked": false
+          }
+         },
+         "elements": [
+          {
+           "id": "aa10063",
+           "elType": "widget",
+           "widgetType": "heading",
+           "settings": {
+            "title": "MyRepairCo",
+            "header_size": "h6",
+            "align": "center"
+           },
+           "elements": []
+          }
+         ],
+         "isInner": true
+        },
+        {
+         "id": "aa10066",
+         "elType": "container",
+         "settings": {
+          "content_width": "full",
+          "flex_direction": "column",
+          "width": {
+           "unit": "%",
+           "size": 25,
+           "sizes": []
+          },
+          "width_tablet": {
+           "unit": "%",
+           "size": 25,
+           "sizes": []
+          },
+          "width_mobile": {
+           "unit": "%",
+           "size": 27,
+           "sizes": []
+          },
+          "flex_align_items": "center",
+          "flex_justify_content": "center",
+          "flex_gap": {
+           "unit": "px",
+           "size": 16,
+           "column": "16",
+           "row": "16",
+           "isLinked": true
+          },
+          "css_classes": "mrc-others-col mrc-others-top",
+          "padding": {
+           "unit": "px",
+           "top": "26",
+           "right": "8",
+           "bottom": "26",
+           "left": "8",
+           "isLinked": false
+          }
+         },
+         "elements": [
+          {
+           "id": "aa10065",
+           "elType": "widget",
+           "widgetType": "heading",
+           "settings": {
+            "title": "Others",
+            "header_size": "h6",
+            "align": "center"
+           },
+           "elements": []
+          }
+         ],
+         "isInner": true
+        }
+       ],
+       "isInner": true
+      },
+      {
+       "id": "aa1006f",
+       "elType": "container",
+       "settings": {
+        "content_width": "full",
+        "flex_direction": "row",
+        "flex_wrap": "nowrap",
+        "flex_gap": {
+         "unit": "px",
+         "size": 0,
+         "column": "0",
+         "row": "0",
+         "isLinked": true
+        },
+        "flex_justify_content": "center",
+        "flex_align_items": "stretch",
+        "padding": {
+         "unit": "px",
+         "top": "0",
+         "right": "0",
+         "bottom": "0",
+         "left": "0",
+         "isLinked": false
+        },
+        "css_classes": "mrc-compare-row"
+       },
+       "elements": [
+        {
+         "id": "aa1006a",
+         "elType": "container",
+         "settings": {
+          "content_width": "full",
+          "flex_direction": "column",
+          "width": {
+           "unit": "%",
+           "size": 50,
+           "sizes": []
+          },
+          "width_tablet": {
+           "unit": "%",
+           "size": 50,
+           "sizes": []
+          },
+          "width_mobile": {
+           "unit": "%",
+           "size": 46,
+           "sizes": []
+          },
+          "flex_align_items": "flex-start",
+          "flex_justify_content": "center",
+          "flex_gap": {
+           "unit": "px",
+           "size": 16,
+           "column": "16",
+           "row": "16",
+           "isLinked": true
+          },
+          "padding": {
+           "unit": "px",
+           "top": "18",
+           "right": "16",
+           "bottom": "18",
+           "left": "0",
+           "isLinked": false
+          }
+         },
+         "elements": [
+          {
+           "id": "aa10069",
+           "elType": "widget",
+           "widgetType": "heading",
+           "settings": {
+            "title": "Same-day technician dispatch",
+            "header_size": "h5",
+            "align": "left"
+           },
+           "elements": []
+          }
+         ],
+         "isInner": true
+        },
+        {
+         "id": "aa1006c",
+         "elType": "container",
+         "settings": {
+          "content_width": "full",
+          "flex_direction": "column",
+          "width": {
+           "unit": "%",
+           "size": 25,
+           "sizes": []
+          },
+          "width_tablet": {
+           "unit": "%",
+           "size": 25,
+           "sizes": []
+          },
+          "width_mobile": {
+           "unit": "%",
+           "size": 27,
+           "sizes": []
+          },
+          "flex_align_items": "center",
+          "flex_justify_content": "center",
+          "flex_gap": {
+           "unit": "px",
+           "size": 16,
+           "column": "16",
+           "row": "16",
+           "isLinked": true
+          },
+          "css_classes": "mrc-brand-col",
+          "padding": {
+           "unit": "px",
+           "top": "18",
+           "right": "8",
+           "bottom": "18",
+           "left": "8",
+           "isLinked": false
+          }
+         },
+         "elements": [
+          {
+           "id": "aa1006b",
+           "elType": "widget",
+           "widgetType": "icon",
+           "settings": {
+            "selected_icon": {
+             "value": "fas fa-check-circle",
+             "library": "fa-solid"
+            },
+            "size": {
+             "unit": "px",
+             "size": 30,
+             "sizes": []
+            },
+            "__globals__": {
+             "primary_color": "globals/colors?id=mrcwhit"
+            }
+           },
+           "elements": []
+          }
+         ],
+         "isInner": true
+        },
+        {
+         "id": "aa1006e",
+         "elType": "container",
+         "settings": {
+          "content_width": "full",
+          "flex_direction": "column",
+          "width": {
+           "unit": "%",
+           "size": 25,
+           "sizes": []
+          },
+          "width_tablet": {
+           "unit": "%",
+           "size": 25,
+           "sizes": []
+          },
+          "width_mobile": {
+           "unit": "%",
+           "size": 27,
+           "sizes": []
+          },
+          "flex_align_items": "center",
+          "flex_justify_content": "center",
+          "flex_gap": {
+           "unit": "px",
+           "size": 16,
+           "column": "16",
+           "row": "16",
+           "isLinked": true
+          },
+          "css_classes": "mrc-others-col",
+          "padding": {
+           "unit": "px",
+           "top": "18",
+           "right": "8",
+           "bottom": "18",
+           "left": "8",
+           "isLinked": false
+          }
+         },
+         "elements": [
+          {
+           "id": "aa1006d",
+           "elType": "widget",
+           "widgetType": "icon",
+           "settings": {
+            "selected_icon": {
+             "value": "fas fa-times-circle",
+             "library": "fa-solid"
+            },
+            "size": {
+             "unit": "px",
+             "size": 30,
+             "sizes": []
+            },
+            "__globals__": {
+             "primary_color": "globals/colors?id=text"
+            }
+           },
+           "elements": []
+          }
+         ],
+         "isInner": true
+        }
+       ],
+       "isInner": true
+      },
+      {
+       "id": "aa10076",
+       "elType": "container",
+       "settings": {
+        "content_width": "full",
+        "flex_direction": "row",
+        "flex_wrap": "nowrap",
+        "flex_gap": {
+         "unit": "px",
+         "size": 0,
+         "column": "0",
+         "row": "0",
+         "isLinked": true
+        },
+        "flex_justify_content": "center",
+        "flex_align_items": "stretch",
+        "padding": {
+         "unit": "px",
+         "top": "0",
+         "right": "0",
+         "bottom": "0",
+         "left": "0",
+         "isLinked": false
+        },
+        "css_classes": "mrc-compare-row"
+       },
+       "elements": [
+        {
+         "id": "aa10071",
+         "elType": "container",
+         "settings": {
+          "content_width": "full",
+          "flex_direction": "column",
+          "width": {
+           "unit": "%",
+           "size": 50,
+           "sizes": []
+          },
+          "width_tablet": {
+           "unit": "%",
+           "size": 50,
+           "sizes": []
+          },
+          "width_mobile": {
+           "unit": "%",
+           "size": 46,
+           "sizes": []
+          },
+          "flex_align_items": "flex-start",
+          "flex_justify_content": "center",
+          "flex_gap": {
+           "unit": "px",
+           "size": 16,
+           "column": "16",
+           "row": "16",
+           "isLinked": true
+          },
+          "padding": {
+           "unit": "px",
+           "top": "18",
+           "right": "16",
+           "bottom": "18",
+           "left": "0",
+           "isLinked": false
+          }
+         },
+         "elements": [
+          {
+           "id": "aa10070",
+           "elType": "widget",
+           "widgetType": "heading",
+           "settings": {
+            "title": "Background-verified technicians",
+            "header_size": "h5",
+            "align": "left"
+           },
+           "elements": []
+          }
+         ],
+         "isInner": true
+        },
+        {
+         "id": "aa10073",
+         "elType": "container",
+         "settings": {
+          "content_width": "full",
+          "flex_direction": "column",
+          "width": {
+           "unit": "%",
+           "size": 25,
+           "sizes": []
+          },
+          "width_tablet": {
+           "unit": "%",
+           "size": 25,
+           "sizes": []
+          },
+          "width_mobile": {
+           "unit": "%",
+           "size": 27,
+           "sizes": []
+          },
+          "flex_align_items": "center",
+          "flex_justify_content": "center",
+          "flex_gap": {
+           "unit": "px",
+           "size": 16,
+           "column": "16",
+           "row": "16",
+           "isLinked": true
+          },
+          "css_classes": "mrc-brand-col",
+          "padding": {
+           "unit": "px",
+           "top": "18",
+           "right": "8",
+           "bottom": "18",
+           "left": "8",
+           "isLinked": false
+          }
+         },
+         "elements": [
+          {
+           "id": "aa10072",
+           "elType": "widget",
+           "widgetType": "icon",
+           "settings": {
+            "selected_icon": {
+             "value": "fas fa-check-circle",
+             "library": "fa-solid"
+            },
+            "size": {
+             "unit": "px",
+             "size": 30,
+             "sizes": []
+            },
+            "__globals__": {
+             "primary_color": "globals/colors?id=mrcwhit"
+            }
+           },
+           "elements": []
+          }
+         ],
+         "isInner": true
+        },
+        {
+         "id": "aa10075",
+         "elType": "container",
+         "settings": {
+          "content_width": "full",
+          "flex_direction": "column",
+          "width": {
+           "unit": "%",
+           "size": 25,
+           "sizes": []
+          },
+          "width_tablet": {
+           "unit": "%",
+           "size": 25,
+           "sizes": []
+          },
+          "width_mobile": {
+           "unit": "%",
+           "size": 27,
+           "sizes": []
+          },
+          "flex_align_items": "center",
+          "flex_justify_content": "center",
+          "flex_gap": {
+           "unit": "px",
+           "size": 16,
+           "column": "16",
+           "row": "16",
+           "isLinked": true
+          },
+          "css_classes": "mrc-others-col",
+          "padding": {
+           "unit": "px",
+           "top": "18",
+           "right": "8",
+           "bottom": "18",
+           "left": "8",
+           "isLinked": false
+          }
+         },
+         "elements": [
+          {
+           "id": "aa10074",
+           "elType": "widget",
+           "widgetType": "icon",
+           "settings": {
+            "selected_icon": {
+             "value": "fas fa-times-circle",
+             "library": "fa-solid"
+            },
+            "size": {
+             "unit": "px",
+             "size": 30,
+             "sizes": []
+            },
+            "__globals__": {
+             "primary_color": "globals/colors?id=text"
+            }
+           },
+           "elements": []
+          }
+         ],
+         "isInner": true
+        }
+       ],
+       "isInner": true
+      },
+      {
+       "id": "aa1007d",
+       "elType": "container",
+       "settings": {
+        "content_width": "full",
+        "flex_direction": "row",
+        "flex_wrap": "nowrap",
+        "flex_gap": {
+         "unit": "px",
+         "size": 0,
+         "column": "0",
+         "row": "0",
+         "isLinked": true
+        },
+        "flex_justify_content": "center",
+        "flex_align_items": "stretch",
+        "padding": {
+         "unit": "px",
+         "top": "0",
+         "right": "0",
+         "bottom": "0",
+         "left": "0",
+         "isLinked": false
+        },
+        "css_classes": "mrc-compare-row"
+       },
+       "elements": [
+        {
+         "id": "aa10078",
+         "elType": "container",
+         "settings": {
+          "content_width": "full",
+          "flex_direction": "column",
+          "width": {
+           "unit": "%",
+           "size": 50,
+           "sizes": []
+          },
+          "width_tablet": {
+           "unit": "%",
+           "size": 50,
+           "sizes": []
+          },
+          "width_mobile": {
+           "unit": "%",
+           "size": 46,
+           "sizes": []
+          },
+          "flex_align_items": "flex-start",
+          "flex_justify_content": "center",
+          "flex_gap": {
+           "unit": "px",
+           "size": 16,
+           "column": "16",
+           "row": "16",
+           "isLinked": true
+          },
+          "padding": {
+           "unit": "px",
+           "top": "18",
+           "right": "16",
+           "bottom": "18",
+           "left": "0",
+           "isLinked": false
+          }
+         },
+         "elements": [
+          {
+           "id": "aa10077",
+           "elType": "widget",
+           "widgetType": "heading",
+           "settings": {
+            "title": "Real-time GPS tracking",
+            "header_size": "h5",
+            "align": "left"
+           },
+           "elements": []
+          }
+         ],
+         "isInner": true
+        },
+        {
+         "id": "aa1007a",
+         "elType": "container",
+         "settings": {
+          "content_width": "full",
+          "flex_direction": "column",
+          "width": {
+           "unit": "%",
+           "size": 25,
+           "sizes": []
+          },
+          "width_tablet": {
+           "unit": "%",
+           "size": 25,
+           "sizes": []
+          },
+          "width_mobile": {
+           "unit": "%",
+           "size": 27,
+           "sizes": []
+          },
+          "flex_align_items": "center",
+          "flex_justify_content": "center",
+          "flex_gap": {
+           "unit": "px",
+           "size": 16,
+           "column": "16",
+           "row": "16",
+           "isLinked": true
+          },
+          "css_classes": "mrc-brand-col",
+          "padding": {
+           "unit": "px",
+           "top": "18",
+           "right": "8",
+           "bottom": "18",
+           "left": "8",
+           "isLinked": false
+          }
+         },
+         "elements": [
+          {
+           "id": "aa10079",
+           "elType": "widget",
+           "widgetType": "icon",
+           "settings": {
+            "selected_icon": {
+             "value": "fas fa-check-circle",
+             "library": "fa-solid"
+            },
+            "size": {
+             "unit": "px",
+             "size": 30,
+             "sizes": []
+            },
+            "__globals__": {
+             "primary_color": "globals/colors?id=mrcwhit"
+            }
+           },
+           "elements": []
+          }
+         ],
+         "isInner": true
+        },
+        {
+         "id": "aa1007c",
+         "elType": "container",
+         "settings": {
+          "content_width": "full",
+          "flex_direction": "column",
+          "width": {
+           "unit": "%",
+           "size": 25,
+           "sizes": []
+          },
+          "width_tablet": {
+           "unit": "%",
+           "size": 25,
+           "sizes": []
+          },
+          "width_mobile": {
+           "unit": "%",
+           "size": 27,
+           "sizes": []
+          },
+          "flex_align_items": "center",
+          "flex_justify_content": "center",
+          "flex_gap": {
+           "unit": "px",
+           "size": 16,
+           "column": "16",
+           "row": "16",
+           "isLinked": true
+          },
+          "css_classes": "mrc-others-col",
+          "padding": {
+           "unit": "px",
+           "top": "18",
+           "right": "8",
+           "bottom": "18",
+           "left": "8",
+           "isLinked": false
+          }
+         },
+         "elements": [
+          {
+           "id": "aa1007b",
+           "elType": "widget",
+           "widgetType": "icon",
+           "settings": {
+            "selected_icon": {
+             "value": "fas fa-times-circle",
+             "library": "fa-solid"
+            },
+            "size": {
+             "unit": "px",
+             "size": 30,
+             "sizes": []
+            },
+            "__globals__": {
+             "primary_color": "globals/colors?id=text"
+            }
+           },
+           "elements": []
+          }
+         ],
+         "isInner": true
+        }
+       ],
+       "isInner": true
+      },
+      {
+       "id": "aa10084",
+       "elType": "container",
+       "settings": {
+        "content_width": "full",
+        "flex_direction": "row",
+        "flex_wrap": "nowrap",
+        "flex_gap": {
+         "unit": "px",
+         "size": 0,
+         "column": "0",
+         "row": "0",
+         "isLinked": true
+        },
+        "flex_justify_content": "center",
+        "flex_align_items": "stretch",
+        "padding": {
+         "unit": "px",
+         "top": "0",
+         "right": "0",
+         "bottom": "0",
+         "left": "0",
+         "isLinked": false
+        },
+        "css_classes": "mrc-compare-row"
+       },
+       "elements": [
+        {
+         "id": "aa1007f",
+         "elType": "container",
+         "settings": {
+          "content_width": "full",
+          "flex_direction": "column",
+          "width": {
+           "unit": "%",
+           "size": 50,
+           "sizes": []
+          },
+          "width_tablet": {
+           "unit": "%",
+           "size": 50,
+           "sizes": []
+          },
+          "width_mobile": {
+           "unit": "%",
+           "size": 46,
+           "sizes": []
+          },
+          "flex_align_items": "flex-start",
+          "flex_justify_content": "center",
+          "flex_gap": {
+           "unit": "px",
+           "size": 16,
+           "column": "16",
+           "row": "16",
+           "isLinked": true
+          },
+          "padding": {
+           "unit": "px",
+           "top": "18",
+           "right": "16",
+           "bottom": "18",
+           "left": "0",
+           "isLinked": false
+          }
+         },
+         "elements": [
+          {
+           "id": "aa1007e",
+           "elType": "widget",
+           "widgetType": "heading",
+           "settings": {
+            "title": "Upfront pricing before work starts",
+            "header_size": "h5",
+            "align": "left"
+           },
+           "elements": []
+          }
+         ],
+         "isInner": true
+        },
+        {
+         "id": "aa10081",
+         "elType": "container",
+         "settings": {
+          "content_width": "full",
+          "flex_direction": "column",
+          "width": {
+           "unit": "%",
+           "size": 25,
+           "sizes": []
+          },
+          "width_tablet": {
+           "unit": "%",
+           "size": 25,
+           "sizes": []
+          },
+          "width_mobile": {
+           "unit": "%",
+           "size": 27,
+           "sizes": []
+          },
+          "flex_align_items": "center",
+          "flex_justify_content": "center",
+          "flex_gap": {
+           "unit": "px",
+           "size": 16,
+           "column": "16",
+           "row": "16",
+           "isLinked": true
+          },
+          "css_classes": "mrc-brand-col",
+          "padding": {
+           "unit": "px",
+           "top": "18",
+           "right": "8",
+           "bottom": "18",
+           "left": "8",
+           "isLinked": false
+          }
+         },
+         "elements": [
+          {
+           "id": "aa10080",
+           "elType": "widget",
+           "widgetType": "icon",
+           "settings": {
+            "selected_icon": {
+             "value": "fas fa-check-circle",
+             "library": "fa-solid"
+            },
+            "size": {
+             "unit": "px",
+             "size": 30,
+             "sizes": []
+            },
+            "__globals__": {
+             "primary_color": "globals/colors?id=mrcwhit"
+            }
+           },
+           "elements": []
+          }
+         ],
+         "isInner": true
+        },
+        {
+         "id": "aa10083",
+         "elType": "container",
+         "settings": {
+          "content_width": "full",
+          "flex_direction": "column",
+          "width": {
+           "unit": "%",
+           "size": 25,
+           "sizes": []
+          },
+          "width_tablet": {
+           "unit": "%",
+           "size": 25,
+           "sizes": []
+          },
+          "width_mobile": {
+           "unit": "%",
+           "size": 27,
+           "sizes": []
+          },
+          "flex_align_items": "center",
+          "flex_justify_content": "center",
+          "flex_gap": {
+           "unit": "px",
+           "size": 16,
+           "column": "16",
+           "row": "16",
+           "isLinked": true
+          },
+          "css_classes": "mrc-others-col",
+          "padding": {
+           "unit": "px",
+           "top": "18",
+           "right": "8",
+           "bottom": "18",
+           "left": "8",
+           "isLinked": false
+          }
+         },
+         "elements": [
+          {
+           "id": "aa10082",
+           "elType": "widget",
+           "widgetType": "icon",
+           "settings": {
+            "selected_icon": {
+             "value": "fas fa-times-circle",
+             "library": "fa-solid"
+            },
+            "size": {
+             "unit": "px",
+             "size": 30,
+             "sizes": []
+            },
+            "__globals__": {
+             "primary_color": "globals/colors?id=text"
+            }
+           },
+           "elements": []
+          }
+         ],
+         "isInner": true
+        }
+       ],
+       "isInner": true
+      },
+      {
+       "id": "aa1008b",
+       "elType": "container",
+       "settings": {
+        "content_width": "full",
+        "flex_direction": "row",
+        "flex_wrap": "nowrap",
+        "flex_gap": {
+         "unit": "px",
+         "size": 0,
+         "column": "0",
+         "row": "0",
+         "isLinked": true
+        },
+        "flex_justify_content": "center",
+        "flex_align_items": "stretch",
+        "padding": {
+         "unit": "px",
+         "top": "0",
+         "right": "0",
+         "bottom": "0",
+         "left": "0",
+         "isLinked": false
+        },
+        "css_classes": "mrc-compare-row"
+       },
+       "elements": [
+        {
+         "id": "aa10086",
+         "elType": "container",
+         "settings": {
+          "content_width": "full",
+          "flex_direction": "column",
+          "width": {
+           "unit": "%",
+           "size": 50,
+           "sizes": []
+          },
+          "width_tablet": {
+           "unit": "%",
+           "size": 50,
+           "sizes": []
+          },
+          "width_mobile": {
+           "unit": "%",
+           "size": 46,
+           "sizes": []
+          },
+          "flex_align_items": "flex-start",
+          "flex_justify_content": "center",
+          "flex_gap": {
+           "unit": "px",
+           "size": 16,
+           "column": "16",
+           "row": "16",
+           "isLinked": true
+          },
+          "padding": {
+           "unit": "px",
+           "top": "18",
+           "right": "16",
+           "bottom": "18",
+           "left": "0",
+           "isLinked": false
+          }
+         },
+         "elements": [
+          {
+           "id": "aa10085",
+           "elType": "widget",
+           "widgetType": "heading",
+           "settings": {
+            "title": "One-year work guarantee",
+            "header_size": "h5",
+            "align": "left"
+           },
+           "elements": []
+          }
+         ],
+         "isInner": true
+        },
+        {
+         "id": "aa10088",
+         "elType": "container",
+         "settings": {
+          "content_width": "full",
+          "flex_direction": "column",
+          "width": {
+           "unit": "%",
+           "size": 25,
+           "sizes": []
+          },
+          "width_tablet": {
+           "unit": "%",
+           "size": 25,
+           "sizes": []
+          },
+          "width_mobile": {
+           "unit": "%",
+           "size": 27,
+           "sizes": []
+          },
+          "flex_align_items": "center",
+          "flex_justify_content": "center",
+          "flex_gap": {
+           "unit": "px",
+           "size": 16,
+           "column": "16",
+           "row": "16",
+           "isLinked": true
+          },
+          "css_classes": "mrc-brand-col",
+          "padding": {
+           "unit": "px",
+           "top": "18",
+           "right": "8",
+           "bottom": "18",
+           "left": "8",
+           "isLinked": false
+          }
+         },
+         "elements": [
+          {
+           "id": "aa10087",
+           "elType": "widget",
+           "widgetType": "icon",
+           "settings": {
+            "selected_icon": {
+             "value": "fas fa-check-circle",
+             "library": "fa-solid"
+            },
+            "size": {
+             "unit": "px",
+             "size": 30,
+             "sizes": []
+            },
+            "__globals__": {
+             "primary_color": "globals/colors?id=mrcwhit"
+            }
+           },
+           "elements": []
+          }
+         ],
+         "isInner": true
+        },
+        {
+         "id": "aa1008a",
+         "elType": "container",
+         "settings": {
+          "content_width": "full",
+          "flex_direction": "column",
+          "width": {
+           "unit": "%",
+           "size": 25,
+           "sizes": []
+          },
+          "width_tablet": {
+           "unit": "%",
+           "size": 25,
+           "sizes": []
+          },
+          "width_mobile": {
+           "unit": "%",
+           "size": 27,
+           "sizes": []
+          },
+          "flex_align_items": "center",
+          "flex_justify_content": "center",
+          "flex_gap": {
+           "unit": "px",
+           "size": 16,
+           "column": "16",
+           "row": "16",
+           "isLinked": true
+          },
+          "css_classes": "mrc-others-col",
+          "padding": {
+           "unit": "px",
+           "top": "18",
+           "right": "8",
+           "bottom": "18",
+           "left": "8",
+           "isLinked": false
+          }
+         },
+         "elements": [
+          {
+           "id": "aa10089",
+           "elType": "widget",
+           "widgetType": "icon",
+           "settings": {
+            "selected_icon": {
+             "value": "fas fa-times-circle",
+             "library": "fa-solid"
+            },
+            "size": {
+             "unit": "px",
+             "size": 30,
+             "sizes": []
+            },
+            "__globals__": {
+             "primary_color": "globals/colors?id=text"
+            }
+           },
+           "elements": []
+          }
+         ],
+         "isInner": true
+        }
+       ],
+       "isInner": true
+      },
+      {
+       "id": "aa10092",
+       "elType": "container",
+       "settings": {
+        "content_width": "full",
+        "flex_direction": "row",
+        "flex_wrap": "nowrap",
+        "flex_gap": {
+         "unit": "px",
+         "size": 0,
+         "column": "0",
+         "row": "0",
+         "isLinked": true
+        },
+        "flex_justify_content": "center",
+        "flex_align_items": "stretch",
+        "padding": {
+         "unit": "px",
+         "top": "0",
+         "right": "0",
+         "bottom": "0",
+         "left": "0",
+         "isLinked": false
+        },
+        "css_classes": "mrc-compare-row"
+       },
+       "elements": [
+        {
+         "id": "aa1008d",
+         "elType": "container",
+         "settings": {
+          "content_width": "full",
+          "flex_direction": "column",
+          "width": {
+           "unit": "%",
+           "size": 50,
+           "sizes": []
+          },
+          "width_tablet": {
+           "unit": "%",
+           "size": 50,
+           "sizes": []
+          },
+          "width_mobile": {
+           "unit": "%",
+           "size": 46,
+           "sizes": []
+          },
+          "flex_align_items": "flex-start",
+          "flex_justify_content": "center",
+          "flex_gap": {
+           "unit": "px",
+           "size": 16,
+           "column": "16",
+           "row": "16",
+           "isLinked": true
+          },
+          "padding": {
+           "unit": "px",
+           "top": "18",
+           "right": "16",
+           "bottom": "18",
+           "left": "0",
+           "isLinked": false
+          }
+         },
+         "elements": [
+          {
+           "id": "aa1008c",
+           "elType": "widget",
+           "widgetType": "heading",
+           "settings": {
+            "title": "Book, track & pay in one place",
+            "header_size": "h5",
+            "align": "left"
+           },
+           "elements": []
+          }
+         ],
+         "isInner": true
+        },
+        {
+         "id": "aa1008f",
+         "elType": "container",
+         "settings": {
+          "content_width": "full",
+          "flex_direction": "column",
+          "width": {
+           "unit": "%",
+           "size": 25,
+           "sizes": []
+          },
+          "width_tablet": {
+           "unit": "%",
+           "size": 25,
+           "sizes": []
+          },
+          "width_mobile": {
+           "unit": "%",
+           "size": 27,
+           "sizes": []
+          },
+          "flex_align_items": "center",
+          "flex_justify_content": "center",
+          "flex_gap": {
+           "unit": "px",
+           "size": 16,
+           "column": "16",
+           "row": "16",
+           "isLinked": true
+          },
+          "css_classes": "mrc-brand-col",
+          "padding": {
+           "unit": "px",
+           "top": "18",
+           "right": "8",
+           "bottom": "18",
+           "left": "8",
+           "isLinked": false
+          }
+         },
+         "elements": [
+          {
+           "id": "aa1008e",
+           "elType": "widget",
+           "widgetType": "icon",
+           "settings": {
+            "selected_icon": {
+             "value": "fas fa-check-circle",
+             "library": "fa-solid"
+            },
+            "size": {
+             "unit": "px",
+             "size": 30,
+             "sizes": []
+            },
+            "__globals__": {
+             "primary_color": "globals/colors?id=mrcwhit"
+            }
+           },
+           "elements": []
+          }
+         ],
+         "isInner": true
+        },
+        {
+         "id": "aa10091",
+         "elType": "container",
+         "settings": {
+          "content_width": "full",
+          "flex_direction": "column",
+          "width": {
+           "unit": "%",
+           "size": 25,
+           "sizes": []
+          },
+          "width_tablet": {
+           "unit": "%",
+           "size": 25,
+           "sizes": []
+          },
+          "width_mobile": {
+           "unit": "%",
+           "size": 27,
+           "sizes": []
+          },
+          "flex_align_items": "center",
+          "flex_justify_content": "center",
+          "flex_gap": {
+           "unit": "px",
+           "size": 16,
+           "column": "16",
+           "row": "16",
+           "isLinked": true
+          },
+          "css_classes": "mrc-others-col",
+          "padding": {
+           "unit": "px",
+           "top": "18",
+           "right": "8",
+           "bottom": "18",
+           "left": "8",
+           "isLinked": false
+          }
+         },
+         "elements": [
+          {
+           "id": "aa10090",
+           "elType": "widget",
+           "widgetType": "icon",
+           "settings": {
+            "selected_icon": {
+             "value": "fas fa-times-circle",
+             "library": "fa-solid"
+            },
+            "size": {
+             "unit": "px",
+             "size": 30,
+             "sizes": []
+            },
+            "__globals__": {
+             "primary_color": "globals/colors?id=text"
+            }
+           },
+           "elements": []
+          }
+         ],
+         "isInner": true
+        }
+       ],
+       "isInner": true
+      }
+     ],
+     "isInner": true
+    }
+   ],
+   "isInner": false
+  },
+  {
+   "id": "aa100a0",
+   "elType": "container",
+   "settings": {
+    "content_width": "boxed",
+    "flex_direction": "column",
+    "flex_align_items": "center",
+    "flex_gap": {
+     "unit": "px",
+     "size": 24,
+     "column": "24",
+     "row": "24",
+     "isLinked": true
+    },
+    "padding": {
+     "unit": "px",
+     "top": "90",
+     "right": "20",
+     "bottom": "90",
+     "left": "20",
+     "isLinked": false
+    },
+    "padding_mobile": {
+     "unit": "px",
+     "top": "60",
+     "right": "16",
+     "bottom": "60",
+     "left": "16",
+     "isLinked": false
+    },
+    "background_background": "classic",
+    "__globals__": {
+     "background_color": "globals/colors?id=mrcligh"
+    }
+   },
+   "elements": [
+    {
+     "id": "aa10095",
+     "elType": "widget",
+     "widgetType": "heading",
+     "settings": {
+      "title": "Recent Projects",
+      "header_size": "h6",
+      "align": "center",
+      "_css_classes": "mrc-eyebrow"
+     },
+     "elements": []
+    },
+    {
+     "id": "aa10096",
+     "elType": "widget",
+     "widgetType": "heading",
+     "settings": {
+      "title": "Inspiration for your next project",
+      "header_size": "h2",
+      "align": "center"
+     },
+     "elements": []
+    },
+    {
+     "id": "aa1009f",
+     "elType": "container",
+     "settings": {
+      "content_width": "full",
+      "flex_direction": "row",
+      "flex_wrap": "wrap",
+      "flex_gap": {
+       "unit": "px",
+       "size": 20,
+       "column": "20",
+       "row": "20",
+       "isLinked": true
+      },
+      "flex_justify_content": "center",
+      "flex_align_items": "stretch",
+      "padding": {
+       "unit": "px",
+       "top": "0",
+       "right": "0",
+       "bottom": "0",
+       "left": "0",
+       "isLinked": false
+      }
+     },
+     "elements": [
+      {
+       "id": "aa10098",
+       "elType": "container",
+       "settings": {
+        "content_width": "full",
+        "flex_direction": "column",
+        "width": {
+         "unit": "%",
+         "size": 23,
+         "sizes": []
+        },
+        "width_tablet": {
+         "unit": "%",
+         "size": 47,
+         "sizes": []
+        },
+        "width_mobile": {
+         "unit": "%",
+         "size": 100,
+         "sizes": []
+        },
+        "flex_align_items": "flex-start",
+        "flex_justify_content": "flex-start",
+        "flex_gap": {
+         "unit": "px",
+         "size": 16,
+         "column": "16",
+         "row": "16",
+         "isLinked": true
+        }
+       },
+       "elements": [
+        {
+         "id": "aa10097",
+         "elType": "widget",
+         "widgetType": "image",
+         "settings": {
+          "image": {
+           "url": "https://myrepairco.com/wp-content/uploads/2026/05/selective-focus-of-handsome-handyman-repairing-roof-with-coworker.jpg",
+           "id": "",
+           "alt": "",
+           "source": "library"
+          },
+          "image_size": "full",
+          "align": "center",
+          "_css_classes": "mrc-photo"
+         },
+         "elements": []
+        }
+       ],
+       "isInner": true
+      },
+      {
+       "id": "aa1009a",
+       "elType": "container",
+       "settings": {
+        "content_width": "full",
+        "flex_direction": "column",
+        "width": {
+         "unit": "%",
+         "size": 23,
+         "sizes": []
+        },
+        "width_tablet": {
+         "unit": "%",
+         "size": 47,
+         "sizes": []
+        },
+        "width_mobile": {
+         "unit": "%",
+         "size": 100,
+         "sizes": []
+        },
+        "flex_align_items": "flex-start",
+        "flex_justify_content": "flex-start",
+        "flex_gap": {
+         "unit": "px",
+         "size": 16,
+         "column": "16",
+         "row": "16",
+         "isLinked": true
+        }
+       },
+       "elements": [
+        {
+         "id": "aa10099",
+         "elType": "widget",
+         "widgetType": "image",
+         "settings": {
+          "image": {
+           "url": "https://myrepairco.com/wp-content/uploads/2026/05/handyman-varnishing-wooden-planks-outside.jpg",
+           "id": "",
+           "alt": "",
+           "source": "library"
+          },
+          "image_size": "full",
+          "align": "center",
+          "_css_classes": "mrc-photo"
+         },
+         "elements": []
+        }
+       ],
+       "isInner": true
+      },
+      {
+       "id": "aa1009c",
+       "elType": "container",
+       "settings": {
+        "content_width": "full",
+        "flex_direction": "column",
+        "width": {
+         "unit": "%",
+         "size": 23,
+         "sizes": []
+        },
+        "width_tablet": {
+         "unit": "%",
+         "size": 47,
+         "sizes": []
+        },
+        "width_mobile": {
+         "unit": "%",
+         "size": 100,
+         "sizes": []
+        },
+        "flex_align_items": "flex-start",
+        "flex_justify_content": "flex-start",
+        "flex_gap": {
+         "unit": "px",
+         "size": 16,
+         "column": "16",
+         "row": "16",
+         "isLinked": true
+        }
+       },
+       "elements": [
+        {
+         "id": "aa1009b",
+         "elType": "widget",
+         "widgetType": "image",
+         "settings": {
+          "image": {
+           "url": "https://myrepairco.com/wp-content/uploads/2026/05/african-american-man-assembling-furniture-at-home.jpg",
+           "id": "",
+           "alt": "",
+           "source": "library"
+          },
+          "image_size": "full",
+          "align": "center",
+          "_css_classes": "mrc-photo"
+         },
+         "elements": []
+        }
+       ],
+       "isInner": true
+      },
+      {
+       "id": "aa1009e",
+       "elType": "container",
+       "settings": {
+        "content_width": "full",
+        "flex_direction": "column",
+        "width": {
+         "unit": "%",
+         "size": 23,
+         "sizes": []
+        },
+        "width_tablet": {
+         "unit": "%",
+         "size": 47,
+         "sizes": []
+        },
+        "width_mobile": {
+         "unit": "%",
+         "size": 100,
+         "sizes": []
+        },
+        "flex_align_items": "flex-start",
+        "flex_justify_content": "flex-start",
+        "flex_gap": {
+         "unit": "px",
+         "size": 16,
+         "column": "16",
+         "row": "16",
+         "isLinked": true
+        }
+       },
+       "elements": [
+        {
+         "id": "aa1009d",
+         "elType": "widget",
+         "widgetType": "image",
+         "settings": {
+          "image": {
+           "url": "https://myrepairco.com/wp-content/uploads/2026/05/electrician-changes-the-light-bulb-handyman.jpg",
+           "id": "",
+           "alt": "",
+           "source": "library"
+          },
+          "image_size": "full",
+          "align": "center",
+          "_css_classes": "mrc-photo"
+         },
+         "elements": []
+        }
+       ],
+       "isInner": true
+      }
+     ],
+     "isInner": true
+    }
+   ],
+   "isInner": false
+  },
+  {
+   "id": "aa100ae",
+   "elType": "container",
+   "settings": {
+    "content_width": "boxed",
+    "flex_direction": "column",
+    "flex_align_items": "center",
+    "flex_gap": {
+     "unit": "px",
+     "size": 24,
+     "column": "24",
+     "row": "24",
+     "isLinked": true
+    },
+    "padding": {
+     "unit": "px",
+     "top": "90",
+     "right": "20",
+     "bottom": "90",
+     "left": "20",
+     "isLinked": false
+    },
+    "padding_mobile": {
+     "unit": "px",
+     "top": "60",
+     "right": "16",
+     "bottom": "60",
+     "left": "16",
+     "isLinked": false
+    }
+   },
+   "elements": [
+    {
+     "id": "aa100ad",
+     "elType": "container",
+     "settings": {
+      "content_width": "full",
+      "flex_direction": "row",
+      "flex_wrap": "wrap",
+      "flex_gap": {
+       "unit": "px",
+       "size": 50,
+       "column": "50",
+       "row": "50",
+       "isLinked": true
+      },
+      "flex_justify_content": "center",
+      "flex_align_items": "center",
+      "padding": {
+       "unit": "px",
+       "top": "0",
+       "right": "0",
+       "bottom": "0",
+       "left": "0",
+       "isLinked": false
+      }
+     },
+     "elements": [
+      {
+       "id": "aa100a2",
+       "elType": "container",
+       "settings": {
+        "content_width": "full",
+        "flex_direction": "column",
+        "width": {
+         "unit": "%",
+         "size": 45,
+         "sizes": []
+        },
+        "width_tablet": {
+         "unit": "%",
+         "size": 100,
+         "sizes": []
+        },
+        "width_mobile": {
+         "unit": "%",
+         "size": 100,
+         "sizes": []
+        },
+        "flex_align_items": "flex-start",
+        "flex_justify_content": "flex-start",
+        "flex_gap": {
+         "unit": "px",
+         "size": 16,
+         "column": "16",
+         "row": "16",
+         "isLinked": true
+        }
+       },
+       "elements": [
+        {
+         "id": "aa100a1",
+         "elType": "widget",
+         "widgetType": "image",
+         "settings": {
+          "image": {
+           "url": "https://myrepairco.com/wp-content/uploads/2026/05/african-american-man-assembling-furniture-at-home.jpg",
+           "id": "",
+           "alt": "",
+           "source": "library"
+          },
+          "image_size": "full",
+          "align": "center",
+          "_css_classes": "mrc-photo"
+         },
+         "elements": []
+        }
+       ],
+       "isInner": true
+      },
+      {
+       "id": "aa100ac",
+       "elType": "container",
+       "settings": {
+        "content_width": "full",
+        "flex_direction": "column",
+        "width": {
+         "unit": "%",
+         "size": 50,
+         "sizes": []
+        },
+        "width_tablet": {
+         "unit": "%",
+         "size": 100,
+         "sizes": []
+        },
+        "width_mobile": {
+         "unit": "%",
+         "size": 100,
+         "sizes": []
+        },
+        "flex_align_items": "flex-start",
+        "flex_justify_content": "center",
+        "flex_gap": {
+         "unit": "px",
+         "size": 16,
+         "column": "16",
+         "row": "16",
+         "isLinked": true
+        }
+       },
+       "elements": [
+        {
+         "id": "aa100a3",
+         "elType": "widget",
+         "widgetType": "heading",
+         "settings": {
+          "title": "About Us",
+          "header_size": "h6",
+          "align": "left",
+          "_css_classes": "mrc-eyebrow"
+         },
+         "elements": []
+        },
+        {
+         "id": "aa100a4",
+         "elType": "widget",
+         "widgetType": "heading",
+         "settings": {
+          "title": "Clients love our service because nobody does it better.",
+          "header_size": "h2",
+          "align": "left"
+         },
+         "elements": []
+        },
+        {
+         "id": "aa100a5",
+         "elType": "widget",
+         "widgetType": "text-editor",
+         "settings": {
+          "editor": "<p>We pride ourselves on delivering top-tier handyman services with a focus on quality, reliability, and customer satisfaction. Our team of skilled, background-checked professionals is committed to making your home a better place.</p>",
+          "align": "left"
+         },
+         "elements": []
+        },
+        {
+         "id": "aa100aa",
+         "elType": "widget",
+         "widgetType": "icon-list",
+         "settings": {
+          "icon_list": [
+           {
+            "_id": "aa100a6",
+            "text": "Dedicated to quality handyman work.",
+            "selected_icon": {
+             "value": "fas fa-check-circle",
+             "library": "fa-solid"
+            }
+           },
+           {
+            "_id": "aa100a7",
+            "text": "Home repairs handled with care.",
+            "selected_icon": {
+             "value": "fas fa-check-circle",
+             "library": "fa-solid"
+            }
+           },
+           {
+            "_id": "aa100a8",
+            "text": "Accurate fix, satisfaction guaranteed.",
+            "selected_icon": {
+             "value": "fas fa-check-circle",
+             "library": "fa-solid"
+            }
+           },
+           {
+            "_id": "aa100a9",
+            "text": "Save money on your repair projects.",
+            "selected_icon": {
+             "value": "fas fa-check-circle",
+             "library": "fa-solid"
+            }
+           }
+          ],
+          "view": "traditional",
+          "__globals__": {
+           "icon_color": "globals/colors?id=primary"
+          }
+         },
+         "elements": []
+        },
+        {
+         "id": "aa100ab",
+         "elType": "widget",
+         "widgetType": "button",
+         "settings": {
+          "text": "More About Us",
+          "link": {
+           "url": "/tech-team/",
+           "is_external": "",
+           "nofollow": "",
+           "custom_attributes": ""
+          },
+          "align": "left",
+          "size": "md",
+          "align_mobile": "center"
+         },
+         "elements": []
+        }
+       ],
+       "isInner": true
+      }
+     ],
+     "isInner": true
+    }
+   ],
+   "isInner": false
+  },
+  {
+   "id": "aa100b9",
+   "elType": "container",
+   "settings": {
+    "content_width": "boxed",
+    "flex_direction": "column",
+    "flex_align_items": "center",
+    "flex_gap": {
+     "unit": "px",
+     "size": 24,
+     "column": "24",
+     "row": "24",
+     "isLinked": true
+    },
+    "padding": {
+     "unit": "px",
+     "top": "130",
+     "right": "20",
+     "bottom": "130",
+     "left": "20",
+     "isLinked": false
+    },
+    "padding_mobile": {
+     "unit": "px",
+     "top": "60",
+     "right": "16",
+     "bottom": "60",
+     "left": "16",
+     "isLinked": false
+    },
+    "background_background": "classic",
+    "__globals__": {
+     "background_color": "globals/colors?id=primary"
+    },
+    "css_classes": "mrc-on-dark",
+    "shape_divider_top": "drops",
+    "shape_divider_top_color": "#FFFFFF",
+    "shape_divider_top_height": {
+     "unit": "px",
+     "size": 70,
+     "sizes": []
+    },
+    "shape_divider_bottom": "drops",
+    "shape_divider_bottom_color": "#FFFFFF",
+    "shape_divider_bottom_height": {
+     "unit": "px",
+     "size": 70,
+     "sizes": []
+    }
+   },
+   "elements": [
+    {
+     "id": "aa100b5",
+     "elType": "widget",
+     "widgetType": "heading",
+     "settings": {
+      "title": "Testimonials",
+      "header_size": "h6",
+      "align": "center",
+      "_css_classes": "mrc-eyebrow"
+     },
+     "elements": []
+    },
+    {
+     "id": "aa100b6",
+     "elType": "widget",
+     "widgetType": "heading",
+     "settings": {
+      "title": "Why Trust Us?",
+      "header_size": "h2",
+      "align": "center"
+     },
+     "elements": []
+    },
+    {
+     "id": "aa100b7",
+     "elType": "widget",
+     "widgetType": "text-editor",
+     "settings": {
+      "editor": "<p>Customer experiences that highlight our dedication and skill</p>",
+      "align": "center"
+     },
+     "elements": []
+    },
+    {
+     "id": "aa100b8",
+     "elType": "container",
+     "settings": {
+      "content_width": "full",
+      "flex_direction": "row",
+      "flex_wrap": "wrap",
+      "flex_gap": {
+       "unit": "px",
+       "size": 24,
+       "column": "24",
+       "row": "24",
+       "isLinked": true
+      },
+      "flex_justify_content": "center",
+      "flex_align_items": "stretch",
+      "padding": {
+       "unit": "px",
+       "top": "0",
+       "right": "0",
+       "bottom": "0",
+       "left": "0",
+       "isLinked": false
+      }
+     },
+     "elements": [
+      {
+       "id": "aa100b0",
+       "elType": "container",
+       "settings": {
+        "content_width": "full",
+        "flex_direction": "column",
+        "width": {
+         "unit": "%",
+         "size": 31,
+         "sizes": []
+        },
+        "width_tablet": {
+         "unit": "%",
+         "size": 100,
+         "sizes": []
+        },
+        "width_mobile": {
+         "unit": "%",
+         "size": 100,
+         "sizes": []
+        },
+        "flex_align_items": "flex-start",
+        "flex_justify_content": "flex-start",
+        "flex_gap": {
+         "unit": "px",
+         "size": 16,
+         "column": "16",
+         "row": "16",
+         "isLinked": true
+        },
+        "css_classes": "mrc-card"
+       },
+       "elements": [
+        {
+         "id": "aa100af",
+         "elType": "widget",
+         "widgetType": "testimonial",
+         "settings": {
+          "testimonial_content": "Sample review &mdash; replace with a real customer review. The technician arrived the same day, fixed our leaking faucet in under an hour and cleaned up after.",
+          "testimonial_name": "Customer Name",
+          "testimonial_job": "Homeowner",
+          "testimonial_alignment": "left",
+          "testimonial_image_position": "top"
+         },
+         "elements": []
+        }
+       ],
+       "isInner": true
+      },
+      {
+       "id": "aa100b2",
+       "elType": "container",
+       "settings": {
+        "content_width": "full",
+        "flex_direction": "column",
+        "width": {
+         "unit": "%",
+         "size": 31,
+         "sizes": []
+        },
+        "width_tablet": {
+         "unit": "%",
+         "size": 100,
+         "sizes": []
+        },
+        "width_mobile": {
+         "unit": "%",
+         "size": 100,
+         "sizes": []
+        },
+        "flex_align_items": "flex-start",
+        "flex_justify_content": "flex-start",
+        "flex_gap": {
+         "unit": "px",
+         "size": 16,
+         "column": "16",
+         "row": "16",
+         "isLinked": true
+        },
+        "css_classes": "mrc-card"
+       },
+       "elements": [
+        {
+         "id": "aa100b1",
+         "elType": "widget",
+         "widgetType": "testimonial",
+         "settings": {
+          "testimonial_content": "Sample review &mdash; replace with a real customer review. Being able to see the tech on the map meant I did not have to wait around all afternoon.",
+          "testimonial_name": "Customer Name",
+          "testimonial_job": "Homeowner",
+          "testimonial_alignment": "left",
+          "testimonial_image_position": "top"
+         },
+         "elements": []
+        }
+       ],
+       "isInner": true
+      },
+      {
+       "id": "aa100b4",
+       "elType": "container",
+       "settings": {
+        "content_width": "full",
+        "flex_direction": "column",
+        "width": {
+         "unit": "%",
+         "size": 31,
+         "sizes": []
+        },
+        "width_tablet": {
+         "unit": "%",
+         "size": 100,
+         "sizes": []
+        },
+        "width_mobile": {
+         "unit": "%",
+         "size": 100,
+         "sizes": []
+        },
+        "flex_align_items": "flex-start",
+        "flex_justify_content": "flex-start",
+        "flex_gap": {
+         "unit": "px",
+         "size": 16,
+         "column": "16",
+         "row": "16",
+         "isLinked": true
+        },
+        "css_classes": "mrc-card"
+       },
+       "elements": [
+        {
+         "id": "aa100b3",
+         "elType": "widget",
+         "widgetType": "testimonial",
+         "settings": {
+          "testimonial_content": "Sample review &mdash; replace with a real customer review. Friendly, on time and the price was exactly what they quoted up front.",
+          "testimonial_name": "Customer Name",
+          "testimonial_job": "Homeowner",
+          "testimonial_alignment": "left",
+          "testimonial_image_position": "top"
+         },
+         "elements": []
+        }
+       ],
+       "isInner": true
+      }
+     ],
+     "isInner": true
+    }
+   ],
+   "isInner": false
+  },
+  {
+   "id": "aa100c3",
+   "elType": "container",
+   "settings": {
+    "content_width": "boxed",
+    "flex_direction": "column",
+    "flex_align_items": "center",
+    "flex_gap": {
+     "unit": "px",
+     "size": 24,
+     "column": "24",
+     "row": "24",
+     "isLinked": true
+    },
+    "padding": {
+     "unit": "px",
+     "top": "70",
+     "right": "20",
+     "bottom": "70",
+     "left": "20",
+     "isLinked": false
+    },
+    "padding_mobile": {
+     "unit": "px",
+     "top": "60",
+     "right": "16",
+     "bottom": "60",
+     "left": "16",
+     "isLinked": false
+    },
+    "background_background": "classic",
+    "__globals__": {
+     "background_color": "globals/colors?id=secondary"
+    },
+    "css_classes": "mrc-on-dark"
+   },
+   "elements": [
+    {
+     "id": "aa100c2",
+     "elType": "container",
+     "settings": {
+      "content_width": "full",
+      "flex_direction": "row",
+      "flex_wrap": "wrap",
+      "flex_gap": {
+       "unit": "px",
+       "size": 40,
+       "column": "40",
+       "row": "40",
+       "isLinked": true
+      },
+      "flex_justify_content": "center",
+      "flex_align_items": "center",
+      "padding": {
+       "unit": "px",
+       "top": "0",
+       "right": "0",
+       "bottom": "0",
+       "left": "0",
+       "isLinked": false
+      }
+     },
+     "elements": [
+      {
+       "id": "aa100bf",
+       "elType": "container",
+       "settings": {
+        "content_width": "full",
+        "flex_direction": "column",
+        "width": {
+         "unit": "%",
+         "size": 55,
+         "sizes": []
+        },
+        "width_tablet": {
+         "unit": "%",
+         "size": 100,
+         "sizes": []
+        },
+        "width_mobile": {
+         "unit": "%",
+         "size": 100,
+         "sizes": []
+        },
+        "flex_align_items": "flex-start",
+        "flex_justify_content": "center",
+        "flex_gap": {
+         "unit": "px",
+         "size": 16,
+         "column": "16",
+         "row": "16",
+         "isLinked": true
+        }
+       },
+       "elements": [
+        {
+         "id": "aa100ba",
+         "elType": "widget",
+         "widgetType": "heading",
+         "settings": {
+          "title": "Get a verified tech at your door today",
+          "header_size": "h2",
+          "align": "left"
+         },
+         "elements": []
+        },
+        {
+         "id": "aa100bb",
+         "elType": "widget",
+         "widgetType": "text-editor",
+         "settings": {
+          "editor": "<p>Book in minutes, track your technician live and pay only when the job is done.</p>",
+          "align": "left"
+         },
+         "elements": []
+        },
+        {
+         "id": "aa100be",
+         "elType": "container",
+         "settings": {
+          "content_width": "full",
+          "flex_direction": "row",
+          "flex_wrap": "wrap",
+          "flex_gap": {
+           "unit": "px",
+           "size": 16,
+           "column": "16",
+           "row": "16",
+           "isLinked": true
+          },
+          "flex_justify_content": "flex-start",
+          "flex_align_items": "stretch",
+          "padding": {
+           "unit": "px",
+           "top": "0",
+           "right": "0",
+           "bottom": "0",
+           "left": "0",
+           "isLinked": false
+          }
+         },
+         "elements": [
+          {
+           "id": "aa100bc",
+           "elType": "widget",
+           "widgetType": "button",
+           "settings": {
+            "text": "Schedule a Booking",
+            "link": {
+             "url": "/customer-portal/",
+             "is_external": "",
+             "nofollow": "",
+             "custom_attributes": ""
+            },
+            "align": "center",
+            "size": "md",
+            "_css_classes": "mrc-btn-light"
+           },
+           "elements": []
+          },
+          {
+           "id": "aa100bd",
+           "elType": "widget",
+           "widgetType": "button",
+           "settings": {
+            "text": "Call +1 123 456 7890",
+            "link": {
+             "url": "tel:+11234567890",
+             "is_external": "",
+             "nofollow": "",
+             "custom_attributes": ""
+            },
+            "align": "center",
+            "size": "md",
+            "_css_classes": "mrc-btn-outline-light"
+           },
+           "elements": []
+          }
+         ],
+         "isInner": true
+        }
+       ],
+       "isInner": true
+      },
+      {
+       "id": "aa100c1",
+       "elType": "container",
+       "settings": {
+        "content_width": "full",
+        "flex_direction": "column",
+        "width": {
+         "unit": "%",
+         "size": 40,
+         "sizes": []
+        },
+        "width_tablet": {
+         "unit": "%",
+         "size": 100,
+         "sizes": []
+        },
+        "width_mobile": {
+         "unit": "%",
+         "size": 100,
+         "sizes": []
+        },
+        "flex_align_items": "center",
+        "flex_justify_content": "flex-start",
+        "flex_gap": {
+         "unit": "px",
+         "size": 16,
+         "column": "16",
+         "row": "16",
+         "isLinked": true
+        }
+       },
+       "elements": [
+        {
+         "id": "aa100c0",
+         "elType": "widget",
+         "widgetType": "image",
+         "settings": {
+          "image": {
+           "url": "{{asset:phone-tracking.png}}",
+           "id": "{{asset_id:phone-tracking.png}}",
+           "alt": "",
+           "source": "library"
+          },
+          "image_size": "full",
+          "align": "center",
+          "width": {
+           "unit": "%",
+           "size": 80,
+           "sizes": []
+          }
+         },
+         "elements": []
+        }
+       ],
+       "isInner": true
+      }
+     ],
+     "isInner": true
+    }
+   ],
+   "isInner": false
+  },
+  {
+   "id": "aa100c7",
+   "elType": "container",
+   "settings": {
+    "content_width": "boxed",
+    "flex_direction": "column",
+    "flex_align_items": "center",
+    "flex_gap": {
+     "unit": "px",
+     "size": 24,
+     "column": "24",
+     "row": "24",
+     "isLinked": true
+    },
+    "padding": {
+     "unit": "px",
+     "top": "90",
+     "right": "20",
+     "bottom": "90",
+     "left": "20",
+     "isLinked": false
+    },
+    "padding_mobile": {
+     "unit": "px",
+     "top": "60",
+     "right": "16",
+     "bottom": "60",
+     "left": "16",
+     "isLinked": false
+    },
+    "css_classes": "mrc-narrow"
+   },
+   "elements": [
+    {
+     "id": "aa100c4",
+     "elType": "widget",
+     "widgetType": "heading",
+     "settings": {
+      "title": "Hiring Skilled Technicians",
+      "header_size": "h2",
+      "align": "center"
+     },
+     "elements": []
+    },
+    {
+     "id": "aa100c5",
+     "elType": "widget",
+     "widgetType": "text-editor",
+     "settings": {
+      "editor": "<p>Are you a skilled handyman, plumber, electrician or appliance technician looking for flexible, well-paid work? Join our tech team &mdash; apply through the link below.</p>",
+      "align": "center"
+     },
+     "elements": []
+    },
+    {
+     "id": "aa100c6",
+     "elType": "widget",
+     "widgetType": "button",
+     "settings": {
+      "text": "Apply Today",
+      "link": {
+       "url": "/tech-team/",
+       "is_external": "",
+       "nofollow": "",
+       "custom_attributes": ""
+      },
+      "align": "center",
+      "size": "md"
+     },
+     "elements": []
+    }
+   ],
+   "isInner": false
+  },
+  {
+   "id": "aa100cb",
+   "elType": "container",
+   "settings": {
+    "content_width": "boxed",
+    "flex_direction": "column",
+    "flex_align_items": "center",
+    "flex_gap": {
+     "unit": "px",
+     "size": 24,
+     "column": "24",
+     "row": "24",
+     "isLinked": true
+    },
+    "padding": {
+     "unit": "px",
+     "top": "120",
+     "right": "20",
+     "bottom": "90",
+     "left": "20",
+     "isLinked": false
+    },
+    "padding_mobile": {
+     "unit": "px",
+     "top": "60",
+     "right": "16",
+     "bottom": "60",
+     "left": "16",
+     "isLinked": false
+    },
+    "background_background": "classic",
+    "__globals__": {
+     "background_color": "globals/colors?id=mrcligh"
+    },
+    "shape_divider_top": "drops",
+    "shape_divider_top_color": "#FFFFFF",
+    "shape_divider_top_height": {
+     "unit": "px",
+     "size": 60,
+     "sizes": []
+    }
+   },
+   "elements": [
+    {
+     "id": "aa100c8",
+     "elType": "widget",
+     "widgetType": "heading",
+     "settings": {
+      "title": "Our Blog",
+      "header_size": "h6",
+      "align": "center",
+      "_css_classes": "mrc-eyebrow"
+     },
+     "elements": []
+    },
+    {
+     "id": "aa100c9",
+     "elType": "widget",
+     "widgetType": "heading",
+     "settings": {
+      "title": "Our Latest Posts",
+      "header_size": "h2",
+      "align": "center"
+     },
+     "elements": []
+    },
+    {
+     "id": "aa100ca",
+     "elType": "widget",
+     "widgetType": "posts",
+     "settings": {
+      "_skin": "cards",
+      "cards_columns": "3",
+      "cards_columns_tablet": "2",
+      "cards_columns_mobile": "1",
+      "cards_posts_per_page": 3,
+      "cards_show_excerpt": "yes",
+      "cards_meta_data": [
+       "date"
+      ],
+      "cards_read_more_text": "Read More »"
+     },
+     "elements": []
+    }
+   ],
+   "isInner": false
+  }
+ ],
+ "page_settings": {
+  "template": "elementor_header_footer",
+  "hide_title": "yes"
+ }
+}

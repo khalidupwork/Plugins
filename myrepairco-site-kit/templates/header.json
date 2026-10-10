@@ -1,0 +1,193 @@
+{
+ "version": "0.4",
+ "title": "MyRepairCo Header",
+ "type": "header",
+ "content": [
+  {
+   "id": "aa100d0",
+   "elType": "container",
+   "settings": {
+    "content_width": "boxed",
+    "flex_direction": "row",
+    "flex_justify_content": "space-between",
+    "flex_align_items": "center",
+    "flex_wrap": "wrap",
+    "padding": {
+     "unit": "px",
+     "top": "8",
+     "right": "20",
+     "bottom": "8",
+     "left": "20",
+     "isLinked": false
+    },
+    "background_background": "classic",
+    "__globals__": {
+     "background_color": "globals/colors?id=secondary"
+    }
+   },
+   "elements": [
+    {
+     "id": "aa100ce",
+     "elType": "widget",
+     "widgetType": "icon-list",
+     "settings": {
+      "icon_list": [
+       {
+        "_id": "aa100cc",
+        "text": "+1 123 456 7890",
+        "selected_icon": {
+         "value": "fas fa-phone-alt",
+         "library": "fa-solid"
+        },
+        "link": {
+         "url": "tel:+11234567890",
+         "is_external": "",
+         "nofollow": "",
+         "custom_attributes": ""
+        }
+       },
+       {
+        "_id": "aa100cd",
+        "text": "info@example.com",
+        "selected_icon": {
+         "value": "fas fa-envelope",
+         "library": "fa-solid"
+        },
+        "link": {
+         "url": "mailto:info@example.com",
+         "is_external": "",
+         "nofollow": "",
+         "custom_attributes": ""
+        }
+       }
+      ],
+      "view": "inline",
+      "__globals__": {
+       "icon_color": "globals/colors?id=primary"
+      },
+      "_css_classes": "mrc-on-dark"
+     },
+     "elements": []
+    },
+    {
+     "id": "aa100cf",
+     "elType": "widget",
+     "widgetType": "heading",
+     "settings": {
+      "title": "Mon – Sat: 8 am – 8 pm",
+      "header_size": "p",
+      "align": "right",
+      "_css_classes": "mrc-on-dark mrc-small",
+      "hide_mobile": "hidden-mobile"
+     },
+     "elements": []
+    }
+   ],
+   "isInner": false
+  },
+  {
+   "id": "aa100d4",
+   "elType": "container",
+   "settings": {
+    "content_width": "boxed",
+    "flex_direction": "row",
+    "flex_justify_content": "space-between",
+    "flex_align_items": "center",
+    "flex_wrap": "nowrap",
+    "flex_gap": {
+     "unit": "px",
+     "size": 24,
+     "column": "24",
+     "row": "24",
+     "isLinked": true
+    },
+    "padding": {
+     "unit": "px",
+     "top": "14",
+     "right": "20",
+     "bottom": "14",
+     "left": "20",
+     "isLinked": false
+    },
+    "css_classes": "mrc-header-main"
+   },
+   "elements": [
+    {
+     "id": "aa100d1",
+     "elType": "widget",
+     "widgetType": "image",
+     "settings": {
+      "image": {
+       "url": "{{asset:myrepairco-logo-red-transparent.png}}",
+       "id": "{{asset_id:myrepairco-logo-red-transparent.png}}",
+       "alt": "",
+       "source": "library"
+      },
+      "image_size": "full",
+      "align": "left",
+      "width": {
+       "unit": "px",
+       "size": 300,
+       "sizes": []
+      },
+      "link_to": "custom",
+      "link": {
+       "url": "/",
+       "is_external": "",
+       "nofollow": "",
+       "custom_attributes": ""
+      },
+      "width_mobile": {
+       "unit": "px",
+       "size": 170,
+       "sizes": []
+      }
+     },
+     "elements": []
+    },
+    {
+     "id": "aa100d2",
+     "elType": "widget",
+     "widgetType": "nav-menu",
+     "settings": {
+      "menu": "{{menu}}",
+      "layout": "horizontal",
+      "align_items": "right",
+      "pointer": "underline",
+      "dropdown": "tablet",
+      "toggle": "burger",
+      "full_width": "stretch",
+      "__globals__": {
+       "color_menu_item_hover": "globals/colors?id=primary",
+       "pointer_color_menu_item_hover": "globals/colors?id=primary",
+       "color_menu_item_active": "globals/colors?id=primary",
+       "pointer_color_menu_item_active": "globals/colors?id=primary"
+      },
+      "_flex_size": "grow"
+     },
+     "elements": []
+    },
+    {
+     "id": "aa100d3",
+     "elType": "widget",
+     "widgetType": "button",
+     "settings": {
+      "text": "Schedule a Booking",
+      "link": {
+       "url": "/customer-portal/",
+       "is_external": "",
+       "nofollow": "",
+       "custom_attributes": ""
+      },
+      "align": "center",
+      "size": "md",
+      "hide_mobile": "hidden-mobile"
+     },
+     "elements": []
+    }
+   ],
+   "isInner": false
+  }
+ ],
+ "page_settings": {}
+}
