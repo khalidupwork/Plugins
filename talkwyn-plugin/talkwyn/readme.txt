@@ -4,7 +4,7 @@ Tags: chatbot, ai chatbot, live chat, multilingual, lead generation
 Requires at least: 6.4
 Tested up to: 7.1
 Requires PHP: 8.0
-Stable tag: 2.3.10
+Stable tag: 2.3.11
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
@@ -119,6 +119,9 @@ In your WordPress database. Chats, leads and knowledge stay on your site. Messag
 6. Leads and conversations.
 
 == Changelog ==
+
+= 2.3.11 =
+* Changed: The plugin header links to the plugin page (talkwyn.com/download/) and the author page (talkwyn.com/about/) separately, as WordPress.org asks.
 
 = 2.3.10 =
 * Fixed: With "Open full screen on phones" on, the chat on phones stayed a little narrower and shorter than the screen, so the page showed at the side and bottom. It now fills the whole screen, leaves room for the iPhone home bar, and hides the expand button there.

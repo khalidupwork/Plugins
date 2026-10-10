@@ -1,6 +1,9 @@
-# Talkwyn 2.3.10 test checklist
+# Talkwyn 2.3.11 test checklist
 
 The full run, including Pro and migration, is in `../QA-CHECKLIST.md`. This list covers what changed in 2.1.0.
+
+## 2.3.11
+- [ ] Plugins screen: "Visit plugin site" opens talkwyn.com/download/ and the author link opens talkwyn.com/about/.
 
 ## 2.3.10
 - [ ] Phone (390px), "Open full screen on phones" on: the open chat covers the whole screen (no page at the side or bottom), no expand button, the composer clears the iPhone home bar.

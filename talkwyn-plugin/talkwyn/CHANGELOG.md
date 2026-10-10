@@ -1,5 +1,10 @@
 # Talkwyn changelog
 
+## 2.3.11
+
+### Changed
+- Plugin header: `Plugin URI` is https://talkwyn.com/download/ and `Author URI` is https://talkwyn.com/about/. Both were https://talkwyn.com/, which the WordPress.org upload check refuses ("Your plugin and author URIs are the same").
+
 ## 2.3.10
 
 ### Fixed
