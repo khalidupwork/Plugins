@@ -1,6 +1,7 @@
 <?php
 /**
  * Uninstall: removes data only when "Delete all data on uninstall" is enabled.
+ * Invoice numbers and the invoice counter are kept (accounting records).
  *
  * @package TalkwynHub
  */
@@ -38,7 +39,7 @@ if ( is_dir( $twh_dir ) ) {
 }
 
 // Tables.
-foreach ( array( 'products', 'releases', 'licenses', 'activations', 'events', 'partners', 'referral_visits', 'referrals', 'payouts' ) as $twh_table ) {
+foreach ( array( 'products', 'releases', 'licenses', 'activations', 'events', 'partners', 'referral_visits', 'referrals', 'payouts', 'subscribers' ) as $twh_table ) {
 	$wpdb->query( "DROP TABLE IF EXISTS {$wpdb->prefix}twh_{$twh_table}" ); // phpcs:ignore WordPress.DB.DirectDatabaseQuery,WordPress.DB.PreparedSQL.InterpolatedNotPrepared
 }
 
@@ -48,7 +49,9 @@ foreach ( array( 'twh_settings', 'twh_signing_keys', 'twh_db_version', 'twh_secr
 }
 $wpdb->query( "DELETE FROM {$wpdb->options} WHERE option_name LIKE '\\_transient\\_twh\\_%' OR option_name LIKE '\\_transient\\_timeout\\_twh\\_%' OR option_name LIKE 'twh\\_lock\\_order\\_%'" ); // phpcs:ignore WordPress.DB.DirectDatabaseQuery
 
-// Product mapping meta.
-$wpdb->query( "DELETE FROM {$wpdb->postmeta} WHERE meta_key LIKE '\\_twh\\_%'" ); // phpcs:ignore WordPress.DB.DirectDatabaseQuery,WordPress.DB.SlowDBQuery
+// Product mapping meta. Invoice numbers on orders (_twh_invoice_*) and the
+// invoice counter (twh_invoice_counter) are kept on purpose: invoices are
+// accounting records, and a reinstall must not reuse a number already issued.
+$wpdb->query( "DELETE FROM {$wpdb->postmeta} WHERE meta_key LIKE '\\_twh\\_%' AND meta_key NOT LIKE '\\_twh\\_invoice\\_%'" ); // phpcs:ignore WordPress.DB.DirectDatabaseQuery,WordPress.DB.SlowDBQuery
 
 wp_clear_scheduled_hook( 'twh_daily' );

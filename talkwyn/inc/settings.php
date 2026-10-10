@@ -24,10 +24,26 @@ function talkwyn_settings_defaults(): array {
 		'product_business'    => 0,
 		'product_agency'      => 0,
 		'product_lifetime'    => 0,
-		'price_personal'      => '',
-		'price_business'      => '',
-		'price_agency'        => '',
+		'price_personal'      => '$49',
+		'price_business'      => '$109',
+		'price_agency'        => '$239',
 		'price_lifetime'      => '',
+		'regular_personal'    => '$79',
+		'regular_business'    => '$179',
+		'regular_agency'      => '$399',
+		'regular_lifetime'    => '',
+		'hosted_3yr_range'    => '$1,000 to $2,800',
+		'legal_company'       => '',
+		'legal_address'       => '',
+		'legal_email'         => '',
+		'legal_jurisdiction'  => '',
+		'legal_updated'       => '',
+		'legal_payment'       => '',
+		'legal_hosting'       => '',
+		'legal_email_service' => '',
+		'legal_min_age'       => 16,
+		'legal_reply_time'    => '',
+		'legal_reviewed'      => 0,
 		'show_lifetime'       => 0,
 		'founding_enabled'    => 1,
 		'founding_seats'      => 100,
@@ -350,6 +366,29 @@ function talkwyn_value( string $key ): string {
 			return talkwyn_partner_terms()['methods'];
 		case 'partner_approval_days':
 			return number_format_i18n( talkwyn_partner_terms()['approval_days'] );
+		case 'legal_company':
+		case 'legal_address':
+		case 'legal_jurisdiction':
+		case 'legal_payment':
+		case 'legal_hosting':
+		case 'legal_email_service':
+		case 'legal_reply_time':
+			$v = trim( (string) talkwyn_setting( $key ) );
+			return '' !== $v ? $v : '[' . str_replace( '_', ' ', substr( $key, 6 ) ) . ']';
+		case 'legal_email':
+			$v = trim( (string) talkwyn_setting( 'legal_email' ) );
+			return '' !== $v ? $v : talkwyn_value( 'contact_email' );
+		case 'legal_min_age':
+			return number_format_i18n( max( 13, (int) talkwyn_setting( 'legal_min_age' ) ) );
+		case 'legal_analytics':
+			$a = (string) talkwyn_setting( 'analytics' );
+			return 'ga4' === $a ? 'Google Analytics' : ( 'plausible' === $a ? 'Plausible' : __( 'no analytics tool at the moment', 'talkwyn' ) );
+		case 'legal_updated':
+			$date = (string) talkwyn_setting( 'legal_updated' );
+			if ( '' !== $date ) {
+				return date_i18n( get_option( 'date_format' ), (int) strtotime( $date ) );
+			}
+			return (string) get_the_modified_date();
 		case 'tidio_checked_on':
 		case 'chatbase_checked_on':
 		case 'intercom_checked_on':
@@ -443,6 +482,11 @@ function talkwyn_settings_fields(): array {
 			array( 'price_business', __( 'Manual price, Business', 'talkwyn' ), 'text' ),
 			array( 'price_agency', __( 'Manual price, Agency', 'talkwyn' ), 'text' ),
 			array( 'price_lifetime', __( 'Manual price, Lifetime', 'talkwyn' ), 'text' ),
+			array( 'regular_personal', __( 'Manual regular price, Personal (struck through when higher than the price, e.g. $79)', 'talkwyn' ), 'text' ),
+			array( 'regular_business', __( 'Manual regular price, Business', 'talkwyn' ), 'text' ),
+			array( 'regular_agency', __( 'Manual regular price, Agency', 'talkwyn' ), 'text' ),
+			array( 'regular_lifetime', __( 'Manual regular price, Lifetime', 'talkwyn' ), 'text' ),
+			array( 'hosted_3yr_range', __( '3-year cost of a typical hosted AI chat plan, for the cost chart (e.g. $1,000 to $2,800)', 'talkwyn' ), 'text' ),
 			array( 'show_lifetime', __( 'Show the Lifetime plan', 'talkwyn' ), 'checkbox' ),
 		),
 		__( 'Founding customers', 'talkwyn' ) => array(
@@ -458,6 +502,19 @@ function talkwyn_settings_fields(): array {
 			array( 'contact_email', __( 'Contact form recipient (empty = site admin email)', 'talkwyn' ), 'email' ),
 			array( 'waitlist_show_count', __( 'Show the live waitlist count on integration pages', 'talkwyn' ), 'checkbox' ),
 			array( 'demo_shortcode', __( 'Live demo shortcode (when the Talkwyn plugin runs on this site), e.g. [talkwyn_chat mode="inline" profile="demo-clinic"]', 'talkwyn' ), 'text' ),
+		),
+		__( 'Legal pages', 'talkwyn' )        => array(
+			array( 'legal_company', __( 'Registered business name', 'talkwyn' ), 'text' ),
+			array( 'legal_address', __( 'Business address', 'talkwyn' ), 'text' ),
+			array( 'legal_email', __( 'Privacy email (empty = contact email)', 'talkwyn' ), 'email' ),
+			array( 'legal_jurisdiction', __( 'Governing law: the country where the business is registered', 'talkwyn' ), 'text' ),
+			array( 'legal_payment', __( 'Payment processor (e.g. Stripe, PayPal)', 'talkwyn' ), 'text' ),
+			array( 'legal_hosting', __( 'Hosting provider', 'talkwyn' ), 'text' ),
+			array( 'legal_email_service', __( 'Email delivery service', 'talkwyn' ), 'text' ),
+			array( 'legal_min_age', __( 'Minimum age for using talkwyn.com', 'talkwyn' ), 'number' ),
+			array( 'legal_reply_time', __( 'Support reply time you can keep (e.g. within 2 business days)', 'talkwyn' ), 'text' ),
+			array( 'legal_updated', __( '"Last updated" date (empty = the page\'s last edit)', 'talkwyn' ), 'date' ),
+			array( 'legal_reviewed', __( 'A lawyer has reviewed the legal pages (hides the draft notice)', 'talkwyn' ), 'checkbox' ),
 		),
 		__( 'Spam protection', 'talkwyn' )    => talkwyn_captcha_settings_fields(),
 		__( 'Free trial', 'talkwyn' )         => array(
@@ -739,5 +796,25 @@ add_shortcode(
 		}
 		/* translators: 1: competitor name, 2: price note, 3: date */
 		return esc_html( sprintf( __( '%1$s pricing, as we last saw it: %2$s (checked on %3$s).', 'talkwyn' ), $name, $note, date_i18n( get_option( 'date_format' ), (int) strtotime( $date ) ) ) );
+	}
+);
+
+/**
+ * [tw_legal_draft] The "draft" notice on the legal pages. It stays until the business
+ * details are filled in under Site Settings, Legal pages, and a lawyer's review is ticked.
+ */
+add_shortcode(
+	'tw_legal_draft',
+	static function () {
+		$missing = array();
+		foreach ( array( 'legal_company', 'legal_address', 'legal_jurisdiction', 'legal_payment', 'legal_hosting', 'legal_email_service' ) as $key ) {
+			if ( '' === trim( (string) talkwyn_setting( $key ) ) ) {
+				$missing[] = $key;
+			}
+		}
+		if ( ! $missing && talkwyn_setting( 'legal_reviewed' ) ) {
+			return '';
+		}
+		return '<div class="tw-callout"><strong>' . esc_html__( 'Draft, review with a lawyer before launch.', 'talkwyn' ) . '</strong> ' . esc_html__( 'Details in square brackets are still being completed.', 'talkwyn' ) . '</div>';
 	}
 );

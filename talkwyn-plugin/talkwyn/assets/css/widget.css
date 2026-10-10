@@ -1007,7 +1007,7 @@ html.twc-lock body {
 }
 
 /* Small screens */
-:is(.twc,#twc-boost) @media (max-width: 640px) {
+@media (max-width: 640px) {
 	:is(.twc,#twc-boost).twc--floating {
 		inset-block-end: 14px;
 		inset-inline-end: 14px;

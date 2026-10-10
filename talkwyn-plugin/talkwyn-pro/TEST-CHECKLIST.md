@@ -2,6 +2,9 @@
 
 Use a clean WordPress 6.4+ site on PHP 8.0+ with Talkwyn 2.1.0 active.
 
+## 1.2.7
+- [ ] Proactive messages: fill all 5 rows and save; all 5 stay. A crafted POST with 8 rules saves only the first 5.
+
 ## Agency features (1.2.6)
 - [ ] Personal or Business license: no White label card and no Export and import; a card points to the Agency plan. Chat menu link and admin logo are not applied.
 - [ ] Agency license, or a trial: White label and Export and import show and work.

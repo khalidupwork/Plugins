@@ -611,6 +611,9 @@ function talkwyn_doc_diagrams(): array {
  * @param string $caption Caption, empty for the screenshot's default.
  */
 function talkwyn_doc_shot_html( string $key, string $caption = '' ): string {
+	if ( 'cost-chart' === $key ) {
+		return talkwyn_cost_chart_html();
+	}
 	$shots = talkwyn_doc_shots();
 	if ( isset( $shots[ $key ] ) ) {
 		list( $file, $alt, $default, $narrow ) = $shots[ $key ];
@@ -668,7 +671,7 @@ function talkwyn_doc_placeholder_map(): array {
 	return array(
 		'groq console'                                    => array( '' ),
 		'cloudflare dashboard'                            => array( '' ),
-		'chart placeholder'                               => array( '' ),
+		'chart placeholder'                               => array( 'cost-chart' ),
 		'buyer question goes to the chatbot'              => array( 're-answer' ),
 		'real estate lead flow'                           => array( 're-leads' ),
 		'two kinds of chatbot'                            => array( 'kinds' ),
@@ -702,8 +705,8 @@ function talkwyn_doc_placeholder_map(): array {
 /**
  * Pages imported before theme 2.11.0 still hold "Screenshot of ..." placeholder boxes.
  * Show the real screenshot or diagram instead, keeping the page's own caption, and drop
- * the boxes for third-party screens (Groq console, Cloudflare dashboard) and the cost
- * chart that had no data behind it.
+ * the boxes for third-party screens (Groq console, Cloudflare dashboard). The cost chart
+ * placeholder becomes the 3-year cost chart.
  */
 add_filter(
 	'the_content',

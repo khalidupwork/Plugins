@@ -1,5 +1,16 @@
 # Talkwyn changelog
 
+## 2.3.8
+
+### Changed
+- Plugin name in the header and readme: "Talkwyn AI Chatbot: Multilingual Answers and Lead Capture" (launch playbook, section 9). The folder, slug and text domain stay `talkwyn`; ask WordPress.org for the `talkwyn` slug when submitting.
+- Readme: new short description, tags in order of weight, description intro, six installation steps that follow the wizard, and FAQ entries on made-up answers and other platforms.
+- Setup wizard: the news opt-in says it sends the site language too (it always did).
+
+### Fixed
+- `widget.css`: the 640px media query was written as `:is(.twc,#twc-boost) @media (...)`, which browsers drop, so phones ignored the floating spacing, panel size and bubble width rules.
+- Readme: the weekly summary shows chats, leads and top questions (not unanswered questions); the wizard asks for the AI key before the scan; when every provider fails the reply comes from your pages or the fallback message (no automatic lead offer).
+
 ## 2.3.7
 
 ### Changed

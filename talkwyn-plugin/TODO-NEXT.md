@@ -66,3 +66,11 @@ Warnings:
 - [x] WPML hook names (wpml_post_language_details, wpml_register_single_string, wpml_translate_single_string) not prefixed. These are WPML's own hooks; likely add a phpcs ignore comment.
 - [x] readme plugin name differs from the plugin header name.
 - [x] MIGRATION.md and HOOKS.md in the plugin root: leave them out of the release ZIP.
+
+## Open decision from the October 2026 audit
+- The chat is on by default right after activation, before an AI key is added. Without a key it answers from the site's own text (local answers). Options: keep it, or show the chat only after the wizard's "Go live" step. Waiting for the owner's choice.
+
+## Launch playbook items that are not code (owner)
+- Write the 8 gap posts (playbook 5.2), add the internal links in 6.2 and link the scheduled posts on their publish day (6.3).
+- Make the 12 alternative pages 60% unique and date-stamp them (4.2); set Rank Math focus keywords (Appendix A).
+- Optionally restore /urdu with a Roman Urdu demo after launch.

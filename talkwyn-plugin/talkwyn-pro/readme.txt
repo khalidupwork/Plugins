@@ -3,7 +3,7 @@ Requires at least: 6.4
 Tested up to: 7.1
 Requires PHP: 8.0
 Requires Plugins: talkwyn
-Stable tag: 1.2.6
+Stable tag: 1.2.7
 License: GPLv2 or later
 
 Pro add-on for the free Talkwyn plugin. Sold and delivered from talkwyn.com with a free 15-day trial.
@@ -41,6 +41,10 @@ Before building a release, put the active Hub public key in `includes/hub-keys.p
 * Pages you add by URL or sitemap are fetched from their sites.
 
 == Changelog ==
+
+= 1.2.7 =
+* Proactive messages: up to 5 rules are saved, the same 5 rows the settings show.
+* The uninstall note now says that uninstalling does not free the license slot: deactivate the license first, or deactivate the site in My Account.
 
 = 1.2.6 =
 * White label and settings export and import are now Agency plan features (also on during a trial). Other plans keep every other Pro feature.

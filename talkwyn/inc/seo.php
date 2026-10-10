@@ -121,6 +121,25 @@ function talkwyn_seo_post_id(): int {
 }
 
 /**
+ * WooCommerce shop, cart, checkout and account pages: never in search results.
+ */
+function talkwyn_is_shop_system_page(): bool {
+	return function_exists( 'is_cart' ) && ( is_cart() || is_checkout() || is_account_page() || ( function_exists( 'is_shop' ) && is_shop() ) );
+}
+
+// Rank Math decides robots when it is active: keep the shop system pages out there too.
+add_filter(
+	'rank_math/frontend/robots',
+	static function ( $robots ) {
+		if ( talkwyn_is_shop_system_page() ) {
+			$robots['index'] = 'noindex';
+			unset( $robots['max-image-preview'], $robots['max-snippet'], $robots['max-video-preview'] );
+		}
+		return $robots;
+	}
+);
+
+/**
  * Whether the current request should be noindex.
  */
 function talkwyn_is_noindex(): bool {
@@ -131,7 +150,7 @@ function talkwyn_is_noindex(): bool {
 	if ( is_search() || is_tag() || is_author() || is_date() || is_attachment() || is_404() ) {
 		return true;
 	}
-	if ( function_exists( 'is_cart' ) && ( is_cart() || is_checkout() || is_account_page() ) ) {
+	if ( talkwyn_is_shop_system_page() ) {
 		return true;
 	}
 	if ( is_category() && (int) get_queried_object()->count < 3 ) {

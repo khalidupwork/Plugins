@@ -10,6 +10,7 @@ namespace TWH\Woo;
 use TWH\Domain\KeyGenerator;
 use TWH\LicenseService;
 use TWH\Repository\Licenses;
+use TWH\Support\Settings;
 
 defined( 'ABSPATH' ) || exit;
 
@@ -212,7 +213,15 @@ final class OrderDisplay {
 		?>
 		<section class="twh-thanks" aria-labelledby="twh-thanks-title">
 			<h2 class="twh-thanks__title" id="twh-thanks-title"><?php esc_html_e( 'You\'re in.', 'talkwyn-hub' ); ?></h2>
-			<p class="twh-thanks__lede"><?php echo esc_html( _n( 'Your license is ready. We\'ve also emailed the key to you.', 'Your licenses are ready. We\'ve also emailed the keys to you.', count( $licenses ), 'talkwyn-hub' ) ); ?></p>
+			<p class="twh-thanks__lede">
+				<?php
+				if ( Settings::email_keys() ) {
+					echo esc_html( _n( 'Your license is ready. We\'ve also emailed the key to you.', 'Your licenses are ready. We\'ve also emailed the keys to you.', count( $licenses ), 'talkwyn-hub' ) );
+				} else {
+					echo esc_html( _n( 'Your license is ready. Copy the key below: for your security, the email shows only its last characters. It is always in My Account.', 'Your licenses are ready. Copy the keys below: for your security, the email shows only their last characters. They are always in My Account.', count( $licenses ), 'talkwyn-hub' ) );
+				}
+				?>
+			</p>
 			<div class="twh-keypanel">
 				<p class="twh-keypanel__label"><?php echo esc_html( _n( 'Your license key', 'Your license keys', count( $licenses ), 'talkwyn-hub' ) ); ?></p>
 				<?php foreach ( $licenses as $license ) : ?>

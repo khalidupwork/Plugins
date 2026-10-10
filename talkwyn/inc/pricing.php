@@ -43,9 +43,13 @@ function talkwyn_plans(): array {
 			'tagline'  => __( 'Pro features for your own website.', 'talkwyn' ),
 			'features' => array(
 				__( 'Everything in Free', 'talkwyn' ),
-				__( 'Advanced search', 'talkwyn' ),
-				__( 'Analytics', 'talkwyn' ),
 				__( 'Paid AI models: OpenAI, Anthropic Claude, Mistral, DeepSeek', 'talkwyn' ),
+				__( 'Smart search (meaning-based search)', 'talkwyn' ),
+				__( 'PDF, DOCX and TXT files, web pages and sitemaps as knowledge', 'talkwyn' ),
+				__( 'Analytics and an unanswered questions inbox', 'talkwyn' ),
+				__( 'WooCommerce product cards and order status lookup', 'talkwyn' ),
+				__( 'Lead alerts on Slack and Telegram', 'talkwyn' ),
+				__( 'Proactive messages and business hours', 'talkwyn' ),
 				__( '1 year of updates', 'talkwyn' ),
 			),
 		),
@@ -107,9 +111,20 @@ add_shortcode(
 			} else {
 				$price = talkwyn_plan_price( $key );
 				$per   = 'lifetime' === $key ? __( 'one time', 'talkwyn' ) : __( 'per year', 'talkwyn' );
-				$html .= '' !== $price
-					? '<p class="tw-plan__price">' . esc_html( $price ) . ' <small>' . esc_html( $per ) . '</small></p>'
-					: '<p class="tw-plan__price tw-plan__price--unset">' . esc_html__( 'Yearly', 'talkwyn' ) . '</p>';
+				$amt   = talkwyn_plan_amounts( $key );
+				if ( '' === $price ) {
+					$html .= '<p class="tw-plan__price tw-plan__price--unset">' . esc_html__( 'Yearly', 'talkwyn' ) . '</p>';
+				} else {
+					$was   = null !== $amt['regular'] && null !== $amt['price'] && $amt['regular'] > $amt['price'] ? '<del class="tw-plan__was"><span class="screen-reader-text">' . esc_html__( 'Regular price', 'talkwyn' ) . ' </span>' . esc_html( talkwyn_money( $amt['regular'] ) ) . '</del> ' : '';
+					$html .= '<p class="tw-plan__price">' . $was . esc_html( $price ) . ' <small>' . esc_html( $per ) . '</small></p>';
+					if ( 'lifetime' !== $key && null !== $amt['price'] && $amt['price'] > 0 ) {
+						/* translators: %s: monthly equivalent of the yearly price */
+						$html .= '<p class="tw-plan__month">' . esc_html( sprintf( __( 'about %s a month, billed yearly', 'talkwyn' ), talkwyn_money( round( $amt['price'] / 12, 2 ) ) ) ) . '</p>';
+					}
+					if ( '' !== $was ) {
+						$html .= '<p class="tw-plan__founding">' . esc_html__( 'Founding price', 'talkwyn' ) . '</p>';
+					}
+				}
 			}
 			$html .= '<p class="tw-plan__sites">' . esc_html( $plan['sites'] ) . '</p>';
 			$html .= '<p>' . esc_html( $plan['tagline'] ) . '</p><ul>';
@@ -166,10 +181,12 @@ add_shortcode(
 			__( 'Free AI providers: Groq, Gemini, OpenRouter, Cloudflare', 'talkwyn' ) => array( $y, $y, $y, $y ),
 			__( 'Automatic provider fallback', 'talkwyn' ) => array( $y, $y, $y, $y ),
 			__( 'Paid AI models: OpenAI, Claude, Mistral, DeepSeek', 'talkwyn' ) => array( $n, $y, $y, $y ),
-			__( 'Advanced search', 'talkwyn' )             => array( $n, $y, $y, $y ),
+			__( 'Smart search (meaning-based search)', 'talkwyn' ) => array( $n, $y, $y, $y ),
+			__( 'Custom answers', 'talkwyn' )              => array( $n, $y, $y, $y ),
+			__( 'Streaming replies', 'talkwyn' )           => array( $n, $y, $y, $y ),
 			__( 'Analytics', 'talkwyn' )                   => array( $n, $y, $y, $y ),
 			__( 'Unanswered questions inbox', 'talkwyn' )  => array( $n, $y, $y, $y ),
-			__( 'PDF, URL and sitemap knowledge', 'talkwyn' ) => array( $n, $y, $y, $y ),
+			__( 'PDF, DOCX and TXT files, web pages and sitemaps as knowledge', 'talkwyn' ) => array( $n, $y, $y, $y ),
 			__( 'WooCommerce product cards and order lookup', 'talkwyn' ) => array( $n, $y, $y, $y ),
 			__( 'Proactive messages and business hours', 'talkwyn' ) => array( $n, $y, $y, $y ),
 			__( 'Lead alerts on Slack and Telegram', 'talkwyn' ) => array( $n, $y, $y, $y ),
@@ -199,28 +216,101 @@ add_shortcode(
 );
 
 /**
- * [tw_cost_explainer] Monthly vs yearly, 3-year view (uses the copy's public range).
+ * Price and regular price of a plan as numbers (null when unknown). With WooCommerce
+ * prices, a sale price is the founding price and the regular price is struck through.
+ *
+ * @param string $plan Plan key.
+ * @return array{price: ?float, regular: ?float}
+ */
+function talkwyn_plan_amounts( string $plan ): array {
+	$id = (int) talkwyn_setting( 'product_' . $plan );
+	if ( 'woocommerce' === talkwyn_setting( 'price_source' ) && $id && function_exists( 'wc_get_product' ) ) {
+		$product = wc_get_product( $id );
+		if ( $product ) {
+			$price   = '' !== (string) $product->get_price() ? (float) $product->get_price() : null;
+			$regular = '' !== (string) $product->get_regular_price() ? (float) $product->get_regular_price() : $price;
+			return array(
+				'price'   => $price,
+				'regular' => $regular,
+			);
+		}
+	}
+	$num     = static function ( string $raw ): ?float {
+		return preg_match( '/(\d+(?:[.,]\d{1,2})?)/', $raw, $m ) ? (float) str_replace( ',', '.', $m[1] ) : null;
+	};
+	$price   = $num( (string) talkwyn_setting( 'price_' . $plan ) );
+	$regular = $num( (string) talkwyn_setting( 'regular_' . $plan ) );
+	return array(
+		'price'   => $price,
+		'regular' => null !== $regular ? $regular : $price,
+	);
+}
+
+/**
+ * Three years of a plan at its regular price: the first year, then two renewals with
+ * the renewal discount (Talkwyn Hub setting, 20% when the Hub is not on this site).
+ *
+ * @param string $plan Plan key.
+ */
+function talkwyn_three_year_cost( string $plan ): ?float {
+	$regular = talkwyn_plan_amounts( $plan )['regular'];
+	if ( null === $regular ) {
+		return null;
+	}
+	$discount = talkwyn_hub_renewal_discount();
+	$discount = null === $discount ? 20.0 : $discount;
+	return round( $regular + 2 * $regular * ( 1 - $discount / 100 ) );
+}
+
+/**
+ * 3-year cost chart: Talkwyn Personal and Business against the hosted range in Site Settings.
+ */
+function talkwyn_cost_chart_html(): string {
+	$range = trim( (string) talkwyn_setting( 'hosted_3yr_range' ) );
+	$nums  = preg_match_all( '/\d[\d,]*/', $range, $m ) ? array_map( static fn( $n ) => (float) str_replace( ',', '', $n ), $m[0] ) : array();
+	$high  = $nums ? max( $nums ) : 0.0;
+	$low   = $nums ? min( $nums ) : 0.0;
+	$rows  = array();
+	foreach ( array( 'personal', 'business' ) as $plan ) {
+		$cost = talkwyn_three_year_cost( $plan );
+		if ( null !== $cost ) {
+			/* translators: %s: plan name */
+			$rows[] = array( sprintf( __( 'Talkwyn %s', 'talkwyn' ), talkwyn_plans()[ $plan ]['name'] ), $cost, $cost, talkwyn_money( $cost ), true );
+		}
+	}
+	if ( ! $rows || $high <= 0 ) {
+		return '';
+	}
+	$rows[] = array( __( 'A typical hosted AI chat plan', 'talkwyn' ), $low, $high, $range, false );
+	$max    = max( array_map( static fn( $r ) => $r[2], $rows ) );
+	$html   = '<figure class="tw-costchart"><ul class="tw-costchart__rows">';
+	foreach ( $rows as $r ) {
+		$from  = 100 * $r[1] / $max;
+		$to    = 100 * $r[2] / $max;
+		$html .= '<li class="tw-costchart__row' . ( $r[4] ? ' is-us' : '' ) . '"><span class="tw-costchart__label">' . esc_html( $r[0] ) . '</span><span class="tw-costchart__track"><span class="tw-costchart__bar" style="--from:' . esc_attr( (string) round( $r[1] === $r[2] ? 0 : $from, 1 ) ) . '%;--to:' . esc_attr( (string) round( max( 2, $to ), 1 ) ) . '%"></span></span><span class="tw-costchart__val">' . esc_html( $r[3] ) . '</span></li>';
+	}
+	$html .= '</ul><figcaption>' . esc_html__( 'Cost over 3 years. Talkwyn: first year at the regular price, then two renewals with the renewal discount, with unlimited conversations on your own AI key. Hosted tools: entry AI chat plans from public pricing guides, October 2026; check each vendor for current prices.', 'talkwyn' ) . '</figcaption></figure>';
+	return $html;
+}
+add_shortcode( 'tw_cost_chart', 'talkwyn_cost_chart_html' );
+
+/**
+ * [tw_cost_explainer] 3-year view: Talkwyn Personal against a typical hosted AI chat plan.
  */
 add_shortcode(
 	'tw_cost_explainer',
 	static function () {
-		$number = talkwyn_plan_price_number( 'business' );
-		$price  = talkwyn_plan_price( 'business' );
-		$three  = null;
-		if ( null !== $number && function_exists( 'wc_price' ) ) {
-			$three = trim( wp_strip_all_tags( html_entity_decode( wc_price( 3 * (float) $number, array( 'decimals' => 0 ) ) ) ) );
-		} elseif ( null !== $number ) {
-			$three = '$' . number_format_i18n( 3 * (float) $number );
-		}
+		$three = talkwyn_three_year_cost( 'personal' );
+		$range = trim( (string) talkwyn_setting( 'hosted_3yr_range' ) );
 		$html  = '<div class="tw-explainer">';
-		$html .= '<div class="tw-explainer__col"><p class="tw-eyebrow">' . esc_html__( 'Typical hosted AI chat tool', 'talkwyn' ) . '</p><p class="tw-explainer__big">$900 to $18,000</p><p>' . esc_html__( 'over 3 years at $25 to $500 per month, often with caps on conversations.', 'talkwyn' ) . '</p></div>';
-		$html .= '<div class="tw-explainer__col tw-explainer__col--us"><p class="tw-eyebrow">' . esc_html__( 'Talkwyn Business', 'talkwyn' ) . '</p>';
+		$html .= '<div class="tw-explainer__col"><p class="tw-eyebrow">' . esc_html__( 'Typical hosted AI chat plan', 'talkwyn' ) . '</p><p class="tw-explainer__big">' . esc_html( $range ) . '</p><p>' . esc_html__( 'over 3 years for an entry AI chat plan, often billed per seat, per conversation or per AI answer.', 'talkwyn' ) . '</p></div>';
+		$html .= '<div class="tw-explainer__col tw-explainer__col--us"><p class="tw-eyebrow">' . esc_html__( 'Talkwyn Personal', 'talkwyn' ) . '</p>';
 		if ( null !== $three ) {
-			$html .= '<p class="tw-explainer__big">' . esc_html( $three ) . '</p><p>' . esc_html( sprintf( /* translators: %s: yearly price */ __( 'over 3 years at %s per year for 5 sites, with unlimited conversations on your own AI key.', 'talkwyn' ), $price ) ) . '</p>';
+			$html .= '<p class="tw-explainer__big">' . esc_html( talkwyn_money( $three ) ) . '</p><p>' . esc_html__( 'over 3 years: the first year, then two renewals with the renewal discount. Unlimited conversations on your own AI key.', 'talkwyn' ) . '</p>';
 		} else {
-			$html .= '<p class="tw-explainer__big">' . esc_html__( 'One yearly license', 'talkwyn' ) . '</p><p>' . esc_html__( 'for 5 sites, with unlimited conversations on your own AI key.', 'talkwyn' ) . '</p>';
+			$html .= '<p class="tw-explainer__big">' . esc_html__( 'One yearly license', 'talkwyn' ) . '</p><p>' . esc_html__( 'with unlimited conversations on your own AI key.', 'talkwyn' ) . '</p>';
 		}
-		$html .= '</div></div><p class="tw-small">' . esc_html__( 'Hosted tool range based on public pricing pages in October 2026. AI usage may have its own cost if you exceed free tiers.', 'talkwyn' ) . '</p>';
+		$html .= '</div></div><p class="tw-small">' . esc_html__( 'Hosted range from public pricing guides, October 2026. AI usage may have its own cost if you go beyond a provider\'s free tier.', 'talkwyn' ) . '</p>';
 		return $html;
 	}
 );

@@ -82,7 +82,7 @@ $twh_started = isset( $_GET['twh_trial'] ) && 'started' === sanitize_key( wp_uns
 				<?php endforeach; ?>
 			</ul>
 			<?php if ( ! $twh_has_pro ) : ?>
-				<p class="twh-ov__cta"><a class="twh-app__btn twh-app__btn--red" href="<?php echo esc_url( home_url( '/pricing/#trial' ) ); ?>"><?php esc_html_e( 'Start free 15-day trial', 'talkwyn-hub' ); ?></a></p>
+				<p class="twh-ov__cta"><a class="twh-app__btn twh-app__btn--red" href="<?php echo esc_url( home_url( '/pricing/#trial' ) ); ?>"><?php echo esc_html( sprintf( /* translators: %d: trial length in days */ __( 'Start free %d-day trial', 'talkwyn-hub' ), (int) \TWH\Support\Settings::get( 'trial_days' ) ) ); ?></a></p>
 			<?php endif; ?>
 		</section>
 

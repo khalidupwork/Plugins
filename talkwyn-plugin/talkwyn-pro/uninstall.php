@@ -1,7 +1,9 @@
 <?php
 /**
  * Uninstall Talkwyn Pro. Data is removed only when "Delete all Talkwyn data"
- * is on (Talkwyn > Privacy). The license is always released from this site's state.
+ * is on (Talkwyn > Privacy). Uninstalling does not free the license slot on
+ * talkwyn.com: deactivate the license in Talkwyn > License first, or deactivate
+ * the site later from My Account on talkwyn.com.
  *
  * @package TalkwynPro
  */

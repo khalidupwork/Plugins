@@ -1,20 +1,20 @@
-=== Talkwyn ===
+=== Talkwyn AI Chatbot: Multilingual Answers and Lead Capture ===
 Contributors: talkwyn
-Tags: chatbot, ai chatbot, lead generation, multilingual, live chat
+Tags: chatbot, ai chatbot, live chat, multilingual, lead generation
 Requires at least: 6.4
 Tested up to: 7.1
 Requires PHP: 8.0
-Stable tag: 2.3.7
+Stable tag: 2.3.8
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
-An AI chatbot that learns your website in one click, answers in your visitor's language, and captures leads. Works with free AI tiers.
+AI chatbot for WordPress that learns your site in one click, replies in each visitor's language with sources, and turns chats into leads.
 
 == Description ==
 
-Talkwyn adds a chat assistant to your WordPress site. It reads your pages, posts and products, answers visitors from that content, replies in the language they write in, and offers to collect their details when they are ready to talk to you.
+Talkwyn is a free AI chatbot for WordPress and WooCommerce. It reads your pages, posts, products and Elementor content in one click, answers visitors in their own language, shows the sources behind its answers, and turns interested visitors into leads saved in your own database.
 
-You bring your own AI key. Groq, OpenRouter, Google Gemini and Cloudflare Workers AI all offer free tiers, and Talkwyn moves to the next provider automatically when one fails or hits its limit.
+Connect a free AI key from Groq, Google Gemini, OpenRouter or Cloudflare Workers AI and your chatbot is live in about five minutes. Talkwyn charges no monthly fee and nothing per conversation, and it moves to the next provider automatically when one fails or hits its limit.
 
 = What it does =
 
@@ -31,8 +31,8 @@ You bring your own AI key. Groq, OpenRouter, Google Gemini and Cloudflare Worker
 * **Privacy tools.** A notice under the chat, rate limiting by session and IP, personal data export and erase by email, and data removal on uninstall only when you choose it.
 * **Chat menu.** Visitors can set their name, email themselves the transcript, pick a reply language, turn sound off, open the chat in its own window, or start a new chat.
 * **Who sees it.** Show the chat to everyone, only logged in or only logged out visitors, and on all devices, desktop only or phones only.
-* **Weekly summary** on the dashboard: chats, leads and unanswered questions compared with the week before.
-* **Setup wizard.** Add a key and test it, scan, pick a colour, go live.
+* **Weekly summary** on the dashboard: chats and leads compared with the week before, and the top questions visitors asked.
+* **Setup wizard.** Add a free AI key and test it, scan your site, pick a colour, go live.
 * **Shortcode and block.** `[talkwyn_chat]` or the Talkwyn Chat block to place the chat inside a page.
 
 = Talkwyn Pro =
@@ -58,9 +58,12 @@ Otherwise Talkwyn does not contact talkwyn.com. The "Start free trial" and "Upgr
 
 == Installation ==
 
-1. Install Talkwyn from Plugins, Add New, or upload the `talkwyn` folder to `/wp-content/plugins/`.
-2. Activate it. The setup wizard opens.
-3. Scan your site, add a free AI key (Groq is the quickest), test it, choose your colour and go live.
+1. In WordPress go to Plugins, Add New, search for Talkwyn, then Install and Activate. Or upload the `talkwyn` folder to `/wp-content/plugins/`.
+2. The setup wizard opens. Paste a free AI key (links to each provider are shown) and click Test.
+3. Click "Scan my site".
+4. Choose your colour, assistant name and welcome message.
+5. Decide on the badge and the news email (both off by default).
+6. Turn the chat on and click Finish.
 
 To place the chat inside a page, use the `[talkwyn_chat]` shortcode or the Talkwyn Chat block.
 
@@ -72,11 +75,19 @@ Yes. The plugin is free. AI answers are paid to the provider you choose, and Gro
 
 = What happens when a provider hits its limit? =
 
-Talkwyn tries the next provider in your fallback order. If none answers, it replies with the most relevant parts of your pages and offers to collect the visitor's details.
+Talkwyn tries the next provider in your fallback order. If none answers, it replies with the most relevant parts of your pages, or with your fallback message when nothing matches.
 
 = Which languages does it answer in? =
 
-It replies in the language the visitor writes in, including right-to-left scripts such as Arabic and Urdu. Interface text can be translated per language with WPML or Polylang.
+It replies in whatever language the visitor writes in, including right-to-left scripts such as Arabic and Urdu. The chat interface is translated into 16 languages, and your own interface text can be translated per language with WPML or Polylang.
+
+= Will it make up answers? =
+
+It answers business questions only from your own content and shows the sources. When your site does not cover a question, it says so.
+
+= Does it work outside WordPress? =
+
+Not yet. A Shopify app and a one-line embed for any website are in development.
 
 = Does it use my private content? =
 
@@ -108,6 +119,12 @@ In your WordPress database. Chats, leads and knowledge stay on your site. Messag
 6. Leads and conversations.
 
 == Changelog ==
+
+= 2.3.8 =
+* Changed: The plugin is now called "Talkwyn AI Chatbot: Multilingual Answers and Lead Capture" (slug stays `talkwyn`), with a clearer description, installation steps and FAQ.
+* Fixed: The mobile layout rules of the chat window (spacing and panel size on screens up to 640px) were ignored because of a broken CSS rule.
+* Fixed: The readme now describes the weekly summary (chats, leads and top questions), the setup order (AI key before the scan) and what happens when every AI provider fails.
+* Changed: The news opt-in in the setup wizard says it also sends your site language.
 
 = 2.3.7 =
 * Changed: The Pro features list says that white label and settings export are part of the Agency plan.

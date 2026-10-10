@@ -2,22 +2,21 @@
 # This file is distributed under the GPLv2 or later.
 msgid ""
 msgstr ""
-"Project-Id-Version: Talkwyn 2.3.7\n"
+"Project-Id-Version: Talkwyn AI Chatbot: Multilingual Answers and Lead Capture 2.3.8\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/talkwyn\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2026-10-09T21:06:58+00:00\n"
+"POT-Creation-Date: 2026-10-10T07:15:37+00:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "X-Generator: WP-CLI 2.12.0\n"
 "X-Domain: talkwyn\n"
 
 #. Plugin Name of the plugin
-#. Author of the plugin
 #: talkwyn.php
-msgid "Talkwyn"
+msgid "Talkwyn AI Chatbot: Multilingual Answers and Lead Capture"
 msgstr ""
 
 #. Plugin URI of the plugin
@@ -29,6 +28,11 @@ msgstr ""
 #. Description of the plugin
 #: talkwyn.php
 msgid "AI chatbot that learns your website in one click, answers visitors in their language, and captures leads. Works with free AI provider tiers."
+msgstr ""
+
+#. Author of the plugin
+#: talkwyn.php
+msgid "Talkwyn"
 msgstr ""
 
 #: includes/admin/class-talkwyn-admin.php:69
@@ -1565,7 +1569,7 @@ msgid "Email me product news and tips (about once a month)"
 msgstr ""
 
 #: includes/admin/class-talkwyn-onboarding.php:227
-msgid "Sends this email address and your site URL to talkwyn.com. Unsubscribe any time."
+msgid "Sends this email address, your site URL and your site language to talkwyn.com. Unsubscribe any time."
 msgstr ""
 
 #: includes/admin/class-talkwyn-onboarding.php:227

@@ -38,6 +38,7 @@ final class Events {
 		'admin_edit',
 		'rate_limited',
 		'invalid_key',
+		'trial_request',
 		'trial_start',
 		'trial_convert',
 		'referral',

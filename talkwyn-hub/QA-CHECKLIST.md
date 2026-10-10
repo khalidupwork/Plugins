@@ -144,6 +144,13 @@ Run this on a staging copy of talkwyn.com with Stripe in **test mode** (card `42
 - [ ] `GET /wp-json/talkwyn-hub/v1/partners/terms` returns the current settings.
 - [ ] Turn Partners off → `?ref=` does nothing, My Account → Partners says the program is closed.
 
+## 18. Audit fixes (1.6.4)
+
+- [ ] Keys in emails off (default): the thank-you page says the email shows only the last characters and the key is in My Account. Turn it on: it says the key was also emailed.
+- [ ] Settings, Trial: set 10 days. My Account overview without Pro shows "Start free 10-day trial".
+- [ ] Logs: the type filter lists `trial_request`, and filtering by it shows trial form requests.
+- [ ] Uninstall with "Delete all data" on: `twh_subscribers` is dropped; `twh_invoice_counter` and the `_twh_invoice_*` order meta stay.
+
 ## 17. Lighter buttons (1.6.3)
 
 - [ ] Dashboard and account buttons are Inter, weight 500 (no bold 700 buttons).

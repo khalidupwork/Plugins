@@ -12,6 +12,19 @@ Work through this on the live server, in order. Tick each box when done.
 - [ ] Settings → Permalinks: "Post name".
 - [ ] Daily backups of the database and `wp-content/uploads` are running. Also back up the Hub release folder (`TWH_RELEASES_DIR`, outside the web root).
 
+## 1b. Launch playbook (theme 2.13.0)
+
+- [ ] Open the dashboard once after updating the theme: the copy fixes run. If a yellow notice lists pages, compare them with `setup/content/pages.json` and fix them by hand.
+- [ ] Settings → General: site title "Talkwyn", tagline "AI chatbot for WordPress that answers in every language".
+- [ ] Rank Math → Titles and Meta → Local SEO: organization name "Talkwyn", logo, URL https://talkwyn.com.
+- [ ] Site Settings → Legal pages: business name, address, governing law, payment, hosting and email services, reply time. A lawyer reviews the three pages, then tick "A lawyer has reviewed the legal pages".
+- [ ] Prices: WooCommerce regular prices $79, $179, $399 and sale prices $49, $109, $239 for the founding offer (or the manual fields). Pricing shows the struck-through regular price, "Founding price" and the monthly equivalent.
+- [ ] Founding seats remaining is the real number.
+- [ ] Rank Math noindex on shop, cart, checkout and My Account; WooCommerce's sample refund draft is in the Trash; empty the Trash.
+- [ ] Menus: the theme draws its own curated header (mega menu in `inc/header.php`) and footer with the legal pages, so the page-list navigation block in the export is not used. Check that no other theme or template part shows it.
+- [ ] Talkwyn Hub → Settings: From name "Talkwyn", partner commission for the launch year (the playbook suggests 30%, then 20%).
+- [ ] When the WordPress.org listing goes live: set its URL in Site Settings and switch the install steps back to "search Talkwyn".
+
 ## 2. Talkwyn Hub
 
 - [ ] `TWH_SECRET_KEY` is set in `wp-config.php` and stored in your password manager.

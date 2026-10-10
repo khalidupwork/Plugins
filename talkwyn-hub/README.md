@@ -62,7 +62,7 @@ The file names are random 128-bit strings anyway, but defense in depth is cheap.
    | Dispute lost | → `failed` | Revoke |
 
 3. Virtual + downloadable is not needed. Mark license products as **Virtual** so no shipping is asked. Downloads are delivered by the hub.
-4. In **WooCommerce → Settings → Accounts & Privacy**, allow customers to create an account during checkout. Guests still get their key by email and on the thank-you page. If they create an account later, they add the license to it with **My Account → Licenses → Add license** by entering the full key. Licenses are deliberately not linked by email alone, because WordPress doesn't always verify email ownership.
+4. In **WooCommerce → Settings → Accounts & Privacy**, allow customers to create an account during checkout. With the default settings guest checkout is turned off for license products (see 5c-2), so every buyer has an account. If you turn on **Keys in emails**, guests can buy too and get their full key by email and on the thank-you page. If a guest creates an account later, they add the license to it with **My Account → Licenses → Add license** by entering the full key. Licenses are deliberately not linked by email alone, because WordPress doesn't always verify email ownership.
 
 ## 3. Map products to licenses
 
@@ -246,7 +246,7 @@ Keys are also shown in the WooCommerce order email, on the thank-you page and in
 
 ## 9. Uninstall
 
-Deleting the plugin keeps all data unless **Settings → Delete all data on uninstall** is checked. When it is checked, uninstalling removes tables, options, product mapping meta, signing keys and release ZIPs. A custom `TWH_RELEASES_DIR` folder itself is kept.
+Deleting the plugin keeps all data unless **Settings → Delete all data on uninstall** is checked. When it is checked, uninstalling removes tables (including newsletter subscribers), options, product mapping meta, signing keys and release ZIPs. A custom `TWH_RELEASES_DIR` folder itself is kept. Invoice numbers on orders and the invoice counter are kept, because invoices are accounting records and a reinstall must not reuse a number.
 
 ## 10. Development
 

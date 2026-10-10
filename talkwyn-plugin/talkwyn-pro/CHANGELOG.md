@@ -1,5 +1,10 @@
 # Talkwyn Pro changelog
 
+## 1.2.7
+
+- Proactive messages: the settings sanitizer keeps at most 5 rules, matching the 5 rows in the admin (it accepted 10 before).
+- `uninstall.php`: the header comment claimed the license is released on uninstall; it is not. It now says to deactivate the license first (Talkwyn, License) or deactivate the site later from My Account on talkwyn.com.
+
 ## 1.2.6
 
 - White label (admin logo, menu name, chat menu link) and settings export and import load only for an Agency license, a license whose features include `white_label`, or a running trial. New `License::agency()` and the `talkwyn_pro_agency` filter. An expired paid Agency license keeps them, like every other Pro feature.

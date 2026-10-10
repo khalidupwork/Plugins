@@ -163,7 +163,7 @@ Success (200):
 | `features` | Feature flags from the product mapping |
 | `is_trial` | `true` while the key is a running free trial (since 1.1.0) |
 | `trial_ends_at` | ISO date the trial ends, or `null` |
-| `trial_days_left` | Whole days left in the trial (rounded up), `0` when not a trial |
+| `trial_days_left` | Whole days left in the trial (rounded up), `null` when not a trial |
 
 A trial key is a normal key with `activation_limit: 1`. When the customer upgrades, the **same key** becomes a paid license: `is_trial` turns `false`, and plan, limit, features and expiry change.
 

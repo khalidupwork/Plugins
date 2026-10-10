@@ -130,7 +130,7 @@ final class Settings {
 					'url'     => sanitize_text_field( (string) ( $rule['url'] ?? '' ) ),
 					'open'    => empty( $rule['open'] ) ? 0 : 1,
 				);
-				if ( count( $rules ) >= 10 ) {
+				if ( count( $rules ) >= 5 ) {
 					break;
 				}
 			}
