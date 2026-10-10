@@ -7,7 +7,7 @@
 
 defined( 'ABSPATH' ) || exit;
 
-define( 'CMK_VERSION', '1.0.0-alpha.2' );
+define( 'CMK_VERSION', '1.0.0-alpha.3' );
 define( 'CMK_DIR', get_template_directory() );
 define( 'CMK_URI', get_template_directory_uri() );
 

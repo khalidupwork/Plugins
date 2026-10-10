@@ -19,8 +19,8 @@ $cmk_play = cmk_first_game_url();
 						<div class="cmk-swipe-card" data-swipe-card>
 							<span class="cmk-swipe-card__emoji" data-swipe-emoji aria-hidden="true">👜</span>
 							<span class="cmk-swipe-card__label"><?php esc_html_e( 'Holds almost nothing', 'click-mat-kar' ); ?></span>
-							<span class="cmk-swipe-card__name" data-swipe-name><?php esc_html_e( 'Tiny Designer Bag', 'click-mat-kar' ); ?></span>
-							<span class="cmk-swipe-card__price" data-swipe-price data-price="620000"></span>
+							<span class="cmk-swipe-card__name" data-swipe-name>Gucchi Mini Bag (Holds 1 Mint)</span>
+							<span class="cmk-swipe-card__price" data-swipe-price></span>
 						</div>
 						<div class="cmk-swipe-actions">
 							<button type="button" class="cmk-btn cmk-btn--white cmk-btn--sm" data-swipe-nope><?php esc_html_e( 'Nope', 'click-mat-kar' ); ?></button>

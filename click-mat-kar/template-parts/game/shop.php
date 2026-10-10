@@ -34,6 +34,7 @@
 		<div class="cmk-shop__filters" role="toolbar" aria-label="<?php esc_attr_e( 'Categories', 'click-mat-kar' ); ?>" data-filters></div>
 		<p class="cmk-shop__react" data-react aria-live="polite"><?php esc_html_e( 'Pick something. Anything. Preferably something stupid.', 'click-mat-kar' ); ?></p>
 		<ul class="cmk-shop__grid" data-grid></ul>
+		<p class="cmk-shop__disclaimer"><?php esc_html_e( 'All brands are parody. Any resemblance to real luxury is purely because you cannot afford it either. Prices are rough real-world guesses, money is fake.', 'click-mat-kar' ); ?></p>
 		<noscript><p class="cmk-lead"><?php esc_html_e( 'This game needs JavaScript. Mana kiya tha.', 'click-mat-kar' ); ?></p></noscript>
 	</section>
 
@@ -54,6 +55,7 @@
 			<p class="cmk-cart__empty" data-cart-empty><?php esc_html_e( 'Empty. Suspiciously responsible.', 'click-mat-kar' ); ?></p>
 			<div class="cmk-cart__foot">
 				<p class="cmk-cart__total"><span><?php esc_html_e( 'Damage', 'click-mat-kar' ); ?></span> <b data-cart-total>—</b></p>
+				<p class="cmk-cart__compare" data-cart-compare></p>
 				<button type="button" class="cmk-btn cmk-btn--lime cmk-btn--lg" data-finish><span data-finish-label><?php esc_html_e( 'Checkout (fake)', 'click-mat-kar' ); ?></span> <?php echo cmk_arrow(); // phpcs:ignore WordPress.Security.EscapeOutput ?></button>
 			</div>
 		</div>

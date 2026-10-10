@@ -40,7 +40,7 @@ $cmk_play = cmk_first_game_url();
 		<div class="cmk-hero__stage">
 			<span class="cmk-tag cmk-tag--poke cmk-bg-lime" aria-hidden="true"><?php esc_html_e( 'Poke the shop 👇', 'click-mat-kar' ); ?></span>
 			<span class="cmk-tag cmk-tag--bad cmk-bg-pink" aria-hidden="true"><?php esc_html_e( 'Bad idea', 'click-mat-kar' ); ?></span>
-			<div class="cmk-phone" data-mini-shop data-budget="97200000">
+			<div class="cmk-phone" data-mini-shop data-budget-usd="972000">
 				<div class="cmk-phone__notch" aria-hidden="true"></div>
 				<div class="cmk-phone__screen">
 					<div class="cmk-phone__bar">
@@ -51,18 +51,18 @@ $cmk_play = cmk_first_game_url();
 					<ul class="cmk-phone__grid">
 						<?php
 						$cmk_mini = array(
-							array( '👟', __( 'Sneakers', 'click-mat-kar' ), 280000 ),
-							array( '👜', __( 'Tiny bag', 'click-mat-kar' ), 620000 ),
-							array( '⌚', __( 'Watch', 'click-mat-kar' ), 1800000 ),
-							array( '🛥️', __( 'Yacht', 'click-mat-kar' ), 42000000 ),
+							array( '👟', 'Adibas', 1200 ),
+							array( '👜', 'Gucchi', 3200 ),
+							array( '⌚', 'Rolax', 45000 ),
+							array( '🏎️', 'Lambo-Ghanta', 260000 ),
 						);
 						foreach ( $cmk_mini as $cmk_item ) :
 							?>
 							<li class="cmk-mini-item">
 								<span class="cmk-mini-item__emoji" aria-hidden="true"><?php echo esc_html( $cmk_item[0] ); ?></span>
 								<span class="cmk-mini-item__name"><?php echo esc_html( $cmk_item[1] ); ?></span>
-								<span class="cmk-mini-item__price" data-price="<?php echo esc_attr( $cmk_item[2] ); ?>"></span>
-								<button type="button" class="cmk-mini-item__add" data-mini-add data-price="<?php echo esc_attr( $cmk_item[2] ); ?>" data-name="<?php echo esc_attr( $cmk_item[1] ); ?>"><?php esc_html_e( 'Add', 'click-mat-kar' ); ?></button>
+								<span class="cmk-mini-item__price" data-usd="<?php echo esc_attr( $cmk_item[2] ); ?>"></span>
+								<button type="button" class="cmk-mini-item__add" data-mini-add data-usd="<?php echo esc_attr( $cmk_item[2] ); ?>" data-name="<?php echo esc_attr( $cmk_item[1] ); ?>"><?php esc_html_e( 'Add', 'click-mat-kar' ); ?></button>
 							</li>
 						<?php endforeach; ?>
 					</ul>

@@ -43,8 +43,21 @@ Fresh theme (not based on the v0.9.0 zip). Source of truth: the 2026-10-10 maste
 - [x] QA: every game played end-to-end at 390 and 1440 (play → result → story PNG → challenge link), homepage at
       1280/1024/390/320, no console errors, no page-level horizontal scroll
 
+## v1.0.0-alpha.3 — engagement pass (parody brands)
+- [x] 90 products across the 4 shop games rewritten with desi parody brands (Gucchi, Rolax, Lambo-Ghanta, iFone, Hermes
+      Burkin, Rolls Rice, Bala-ji-aga…) and rough real-world USD prices converted per currency (PKR 280, INR 88)
+- [x] Per-currency budgets: Shop Rs 25 Crore / ₹10 Crore / $1M; Wedding Rs 7 Crore / ₹2 Crore / $250k;
+      Dream Life Rs 1.4 Arab / ₹40 Crore / $5M; $1 Billion stays in USD
+- [x] "= 1,493 plates of biryani" comparison line on every product, in reactions, cart total, result card,
+      share text and the story PNG (chai/biryani/Honda 70 · cutting chai/biryani/Activa · coffee/pizza/used Corolla)
+- [x] E-commerce parody badges (Bestseller, Only 1 left, Influencer pick, Ammi disapproved, Pre-order)
+- [x] Budget milestone toasts at 25/50/75/95%, light haptic buzz on add (mobile, off with reduced motion)
+- [x] Product image slots: drop `{product-id}.webp` into `assets/img/products/` and it replaces the emoji automatically;
+      brief with spec + AI prompt per product in `assets/img/products/README.md`
+- [x] Hero mini shop + featured swipe demo use the parody products
+
 ## Next (in order)
-- [ ] Real product art: swap emoji for WebP illustrations (3D sticker style from the moodboard) with set dimensions
+- [ ] Produce the 90 product images from `assets/img/products/README.md` (start with the 29 in Shop Like You're Rich)
 - [ ] Site icon / OG share image (1200×630) + per-result OG image (needs server-side render or a static set by IQ tier)
 - [ ] Customizer/settings: analytics ID field (GA4 / Plausible) — `CMKUI.track` already pushes to dataLayer/gtag/plausible
 - [ ] Optional micro-sounds (off by default) and haptics on mobile add-to-cart

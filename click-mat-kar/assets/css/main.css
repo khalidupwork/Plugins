@@ -750,6 +750,24 @@ a.cmk-game-card:hover .cmk-game-card__emoji { transform: rotate(8deg) scale(1.12
 .cmk-library-count { font-weight: 700; margin: 0; }
 .cmk-library-count b { background: var(--cmk-lime); color: var(--cmk-ink); padding: 0 .4em; border-radius: 6px; }
 
+/* ---------- Shop product extras: brand, tags, comparison, images ---------- */
+.cmk-product__visual { display: grid; place-items: center; height: clamp(64px, 16vw, 92px); width: 100%; }
+.cmk-product__img { width: clamp(64px, 16vw, 92px); height: clamp(64px, 16vw, 92px); object-fit: contain; transition: transform .3s var(--cmk-ease-pop); }
+.cmk-product:hover .cmk-product__img { transform: scale(1.1) rotate(-5deg); }
+.cmk-product__brand { font-family: var(--cmk-font-display); font-size: .78rem; letter-spacing: .02em; text-transform: uppercase; background: var(--cmk-ink); color: var(--cmk-lime); padding: 2px 8px; border-radius: 6px; transform: rotate(-2deg); margin-top: 4px; }
+.cmk-product__tag {
+	position: absolute; top: -11px; left: 10px; z-index: 2; background: var(--cmk-lime); border: 2px solid var(--cmk-ink); border-radius: 99px;
+	font-size: .62rem; font-weight: 800; text-transform: uppercase; letter-spacing: .05em; padding: 2px 8px; transform: rotate(-4deg); white-space: nowrap;
+}
+.cmk-product__cmp { font-size: .72rem; font-weight: 700; color: #6a4bff; margin: -4px 0 6px; line-height: 1.25; }
+.cmk-product.is-broke { opacity: .72; }
+.cmk-product.is-broke .cmk-product__visual { filter: grayscale(.6); }
+.cmk-shop__disclaimer { font-size: .78rem; opacity: .65; margin: 28px 0 0; max-width: 60ch; }
+.cmk-cart__compare { margin: -6px 0 0; text-align: right; font-weight: 700; font-size: .85rem; color: #6a4bff; }
+.cmk-cart__compare:empty { display: none; }
+.cmk-result-card__cmp { font-size: .8rem; font-weight: 800; color: #6a4bff; }
+.cmk-result-card__cmp:empty { display: none; }
+
 /* ---------- Reveal ---------- */
 .cmk-js [data-reveal] { opacity: 0; translate: 0 24px; transition: opacity .5s ease, translate .6s var(--cmk-ease-pop); }
 .cmk-js [data-reveal].is-in { opacity: 1; translate: 0 0; }

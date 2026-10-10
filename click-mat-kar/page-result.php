@@ -18,6 +18,7 @@ get_header();
 				<span class="cmk-result-card__label" data-r-label><?php esc_html_e( 'I spent', 'click-mat-kar' ); ?></span>
 				<span class="cmk-result-card__big" data-r-spent></span>
 				<span class="cmk-result-card__sub" data-r-sub></span>
+				<span class="cmk-result-card__cmp" data-r-cmp></span>
 				<span class="cmk-result-card__items" data-r-items aria-hidden="true"></span>
 				<span class="cmk-result-card__top" data-r-top></span>
 				<span class="cmk-result-card__iq"><span data-r-score-label></span> <b data-r-iq></b></span>

@@ -41,11 +41,13 @@
 	var stampBottom = isShop && !D.G.invert ? Math.max(1, Math.min(99, 100 - r.q)) + '%' : 'tha.';
 	var subText = R.sub || '';
 	var labelText = R.label || 'My result';
+	var cmpText = R.big === 'money' && UI.compare ? UI.compare(r.s, D.pack) : '';
 
 	/* ---------- render ---------- */
 	$('[data-r-label]').textContent = labelText;
 	$('[data-r-spent]').textContent = spentText;
 	$('[data-r-sub]').textContent = subText;
+	$('[data-r-cmp]').textContent = cmpText;
 	$('[data-r-items]').textContent = r.e;
 	$('[data-r-top]').textContent = r.t ? topLabel + r.t : '';
 	$('[data-r-score-label]').textContent = scoreLabel;
@@ -60,7 +62,7 @@
 	var gameUrl = (CFG.gameUrls && CFG.gameUrls[r.g]) || CFG.shopUrl || CFG.home;
 	var challengeUrl = gameUrl + (gameUrl.indexOf('?') > -1 ? '&' : '?') + 'challenge=' + UI.encode({ s: r.s, q: r.q, c: r.c, id: r.id });
 	var resultUrl = window.location.href.split('#')[0];
-	var shareText = (R.share || 'My result: {big}. {q}/100. Beat me:').replace('{big}', spentText).replace('{q}', r.q);
+	var shareText = (R.share || 'My result: {big}. {q}/100. Beat me:').replace('{big}', spentText + (cmpText ? ' (' + cmpText + ')' : '')).replace('{q}', r.q);
 
 	$('[data-again]').href = gameUrl;
 	$('[data-beat]').href = challengeUrl;
@@ -192,6 +194,7 @@
 				g.font = '700 46px ' + BODY; g.fillText(labelText.toUpperCase(), 150, 500);
 				fit(spentText, DISPLAY, 140, 760); g.fillText(spentText, 150, 640);
 				fit(subText, BODY, 44, 760, '500'); g.fillText(subText, 150, 730);
+				if (cmpText) { g.fillStyle = '#6a4bff'; fit(cmpText, BODY, 42, 760, '800'); g.fillText(cmpText, 150, 800); g.fillStyle = INK; }
 
 				g.font = '120px ' + BODY; g.fillText(r.e, 150, 1010);
 				if (r.t) { fit(topLabel + r.t, BODY, 40, 760, '700'); g.fillText(topLabel + r.t, 150, 1100); }

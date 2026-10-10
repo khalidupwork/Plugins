@@ -31,9 +31,9 @@
 	 * PK/IN see dollars (1 USD = 100 base units keeps the jokes intact).
 	 * ------------------------------------------------------------- */
 	var PACKS = {
-		pkr: { code: 'pkr', symbol: 'Rs ', factor: 1, intl: 'en-IN', budgetLabel: 'Rs 10 Crore' },
-		inr: { code: 'inr', symbol: '\u20B9', factor: 1, intl: 'en-IN', budgetLabel: '\u20B910 Crore' },
-		usd: { code: 'usd', symbol: '$', factor: 0.01, intl: 'en-US', budgetLabel: '$1 Million' }
+		pkr: { code: 'pkr', symbol: 'Rs ', factor: 1, rate: 280, intl: 'en-IN', budgetLabel: 'Rs 25 Crore' },
+		inr: { code: 'inr', symbol: '\u20B9', factor: 1, rate: 88, intl: 'en-IN', budgetLabel: '\u20B910 Crore' },
+		usd: { code: 'usd', symbol: '$', factor: 0.01, rate: 1, intl: 'en-US', budgetLabel: '$1 Million' }
 	};
 
 	function detectLocale() {
@@ -52,6 +52,38 @@
 	}
 
 	function money(base) { return moneyIn(LOCALE, base); }
+
+	/* Convert a real-world USD price into base units for a currency pack (uses a rough fixed rate). */
+	function fromUsd(usd, pack) {
+		pack = PACKS[pack] || pack || LOCALE;
+		return Math.round((usd * pack.rate) / pack.factor);
+	}
+	/* Local-amount budgets ({ usd: 1e6, pkr: 25e7 }) -> base units for a pack. */
+	function budgetFor(budgets, pack) {
+		pack = PACKS[pack] || pack || LOCALE;
+		if (budgets[pack.code]) { return Math.round(budgets[pack.code] / pack.factor); }
+		return fromUsd(budgets.usd, pack);
+	}
+
+	/* "= 4,800 plates of biryani" — the line people screenshot. */
+	var COMPARE = {
+		pkr: [[50000, 80, 'cups of chai'], [5000000, 600, 'plates of biryani'], [Infinity, 160000, 'Honda 70 bikes']],
+		inr: [[20000, 20, 'cutting chais'], [2000000, 250, 'plates of biryani'], [Infinity, 90000, 'Activa scooters']],
+		usd: [[500, 5, 'cups of coffee'], [50000, 12, 'pizzas'], [Infinity, 9000, 'used Corollas']]
+	};
+	function compare(base, pack) {
+		pack = PACKS[pack] || pack || LOCALE;
+		var local = base * pack.factor;
+		var rows = COMPARE[pack.code] || COMPARE.usd;
+		for (var i = 0; i < rows.length; i++) {
+			if (local < rows[i][0]) {
+				var n = local / rows[i][1];
+				if (n < 1) { return ''; }
+				return '= ' + (n >= 10 ? Math.round(n).toLocaleString(pack.intl) : (Math.round(n * 10) / 10)) + ' ' + rows[i][2];
+			}
+		}
+		return '';
+	}
 
 	/* "Rs 10 Crore" / "$1 Million" style labels for budgets. */
 	function bigMoney(pack, base) {
@@ -130,7 +162,7 @@
 
 	function pick(list) { return list[Math.floor(Math.random() * list.length)]; }
 
-	window.CMKUI = { track: track, money: money, moneyIn: moneyIn, bigMoney: bigMoney, packs: PACKS, encode: encode, decode: decode, locale: LOCALE, toast: toast, flyTo: flyTo, bump: bump, pick: pick, reduceMotion: reduceMotion, config: CFG };
+	window.CMKUI = { track: track, money: money, moneyIn: moneyIn, bigMoney: bigMoney, fromUsd: fromUsd, budgetFor: budgetFor, compare: compare, packs: PACKS, encode: encode, decode: decode, locale: LOCALE, toast: toast, flyTo: flyTo, bump: bump, pick: pick, reduceMotion: reduceMotion, config: CFG };
 
 	/* ---------------------------------------------------------------
 	 * Header + mobile nav
@@ -173,7 +205,8 @@
 		'Ammi ko mat batana.', 'Zero regrets. For now.', 'Bold. Wrong, but bold.'
 	];
 	doc.querySelectorAll('[data-mini-shop]').forEach(function (shop) {
-		var budget = Number(shop.getAttribute('data-budget')) || 0;
+		var budget = shop.hasAttribute('data-budget-usd') ? fromUsd(Number(shop.getAttribute('data-budget-usd'))) : (Number(shop.getAttribute('data-budget')) || 0);
+		shop.querySelectorAll('[data-usd]').forEach(function (el) { el.setAttribute('data-price', fromUsd(Number(el.getAttribute('data-usd')))); });
 		var left = budget;
 		var count = 0;
 		var budgetEl = shop.querySelector('[data-mini-budget]');
@@ -279,13 +312,13 @@
 	 * Featured swipe demo: Nope / Add to cart through a small deck.
 	 * ------------------------------------------------------------- */
 	var DECK = [
-		['👜', 'Tiny Designer Bag', 620000],
-		['🦒', 'Emotional Support Giraffe', 4500000],
-		['🛥️', 'Yacht (for the bathtub)', 42000000],
-		['🧈', 'Gold-Plated Butter Knife', 95000],
-		['🚁', 'Helicopter. To avoid traffic.', 120000000],
-		['🪑', 'Chair That Judges You', 310000]
-	];
+		['👜', 'Gucchi Mini Bag (Holds 1 Mint)', 3200],
+		['⌚', 'Rolax "Relax" Daytona', 45000],
+		['🏎️', 'Lambo-Ghanta, No Parking', 260000],
+		['🦒', 'Emotional Support Giraffe', 25000],
+		['🚘', 'Rolls Rice With Biryani Boot', 460000],
+		['🧥', 'Bala-ji-aga Trash Bag Jacket', 1800]
+	].map(function (d) { return [d[0], d[1], fromUsd(d[2])]; });
 	doc.querySelectorAll('[data-swipe]').forEach(function (phone) {
 		var i = 0;
 		var count = 0;
@@ -294,7 +327,7 @@
 		var name = phone.querySelector('[data-swipe-name]');
 		var price = phone.querySelector('[data-swipe-price]');
 		var countEl = phone.querySelector('[data-swipe-count]');
-		price.textContent = money(Number(price.getAttribute('data-price')));
+		price.textContent = money(DECK[0][2]);
 
 		function next(dir) {
 			card.classList.add(dir === 'left' ? 'is-out-left' : 'is-out-right');

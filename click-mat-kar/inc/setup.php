@@ -76,6 +76,8 @@ function cmk_js_config() {
 		'resultUrl' => $result_page ? get_permalink( $result_page ) : home_url( '/result/' ),
 		'shopUrl'   => $shop_game ? get_permalink( $shop_game ) : home_url( '/games/shop-like-youre-rich/' ),
 		'gamesUrl'  => get_post_type_archive_link( 'cmk_game' ),
+		'productImages'    => cmk_product_images(),
+		'productImageBase' => CMK_URI . '/assets/img/products/',
 		'gameUrls'  => wp_list_pluck( array_filter( cmk_game_cards(), function ( $c ) { return $c['playable']; } ), 'url' ),
 		'gameTitles' => array_map(
 			function ( $t ) {
@@ -231,4 +233,36 @@ function cmk_result_robots( $robots ) {
 		$robots['follow']  = true;
 	}
 	return $robots;
+}
+
+/**
+ * Product images dropped into assets/img/products/ ({product-id}.webp|png|jpg).
+ * Only files that exist are sent to the game, so missing art falls back to emoji with no 404s.
+ *
+ * @return array<string,string> product id => file name.
+ */
+function cmk_product_images() {
+	$dir = CMK_DIR . '/assets/img/products';
+	if ( ! is_dir( $dir ) ) {
+		return array();
+	}
+	// Directory mtime changes whenever a file is added or removed, so new art shows up immediately.
+	$key   = 'cmk_pimg_' . md5( CMK_VERSION . '|' . filemtime( $dir ) );
+	$found = get_transient( $key );
+	if ( is_array( $found ) ) {
+		return $found;
+	}
+	$found = array();
+	foreach ( (array) scandir( $dir ) as $file ) {
+		$ext = strtolower( pathinfo( $file, PATHINFO_EXTENSION ) );
+		if ( ! in_array( $ext, array( 'webp', 'png', 'jpg', 'jpeg', 'avif' ), true ) ) {
+			continue;
+		}
+		$id = sanitize_key( pathinfo( $file, PATHINFO_FILENAME ) );
+		if ( $id && ! isset( $found[ $id ] ) ) {
+			$found[ $id ] = rawurlencode( $file ) . '?v=' . filemtime( $dir . '/' . $file );
+		}
+	}
+	set_transient( $key, $found, DAY_IN_SECONDS );
+	return $found;
 }
