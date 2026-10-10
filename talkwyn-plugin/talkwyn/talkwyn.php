@@ -3,7 +3,7 @@
  * Plugin Name:       Talkwyn AI Chatbot: Multilingual Answers and Lead Capture
  * Plugin URI:        https://talkwyn.com/
  * Description:       AI chatbot that learns your website in one click, answers visitors in their language, and captures leads. Works with free AI provider tiers.
- * Version:           2.3.9
+ * Version:           2.3.10
  * Requires at least: 6.4
  * Requires PHP:      8.0
  * Author:            Talkwyn
@@ -18,7 +18,7 @@
 
 defined( 'ABSPATH' ) || exit;
 
-define( 'TALKWYN_VERSION', '2.3.9' );
+define( 'TALKWYN_VERSION', '2.3.10' );
 define( 'TALKWYN_FILE', __FILE__ );
 define( 'TALKWYN_DIR', plugin_dir_path( __FILE__ ) );
 define( 'TALKWYN_URL', plugin_dir_url( __FILE__ ) );

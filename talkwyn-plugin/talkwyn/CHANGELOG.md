@@ -1,5 +1,10 @@
 # Talkwyn changelog
 
+## 2.3.10
+
+### Fixed
+- `widget.css`: on screens up to 640px, the floating panel size rule (`calc(100vw - 28px)` by `calc(100vh - 100px)`) came after the full screen rule and won, so "Open full screen on phones" left the page visible at the side and bottom. The full screen panel now has its own rule in the 640px query: `inset: 0`, full width, `100dvh`, bottom padding for `safe-area-inset-bottom`, and no expand button.
+
 ## 2.3.9
 
 ### Changed

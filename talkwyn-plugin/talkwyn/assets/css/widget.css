@@ -1022,6 +1022,22 @@ html.twc-lock body {
 		height: calc(100vh - 100px);
 	}
 
+	/* Full screen on phones: this rule comes after the one above, so it wins. */
+	:is(.twc,#twc-boost).twc--floating.is-full .twc-panel {
+		inset: 0;
+		width: 100%;
+		height: 100vh;
+		height: 100dvh;
+		max-width: none;
+		max-height: none;
+		padding-block-end: env(safe-area-inset-bottom, 0px);
+	}
+
+	/* No "expand" button on phones: the chat already fills the screen. */
+	:is(.twc,#twc-boost).is-full .twc-expand {
+		display: none;
+	}
+
 	:is(.twc,#twc-boost) .twc-bubble {
 		max-width: 85%;
 	}
