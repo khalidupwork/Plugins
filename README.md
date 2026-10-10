@@ -7,3 +7,11 @@ WordPress plugin: a free website audit lead-generation tool. Visitors enter thei
 See [`credit-market-audit/readme.txt`](credit-market-audit/readme.txt) for installation and options.
 
 **Install:** zip the `credit-market-audit` folder → WordPress → Plugins → Add New → Upload, then activate and add your PageSpeed API key under **Free Audit → Settings**.
+
+## Click Mat Kar theme (`click-mat-kar/`)
+
+Fresh WordPress theme for **CLICK MAT KAR.** (clickmatkar.com) — playful game lobby, fake-shopping game, shareable results. No page builder.
+
+**Install:** zip the `click-mat-kar` folder → WordPress → Appearance → Themes → Add New → Upload → Activate, then **Appearance → Click Mat Kar → Run 1-click setup**.
+
+Build status and next steps: [`click-mat-kar/PROGRESS.md`](click-mat-kar/PROGRESS.md).
