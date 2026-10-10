@@ -144,6 +144,12 @@ Run this on a staging copy of talkwyn.com with Stripe in **test mode** (card `42
 - [ ] `GET /wp-json/talkwyn-hub/v1/partners/terms` returns the current settings.
 - [ ] Turn Partners off → `?ref=` does nothing, My Account → Partners says the program is closed.
 
+## 25. Optional website at checkout (1.7.1)
+
+- [ ] Checkout shows "Website (optional)" under Additional order information. Empty: the order goes through.
+- [ ] "nabiakhan.com" is saved as https://nabiakhan.com and shows on the admin order screen. "not a site" is refused with "Please enter a website address like example.com, or leave it empty."
+- [ ] The license works on any site, whatever was typed here.
+
 ## 24. One product per order (1.7.0)
 
 - [ ] A pricing link (`?add-to-cart=`) for a license product empties the cart first, so checkout always holds just that plan. Renewal and upgrade links work as before.

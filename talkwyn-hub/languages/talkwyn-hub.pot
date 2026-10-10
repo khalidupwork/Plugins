@@ -2,14 +2,14 @@
 # This file is distributed under the GPL-2.0-or-later.
 msgid ""
 msgstr ""
-"Project-Id-Version: Talkwyn Hub 1.6.9\n"
+"Project-Id-Version: Talkwyn Hub 1.7.1\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/talkwyn-hub\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2026-10-10T12:30:14+00:00\n"
+"POT-Creation-Date: 2026-10-10T13:02:39+00:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "X-Generator: WP-CLI 2.12.0\n"
 "X-Domain: talkwyn-hub\n"
@@ -84,7 +84,7 @@ msgstr ""
 #: includes/Account/Account.php:151
 #: includes/Account/Account.php:275
 #: includes/Account/Account.php:291
-#: includes/Woo/Cart.php:285
+#: includes/Woo/Cart.php:308
 msgid "License not found."
 msgstr ""
 
@@ -124,7 +124,7 @@ msgstr ""
 #: includes/Account/Account.php:286
 #: includes/Account/Account.php:308
 #: includes/Partners/PartnerAccount.php:101
-#: includes/Woo/Cart.php:280
+#: includes/Woo/Cart.php:303
 msgid "Your session expired. Please try again."
 msgstr ""
 
@@ -2361,25 +2361,25 @@ msgstr ""
 msgid "not given"
 msgstr ""
 
-#: includes/Plugin.php:76
+#: includes/Plugin.php:77
 msgid "Talkwyn Hub needs WooCommerce to sell and issue licenses. The license API keeps working for existing licenses."
 msgstr ""
 
-#: includes/Plugin.php:83
+#: includes/Plugin.php:84
 msgid "Talkwyn Hub requires the PHP sodium extension and is currently inactive."
 msgstr ""
 
-#: includes/Plugin.php:93
-#: includes/Plugin.php:107
+#: includes/Plugin.php:94
+#: includes/Plugin.php:108
 msgid "Talkwyn Hub:"
 msgstr ""
 
-#: includes/Plugin.php:93
+#: includes/Plugin.php:94
 msgid "TWH_SECRET_KEY (or your WordPress auth salt) has changed since license data was encrypted. Stored keys and the signing key cannot be decrypted. Restore the previous value in wp-config.php."
 msgstr ""
 
 #. translators: %s: PHP code
-#: includes/Plugin.php:110
+#: includes/Plugin.php:111
 #, php-format
 msgid "Add %s to wp-config.php. Until then, license keys and signing keys are encrypted with a key derived from your WordPress auth salt, which breaks if the salts are rotated. When you add the constant, existing data is re-encrypted automatically. Never change or remove it afterwards."
 msgstr ""
@@ -2770,65 +2770,79 @@ msgid ""
 "After that, see your license, downloads and invoices at %4$s"
 msgstr ""
 
-#: includes/Woo/Cart.php:187
+#: includes/Woo/Cart.php:210
 msgid "This renewal link is not valid."
 msgstr ""
 
-#: includes/Woo/Cart.php:196
+#: includes/Woo/Cart.php:219
 msgid "This license cannot be renewed online. Please contact support."
 msgstr ""
 
-#: includes/Woo/Cart.php:201
+#: includes/Woo/Cart.php:224
 msgid "The renewal product is currently unavailable. Please contact support."
 msgstr ""
 
-#: includes/Woo/Cart.php:209
+#: includes/Woo/Cart.php:232
 msgid "Could not add the renewal to your cart."
 msgstr ""
 
-#: includes/Woo/Cart.php:297
+#: includes/Woo/Cart.php:320
 msgid "This upgrade is not available for your license."
 msgstr ""
 
-#: includes/Woo/Cart.php:303
+#: includes/Woo/Cart.php:326
 msgid "Could not add the upgrade to your cart."
 msgstr ""
 
-#: includes/Woo/Cart.php:356
+#: includes/Woo/Cart.php:379
 msgid "Renewal of license"
 msgstr ""
 
-#: includes/Woo/Cart.php:357
+#: includes/Woo/Cart.php:380
 msgid "Upgrade of license"
 msgstr ""
 
-#: includes/Woo/Cart.php:358
+#: includes/Woo/Cart.php:381
 msgid "Upgrade of your trial"
 msgstr ""
 
-#: includes/Woo/Cart.php:366
-#: includes/Woo/Cart.php:378
+#: includes/Woo/Cart.php:389
+#: includes/Woo/Cart.php:401
 msgid "Note"
 msgstr ""
 
-#: includes/Woo/Cart.php:367
+#: includes/Woo/Cart.php:390
 msgid "You keep the same license key. Your yearly term starts today."
 msgstr ""
 
-#: includes/Woo/Cart.php:372
+#: includes/Woo/Cart.php:395
 msgid "Renewal discount"
 msgstr ""
 
-#: includes/Woo/Cart.php:379
+#: includes/Woo/Cart.php:402
 msgid "Prorated for the remaining license term. Your key and expiry date stay the same."
 msgstr ""
 
-#: includes/Woo/Cart.php:429
+#: includes/Woo/Cart.php:452
 msgid "Renewals and upgrades are limited to a quantity of 1."
 msgstr ""
 
-#: includes/Woo/Cart.php:474
+#: includes/Woo/Cart.php:497
 msgid "A license renewal or upgrade in your cart is no longer valid and was removed."
+msgstr ""
+
+#: includes/Woo/CheckoutFields.php:65
+#: includes/Woo/CheckoutFields.php:66
+#: includes/Woo/CheckoutFields.php:99
+msgid "Website (optional)"
+msgstr ""
+
+#: includes/Woo/CheckoutFields.php:79
+msgid "Please enter a website address like example.com, or leave it empty."
+msgstr ""
+
+#: includes/Woo/CheckoutFields.php:129
+msgid "Website"
 msgstr ""
 
 #: includes/Woo/EmailBrand.php:76

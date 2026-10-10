@@ -47,6 +47,7 @@ final class Plugin {
 			Woo\ProductTab::init();
 			Woo\StoreSetup::init();
 			Woo\EmailBrand::init();
+			Woo\CheckoutFields::init();
 			Woo\OrderHandler::init();
 			Woo\Subscriptions::init();
 			Woo\Cart::init();
