@@ -373,7 +373,7 @@ add_shortcode(
 		$atts  = shortcode_atts( array( 'set' => 'home' ), $atts, 'tw_integrations' );
 		$all   = talkwyn_integrations();
 		$cards = array(
-			'wordpress'     => array( 'plug', __( 'Our <a class="tw-card__title-link" href="/integrations/wordpress/">WordPress chatbot plugin</a> installs in one click and understands Elementor pages out of the box.', 'talkwyn' ) ),
+			'wordpress'     => array( 'plug', __( 'Our <a class="tw-card__title-link" href="/integrations/wordpress/">WordPress chatbot plugin</a> is free, live in about five minutes, and understands Elementor pages out of the box.', 'talkwyn' ) ),
 			'woocommerce'   => array( 'store', __( 'Answers about products, prices, stock, and shipping.', 'talkwyn' ) ),
 			'elementor'     => array( 'layout-template', __( 'Reads the text inside your Elementor pages, sections, and widgets.', 'talkwyn' ) ),
 			'shopify'       => array( 'shopping-bag', __( 'Product answers, order questions, and lead capture.', 'talkwyn' ) ),

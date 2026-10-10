@@ -160,8 +160,20 @@
 				if ( toggle ) {
 					var sub = document.getElementById( toggle.getAttribute( 'aria-controls' ) );
 					var open = toggle.getAttribute( 'aria-expanded' ) === 'true';
+					// Accordion: opening one group closes the others.
+					mnav.querySelectorAll( '.tw-mnav__toggle[aria-expanded="true"]' ).forEach( function ( t ) {
+						if ( t !== toggle ) {
+							t.setAttribute( 'aria-expanded', 'false' );
+							var s = document.getElementById( t.getAttribute( 'aria-controls' ) );
+							if ( s ) {
+								s.hidden = true;
+							}
+						}
+					} );
 					toggle.setAttribute( 'aria-expanded', open ? 'false' : 'true' );
-					sub.hidden = open;
+					if ( sub ) {
+						sub.hidden = open;
+					}
 					return;
 				}
 				// Same-page anchors (like /#live-demo) close the menu.

@@ -94,7 +94,7 @@ function talkwyn_menu(): array {
 			'id'      => 'integrations',
 			'label'   => __( 'Integrations', 'talkwyn' ),
 			'links'   => array(
-				array( 'plug', __( 'WordPress plugin', 'talkwyn' ), __( 'One-click install from your dashboard', 'talkwyn' ), '/integrations/wordpress/', $status( 'wordpress' ) ),
+				array( 'plug', __( 'WordPress plugin', 'talkwyn' ), __( 'Free plugin, live in about five minutes', 'talkwyn' ), '/integrations/wordpress/', $status( 'wordpress' ) ),
 				array( 'store', __( 'WooCommerce', 'talkwyn' ), __( 'Answers about products, stock, and shipping', 'talkwyn' ), '/integrations/woocommerce/', $status( 'woocommerce' ) ),
 				array( 'layout-template', __( 'Elementor', 'talkwyn' ), __( 'Reads your Elementor pages out of the box', 'talkwyn' ), '/integrations/elementor/', $status( 'elementor' ) ),
 				array( 'shopping-bag', __( 'Shopify', 'talkwyn' ), __( 'Product answers and lead capture', 'talkwyn' ), '/integrations/shopify/', $status( 'shopify' ) ),
@@ -298,8 +298,9 @@ function talkwyn_header_html(): string {
 			. talkwyn_menu_feature( $item['feature'] )
 			. '</div></div></li>';
 		$mid      = 'tw-mnav-' . $item['id'];
-		$mobile  .= '<li class="tw-mnav__group"><button type="button" class="tw-mnav__toggle" aria-expanded="' . ( $active ? 'true' : 'false' ) . '" aria-controls="' . esc_attr( $mid ) . '">' . esc_html( $item['label'] ) . talkwyn_icon( 'chevron-down', 20 ) . '</button>'
-			. '<ul class="tw-mnav__sub" id="' . esc_attr( $mid ) . '"' . ( $active ? '' : ' hidden' ) . '>' . $links . '</ul></li>';
+		// Every group starts closed; the visitor opens one at a time.
+		$mobile  .= '<li class="tw-mnav__group' . ( $active ? ' is-current' : '' ) . '"><button type="button" class="tw-mnav__toggle" aria-expanded="false" aria-controls="' . esc_attr( $mid ) . '">' . esc_html( $item['label'] ) . talkwyn_icon( 'chevron-down', 20 ) . '</button>'
+			. '<ul class="tw-mnav__sub" id="' . esc_attr( $mid ) . '" hidden>' . $links . '</ul></li>';
 	}
 
 	return '<div class="tw-hdr" data-tw-header>'

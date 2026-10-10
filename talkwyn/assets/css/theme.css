@@ -291,6 +291,7 @@ ol.tw-steps-list li + li { margin-block-start: 10px; }
 .tw-mnav__toggle .tw-icon { transition: transform var(--tw-dur) var(--tw-ease); color: var(--tw-n-500); }
 .tw-mnav__toggle[aria-expanded="true"] .tw-icon { transform: rotate(180deg); }
 .tw-mnav__sub { list-style: none; margin: 0; padding: 0 0 12px; display: grid; gap: 2px; }
+.tw-mnav__sub[hidden] { display: none; }
 .tw-mnav__sub li { margin: 0; max-inline-size: none; }
 .tw-mnav__sub .tw-mega__link { padding: 10px 6px; }
 .tw-mnav__foot { display: grid; gap: 10px; padding: 16px var(--tw-gutter) calc(24px + env(safe-area-inset-bottom)); position: sticky; inset-block-end: 0; background: #FFFFFF; border-block-start: 1px solid var(--tw-border); }
