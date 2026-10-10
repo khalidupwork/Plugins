@@ -4,7 +4,7 @@
  "type": "footer",
  "content": [
   {
-   "id": "aa10103",
+   "id": "aa1010a",
    "elType": "container",
    "settings": {
     "content_width": "boxed",
@@ -47,7 +47,7 @@
    },
    "elements": [
     {
-     "id": "aa100e8",
+     "id": "aa100ef",
      "elType": "widget",
      "widgetType": "image",
      "settings": {
@@ -73,7 +73,7 @@
      "elements": []
     },
     {
-     "id": "aa100e9",
+     "id": "aa100f0",
      "elType": "widget",
      "widgetType": "nav-menu",
      "settings": {
@@ -90,7 +90,7 @@
      "elements": []
     },
     {
-     "id": "aa100ea",
+     "id": "aa100f1",
      "elType": "widget",
      "widgetType": "button",
      "settings": {
@@ -107,7 +107,7 @@
      "elements": []
     },
     {
-     "id": "aa100fc",
+     "id": "aa10103",
      "elType": "container",
      "settings": {
       "content_width": "full",
@@ -133,7 +133,7 @@
      },
      "elements": [
       {
-       "id": "aa100f0",
+       "id": "aa100f7",
        "elType": "container",
        "settings": {
         "content_width": "full",
@@ -165,7 +165,7 @@
        },
        "elements": [
         {
-         "id": "aa100eb",
+         "id": "aa100f2",
          "elType": "widget",
          "widgetType": "heading",
          "settings": {
@@ -176,13 +176,13 @@
          "elements": []
         },
         {
-         "id": "aa100ef",
+         "id": "aa100f6",
          "elType": "widget",
          "widgetType": "icon-list",
          "settings": {
           "icon_list": [
            {
-            "_id": "aa100ec",
+            "_id": "aa100f3",
             "text": "324 King Street, FL, USA",
             "selected_icon": {
              "value": "fas fa-map-marker-alt",
@@ -190,7 +190,7 @@
             }
            },
            {
-            "_id": "aa100ed",
+            "_id": "aa100f4",
             "text": "+1 123 456 7890",
             "selected_icon": {
              "value": "fas fa-phone-alt",
@@ -204,7 +204,7 @@
             }
            },
            {
-            "_id": "aa100ee",
+            "_id": "aa100f5",
             "text": "info@example.com",
             "selected_icon": {
              "value": "fas fa-envelope",
@@ -229,7 +229,7 @@
        "isInner": true
       },
       {
-       "id": "aa100f6",
+       "id": "aa100fd",
        "elType": "container",
        "settings": {
         "content_width": "full",
@@ -261,7 +261,7 @@
        },
        "elements": [
         {
-         "id": "aa100f1",
+         "id": "aa100f8",
          "elType": "widget",
          "widgetType": "heading",
          "settings": {
@@ -272,13 +272,13 @@
          "elements": []
         },
         {
-         "id": "aa100f5",
+         "id": "aa100fc",
          "elType": "widget",
          "widgetType": "icon-list",
          "settings": {
           "icon_list": [
            {
-            "_id": "aa100f2",
+            "_id": "aa100f9",
             "text": "Mon – Sat: 8 am – 8 pm",
             "selected_icon": {
              "value": "far fa-clock",
@@ -286,7 +286,7 @@
             }
            },
            {
-            "_id": "aa100f3",
+            "_id": "aa100fa",
             "text": "Sunday: Closed",
             "selected_icon": {
              "value": "far fa-calendar-times",
@@ -294,7 +294,7 @@
             }
            },
            {
-            "_id": "aa100f4",
+            "_id": "aa100fb",
             "text": "24/7 emergency service",
             "selected_icon": {
              "value": "fas fa-bolt",
@@ -313,7 +313,7 @@
        "isInner": true
       },
       {
-       "id": "aa100fb",
+       "id": "aa10102",
        "elType": "container",
        "settings": {
         "content_width": "full",
@@ -345,7 +345,7 @@
        },
        "elements": [
         {
-         "id": "aa100f7",
+         "id": "aa100fe",
          "elType": "widget",
          "widgetType": "heading",
          "settings": {
@@ -356,7 +356,7 @@
          "elements": []
         },
         {
-         "id": "aa100f8",
+         "id": "aa100ff",
          "elType": "widget",
          "widgetType": "text-editor",
          "settings": {
@@ -366,7 +366,7 @@
          "elements": []
         },
         {
-         "id": "aa100fa",
+         "id": "aa10101",
          "elType": "widget",
          "widgetType": "form",
          "settings": {
@@ -374,20 +374,37 @@
           "show_labels": "",
           "form_fields": [
            {
-            "_id": "aa100f9",
+            "_id": "aa10100",
             "custom_id": "email",
             "field_type": "email",
             "field_label": "Email address",
             "placeholder": "Email address",
             "required": "true",
-            "width": "100"
+            "width": "65",
+            "width_tablet": "65",
+            "width_mobile": "65"
            }
           ],
+          "input_size": "md",
+          "button_size": "md",
+          "column_gap": {
+           "unit": "px",
+           "size": 0,
+           "sizes": []
+          },
+          "row_gap": {
+           "unit": "px",
+           "size": 0,
+           "sizes": []
+          },
           "button_text": "Subscribe",
-          "button_width": "100",
+          "button_width": "35",
+          "button_width_tablet": "35",
+          "button_width_mobile": "35",
           "submit_actions": [
            "email"
           ],
+          "_css_classes": "mrc-inline-form",
           "email_subject": "New newsletter subscriber",
           "success_message": "Thanks for subscribing!"
          },
@@ -400,7 +417,7 @@
      "isInner": true
     },
     {
-     "id": "aa10102",
+     "id": "aa10109",
      "elType": "widget",
      "widgetType": "social-icons",
      "settings": {
@@ -409,7 +426,7 @@
       "icon_color": "custom",
       "social_icon_list": [
        {
-        "_id": "aa100fd",
+        "_id": "aa10104",
         "social_icon": {
          "value": "fab fa-facebook-f",
          "library": "fa-brands"
@@ -422,7 +439,7 @@
         }
        },
        {
-        "_id": "aa100fe",
+        "_id": "aa10105",
         "social_icon": {
          "value": "fab fa-x-twitter",
          "library": "fa-brands"
@@ -435,7 +452,7 @@
         }
        },
        {
-        "_id": "aa100ff",
+        "_id": "aa10106",
         "social_icon": {
          "value": "fab fa-youtube",
          "library": "fa-brands"
@@ -448,7 +465,7 @@
         }
        },
        {
-        "_id": "aa10100",
+        "_id": "aa10107",
         "social_icon": {
          "value": "fab fa-linkedin-in",
          "library": "fa-brands"
@@ -461,7 +478,7 @@
         }
        },
        {
-        "_id": "aa10101",
+        "_id": "aa10108",
         "social_icon": {
          "value": "fab fa-instagram",
          "library": "fa-brands"
@@ -485,7 +502,7 @@
    "isInner": false
   },
   {
-   "id": "aa10108",
+   "id": "aa1010f",
    "elType": "container",
    "settings": {
     "content_width": "boxed",
@@ -508,7 +525,7 @@
    },
    "elements": [
     {
-     "id": "aa10104",
+     "id": "aa1010b",
      "elType": "widget",
      "widgetType": "heading",
      "settings": {
@@ -520,13 +537,13 @@
      "elements": []
     },
     {
-     "id": "aa10107",
+     "id": "aa1010e",
      "elType": "widget",
      "widgetType": "icon-list",
      "settings": {
       "icon_list": [
        {
-        "_id": "aa10105",
+        "_id": "aa1010c",
         "text": "Terms &amp; Conditions",
         "selected_icon": {
          "value": "fas fa-angle-right",
@@ -540,7 +557,7 @@
         }
        },
        {
-        "_id": "aa10106",
+        "_id": "aa1010d",
         "text": "Privacy Policy",
         "selected_icon": {
          "value": "fas fa-angle-right",

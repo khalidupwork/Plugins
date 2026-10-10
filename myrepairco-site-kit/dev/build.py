@@ -165,30 +165,29 @@ def icon_list(items, inline=False, ico='fas fa-check-circle', cls='', **extra):
 
 def counter(n, suffix, title):
     return widget('counter', starting_number=0, ending_number=n, suffix=suffix, title=title,
-                  __globals__={'number_color': G_RED})
+                  __globals__={'number_color': G_RED, 'typography_number_typography': 'globals/typography?id=primary',
+                               'typography_title_typography': 'globals/typography?id=secondary'})
 
 
 # ------------------------------------------------------------------ home page
 def hero():
     return section([
-        row([
-            col([eyebrow('Professional · Trustworthy · Same-Day', 'left'),
-                 heading('Our handyman services are all under one roof.', 'h1', 'left'),
-                 text("It's your home. Not just any handyman will do. Book a background-verified technician "
-                      "for same-day repairs, track them live on your phone, and relax &mdash; every job is "
-                      "backed by our one-year guarantee.", 'left'),
-                 row([button('Schedule a Booking'),
-                      button('Call ' + PHONE_LABEL, PHONE_URL, cls='mrc-btn-outline')],
-                     justify='flex-start', gap_px=16),
-                 icon_list(['Background-checked techs', 'Same-day service', 'Live tracking'],
-                           inline=True, cls='mrc-trust')],
-                w=50, wt=100, justify='center', flex_gap=gap(22)),
-            col([image(asset('hero-technician-handshake.jpg'), _css_classes='mrc-photo mrc-photo-hero')],
-                w=46, wt=100, justify='center'),
-        ], align='center', gap_px=48),
-    ], bg=G_LIGHT, pad=(80, 20, 130, 20), padding_mobile=box(48, 16, 100, 16),
-        shape_divider_bottom='waves', shape_divider_bottom_color=WHITE,
-        shape_divider_bottom_height=px(60))
+        eyebrow('Professional · Trustworthy · Same-Day'),
+        heading('Our handyman services are all under one roof.', 'h1'),
+        text("It's your home. Not just any handyman will do. Book a background-verified technician for "
+             "same-day repairs, track them live on your phone, and relax &mdash; every job is backed by "
+             "our one-year guarantee."),
+        row([button('Schedule a Booking'),
+             button('Call ' + PHONE_LABEL, PHONE_URL, cls='mrc-btn-outline-light')], gap_px=16),
+        icon_list(['Background-checked techs', 'Same-day service', 'Live tracking'],
+                  inline=True, cls='mrc-trust', icon_align='center'),
+    ], cls='mrc-on-dark mrc-narrow mrc-hero', pad=(150, 20, 180, 20), padding_mobile=box(100, 16, 130, 16),
+        min_height=px(640), flex_justify_content='center',
+        background_background='classic', background_image=asset('hero-technician-handshake.jpg'),
+        background_position='center center', background_size='cover', background_repeat='no-repeat',
+        background_overlay_background='classic', background_overlay_color=DARK,
+        background_overlay_opacity=px(0.68),
+        shape_divider_bottom='waves', shape_divider_bottom_color=WHITE, shape_divider_bottom_height=px(60))
 
 
 def promo_strip():
@@ -202,7 +201,7 @@ def promo_strip():
                  text('Small jobs, big relief: leaky faucets, loose outlets, wobbly doors and more. '
                       'Book now and get a verified tech at your door &mdash; often within hours.', 'left',
                       align_mobile='center')],
-                w=100, wt=100, flex_gap=gap(6), _flex_size='grow', align_mobile='center'),
+                w=100, wt=100, flex_gap=gap(6), align_mobile='center'),
             button('Book a Tech', _flex_size='none'),
         ], align='center', gap_px=28, wrap='nowrap', cls='mrc-strip',
             flex_direction_mobile='column', padding=box(28, 36, 28, 36), padding_mobile=box(28, 22, 28, 22)),
@@ -267,7 +266,7 @@ STEPS = [
 def how_it_works():
     return section([
         row([
-            col([image(asset('phone-booking.png'), width=90)], w=45, wt=100, align='center'),
+            col([image(asset('phone-booking-animated.webp'), width=90, _css_classes='mrc-float')], w=45, wt=100, align='center'),
             col([eyebrow('Our Process', 'left'),
                  heading('How It Works?', 'h2', 'left'),
                  text('From booking to completion, our streamlined process ensures hassle-free, efficient '
@@ -292,7 +291,7 @@ def live_tracking():
                             'Upfront pricing &mdash; approve the estimate before work starts']),
                  button('Schedule a Booking', align='left', align_mobile='center')],
                 w=50, wt=100, justify='center'),
-            col([image(asset('phone-tracking.png'), width=90)], w=45, wt=100, align='center'),
+            col([image(asset('phone-tracking-animated.webp'), width=90, _css_classes='mrc-float')], w=45, wt=100, align='center'),
         ], align='center', gap_px=50),
     ], bg=G_LIGHT)
 
@@ -330,38 +329,50 @@ def compare_row(label):
     def mark(ok, cls):
         ic = 'fas fa-check-circle' if ok else 'fas fa-times-circle'
         glob = {'primary_color': G_WHITE if ok else G_TEXT}
-        return col([widget('icon', selected_icon=icon(ic), size=px(28), __globals__=glob)],
-                   w=25, wm=30, align='center', justify='center', cls=cls, padding=box(20, 8, 20, 8),
-                   padding_mobile=box(18, 4, 18, 4))
-    return row([col([heading(label, 'h5', 'left')], w=50, wm=40, justify='center', cls='mrc-label',
-                    padding=box(20, 16, 20, 4)),
+        return col([widget('icon', selected_icon=icon(ic), size=px(26), __globals__=glob)],
+                   w=24, wm=30, align='center', justify='center', cls=cls, padding=box(18, 8, 18, 8),
+                   padding_mobile=box(16, 4, 16, 4))
+    return row([col([heading(label, 'h5', 'left')], w=52, wm=40, justify='center', cls='mrc-label',
+                    padding=box(18, 16, 18, 28), padding_mobile=box(16, 8, 16, 14)),
                 mark(True, 'mrc-brand-col'), mark(False, 'mrc-others-col')],
                gap_px=0, wrap='nowrap', align='stretch')
 
 
 def comparison():
-    head = row([col([heading('What you get', 'h6', 'left', cls='mrc-muted', hide_mobile='hidden-mobile')], w=50, wm=40, justify='flex-end',
-                    padding=box(20, 16, 14, 4)),
-                col([heading('MyRepairCo', 'h4', 'center')], w=25, wm=30, cls='mrc-brand-col',
-                    align='center', justify='center', padding=box(24, 8, 24, 8), padding_mobile=box(20, 4, 20, 4)),
-                col([heading('Others', 'h4', 'center')], w=25, wm=30, cls='mrc-others-col',
-                    align='center', justify='center', padding=box(24, 8, 24, 8), padding_mobile=box(20, 4, 20, 4))],
+    head = row([col([heading('What you get', 'h6', 'left', cls='mrc-muted', hide_mobile='hidden-mobile')], w=52, wm=40, justify='center',
+                    padding=box(22, 16, 22, 28), padding_mobile=box(18, 8, 18, 14)),
+                col([heading('MyRepairCo', 'h5', 'center')], w=24, wm=30, cls='mrc-brand-col',
+                    align='center', justify='center', padding=box(22, 8, 22, 8), padding_mobile=box(18, 4, 18, 4)),
+                col([heading('Others', 'h5', 'center')], w=24, wm=30, cls='mrc-others-col',
+                    align='center', justify='center', padding=box(22, 8, 22, 8), padding_mobile=box(18, 4, 18, 4))],
                gap_px=0, wrap='nowrap', align='stretch')
     return section([
         eyebrow('Compare'),
         heading('Why homeowners switch to MyRepairCo'),
-        container([head, *[compare_row(c) for c in COMPARE]], content_width='boxed', css_classes='mrc-compare',
-                  boxed_width=px(920), flex_direction='column', flex_gap=gap(0), padding=box(16, 0, 0, 0)),
-    ], pad=(40, 20, 100, 20))
+        text('Everything you need to get small jobs done fast &mdash; in one place.'),
+        container([head, *[compare_row(c) for c in COMPARE]], content_width='full', css_classes='mrc-compare',
+                  width=px(920, 'px'), width_tablet=px(100, '%'), width_mobile=px(100, '%'),
+                  flex_direction='column', flex_gap=gap(0), padding=box(0, 0, 0, 0),
+                  margin=box(16, 0, 0, 0)),
+    ], bg=G_LIGHT, pad=(90, 20, 100, 20))
+
+
+PROJECTS = [(IMG_ROOF, 'Roof Repair', 'Exterior'), (IMG_VARNISH, 'Deck Staining', 'Carpentry'),
+            (IMG_FURNITURE, 'Furniture Assembly', 'Handyman'), (IMG_ELECTRIC, 'Lighting Install', 'Electrical')]
 
 
 def recent_projects():
+    cards = [col([image(img(u), _css_classes='mrc-photo'),
+                  heading(cat, 'h6', 'left', cls='mrc-muted mrc-small'),
+                  heading(title, 'h4', 'left')],
+                 w=23, wt=47, wm=100, cls='mrc-project', flex_gap=gap(10)) for u, title, cat in PROJECTS]
     return section([
         eyebrow('Recent Projects'),
         heading('Inspiration for your next project'),
-        row([col([image(img(u), _css_classes='mrc-photo')], w=23, wt=47, wm=100)
-             for u in (IMG_ROOF, IMG_VARNISH, IMG_FURNITURE, IMG_ELECTRIC)], gap_px=20),
-    ], bg=G_LIGHT)
+        text('A few of the jobs our verified technicians finished for homeowners like you.'),
+        row(cards, gap_px=28, margin=box(16, 0, 8, 0)),
+        button('View All Services', '/services/'),
+    ], pad=(90, 20, 100, 20))
 
 
 def about():
@@ -378,7 +389,7 @@ def about():
                  button('More About Us', '/tech-team/', align='left', align_mobile='center')],
                 w=50, wt=100, justify='center'),
         ], align='center', gap_px=50),
-    ])
+    ], bg=G_LIGHT)
 
 
 REVIEWS = [
@@ -403,7 +414,7 @@ def testimonials():
         text('Customer experiences that highlight our dedication and skill'),
         row(cards, gap_px=24),
     ], bg=G_RED, cls='mrc-on-dark mrc-on-red', pad=(130, 20, 130, 20),
-        shape_divider_top='waves', shape_divider_top_color=WHITE, shape_divider_top_height=px(60),
+        shape_divider_top='waves', shape_divider_top_color=LIGHT, shape_divider_top_height=px(60),
         shape_divider_bottom='waves', shape_divider_bottom_color=DARK, shape_divider_bottom_height=px(60))
 
 
@@ -416,7 +427,7 @@ def cta_band():
                       button('Call ' + PHONE_LABEL, PHONE_URL, cls='mrc-btn-outline-light')],
                      justify='flex-start', gap_px=16)],
                 w=55, wt=100, justify='center'),
-            col([image(asset('phone-tracking.png'), width=80)], w=40, wt=100, align='center'),
+            col([image(asset('phone-tracking-animated.webp'), width=80, _css_classes='mrc-float')], w=40, wt=100, align='center'),
         ], align='center', gap_px=40),
     ], bg=G_DARK, cls='mrc-on-dark', pad=(70, 20, 70, 20))
 
@@ -455,13 +466,13 @@ def header():
         flex_align_items='center', flex_wrap='wrap', padding=box(8, 20, 8, 20),
         background_background='classic', __globals__={'background_color': G_DARK})
     main = container([
-        image(asset('myrepairco-logo-red-transparent.png'), 'left', width=300, link_to='custom',
+        image(asset('myrepairco-logo-red-transparent.png'), 'left', width=260, link_to='custom',
               link=link('/'), width_mobile=px(170, 'px')),
         widget('nav-menu', menu='{{menu}}', layout='horizontal', align_items='right', pointer='underline',
                dropdown='tablet', toggle='burger', full_width='stretch',
                __globals__={'color_menu_item_hover': G_RED, 'pointer_color_menu_item_hover': G_RED,
                             'color_menu_item_active': G_RED, 'pointer_color_menu_item_active': G_RED},
-               _flex_size='grow'),
+               ),
         button('Schedule a Booking', hide_mobile='hidden-mobile'),
     ], inner=False, content_width='boxed', flex_direction='row', flex_justify_content='space-between',
         flex_align_items='center', flex_wrap='nowrap', flex_gap=gap(24), padding=box(14, 20, 14, 20),
@@ -491,8 +502,11 @@ def footer():
                      widget('form', form_name='Newsletter', show_labels='',
                             form_fields=[{'_id': eid(), 'custom_id': 'email', 'field_type': 'email',
                                           'field_label': 'Email address', 'placeholder': 'Email address',
-                                          'required': 'true', 'width': '100'}],
-                            button_text='Subscribe', button_width='100', submit_actions=['email'],
+                                          'required': 'true', 'width': '65', 'width_tablet': '65',
+                                          'width_mobile': '65'}],
+                            input_size='md', button_size='md', column_gap=px(0), row_gap=px(0),
+                            button_text='Subscribe', button_width='35', button_width_tablet='35',
+                            button_width_mobile='35', submit_actions=['email'], _css_classes='mrc-inline-form',
                             email_subject='New newsletter subscriber', success_message='Thanks for subscribing!')],
                     w=32, wt=100),
             ], gap_px=40, justify='space-between', padding=box(30, 0, 10, 0)),
@@ -534,20 +548,29 @@ CUSTOM_CSS = """
 .elementor .mrc-btn-outline-light .elementor-button{background:transparent;border-color:#fff;color:#fff}
 .elementor .mrc-btn-outline-light .elementor-button:hover{background:#fff;color:var(--e-global-color-primary)}
 .mrc-trust .elementor-icon-list-text{font-weight:600;color:var(--e-global-color-secondary)}
+.mrc-on-dark .mrc-trust .elementor-icon-list-text{color:#fff}
 .mrc-photo img{border-radius:16px;aspect-ratio:4/3;object-fit:cover;width:100%}
 .mrc-photo-hero img{border-radius:20px;aspect-ratio:auto;box-shadow:0 24px 50px rgba(27,27,31,.18)}
-.mrc-compare .mrc-label{border-bottom:1px solid rgba(27,27,31,.08)}
-.mrc-compare .mrc-brand-col{background:var(--e-global-color-primary)}
-.mrc-compare .mrc-brand-col .elementor-heading-title{color:#fff}
-@media(max-width:767px){.mrc-compare .mrc-brand-col .elementor-heading-title,.mrc-compare .mrc-others-col .elementor-heading-title{font-size:15px}}
-.mrc-compare .mrc-others-col{background:#EFE7DF;border-bottom:1px solid rgba(27,27,31,.06)}
-.mrc-compare > .e-con-inner > .e-con:first-child .mrc-brand-col,.mrc-compare > .e-con-inner > .e-con:first-child .mrc-others-col{border-radius:14px 14px 0 0;border-bottom:0}
-.mrc-compare > .e-con-inner > .e-con:first-child .mrc-label{border-bottom:0}
-.mrc-compare > .e-con-inner > .e-con:last-child .mrc-brand-col,.mrc-compare > .e-con-inner > .e-con:last-child .mrc-others-col{border-radius:0 0 14px 14px;border-bottom:0}
-.mrc-compare > .e-con-inner > .e-con:last-child .mrc-label{border-bottom:0}
 .mrc-stats .elementor-counter-title{color:var(--e-global-color-secondary)}
+.mrc-float img{animation:mrc-float 5s ease-in-out infinite}
+@keyframes mrc-float{0%,100%{transform:translateY(0)}50%{transform:translateY(-14px)}}
+@media(prefers-reduced-motion:reduce){.mrc-float img{animation:none}}
 .mrc-header-main{box-shadow:0 4px 18px rgba(27,27,31,.08)}
 .mrc-footer-menu .elementor-nav-menu--main .elementor-item{text-transform:uppercase;font-weight:700}
+.mrc-compare{background:#fff;border-radius:20px;box-shadow:0 14px 40px rgba(27,27,31,.08)}
+.mrc-compare .mrc-label,.mrc-compare .mrc-others-col{border-bottom:1px solid rgba(27,27,31,.07)}
+.mrc-compare .mrc-brand-col{background:var(--e-global-color-primary);box-shadow:0 0 0 1px var(--e-global-color-primary)}
+.mrc-compare .mrc-brand-col .elementor-heading-title{color:#fff}
+.mrc-compare .mrc-others-col .elementor-heading-title{color:var(--e-global-color-text)}
+.mrc-compare > .e-con:first-child .mrc-brand-col{border-radius:16px 16px 0 0;margin-top:-14px;padding-top:36px!important}
+.mrc-compare > .e-con:last-child .mrc-brand-col{border-radius:0 0 16px 16px;margin-bottom:-14px;padding-bottom:32px!important}
+.mrc-compare > .e-con:last-child .mrc-label,.mrc-compare > .e-con:last-child .mrc-others-col{border-bottom:0}
+@media(max-width:767px){.mrc-compare .mrc-brand-col .elementor-heading-title,.mrc-compare .mrc-others-col .elementor-heading-title{font-size:14px}}
+.mrc-project .elementor-heading-title{margin:0}
+.mrc-project .mrc-photo img{transition:transform .3s}
+.mrc-project:hover .mrc-photo img{transform:scale(1.03)}
+.mrc-inline-form .elementor-field-group:not(.elementor-field-type-submit) .elementor-field{border-radius:6px 0 0 6px;min-height:52px}
+.mrc-inline-form .elementor-field-type-submit .elementor-button{border-radius:0 6px 6px 0;min-height:52px;padding-left:12px;padding-right:12px}
 """
 
 

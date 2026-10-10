@@ -2,7 +2,7 @@
 Requires Plugins: elementor
 Requires at least: 6.0
 Requires PHP: 7.4
-Stable tag: 1.2.0
+Stable tag: 1.3.0
 
 Sets up the MyRepairCo red theme for Elementor Pro and creates the Home page, Header and Footer.
 The layout follows MyPaintingCo, and the booking and live-tracking sections follow Frontdoor.
@@ -59,6 +59,16 @@ If the styles are applied but the site still looks old: Elementor > Tools > Rege
 then clear any caching plugin and the browser cache.
 
 == Changelog ==
+
+= 1.3.0 =
+* Hero is a full-width background photo (technician handshake) with a dark overlay so the text is easy to read.
+* Same-day strip fixed: the icon and button stayed outside the card because the text column could not shrink.
+* Counter numbers are bold (Headings global font).
+* Comparison table redesigned: one white card with a raised red MyRepairCo column. Better fit on mobile.
+* Recent Projects: rounded photos with category and title, more spacing, and a button below.
+* Newsletter form is on one line: the email field and the Subscribe button sit side by side.
+* The phone illustrations are animated (animated WebP: van drives to the house, ETA counts down, services get selected, button gets tapped) and float gently. The animation is turned off for visitors who prefer reduced motion.
+* Header menu is allowed to shrink, and the logo is slightly smaller, so the header fits on smaller laptops.
 
 = 1.2.0 =
 * Status box shows whether the MyRepairCo styles are active, and asks you to re-apply them when they are missing or come from an older version.

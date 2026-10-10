@@ -4,7 +4,7 @@
  "type": "header",
  "content": [
   {
-   "id": "aa100e3",
+   "id": "aa100ea",
    "elType": "container",
    "settings": {
     "content_width": "boxed",
@@ -27,13 +27,13 @@
    },
    "elements": [
     {
-     "id": "aa100e1",
+     "id": "aa100e8",
      "elType": "widget",
      "widgetType": "icon-list",
      "settings": {
       "icon_list": [
        {
-        "_id": "aa100df",
+        "_id": "aa100e6",
         "text": "+1 123 456 7890",
         "selected_icon": {
          "value": "fas fa-phone-alt",
@@ -47,7 +47,7 @@
         }
        },
        {
-        "_id": "aa100e0",
+        "_id": "aa100e7",
         "text": "info@example.com",
         "selected_icon": {
          "value": "fas fa-envelope",
@@ -70,7 +70,7 @@
      "elements": []
     },
     {
-     "id": "aa100e2",
+     "id": "aa100e9",
      "elType": "widget",
      "widgetType": "heading",
      "settings": {
@@ -86,7 +86,7 @@
    "isInner": false
   },
   {
-   "id": "aa100e7",
+   "id": "aa100ee",
    "elType": "container",
    "settings": {
     "content_width": "boxed",
@@ -113,7 +113,7 @@
    },
    "elements": [
     {
-     "id": "aa100e4",
+     "id": "aa100eb",
      "elType": "widget",
      "widgetType": "image",
      "settings": {
@@ -127,7 +127,7 @@
       "align": "left",
       "width": {
        "unit": "px",
-       "size": 300,
+       "size": 260,
        "sizes": []
       },
       "link_to": "custom",
@@ -146,7 +146,7 @@
      "elements": []
     },
     {
-     "id": "aa100e5",
+     "id": "aa100ec",
      "elType": "widget",
      "widgetType": "nav-menu",
      "settings": {
@@ -162,13 +162,12 @@
        "pointer_color_menu_item_hover": "globals/colors?id=primary",
        "color_menu_item_active": "globals/colors?id=primary",
        "pointer_color_menu_item_active": "globals/colors?id=primary"
-      },
-      "_flex_size": "grow"
+      }
      },
      "elements": []
     },
     {
-     "id": "aa100e6",
+     "id": "aa100ed",
      "elType": "widget",
      "widgetType": "button",
      "settings": {

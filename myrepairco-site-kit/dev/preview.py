@@ -54,7 +54,7 @@ def render_container(el, depth):
         css.append('background:' + bg)
     if s.get('background_image'):
         css.append('background:linear-gradient(rgba(27,27,31,.72),rgba(27,27,31,.72)),url(%s) center/cover'
-                   % s['background_image']['url'])
+                   % asset(s['background_image']['url']))
     if s.get('min_height'):
         css.append('min-height:' + size(s['min_height']))
     cls = ['e-con', s.get('css_classes', ''), 'dm-col' if s.get('flex_direction_mobile') == 'column' else '',
@@ -124,8 +124,10 @@ def render_widget(el):
         return '<div class="%s" style="text-align:center">' % cls + ' '.join(
             '<span class="soc">●</span>' for _ in s['social_icon_list']) + '</div>'
     if t == 'form':
-        return '<div class="%s"><input placeholder="Email address"><a class="elementor-button">%s</a></div>' % (
-            cls, s['button_text'])
+        return ('<div class="%s" style="display:flex"><input placeholder="Email address" style="width:%s%%;margin:0;'
+                'border-radius:6px 0 0 6px;min-height:52px"><a class="elementor-button" style="width:%s%%;text-align:center;'
+                'border-radius:0 6px 6px 0;padding:14px 8px">%s</a></div>') % (
+            cls, s['form_fields'][0]['width'], s['button_width'], s['button_text'])
     if t == 'posts':
         return '<div class="%s posts">%s</div>' % (cls, ''.join('<div class="post">Blog post %d</div>' % i for i in (1, 2, 3)))
     return '<div class="%s">[%s]</div>' % (cls, t)
@@ -150,7 +152,7 @@ def theme_css():
 
 
 EXTRA = """
-*{box-sizing:border-box} .fx-grow{flex:1 1 0!important;min-width:0} .fx-none{flex:0 0 auto!important} p{margin:0} img{display:block;margin:0 auto}
+*{box-sizing:border-box} .fx-grow{flex:1 0 auto!important} .e-con{min-width:0;flex-shrink:1} .fx-none{flex:0 0 auto!important} p{margin:0} img{display:block;margin:0 auto}
 .w{max-width:100%} .e-con[style*='direction:row']>.w,.e-con-inner[style]>.w{flex:0 1 auto} .w-image[style*="left"] img{margin:0} .w-nav-menu{width:auto;flex-grow:1;text-align:right;font-weight:600}
 .shape{position:absolute;left:0;right:0;height:40px;-webkit-mask:radial-gradient(circle at 50% 0,#000 18px,transparent 19px) 0 0/60px 40px repeat-x}
 .shape-top{top:0}.shape-bottom{bottom:0;transform:scaleY(-1)}

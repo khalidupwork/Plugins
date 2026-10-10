@@ -2,7 +2,7 @@
 /**
  * Plugin Name: MyRepairCo Site Kit
  * Description: One-click setup of the MyRepairCo red theme for Elementor Pro: global colors, fonts and theme style, plus a Home page, Header and Footer built with native Elementor containers and widgets.
- * Version:     1.2.0
+ * Version:     1.3.0
  * Author:      MyRepairCo
  * Requires PHP: 7.4
  * Text Domain: myrepairco-site-kit
@@ -12,7 +12,7 @@ defined( 'ABSPATH' ) || exit;
 
 final class MyRepairCo_Site_Kit {
 
-	const VERSION        = '1.2.0';
+	const VERSION        = '1.3.0';
 	const BACKUP_OPTION  = 'mrc_site_kit_backup';
 	const APPLIED_OPTION = 'mrc_site_kit_applied_version';
 	const ASSETS_OPTION  = 'mrc_site_kit_assets';
@@ -275,7 +275,7 @@ final class MyRepairCo_Site_Kit {
 		require_once ABSPATH . 'wp-admin/includes/image.php';
 
 		$ids = (array) get_option( self::ASSETS_OPTION, array() );
-		$files = array_merge( (array) glob( __DIR__ . '/assets/images/*.png' ), (array) glob( __DIR__ . '/assets/images/*.jpg' ) );
+		$files = array_merge( (array) glob( __DIR__ . '/assets/images/*.png' ), (array) glob( __DIR__ . '/assets/images/*.jpg' ), (array) glob( __DIR__ . '/assets/images/*.webp' ) );
 		foreach ( $files as $path ) {
 			$name = basename( $path );
 			if ( ! empty( $ids[ $name ] ) && get_post( $ids[ $name ] ) ) {
