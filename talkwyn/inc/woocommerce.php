@@ -14,13 +14,20 @@ add_shortcode(
 	'tw_checkout_trust',
 	static function () {
 		$days = (int) talkwyn_setting( 'refund_days' );
-		$text = $days > 0
-			/* translators: %d: refund window in days */
-			? sprintf( __( '%d-day refund policy. Cancel renewal anytime.', 'talkwyn' ), $days )
-			: __( 'Cancel renewal anytime.', 'talkwyn' );
+		// Renewals are automatic only with WooCommerce Subscriptions.
+		$renew = class_exists( 'WC_Subscriptions' ) ? __( 'Cancel renewal anytime.', 'talkwyn' ) : __( 'No automatic renewal.', 'talkwyn' );
+		$text  = $days > 0
+			/* translators: 1: refund window in days, 2: renewal sentence */
+			? sprintf( __( '%1$d-day refund policy. %2$s', 'talkwyn' ), $days, $renew )
+			: $renew;
+		// Keys are emailed in full only when Talkwyn Hub's "Keys in emails" is on.
+		$emailed = class_exists( '\TWH\Support\Settings' ) && \TWH\Support\Settings::email_keys();
+		$key     = $emailed
+			? __( 'Your license key appears right after payment and arrives by email.', 'talkwyn' )
+			: __( 'Your license key appears right after payment and stays in your account.', 'talkwyn' );
 		return '<ul class="tw-trustline">'
 			. '<li>' . talkwyn_icon( 'shield-check', 18 ) . '<span>' . esc_html( $text ) . ' <a href="' . esc_url( home_url( '/refund-policy/' ) ) . '">' . esc_html__( 'Read the policy', 'talkwyn' ) . '</a></span></li>'
-			. '<li>' . talkwyn_icon( 'mail', 18 ) . '<span>' . esc_html__( 'Your license key arrives by email right after payment.', 'talkwyn' ) . '</span></li>'
+			. '<li>' . talkwyn_icon( 'key-round', 18 ) . '<span>' . esc_html( $key ) . '</span></li>'
 			. '<li>' . talkwyn_icon( 'file-text', 18 ) . '<span>' . esc_html__( 'A numbered invoice for every order, in your account.', 'talkwyn' ) . '</span></li>'
 			. '</ul>';
 	}

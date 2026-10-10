@@ -39,6 +39,7 @@ final class ProductsPage {
 		?>
 		<div class="wrap twh-wrap">
 			<h1><?php esc_html_e( 'Software products', 'talkwyn-hub' ); ?></h1>
+			<?php \TWH\Woo\StoreSetup::render_card(); ?>
 			<div class="twh-columns">
 				<div class="twh-panel">
 					<table class="widefat striped">

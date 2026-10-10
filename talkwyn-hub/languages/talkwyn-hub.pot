@@ -2,14 +2,14 @@
 # This file is distributed under the GPL-2.0-or-later.
 msgid ""
 msgstr ""
-"Project-Id-Version: Talkwyn Hub 1.6.6\n"
+"Project-Id-Version: Talkwyn Hub 1.6.7\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/talkwyn-hub\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2026-10-10T07:58:50+00:00\n"
+"POT-Creation-Date: 2026-10-10T12:18:17+00:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "X-Generator: WP-CLI 2.12.0\n"
 "X-Domain: talkwyn-hub\n"
@@ -415,82 +415,90 @@ msgid "Saved."
 msgstr ""
 
 #: includes/Admin/Admin.php:243
-msgid "License created."
+msgid "The Talkwyn Pro product and its plans were created, and the pricing page now links to checkout. Upload a stable Talkwyn Pro release next."
 msgstr ""
 
 #: includes/Admin/Admin.php:244
-msgid "License email sent."
+msgid "The Talkwyn Pro product already exists, so nothing new was created."
 msgstr ""
 
 #: includes/Admin/Admin.php:245
-msgid "The email could not be sent."
+msgid "License created."
 msgstr ""
 
 #: includes/Admin/Admin.php:246
-msgid "Site deactivated."
+msgid "License email sent."
 msgstr ""
 
 #: includes/Admin/Admin.php:247
-msgid "Bulk action applied."
+msgid "The email could not be sent."
 msgstr ""
 
 #: includes/Admin/Admin.php:248
-msgid "Status not changed. To reactivate an expired license, set a future expiry date first."
+msgid "Site deactivated."
 msgstr ""
 
 #: includes/Admin/Admin.php:249
-msgid "Release uploaded."
+msgid "Bulk action applied."
 msgstr ""
 
 #: includes/Admin/Admin.php:250
-msgid "Deleted."
+msgid "Status not changed. To reactivate an expired license, set a future expiry date first."
 msgstr ""
 
 #: includes/Admin/Admin.php:251
-msgid "This product still has licenses or releases and cannot be deleted."
+msgid "Release uploaded."
 msgstr ""
 
 #: includes/Admin/Admin.php:252
-msgid "Upload failed. Please choose a valid ZIP file."
+msgid "Deleted."
 msgstr ""
 
 #: includes/Admin/Admin.php:253
-msgid "The ZIP does not contain a WordPress plugin with a \"Plugin Name\" header."
+msgid "This product still has licenses or releases and cannot be deleted."
 msgstr ""
 
 #: includes/Admin/Admin.php:254
-msgid "The version you entered does not match the \"Version\" header of the plugin inside the ZIP."
+msgid "Upload failed. Please choose a valid ZIP file."
 msgstr ""
 
 #: includes/Admin/Admin.php:255
-msgid "This version already exists for this product and channel."
+msgid "The ZIP does not contain a WordPress plugin with a \"Plugin Name\" header."
 msgstr ""
 
 #: includes/Admin/Admin.php:256
-msgid "The release directory is not writable."
+msgid "The version you entered does not match the \"Version\" header of the plugin inside the ZIP."
 msgstr ""
 
 #: includes/Admin/Admin.php:257
-msgid "Please check the form and try again."
+msgid "This version already exists for this product and channel."
 msgstr ""
 
 #: includes/Admin/Admin.php:258
-msgid "A product with this slug already exists."
+msgid "The release directory is not writable."
 msgstr ""
 
 #: includes/Admin/Admin.php:259
-msgid "A new signing key was generated. Add its public key to your client plugin before promoting it."
+msgid "Please check the form and try again."
 msgstr ""
 
 #: includes/Admin/Admin.php:260
-msgid "The next signing key is now active."
+msgid "A product with this slug already exists."
 msgstr ""
 
 #: includes/Admin/Admin.php:261
-msgid "Payout recorded and the partner was emailed."
+msgid "A new signing key was generated. Add its public key to your client plugin before promoting it."
 msgstr ""
 
 #: includes/Admin/Admin.php:262
+msgid "The next signing key is now active."
+msgstr ""
+
+#: includes/Admin/Admin.php:263
+msgid "Payout recorded and the partner was emailed."
+msgstr ""
+
+#: includes/Admin/Admin.php:264
 msgid "Add a reason before rejecting a referral. The partner sees it."
 msgstr ""
 
@@ -910,7 +918,7 @@ msgstr ""
 
 #: includes/Admin/LogsPage.php:115
 #: includes/Admin/PartnersPage.php:254
-#: includes/Admin/ProductsPage.php:56
+#: includes/Admin/ProductsPage.php:57
 msgid "None"
 msgstr ""
 
@@ -1117,86 +1125,86 @@ msgstr ""
 msgid "Software products"
 msgstr ""
 
-#: includes/Admin/ProductsPage.php:46
-#: includes/Admin/ProductsPage.php:78
+#: includes/Admin/ProductsPage.php:47
+#: includes/Admin/ProductsPage.php:79
 msgid "Name"
 msgstr ""
 
-#: includes/Admin/ProductsPage.php:47
+#: includes/Admin/ProductsPage.php:48
 msgid "Slug (sent by the client)"
 msgstr ""
 
-#: includes/Admin/ProductsPage.php:48
+#: includes/Admin/ProductsPage.php:49
 msgid "Latest stable"
 msgstr ""
 
-#: includes/Admin/ProductsPage.php:58
+#: includes/Admin/ProductsPage.php:59
 #: includes/Admin/ReleasesPage.php:140
 msgid "Edit"
 msgstr ""
 
-#: includes/Admin/ProductsPage.php:63
+#: includes/Admin/ProductsPage.php:64
 msgid "Delete"
 msgstr ""
 
-#: includes/Admin/ProductsPage.php:72
+#: includes/Admin/ProductsPage.php:73
 msgid "Edit product"
 msgstr ""
 
-#: includes/Admin/ProductsPage.php:72
-#: includes/Admin/ProductsPage.php:99
+#: includes/Admin/ProductsPage.php:73
+#: includes/Admin/ProductsPage.php:100
 msgid "Add product"
 msgstr ""
 
-#: includes/Admin/ProductsPage.php:80
+#: includes/Admin/ProductsPage.php:81
 msgid "Slug"
 msgstr ""
 
-#: includes/Admin/ProductsPage.php:82
+#: includes/Admin/ProductsPage.php:83
 msgid "Lowercase, e.g. talkwyn-pro. Cannot be changed later because clients send it."
 msgstr ""
 
-#: includes/Admin/ProductsPage.php:83
+#: includes/Admin/ProductsPage.php:84
 msgid "Homepage"
 msgstr ""
 
-#: includes/Admin/ProductsPage.php:85
+#: includes/Admin/ProductsPage.php:86
 msgid "Icons"
 msgstr ""
 
-#: includes/Admin/ProductsPage.php:87
+#: includes/Admin/ProductsPage.php:88
 msgid "128×128 icon URL"
 msgstr ""
 
-#: includes/Admin/ProductsPage.php:88
+#: includes/Admin/ProductsPage.php:89
 msgid "256×256 icon URL"
 msgstr ""
 
-#: includes/Admin/ProductsPage.php:90
+#: includes/Admin/ProductsPage.php:91
 msgid "Banners"
 msgstr ""
 
-#: includes/Admin/ProductsPage.php:92
+#: includes/Admin/ProductsPage.php:93
 msgid "772×250 banner URL"
 msgstr ""
 
-#: includes/Admin/ProductsPage.php:93
+#: includes/Admin/ProductsPage.php:94
 msgid "1544×500 banner URL"
 msgstr ""
 
-#: includes/Admin/ProductsPage.php:95
+#: includes/Admin/ProductsPage.php:96
 msgid "Description (Markdown)"
 msgstr ""
 
-#: includes/Admin/ProductsPage.php:97
+#: includes/Admin/ProductsPage.php:98
 msgid "Shown in the \"View details\" modal in WordPress."
 msgstr ""
 
-#: includes/Admin/ProductsPage.php:99
+#: includes/Admin/ProductsPage.php:100
 msgid "Save product"
 msgstr ""
 
-#: includes/Admin/ProductsPage.php:101
+#: includes/Admin/ProductsPage.php:102
 msgid "Cancel"
 msgstr ""
 
@@ -2345,25 +2353,25 @@ msgstr ""
 msgid "not given"
 msgstr ""
 
-#: includes/Plugin.php:74
+#: includes/Plugin.php:75
 msgid "Talkwyn Hub needs WooCommerce to sell and issue licenses. The license API keeps working for existing licenses."
 msgstr ""
 
-#: includes/Plugin.php:81
+#: includes/Plugin.php:82
 msgid "Talkwyn Hub requires the PHP sodium extension and is currently inactive."
 msgstr ""
 
-#: includes/Plugin.php:91
-#: includes/Plugin.php:105
+#: includes/Plugin.php:92
+#: includes/Plugin.php:106
 msgid "Talkwyn Hub:"
 msgstr ""
 
-#: includes/Plugin.php:91
+#: includes/Plugin.php:92
 msgid "TWH_SECRET_KEY (or your WordPress auth salt) has changed since license data was encrypted. Stored keys and the signing key cannot be decrypted. Restore the previous value in wp-config.php."
 msgstr ""
 
 #. translators: %s: PHP code
-#: includes/Plugin.php:108
+#: includes/Plugin.php:109
 #, php-format
 msgid "Add %s to wp-config.php. Until then, license keys and signing keys are encrypted with a key derived from your WordPress auth salt, which breaks if the salts are rotated. When you add the constant, existing data is re-encrypted automatically. Never change or remove it afterwards."
 msgstr ""
@@ -3075,6 +3083,49 @@ msgstr ""
 
 #: includes/Woo/ProductTab.php:194
 msgid "Talkwyn Hub (leave empty to inherit)"
+msgstr ""
+
+#: includes/Woo/StoreSetup.php:87
+msgid "Store setup"
+msgstr ""
+
+#: includes/Woo/StoreSetup.php:89
+msgid "The \"Talkwyn Pro\" product with its plans is set up."
+msgstr ""
+
+#: includes/Woo/StoreSetup.php:89
+msgid "Edit it in WooCommerce"
+msgstr ""
+
+#: includes/Woo/StoreSetup.php:91
+msgid "Creates the software products \"talkwyn-pro\" and \"talkwyn\", and a WooCommerce product \"Talkwyn Pro\" with one variation per plan: regular price, founding (sale) price, sites, one year, and the license mapping. The Talkwyn theme's pricing buttons then go straight to checkout."
+msgstr ""
+
+#. translators: 1: plan, 2: regular price, 3: founding price, 4: sites
+#: includes/Woo/StoreSetup.php:94
+#, php-format
+msgid "%1$s: %2$s, founding %3$s, %4$s"
+msgstr ""
+
+#. translators: 1: plan, 2: regular price, 3: founding price, 4: sites
+#: includes/Woo/StoreSetup.php:94
+#, php-format
+msgid "%d site"
+msgid_plural "%d sites"
+msgstr[0] ""
+msgstr[1] ""
+
+#. translators: 1: plan, 2: regular price, 3: founding price, 4: sites
+#: includes/Woo/StoreSetup.php:94
+msgid "unlimited sites"
+msgstr ""
+
+#: includes/Woo/StoreSetup.php:98
+msgid "Create the Talkwyn plans"
+msgstr ""
+
+#: includes/Woo/StoreSetup.php:136
+msgid "Pro features for the free Talkwyn plugin, with one year of updates and support."
 msgstr ""
 
 #: templates/account/app.php:38

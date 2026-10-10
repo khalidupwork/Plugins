@@ -66,6 +66,8 @@ The file names are random 128-bit strings anyway, but defense in depth is cheap.
 
 ## 3. Map products to licenses
 
+**One click (since 1.6.7):** Talkwyn Hub → Products → **Store setup** → **Create the Talkwyn plans**. It creates the software products `talkwyn-pro` and `talkwyn`, and a hidden, virtual WooCommerce product "Talkwyn Pro" with a Plan attribute and three variations: Personal (1 site), Business (5 sites) and Agency (unlimited, `pro,white_label`), each for 365 days. Prices come from the Talkwyn theme's Site Settings (regular price, and the founding price as the sale price), or $79/$49, $179/$109 and $399/$239. It also writes the variation IDs into the theme's Site Settings, so the pricing buttons go straight to checkout. Running it again creates nothing new. The manual way is below.
+
 Edit a WooCommerce product → **Product data → Talkwyn Hub** tab:
 
 | Field | Meaning |

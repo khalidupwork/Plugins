@@ -25,6 +25,7 @@ Work through this on the live server, in order. Tick each box when done.
 - [ ] Talkwyn Hub → Settings: From name "Talkwyn", partner commission for the launch year (the playbook suggests 30%, then 20%).
 - [ ] Theme 2.14.0: Posts → Scheduled lists 7 new posts (10 Nov to 22 Dec). Read each before it publishes. The 8th gap post ("ai chatbot for customer service" pillar guide) waits until the site has 30+ referring domains.
 - [ ] Live demo on the home page: with the Talkwyn plugin set up on talkwyn.com, put `[talkwyn_chat mode="inline"]` in Site Settings → Live demo. Empty keeps the scripted sample clinic.
+- [ ] Talkwyn Hub 1.6.7: Talkwyn Hub → Products → Store setup → "Create the Talkwyn plans". Then each Buy button on /pricing/ opens checkout.
 - [ ] Theme 2.15.1: on a phone, open the menu. Every group is closed; tapping one opens it and closes the others.
 - [ ] Theme 2.15.0: open the site in a private window. The cookie banner shows if GA4 or Partners is on; "Accept all" loads GA4, "Only essential" does not. Scroll the homepage to the middle: the trial popup opens once.
 - [ ] Talkwyn Hub → Products: upload the free plugin ZIP as a stable release of the product with slug `talkwyn`. The download page then serves it without a ZIP URL in Site Settings.

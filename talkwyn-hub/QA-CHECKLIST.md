@@ -144,6 +144,13 @@ Run this on a staging copy of talkwyn.com with Stripe in **test mode** (card `42
 - [ ] `GET /wp-json/talkwyn-hub/v1/partners/terms` returns the current settings.
 - [ ] Turn Partners off → `?ref=` does nothing, My Account → Partners says the program is closed.
 
+## 21. Store setup (1.6.7)
+
+- [ ] Products page, no Talkwyn Pro product yet: the Store setup card lists the three plans with prices. "Create the Talkwyn plans" creates `talkwyn-pro`, `talkwyn` and the "Talkwyn Pro" variable product (hidden from the shop, virtual, sold individually).
+- [ ] Each variation has the regular and founding (sale) price, its site limit, 365 days and plan slug; Agency has `pro,white_label`.
+- [ ] Pricing page: every Buy button opens checkout with that plan; the card shows the struck-through regular price.
+- [ ] Running it again: "already exists", nothing duplicated.
+
 ## 20. Public free ZIP and cookie consent (1.6.6)
 
 - [ ] Logged out, open `/?twh_free_zip=1`: the latest stable release of the `talkwyn` product downloads. With no release, it redirects to /download/.
