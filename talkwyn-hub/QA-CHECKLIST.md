@@ -144,6 +144,10 @@ Run this on a staging copy of talkwyn.com with Stripe in **test mode** (card `42
 - [ ] `GET /wp-json/talkwyn-hub/v1/partners/terms` returns the current settings.
 - [ ] Turn Partners off → `?ref=` does nothing, My Account → Partners says the program is closed.
 
+## 22. Product image (1.6.8)
+
+- [ ] A Talkwyn Pro product without an image: Store setup shows "Add the Talkwyn product image"; after it, the cart, checkout, order emails and Products list show the red Talkwyn icon.
+
 ## 21. Store setup (1.6.7)
 
 - [ ] Products page, no Talkwyn Pro product yet: the Store setup card lists the three plans with prices. "Create the Talkwyn plans" creates `talkwyn-pro`, `talkwyn` and the "Talkwyn Pro" variable product (hidden from the shop, virtual, sold individually).

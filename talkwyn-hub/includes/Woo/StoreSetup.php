@@ -87,6 +87,12 @@ final class StoreSetup {
 		echo '<div class="twh-panel" style="margin-bottom:20px"><h2>' . esc_html__( 'Store setup', 'talkwyn-hub' ) . '</h2>';
 		if ( $existing ) {
 			echo '<p>' . esc_html__( 'The "Talkwyn Pro" product with its plans is set up.', 'talkwyn-hub' ) . ' <a href="' . esc_url( (string) get_edit_post_link( $existing ) ) . '">' . esc_html__( 'Edit it in WooCommerce', 'talkwyn-hub' ) . '</a></p>';
+			$product = wc_get_product( $existing );
+			if ( $product && ! $product->get_image_id() ) {
+				echo '<p>' . esc_html__( 'It has no product image yet, so WooCommerce shows its default picture in the cart, at checkout and in emails.', 'talkwyn-hub' ) . '</p><form method="post" action="' . esc_url( admin_url( 'admin-post.php' ) ) . '"><input type="hidden" name="action" value="twh_create_plans">';
+				wp_nonce_field( 'twh_create_plans' );
+				echo '<button type="submit" class="button button-primary">' . esc_html__( 'Add the Talkwyn product image', 'talkwyn-hub' ) . '</button></form>';
+			}
 		} else {
 			echo '<p>' . esc_html__( 'Creates the software products "talkwyn-pro" and "talkwyn", and a WooCommerce product "Talkwyn Pro" with one variation per plan: regular price, founding (sale) price, sites, one year, and the license mapping. The Talkwyn theme\'s pricing buttons then go straight to checkout.', 'talkwyn-hub' ) . '</p><ul style="list-style:disc;padding-left:20px">';
 			foreach ( self::plans() as $slug => $p ) {
@@ -98,6 +104,40 @@ final class StoreSetup {
 			echo '<button type="submit" class="button button-primary">' . esc_html__( 'Create the Talkwyn plans', 'talkwyn-hub' ) . '</button></form>';
 		}
 		echo '</div>';
+	}
+
+	/**
+	 * Put the Talkwyn app icon in the media library and use it as the product image,
+	 * so the cart, checkout and emails show it instead of WooCommerce's default picture.
+	 *
+	 * @param \WC_Product $product Product.
+	 */
+	public static function attach_image( \WC_Product $product ): bool {
+		$src = TWH_DIR . 'assets/img/talkwyn-pro-product.png';
+		if ( ! is_readable( $src ) ) {
+			return false;
+		}
+		$upload = wp_upload_bits( 'talkwyn-pro.png', null, (string) file_get_contents( $src ) ); // phpcs:ignore WordPress.WP.AlternativeFunctions.file_get_contents_file_get_contents -- local plugin file.
+		if ( ! empty( $upload['error'] ) ) {
+			return false;
+		}
+		$id = wp_insert_attachment(
+			array(
+				'post_mime_type' => 'image/png',
+				'post_title'     => 'Talkwyn Pro',
+				'post_status'    => 'inherit',
+			),
+			$upload['file']
+		);
+		if ( ! $id || is_wp_error( $id ) ) {
+			return false;
+		}
+		require_once ABSPATH . 'wp-admin/includes/image.php';
+		wp_update_attachment_metadata( $id, wp_generate_attachment_metadata( $id, $upload['file'] ) );
+		update_post_meta( $id, '_wp_attachment_image_alt', 'Talkwyn Pro' );
+		$product->set_image_id( $id );
+		$product->save();
+		return true;
 	}
 
 	/**
@@ -116,7 +156,12 @@ final class StoreSetup {
 				Products::create( $slug, $name, home_url( '/' ) );
 			}
 		}
-		if ( self::existing() ) {
+		$existing = self::existing();
+		if ( $existing ) {
+			$product = wc_get_product( $existing );
+			if ( $product && ! $product->get_image_id() && self::attach_image( $product ) ) {
+				Admin::redirect( 'twh-products', 'plans_image' );
+			}
 			Admin::redirect( 'twh-products', 'plans_exist' );
 		}
 		$plans = self::plans();
@@ -140,6 +185,7 @@ final class StoreSetup {
 		$product->update_meta_data( Mapping::META_DURATION, '365' );
 		$product->update_meta_data( Mapping::META_FEATURES, 'pro' );
 		$parent_id = $product->save();
+		self::attach_image( $product );
 
 		$ids = array();
 		foreach ( $plans as $slug => $p ) {

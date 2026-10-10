@@ -25,10 +25,28 @@ add_shortcode(
 		$key     = $emailed
 			? __( 'Your license key appears right after payment and arrives by email.', 'talkwyn' )
 			: __( 'Your license key appears right after payment and stays in your account.', 'talkwyn' );
+		// Only facts this site can vouch for: who takes the payment, HTTPS, what happens after a year.
+		$extra = '';
+		if ( function_exists( 'WC' ) && WC()->payment_gateways() ) {
+			$names = array();
+			foreach ( WC()->payment_gateways()->get_available_payment_gateways() as $gateway ) {
+				$names[] = wp_strip_all_tags( (string) $gateway->get_title() );
+			}
+			$names = array_values( array_unique( array_filter( $names ) ) );
+			if ( $names ) {
+				/* translators: %s: payment methods, e.g. "Credit card, PayPal" */
+				$extra .= '<li>' . talkwyn_icon( 'lock', 18 ) . '<span>' . esc_html( sprintf( __( 'Secure payment: %s. We never see your full card number.', 'talkwyn' ), implode( ', ', $names ) ) ) . '</span></li>';
+			}
+		}
+		if ( is_ssl() ) {
+			$extra .= '<li>' . talkwyn_icon( 'shield-check', 18 ) . '<span>' . esc_html__( 'Encrypted connection (HTTPS).', 'talkwyn' ) . '</span></li>';
+		}
+		$extra .= '<li>' . talkwyn_icon( 'refresh-cw', 18 ) . '<span>' . esc_html__( 'If you do not renew, Pro keeps working. Only updates and support stop.', 'talkwyn' ) . '</span></li>';
 		return '<ul class="tw-trustline">'
 			. '<li>' . talkwyn_icon( 'shield-check', 18 ) . '<span>' . esc_html( $text ) . ' <a href="' . esc_url( home_url( '/refund-policy/' ) ) . '">' . esc_html__( 'Read the policy', 'talkwyn' ) . '</a></span></li>'
 			. '<li>' . talkwyn_icon( 'key-round', 18 ) . '<span>' . esc_html( $key ) . '</span></li>'
 			. '<li>' . talkwyn_icon( 'file-text', 18 ) . '<span>' . esc_html__( 'A numbered invoice for every order, in your account.', 'talkwyn' ) . '</span></li>'
+			. $extra
 			. '</ul>';
 	}
 );
