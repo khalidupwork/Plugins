@@ -44,6 +44,11 @@ function talkwyn_settings_defaults(): array {
 		'legal_min_age'       => 16,
 		'legal_reply_time'    => '',
 		'legal_reviewed'      => 0,
+		'cookie_banner'       => 'auto',
+		'cookie_text'         => '',
+		'trial_popup'         => 1,
+		'trial_popup_scroll'  => 50,
+		'trial_popup_days'    => 7,
 		'show_lifetime'       => 0,
 		'founding_enabled'    => 1,
 		'founding_seats'      => 100,
@@ -260,8 +265,15 @@ function talkwyn_money( float $amount, string $currency = '' ): string {
 function talkwyn_settings(): array {
 	static $cache = null;
 	if ( null === $cache ) {
-		$stored = get_option( TALKWYN_SETTINGS, array() );
-		$cache  = array_merge( talkwyn_settings_defaults(), is_array( $stored ) ? $stored : array() );
+		$stored   = get_option( TALKWYN_SETTINGS, array() );
+		$defaults = talkwyn_settings_defaults();
+		$cache    = array_merge( $defaults, is_array( $stored ) ? $stored : array() );
+		// A field saved empty before it had a default (prices, ranges) uses the default.
+		foreach ( $cache as $key => $value ) {
+			if ( '' === $value && isset( $defaults[ $key ] ) && '' !== $defaults[ $key ] ) {
+				$cache[ $key ] = $defaults[ $key ];
+			}
+		}
 	}
 	return $cache;
 }
@@ -293,6 +305,43 @@ function talkwyn_plan_price( string $plan ): string {
 		}
 	}
 	return (string) talkwyn_setting( 'price_' . $plan );
+}
+
+/**
+ * Direct ZIP of the free plugin: the Site Settings URL, else the latest stable release
+ * uploaded to Talkwyn Hub on this site.
+ */
+function talkwyn_free_zip_url(): string {
+	$zip = (string) talkwyn_setting( 'free_zip_url' );
+	if ( '' === $zip && class_exists( '\TWH\Account\App' ) && method_exists( '\TWH\Account\App', 'has_free_release' ) && \TWH\Account\App::has_free_release() ) {
+		$zip = \TWH\Account\App::public_free_download_url();
+	}
+	return $zip;
+}
+
+/**
+ * What an empty field falls back to, shown as its placeholder in Site Settings.
+ *
+ * @param string $key Setting.
+ */
+function talkwyn_settings_placeholder( string $key ): string {
+	switch ( $key ) {
+		case 'contact_email':
+			return (string) get_option( 'admin_email' );
+		case 'legal_email':
+			return talkwyn_value( 'contact_email' );
+		case 'legal_payment':
+			$v = talkwyn_value( 'legal_payment' );
+			return '[payment]' === $v ? '' : $v;
+		case 'free_zip_url':
+			return talkwyn_free_zip_url();
+		case 'hub_url':
+			return class_exists( '\TWH\Support\Settings' ) ? __( 'Talkwyn Hub runs on this site', 'talkwyn' ) : '';
+		case 'legal_updated':
+			return __( 'the page\'s last edit', 'talkwyn' );
+	}
+	$d = talkwyn_settings_defaults()[ $key ] ?? '';
+	return is_scalar( $d ) ? (string) $d : '';
 }
 
 /**
@@ -369,12 +418,21 @@ function talkwyn_value( string $key ): string {
 		case 'legal_company':
 		case 'legal_address':
 		case 'legal_jurisdiction':
-		case 'legal_payment':
 		case 'legal_hosting':
 		case 'legal_email_service':
 		case 'legal_reply_time':
 			$v = trim( (string) talkwyn_setting( $key ) );
 			return '' !== $v ? $v : '[' . str_replace( '_', ' ', substr( $key, 6 ) ) . ']';
+		case 'legal_payment':
+			$v = trim( (string) talkwyn_setting( 'legal_payment' ) );
+			if ( '' === $v && function_exists( 'WC' ) && WC()->payment_gateways() ) {
+				$names = array();
+				foreach ( WC()->payment_gateways()->get_available_payment_gateways() as $gateway ) {
+					$names[] = wp_strip_all_tags( (string) $gateway->get_method_title() );
+				}
+				$v = implode( ', ', array_unique( array_filter( $names ) ) );
+			}
+			return '' !== $v ? $v : '[payment]';
 		case 'legal_email':
 			$v = trim( (string) talkwyn_setting( 'legal_email' ) );
 			return '' !== $v ? $v : talkwyn_value( 'contact_email' );
@@ -517,6 +575,22 @@ function talkwyn_settings_fields(): array {
 			array( 'legal_reviewed', __( 'A lawyer has reviewed the legal pages (hides the draft notice)', 'talkwyn' ), 'checkbox' ),
 		),
 		__( 'Spam protection', 'talkwyn' )    => talkwyn_captcha_settings_fields(),
+		__( 'Cookies and popups', 'talkwyn' ) => array(
+			array(
+				'cookie_banner',
+				__( 'Cookie banner', 'talkwyn' ),
+				'select',
+				array(
+					'auto'   => __( 'Automatic: only when Google Analytics or the partner cookie is on', 'talkwyn' ),
+					'always' => __( 'Always show', 'talkwyn' ),
+					'off'    => __( 'Off', 'talkwyn' ),
+				),
+			),
+			array( 'cookie_text', __( 'Cookie banner text (empty = written for you from the cookies this site uses)', 'talkwyn' ), 'text' ),
+			array( 'trial_popup', __( 'Homepage: show the free trial popup after the visitor scrolls', 'talkwyn' ), 'checkbox' ),
+			array( 'trial_popup_scroll', __( 'Show it after this much of the page is scrolled (percent)', 'talkwyn' ), 'number' ),
+			array( 'trial_popup_days', __( 'Then not again for this many days', 'talkwyn' ), 'number' ),
+		),
 		__( 'Free trial', 'talkwyn' )         => array(
 			array( 'trial_days', __( 'Trial length in days (Talkwyn Hub on this site overrides this)', 'talkwyn' ), 'number' ),
 			array(
@@ -661,7 +735,7 @@ function talkwyn_settings_render(): void {
 						<?php elseif ( 'checkbox' === $type ) : ?>
 							<input id="tw-<?php echo esc_attr( $key ); ?>" type="checkbox" name="tw[<?php echo esc_attr( $key ); ?>]" value="1" <?php checked( (int) $values[ $key ], 1 ); ?>>
 						<?php else : ?>
-							<input id="tw-<?php echo esc_attr( $key ); ?>" class="regular-text" type="<?php echo esc_attr( $type ); ?>" name="tw[<?php echo esc_attr( $key ); ?>]" value="<?php echo esc_attr( (string) $values[ $key ] ); ?>">
+							<input id="tw-<?php echo esc_attr( $key ); ?>" class="regular-text" type="<?php echo esc_attr( $type ); ?>" name="tw[<?php echo esc_attr( $key ); ?>]" value="<?php echo esc_attr( (string) $values[ $key ] ); ?>" placeholder="<?php echo esc_attr( talkwyn_settings_placeholder( $key ) ); ?>">
 							<?php if ( 0 === strpos( $key, 'product_' ) && (int) $values[ $key ] ) : ?>
 								<span class="description"><?php echo esc_html( talkwyn_plan_price( substr( $key, 8 ) ) ); ?></span>
 							<?php endif; ?>
@@ -808,7 +882,7 @@ add_shortcode(
 	static function () {
 		$missing = array();
 		foreach ( array( 'legal_company', 'legal_address', 'legal_jurisdiction', 'legal_payment', 'legal_hosting', 'legal_email_service' ) as $key ) {
-			if ( '' === trim( (string) talkwyn_setting( $key ) ) ) {
+			if ( '' === trim( (string) talkwyn_setting( $key ) ) && ( 'legal_payment' !== $key || '[payment]' === talkwyn_value( 'legal_payment' ) ) ) {
 				$missing[] = $key;
 			}
 		}

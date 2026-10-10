@@ -144,6 +144,11 @@ Run this on a staging copy of talkwyn.com with Stripe in **test mode** (card `42
 - [ ] `GET /wp-json/talkwyn-hub/v1/partners/terms` returns the current settings.
 - [ ] Turn Partners off → `?ref=` does nothing, My Account → Partners says the program is closed.
 
+## 20. Public free ZIP and cookie consent (1.6.6)
+
+- [ ] Logged out, open `/?twh_free_zip=1`: the latest stable release of the `talkwyn` product downloads. With no release, it redirects to /download/.
+- [ ] With the Talkwyn theme's cookie banner on: visit `/?ref=CODE`, choose "Only essential": no `twh_ref` cookie, the visit is still counted. Choose "Accept all" and load any page: `twh_ref` is set with the original click time.
+
 ## 19. Download banner (1.6.5)
 
 - [ ] My Account overview without a license: no download banner (the free plugin has its own download page); the trial button shows.

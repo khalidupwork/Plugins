@@ -319,6 +319,21 @@ final class App {
 	/**
 	 * Free plugin download link (account only).
 	 */
+	public static function public_free_download_url(): string {
+		return add_query_arg( 'twh_free_zip', '1', home_url( '/' ) );
+	}
+
+	/**
+	 * Whether a stable release of the free plugin is uploaded.
+	 */
+	public static function has_free_release(): bool {
+		$product = Products::find_by_slug( (string) apply_filters( 'twh_free_product', 'talkwyn' ) );
+		return $product && null !== Releases::latest( (int) $product['id'], 'stable' );
+	}
+
+	/**
+	 * Free plugin download for a logged-in customer (account dashboard).
+	 */
 	public static function free_download_url(): string {
 		return wp_nonce_url( add_query_arg( 'twh_free_download', '1', wc_get_page_permalink( 'myaccount' ) ), 'twh_free_download' );
 	}
@@ -329,11 +344,15 @@ final class App {
 	 * (Talkwyn Hub, Products) to serve it from here.
 	 */
 	public static function free_download(): void {
+		// The free plugin is GPL and public: /?twh_free_zip=1 serves it to anyone (the
+		// website's download page uses it). The account link keeps its nonce.
+		// phpcs:ignore WordPress.Security.NonceVerification.Recommended -- public download.
+		$public = ! empty( $_GET['twh_free_zip'] );
 		// phpcs:ignore WordPress.Security.NonceVerification.Recommended -- checked below.
-		if ( empty( $_GET['twh_free_download'] ) ) {
+		if ( ! $public && empty( $_GET['twh_free_download'] ) ) {
 			return;
 		}
-		if ( ! is_user_logged_in() || ! isset( $_GET['_wpnonce'] ) || ! wp_verify_nonce( sanitize_text_field( wp_unslash( $_GET['_wpnonce'] ) ), 'twh_free_download' ) ) {
+		if ( ! $public && ( ! is_user_logged_in() || ! isset( $_GET['_wpnonce'] ) || ! wp_verify_nonce( sanitize_text_field( wp_unslash( $_GET['_wpnonce'] ) ), 'twh_free_download' ) ) ) {
 			wp_safe_redirect( wc_get_page_permalink( 'myaccount' ) );
 			exit;
 		}

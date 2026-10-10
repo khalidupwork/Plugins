@@ -332,7 +332,7 @@ function talkwyn_header_html(): string {
  * @return array<string, array<int, array{0: string, 1: string}>>
  */
 function talkwyn_footer_columns(): array {
-	return array(
+	$cols = array(
 		__( 'Product', 'talkwyn' )      => array(
 			array( __( 'Features', 'talkwyn' ), '/features/' ),
 			array( __( 'Live demo', 'talkwyn' ), '/#live-demo' ),
@@ -364,6 +364,7 @@ function talkwyn_footer_columns(): array {
 			array( __( 'Refund policy', 'talkwyn' ), '/refund-policy/' ),
 		),
 	);
+	return (array) apply_filters( 'talkwyn_footer_columns', $cols );
 }
 
 /**

@@ -800,6 +800,7 @@
 			}
 		} );
 	} );
+	window.twOpenModal = open;
 	// After a trial form submit on any page, show the result in the popup.
 	if ( /[?&]twh_trial=/.test( window.location.search ) && ! document.getElementById( 'trial' ) ) {
 		open( 'trial' );
@@ -1012,4 +1013,125 @@
 	heads.forEach( function ( h ) {
 		spy.observe( h );
 	} );
+}() );
+
+/* Cookie banner. The choice lives in the essential tw_consent cookie (180 days).
+   Google Analytics loads only after "Accept all"; the WP Consent API hears about it too. */
+( function () {
+	var box = document.querySelector( '[data-tw-cookie]' );
+	function read() {
+		var m = document.cookie.match( /(?:^|;\s*)tw_consent=(all|essential)/ );
+		return m ? m[ 1 ] : '';
+	}
+	function loadGa() {
+		if ( ! window.twGa4 || window.gtag || 'all' !== read() ) {
+			return;
+		}
+		var s = document.createElement( 'script' );
+		s.async = true;
+		s.src = 'https://www.googletagmanager.com/gtag/js?id=' + encodeURIComponent( window.twGa4 );
+		document.head.appendChild( s );
+		window.dataLayer = window.dataLayer || [];
+		window.gtag = function () {
+			window.dataLayer.push( arguments );
+		};
+		window.gtag( 'js', new Date() );
+		window.gtag( 'config', window.twGa4, { anonymize_ip: true } );
+	}
+	function choose( value ) {
+		document.cookie = 'tw_consent=' + value + ';path=/;max-age=' + ( 180 * 86400 ) + ';SameSite=Lax' + ( 'https:' === location.protocol ? ';Secure' : '' );
+		if ( typeof window.wp_set_consent === 'function' ) {
+			window.wp_set_consent( 'statistics', 'all' === value ? 'allow' : 'deny' );
+			window.wp_set_consent( 'marketing', 'all' === value ? 'allow' : 'deny' );
+		}
+		if ( box ) {
+			box.hidden = true;
+		}
+		loadGa();
+		document.dispatchEvent( new CustomEvent( 'tw:consent', { detail: value } ) );
+	}
+	loadGa();
+	if ( ! box ) {
+		return;
+	}
+	if ( ! read() ) {
+		box.hidden = false;
+	}
+	box.addEventListener( 'click', function ( e ) {
+		var b = e.target.closest( '[data-tw-consent]' );
+		if ( b ) {
+			choose( b.getAttribute( 'data-tw-consent' ) );
+		}
+	} );
+	document.addEventListener( 'click', function ( e ) {
+		var a = e.target.closest( 'a[href$="#cookie-settings"]' );
+		if ( a ) {
+			e.preventDefault();
+			box.hidden = false;
+			var first = box.querySelector( 'button' );
+			if ( first ) {
+				first.focus();
+			}
+		}
+	} );
+}() );
+
+/* Homepage: the free trial popup after the visitor scrolls part of the page, once per
+   window.twNudge.days. It waits for the cookie banner and never opens over another dialog. */
+( function () {
+	var cfg = window.twNudge;
+	if ( ! cfg || ! window.twOpenModal ) {
+		return;
+	}
+	var key = 'tw_nudge_seen';
+	try {
+		var seen = parseInt( window.localStorage.getItem( key ) || '0', 10 );
+		if ( seen && Date.now() - seen < cfg.days * 86400000 ) {
+			return;
+		}
+	} catch ( e ) {}
+	var done = false;
+	function check() {
+		if ( done ) {
+			return;
+		}
+		var h = document.documentElement.scrollHeight - window.innerHeight;
+		if ( h <= 0 || ( window.scrollY / h ) * 100 < cfg.scroll ) {
+			return;
+		}
+		var banner = document.querySelector( '[data-tw-cookie]' );
+		if ( ( banner && ! banner.hidden ) || document.querySelector( 'dialog[open]' ) ) {
+			return;
+		}
+		done = true;
+		window.removeEventListener( 'scroll', onScroll );
+		try {
+			window.localStorage.setItem( key, String( Date.now() ) );
+		} catch ( e ) {}
+		var d = document.getElementById( 'tw-modal-trial' );
+		if ( d ) {
+			d.classList.add( 'is-nudge' );
+		}
+		window.twOpenModal( 'trial' );
+		// Not opened by the visitor: focus the close button, so phones do not pop the keyboard.
+		var x = d && d.querySelector( '[data-tw-modal-close]' );
+		if ( x ) {
+			x.focus();
+		}
+		if ( window.twTrack ) {
+			window.twTrack( 'trial_popup_shown' );
+		}
+	}
+	var ticking = false;
+	function onScroll() {
+		if ( ! ticking ) {
+			ticking = true;
+			window.requestAnimationFrame( function () {
+				ticking = false;
+				check();
+			} );
+		}
+	}
+	window.addEventListener( 'scroll', onScroll, { passive: true } );
+	document.addEventListener( 'tw:consent', check );
 }() );

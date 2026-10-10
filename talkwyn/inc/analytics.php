@@ -22,6 +22,11 @@ add_action(
 			if ( ! preg_match( '/^G-[A-Z0-9]+$/', $id ) ) {
 				return;
 			}
+			if ( talkwyn_consent_needed() ) {
+				// Loaded by theme.js only after "Accept all" in the cookie banner.
+				echo '<script>window.twGa4=' . wp_json_encode( $id ) . ';</script>' . "\n";
+				return;
+			}
 			printf( '<script async src="%s"></script>' . "\n", esc_url( 'https://www.googletagmanager.com/gtag/js?id=' . $id ) ); // phpcs:ignore WordPress.WP.EnqueuedResources.NonEnqueuedScript -- vendor snippet must load as written, before theme.js.
 			echo "<script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config'," . wp_json_encode( $id ) . ",{anonymize_ip:true});</script>\n";
 		} elseif ( 'plausible' === $provider ) {

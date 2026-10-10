@@ -32,6 +32,7 @@ final class Tracking {
 		add_action( 'init', array( self::class, 'rewrite' ) );
 		add_filter( 'query_vars', array( self::class, 'query_vars' ) );
 		add_action( 'template_redirect', array( self::class, 'capture' ), 1 );
+		add_action( 'template_redirect', array( self::class, 'promote' ), 2 );
 		add_action( 'woocommerce_checkout_create_order', array( self::class, 'stamp_order' ), 20 );
 		add_action( 'woocommerce_store_api_checkout_update_order_meta', array( self::class, 'stamp_order' ), 20 );
 	}
@@ -122,11 +123,42 @@ final class Tracking {
 	 * Whether a marketing cookie may be set (WP Consent API, when a consent plugin is active).
 	 */
 	public static function consent_allows(): bool {
-		if ( ! Settings::get( 'partner_respect_consent' ) || ! function_exists( 'wp_has_consent' ) ) {
-			return true;
-		}
-		$allowed = wp_has_consent( 'marketing' );
+		$allowed = ! Settings::get( 'partner_respect_consent' ) || ! function_exists( 'wp_has_consent' ) || wp_has_consent( 'marketing' );
+		// The Talkwyn theme's cookie banner answers here too.
 		return (bool) apply_filters( 'twh_referral_cookie_consent', $allowed );
+	}
+
+	/**
+	 * A referral kept in the shop session (before consent) becomes the referral cookie
+	 * once consent is given.
+	 */
+	public static function promote(): void {
+		if ( is_admin() || ! empty( $_COOKIE[ self::COOKIE ] ) || ! function_exists( 'WC' ) || ! WC()->session || headers_sent() ) {
+			return;
+		}
+		$raw   = (string) WC()->session->get( self::COOKIE );
+		$parts = explode( '.', $raw );
+		if ( 3 !== count( $parts ) || ! self::consent_allows() ) {
+			return;
+		}
+		$at   = (int) $parts[1];
+		$days = max( 1, (int) Settings::get( 'partner_cookie_days' ) );
+		if ( ! hash_equals( self::sign( (int) $parts[0], $at ), (string) $parts[2] ) || $at + $days * DAY_IN_SECONDS < time() ) {
+			return;
+		}
+		setcookie(
+			self::COOKIE,
+			$raw,
+			array(
+				'expires'  => $at + $days * DAY_IN_SECONDS,
+				'path'     => COOKIEPATH ? COOKIEPATH : '/',
+				'domain'   => COOKIE_DOMAIN,
+				'secure'   => is_ssl(),
+				'httponly' => true,
+				'samesite' => 'Lax',
+			)
+		);
+		$_COOKIE[ self::COOKIE ] = $raw;
 	}
 
 	/**

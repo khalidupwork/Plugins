@@ -65,6 +65,7 @@ add_action(
 		if ( talkwyn_show_trial() ) {
 		$out .= '<dialog class="tw-modal tw-modal--trial" id="tw-modal-trial" aria-labelledby="tw-modal-trial-title">' . $close
 			. '<div class="tw-modal__head"><span class="tw-modal__badge">' . talkwyn_icon( 'sparkles', 16 ) . esc_html__( 'Free trial', 'talkwyn' ) . '</span>'
+			. '<p class="tw-modal__nudge">' . esc_html__( 'Like what you see? Try it on your own site.', 'talkwyn' ) . '</p>'
 			/* translators: %d: trial days */
 			. '<h2 id="tw-modal-trial-title">' . esc_html( sprintf( __( 'Try every Pro feature free for %d days', 'talkwyn' ), $days ) ) . '</h2>'
 			. '<p>' . esc_html__( 'Confirm your email, then your license key and account arrive right away. Upgrade with the same key, or keep the free plan.', 'talkwyn' ) . '</p></div>'

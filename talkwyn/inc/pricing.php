@@ -333,7 +333,7 @@ add_shortcode(
 	'tw_download_box',
 	static function () {
 		$wporg = (string) talkwyn_setting( 'wporg_url' );
-		$zip   = (string) talkwyn_setting( 'free_zip_url' );
+		$zip   = talkwyn_free_zip_url();
 		$html  = '<div class="tw-download-box is-style-panel"><div><p class="tw-eyebrow">' . esc_html__( 'Free plan forever', 'talkwyn' ) . '</p><p class="tw-download-box__title">' . esc_html__( 'Talkwyn for WordPress', 'talkwyn' ) . '</p><p>' . esc_html__( 'Works with free AI keys. No credit card.', 'talkwyn' ) . '</p></div><div class="tw-download-box__actions">';
 		if ( '' !== $wporg ) {
 			$html .= '<a class="tw-btn" href="' . esc_url( $wporg ) . '" rel="noopener" data-tw-event="install_click" data-tw-location="download_wporg">' . talkwyn_icon( 'download', 18 ) . esc_html__( 'Get it on WordPress.org', 'talkwyn' ) . '</a>';
@@ -342,7 +342,7 @@ add_shortcode(
 			$html .= '<a class="tw-btn' . ( '' !== $wporg ? ' tw-btn--secondary' : '' ) . '" href="' . esc_url( $zip ) . '" data-tw-event="install_click" data-tw-location="download_zip">' . talkwyn_icon( 'download', 18 ) . esc_html__( 'Download the ZIP', 'talkwyn' ) . '</a>';
 		}
 		if ( '' === $wporg && '' === $zip ) {
-			$html .= '<p class="tw-small">' . esc_html__( 'The download link will appear here at launch.', 'talkwyn' ) . ' <a href="/shopify-ai-chatbot/#waitlist">' . esc_html__( 'Get notified', 'talkwyn' ) . '</a></p>';
+			$html .= '<p class="tw-small">' . esc_html__( 'The download link will appear here at launch.', 'talkwyn' ) . ' <a href="/contact/">' . esc_html__( 'Ask us for the ZIP', 'talkwyn' ) . '</a></p>';
 		}
 		return $html . '</div></div>';
 	}
