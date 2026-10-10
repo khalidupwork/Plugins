@@ -842,11 +842,18 @@ main:has(.tw-phero .tw-breadcrumbs) > .tw-crumbs-bar { display: none; }
 .tw-vcard__badge { flex: none; padding: 4px 10px; border-radius: var(--tw-r-pill); background: var(--tw-red-50); color: var(--tw-red-700); font: 600 .75rem/1.3 var(--tw-font-display); }
 .tw-vcard__title { font: 700 1rem/1.3 var(--tw-font-display); }
 .tw-vcard__rows { list-style: none; padding: 0; display: grid; gap: 4px; }
-.tw-vcard__rows li { display: flex; align-items: center; gap: 12px; margin: 0; padding: 10px 4px; max-inline-size: none; }
+.tw-vcard__rows li { display: flex; flex-wrap: wrap; align-items: center; gap: 6px 12px; margin: 0; padding: 10px 4px; max-inline-size: none; }
 .tw-vcard__rows li + li { border-block-start: 1px dashed var(--tw-border); }
 .tw-vcard__ri { color: var(--tw-red); flex: none; display: grid; }
-.tw-vcard__label { flex: 1; min-inline-size: 0; font-weight: 500; line-height: 1.35; }
-.tw-vcard__val { flex: none; max-inline-size: 52%; text-align: end; font: 600 .8125rem/1.3 var(--tw-font-display); padding: 4px 10px; border-radius: var(--tw-r-pill); background: var(--tw-section); color: var(--tw-n-600); }
+.tw-vcard__label { flex: 1 1 auto; min-inline-size: 0; font-weight: 500; line-height: 1.35; }
+.tw-vcard__val { box-sizing: border-box; flex: none; margin-inline-start: auto; max-inline-size: 100%; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; font: 600 .8125rem/1.3 var(--tw-font-display); padding: 4px 10px; border-radius: var(--tw-r-pill); background: var(--tw-section); color: var(--tw-n-600); }
+/* Phones: each value sits under its label as a chip (a long one may take two lines). */
+@media (max-width: 600px) {
+	.tw-vcard__val { white-space: normal; text-align: start; border-radius: 10px; }
+	/* Every row the same: label, then its value under it, lined up with the label. */
+	.tw-vcard__ri + .tw-vcard__label:has(~ .tw-vcard__val) { flex-basis: calc(100% - 30px); }
+	.tw-vcard__ri ~ .tw-vcard__val { margin-inline-start: 30px; max-inline-size: calc(100% - 30px); }
+}
 .tw-vcard__val--ok { background: #E3F4EC; color: #146345; }
 .tw-vcard__val--red { background: var(--tw-red-50); color: var(--tw-red-700); }
 .tw-vcard__val--pro { background: var(--tw-red); color: #FFFFFF; }
