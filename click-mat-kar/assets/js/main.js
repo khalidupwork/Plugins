@@ -30,23 +30,40 @@
 	 * Money: prices are stored in "Rs base units". Visitors outside
 	 * PK/IN see dollars (1 USD = 100 base units keeps the jokes intact).
 	 * ------------------------------------------------------------- */
+	var PACKS = {
+		pkr: { code: 'pkr', symbol: 'Rs ', factor: 1, intl: 'en-IN', budgetLabel: 'Rs 10 Crore' },
+		inr: { code: 'inr', symbol: '\u20B9', factor: 1, intl: 'en-IN', budgetLabel: '\u20B910 Crore' },
+		usd: { code: 'usd', symbol: '$', factor: 0.01, intl: 'en-US', budgetLabel: '$1 Million' }
+	};
+
 	function detectLocale() {
 		var forced = (new URLSearchParams(window.location.search).get('cur') || '').toLowerCase();
 		var tz = '';
 		try { tz = Intl.DateTimeFormat().resolvedOptions().timeZone || ''; } catch (e) {}
-		var code = forced || (/Karachi/.test(tz) ? 'pkr' : /(Kolkata|Calcutta)/.test(tz) ? 'inr' : 'usd');
-		var packs = {
-			pkr: { code: 'pkr', symbol: 'Rs ', factor: 1, intl: 'en-IN', budgetLabel: 'Rs 10 Crore' },
-			inr: { code: 'inr', symbol: '₹', factor: 1, intl: 'en-IN', budgetLabel: '₹10 Crore' },
-			usd: { code: 'usd', symbol: '$', factor: 0.01, intl: 'en-US', budgetLabel: '$1 Million' }
-		};
-		return packs[code] || packs.usd;
+		var code = PACKS[forced] ? forced : (/Karachi/.test(tz) ? 'pkr' : /(Kolkata|Calcutta)/.test(tz) ? 'inr' : 'usd');
+		return PACKS[code];
 	}
 	var LOCALE = detectLocale();
 
-	function money(base) {
-		var value = Math.round(base * LOCALE.factor);
-		return LOCALE.symbol + value.toLocaleString(LOCALE.intl);
+	function moneyIn(pack, base) {
+		pack = PACKS[pack] || pack || LOCALE;
+		var value = Math.round(base * pack.factor);
+		return pack.symbol + value.toLocaleString(pack.intl);
+	}
+
+	function money(base) { return moneyIn(LOCALE, base); }
+
+	/* Compact URL-safe encoding for result / challenge payloads. */
+	function encode(obj) {
+		var json = JSON.stringify(obj);
+		return btoa(unescape(encodeURIComponent(json))).replace(/\+/g, '-').replace(/\//g, '_').replace(/=+$/, '');
+	}
+	function decode(str) {
+		try {
+			str = String(str || '').replace(/-/g, '+').replace(/_/g, '/');
+			while (str.length % 4) { str += '='; }
+			return JSON.parse(decodeURIComponent(escape(atob(str))));
+		} catch (e) { return null; }
 	}
 
 	function localizeMoney(scope) {
@@ -97,7 +114,7 @@
 
 	function pick(list) { return list[Math.floor(Math.random() * list.length)]; }
 
-	window.CMKUI = { track: track, money: money, locale: LOCALE, toast: toast, flyTo: flyTo, bump: bump, pick: pick, reduceMotion: reduceMotion, config: CFG };
+	window.CMKUI = { track: track, money: money, moneyIn: moneyIn, packs: PACKS, encode: encode, decode: decode, locale: LOCALE, toast: toast, flyTo: flyTo, bump: bump, pick: pick, reduceMotion: reduceMotion, config: CFG };
 
 	/* ---------------------------------------------------------------
 	 * Header + mobile nav
