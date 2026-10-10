@@ -6,9 +6,11 @@
  */
 
 $cmk_play  = cmk_first_game_url();
+$cmk_cards = cmk_game_cards();
+$cmk_quick = ! empty( $cmk_cards['red-flag-check']['playable'] ) ? $cmk_cards['red-flag-check']['url'] : $cmk_play;
 $cmk_games = get_post_type_archive_link( 'cmk_game' );
 $cmk_level = array(
-	array( '30 sec', __( 'Quick regret.', 'click-mat-kar' ), __( 'One question. One terrible answer.', 'click-mat-kar' ), 'blue', $cmk_play, '⚡' ),
+	array( '1 min', __( 'Quick regret.', 'click-mat-kar' ), __( 'Eight questions. Zero filter.', 'click-mat-kar' ), 'blue', $cmk_quick, '⚡' ),
 	array( '2 min', __( 'Just one game.', 'click-mat-kar' ), __( "That's what everybody says.", 'click-mat-kar' ), 'pink', $cmk_play, '🎯' ),
 	array( '20+ min', __( 'I have time.', 'click-mat-kar' ), __( 'Concerning, but welcome.', 'click-mat-kar' ), 'lime', $cmk_games, '🫠' ),
 );

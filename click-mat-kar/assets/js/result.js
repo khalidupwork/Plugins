@@ -30,31 +30,37 @@
 		mine = !!(last && last.id && last.id === r.id);
 	} catch (e) {}
 
-	var TIERS = [
-		[15, 'Certified financial disaster.', 'Your money did not leave. It escaped.'],
-		[35, 'Retail therapy champion.', 'Therapy would have been cheaper. And you still need it.'],
-		[60, 'Chaotic, but functional.', 'Some bad decisions, some okay ones. Mostly bad.'],
-		[100, 'Suspiciously responsible.', 'You had all that money and bought... sensible things? Phir se? Fine.']
-	];
-	var tier = TIERS.filter(function (t) { return r.q < t[0]; })[0] || TIERS[3];
-	var spentText = UI.moneyIn(r.c, r.s);
-	var regret = Math.max(1, Math.min(99, 100 - r.q));
+	var D = UI.describe(r);
+	var R = D.R;
+	var tier = D.tier;
+	var spentText = D.big;
+	var isShop = D.G.engine === 'shop';
+	var scoreLabel = R.scoreLabel || 'Score';
+	var topLabel = isShop ? 'Worst buy: ' : 'Worst answer: ';
+	var stampTop = isShop && !D.G.invert ? 'Regret' : 'Mana kiya';
+	var stampBottom = isShop && !D.G.invert ? Math.max(1, Math.min(99, 100 - r.q)) + '%' : 'tha.';
+	var subText = R.sub || '';
+	var labelText = R.label || 'My result';
 
 	/* ---------- render ---------- */
+	$('[data-r-label]').textContent = labelText;
 	$('[data-r-spent]').textContent = spentText;
+	$('[data-r-sub]').textContent = subText;
 	$('[data-r-items]').textContent = r.e;
-	$('[data-r-top]').textContent = r.t ? 'Worst buy: ' + r.t : '';
+	$('[data-r-top]').textContent = r.t ? topLabel + r.t : '';
+	$('[data-r-score-label]').textContent = scoreLabel;
 	$('[data-r-iq]').textContent = r.q + '/100';
-	$('[data-r-stamp]').innerHTML = 'Regret<br>' + regret + '%';
+	$('[data-r-stamp]').innerHTML = stampTop + '<br>' + stampBottom;
 	$('[data-r-title]').textContent = tier[1];
-	$('[data-r-verdict]').textContent = (mine ? 'You' : 'Your friend') + ' wasted ' + spentText + ' on ' + r.n + (r.n === 1 ? ' item' : ' items') + '. ' + tier[2];
+	$('[data-r-verdict]').textContent = (mine ? '' : 'Your friend\'s result. ') + tier[2];
+	$('[data-r-game]').textContent = (CFG.gameTitles && CFG.gameTitles[r.g]) || '';
 	$('[data-result-card]').hidden = false;
 	$('[data-result-copy]').hidden = false;
 
-	var gameUrl = CFG.shopUrl || CFG.home;
+	var gameUrl = (CFG.gameUrls && CFG.gameUrls[r.g]) || CFG.shopUrl || CFG.home;
 	var challengeUrl = gameUrl + (gameUrl.indexOf('?') > -1 ? '&' : '?') + 'challenge=' + UI.encode({ s: r.s, q: r.q, c: r.c, id: r.id });
 	var resultUrl = window.location.href.split('#')[0];
-	var shareText = 'I wasted ' + spentText + ' on things I don\'t need. Financial IQ: ' + r.q + '/100 🤡 Beat me:';
+	var shareText = (R.share || 'My result: {big}. {q}/100. Beat me:').replace('{big}', spentText).replace('{q}', r.q);
 
 	$('[data-again]').href = gameUrl;
 	$('[data-beat]').href = challengeUrl;
@@ -127,7 +133,7 @@
 		if (e.target.closest('[data-challenge]')) {
 			UI.track('challenge_create', { game_id: r.g || '', result_id: r.id || '' });
 			if (navigator.share) {
-				navigator.share({ title: 'Click Mat Kar challenge', text: 'I wasted ' + spentText + '. Bet you can\'t do worse 😈', url: challengeUrl }).catch(function () {});
+				navigator.share({ title: 'Click Mat Kar challenge', text: labelText + ' ' + spentText + '. Bet you can\'t do worse 😈', url: challengeUrl }).catch(function () {});
 			} else {
 				copy(challengeUrl, 'Challenge link copied. Send it to your worst friend.');
 			}
@@ -183,16 +189,16 @@
 				g.fillStyle = INK; g.font = '44px ' + DISPLAY; g.textBaseline = 'middle'; g.fillText('CLICK MAT KAR.', 172, 334);
 
 				g.textBaseline = 'alphabetic';
-				g.font = '700 46px ' + BODY; g.fillText('I SPENT', 150, 500);
+				g.font = '700 46px ' + BODY; g.fillText(labelText.toUpperCase(), 150, 500);
 				fit(spentText, DISPLAY, 140, 760); g.fillText(spentText, 150, 640);
-				g.font = '500 44px ' + BODY; g.fillText('on things I definitely', 150, 720); g.fillText('don\'t need.', 150, 776);
+				fit(subText, BODY, 44, 760, '500'); g.fillText(subText, 150, 730);
 
 				g.font = '120px ' + BODY; g.fillText(r.e, 150, 1010);
-				if (r.t) { fit('Worst buy: ' + r.t, BODY, 40, 760, '700'); g.fillText('Worst buy: ' + r.t, 150, 1100); }
+				if (r.t) { fit(topLabel + r.t, BODY, 40, 760, '700'); g.fillText(topLabel + r.t, 150, 1100); }
 
 				g.setLineDash([18, 14]); g.lineWidth = 5; g.beginPath(); g.moveTo(150, 1190); g.lineTo(910, 1190); g.stroke(); g.setLineDash([]);
-				g.font = '800 40px ' + BODY; g.fillText('FINANCIAL IQ', 150, 1290);
-				fit(r.q + '/100', DISPLAY, 112, 440); g.textAlign = 'right'; g.fillText(r.q + '/100', 910, 1320); g.textAlign = 'left';
+				fit(scoreLabel.toUpperCase(), BODY, 40, 360, '800'); g.fillText(scoreLabel.toUpperCase(), 150, 1290);
+				fit(r.q + '/100', DISPLAY, 112, 380); g.textAlign = 'right'; g.fillText(r.q + '/100', 910, 1320); g.textAlign = 'left';
 				g.font = '600 38px ' + BODY; g.fillText(tier[1], 150, 1420);
 				g.font = '700 40px ' + BODY; g.fillText('Beat me. clickmatkar.com', 150, 1530);
 				g.restore();
@@ -200,11 +206,11 @@
 				// stamp
 				g.save(); g.translate(860, 1640); g.rotate(0.17);
 				g.fillStyle = PINK; rr(-150, -80, 300, 160, 28); g.fill(); g.lineWidth = 7; g.strokeStyle = INK; g.stroke();
-				g.fillStyle = INK; g.textAlign = 'center'; g.font = '46px ' + DISPLAY; g.fillText('REGRET', 0, -10); g.fillText(regret + '%', 0, 48);
+				g.fillStyle = INK; g.textAlign = 'center'; g.font = '46px ' + DISPLAY; fit(stampTop.toUpperCase(), DISPLAY, 46, 250); g.fillText(stampTop.toUpperCase(), 0, -10); g.fillText(String(stampBottom).toUpperCase(), 0, 48);
 				g.restore();
 
 				g.fillStyle = INK; g.textAlign = 'center'; fit('WE TOLD YOU NOT TO CLICK.', DISPLAY, 64, 960); g.fillText('WE TOLD YOU NOT TO CLICK.', W / 2, 150);
-				g.font = '700 44px ' + BODY; g.fillText('Mana kiya tha.', W / 2, 1830);
+				var footer = (CFG.gameTitles && CFG.gameTitles[r.g]) ? 'Play ' + CFG.gameTitles[r.g] + ' on clickmatkar.com' : 'clickmatkar.com'; fit(footer, BODY, 40, 940, '700'); g.fillText(footer, W / 2, 1830);
 
 				if (c.toBlob) { c.toBlob(resolve, 'image/png'); } else { resolve(null); }
 			});

@@ -30,12 +30,24 @@ Fresh theme (not based on the v0.9.0 zip). Source of truth: the 2026-10-10 maste
       1440/1024/390/320, full flow add → cart → checkout → result → story PNG → visitor → challenge, no console/PHP errors
 
 
+## v1.0.0-alpha.2 — all games launched
+- [x] All 7 games playable. Data packs in `assets/js/games-data.js`; two shared engines:
+      shop (`game-shop.js`: Shop Like You're Rich, Plan a Crazy Wedding, Spend $1 Billion, Dream Lifestyle) and
+      quiz (`game-quiz.js`: Bad Decisions, Find Your Red Flags, What's Your Price?)
+- [x] Result page, story card, OG title and challenge banner read labels/tiers from each game's pack
+- [x] Existing installs upgrade themselves: on a new theme version, `cmk_maybe_upgrade()` publishes launched games,
+      sets engines and replaces old "Coming soon" kickers (no need to re-run setup)
+- [x] No "Soon"/"Cooking" anywhere; homepage "More nonsense is cooking" replaced by a "Spin the wheel" random-game machine
+- [x] Homepage layout fixes: 7-card grid (featured first card), featured amount box no longer wraps, manifesto text
+      centred, ticker contained (no sideways scroll), hero stickers repositioned, results/challenge sections clipped
+- [x] QA: every game played end-to-end at 390 and 1440 (play → result → story PNG → challenge link), homepage at
+      1280/1024/390/320, no console errors, no page-level horizontal scroll
+
 ## Next (in order)
 - [ ] Real product art: swap emoji for WebP illustrations (3D sticker style from the moodboard) with set dimensions
 - [ ] Site icon / OG share image (1200×630) + per-result OG image (needs server-side render or a static set by IQ tier)
 - [ ] Customizer/settings: analytics ID field (GA4 / Plausible) — `CMKUI.track` already pushes to dataLayer/gtag/plausible
 - [ ] Optional micro-sounds (off by default) and haptics on mobile add-to-cart
-- [ ] Second game on the same engine shell (data decides: Dream Wedding is #2 on the roadmap)
 - [ ] Before release: rename version to 1.0.0, zip `click-mat-kar/` (zips are git-ignored), install on staging,
       run setup, repeat the 4-width QA
 

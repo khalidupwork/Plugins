@@ -81,74 +81,74 @@ function cmk_games_catalog() {
 		),
 		'dream-wedding'        => array(
 			'title'   => 'Plan a Crazy Wedding',
-			'kicker'  => __( 'Coming next', 'click-mat-kar' ),
+			'kicker'  => __( 'Shaadi special', 'click-mat-kar' ),
 			'hook'    => __( 'Bara budget. Bad decisions.', 'click-mat-kar' ),
 			'roman'   => 'Bara budget, badi shaadi.',
 			'emoji'   => '💍',
 			'color'   => 'lavender',
-			'engine'  => 'none',
+			'engine'  => 'shop',
 			'minutes' => '3',
-			'live'    => false,
+			'live'    => true,
 			'excerpt' => __( 'Seven functions, one budget, zero restraint.', 'click-mat-kar' ),
 		),
 		'spend-1-billion'      => array(
 			'title'   => 'Spend $1 Billion',
-			'kicker'  => __( 'Coming soon', 'click-mat-kar' ),
+			'kicker'  => __( 'Big money', 'click-mat-kar' ),
 			'hook'    => __( 'Because why not?', 'click-mat-kar' ),
 			'roman'   => 'Bas kharch karo.',
 			'emoji'   => '💸',
 			'color'   => 'mint',
-			'engine'  => 'none',
+			'engine'  => 'shop',
 			'minutes' => '3',
-			'live'    => false,
+			'live'    => true,
 			'excerpt' => __( 'Try to spend a billion. It is harder than it sounds. Not really.', 'click-mat-kar' ),
 		),
 		'bad-decisions'        => array(
 			'title'   => 'Bad Decisions',
-			'kicker'  => __( 'In the lab', 'click-mat-kar' ),
+			'kicker'  => __( 'Story mode', 'click-mat-kar' ),
 			'hook'    => __( "Make choices you shouldn't.", 'click-mat-kar' ),
 			'roman'   => 'Socho mat. Bas karo.',
 			'emoji'   => '🎮',
 			'color'   => 'orange',
-			'engine'  => 'none',
+			'engine'  => 'quiz',
 			'minutes' => '5',
-			'live'    => false,
+			'live'    => true,
 			'excerpt' => __( 'A branching story where every option is worse than the last.', 'click-mat-kar' ),
 		),
 		'dream-life'           => array(
 			'title'   => 'Dream Lifestyle',
-			'kicker'  => __( 'In the lab', 'click-mat-kar' ),
+			'kicker'  => __( 'Main character', 'click-mat-kar' ),
 			'hook'    => __( 'Ghar, gaadi, travel, sab kuch.', 'click-mat-kar' ),
 			'roman'   => 'Ghar, gaadi, travel, sab kuch.',
 			'emoji'   => '🏝️',
 			'color'   => 'blue',
-			'engine'  => 'none',
+			'engine'  => 'shop',
 			'minutes' => '4',
-			'live'    => false,
+			'live'    => true,
 			'excerpt' => __( 'House. Car. Trip. Delusion.', 'click-mat-kar' ),
 		),
 		'red-flag-check'       => array(
 			'title'   => 'Find Your Red Flags',
-			'kicker'  => __( 'In the lab', 'click-mat-kar' ),
+			'kicker'  => __( '2 min quiz', 'click-mat-kar' ),
 			'hook'    => __( 'Kuch sach kadwa hota hai.', 'click-mat-kar' ),
 			'roman'   => 'Kuch sach kadwa hota hai.',
 			'emoji'   => '🚩',
 			'color'   => 'red',
-			'engine'  => 'none',
+			'engine'  => 'quiz',
 			'minutes' => '2',
-			'live'    => false,
+			'live'    => true,
 			'excerpt' => __( 'A completely unnecessary personality crisis.', 'click-mat-kar' ),
 		),
 		'whats-your-price'     => array(
 			'title'   => "What's Your Price?",
-			'kicker'  => __( 'In the lab', 'click-mat-kar' ),
+			'kicker'  => __( 'Would you?', 'click-mat-kar' ),
 			'hook'    => __( 'Would you, for that much?', 'click-mat-kar' ),
 			'roman'   => 'Kitne mein bikoge?',
 			'emoji'   => '🏷️',
 			'color'   => 'lime',
-			'engine'  => 'none',
+			'engine'  => 'quiz',
 			'minutes' => '2',
-			'live'    => false,
+			'live'    => true,
 			'excerpt' => __( 'Put a price on things you should never do. Then compare with friends.', 'click-mat-kar' ),
 		),
 	);
@@ -227,4 +227,78 @@ function cmk_game_cards() {
 		);
 	}
 	return $cards;
+}
+
+/**
+ * Create or update the catalog games. Publishes games that went live, fills engine/meta,
+ * and replaces old "coming soon" kickers. Never touches titles or content you edited.
+ *
+ * @return string[] Log lines.
+ */
+function cmk_sync_games() {
+	$log   = array();
+	$order = 0;
+	$stale = array( 'Coming next', 'Coming soon', 'In the lab', 'Cooking' );
+
+	foreach ( cmk_games_catalog() as $slug => $game ) {
+		++$order;
+		$existing = cmk_get_game_by_slug( $slug );
+
+		if ( ! $existing ) {
+			$post_id = wp_insert_post(
+				array(
+					'post_type'    => 'cmk_game',
+					'post_status'  => $game['live'] ? 'publish' : 'draft',
+					'post_title'   => $game['title'],
+					'post_name'    => $slug,
+					'post_excerpt' => $game['excerpt'],
+					'menu_order'   => $order,
+				)
+			);
+			if ( ! $post_id || is_wp_error( $post_id ) ) {
+				continue;
+			}
+			foreach ( array( 'engine', 'emoji', 'color', 'hook', 'kicker', 'minutes' ) as $key ) {
+				update_post_meta( $post_id, 'cmk_' . $key, $game[ $key ] );
+			}
+			$log[] = sprintf( 'Created game (%s): %s', $game['live'] ? 'live' : 'draft', $game['title'] );
+			continue;
+		}
+
+		$post_id = $existing->ID;
+		if ( $game['live'] && 'draft' === $existing->post_status ) {
+			wp_update_post( array( 'ID' => $post_id, 'post_status' => 'publish' ) );
+			$log[] = sprintf( 'Launched game: %s', $game['title'] );
+		} else {
+			$log[] = sprintf( 'Kept game: %s', $game['title'] );
+		}
+
+		$engine = get_post_meta( $post_id, 'cmk_engine', true );
+		if ( ( '' === $engine || 'none' === $engine ) && 'none' !== $game['engine'] ) {
+			update_post_meta( $post_id, 'cmk_engine', $game['engine'] );
+		}
+		if ( in_array( get_post_meta( $post_id, 'cmk_kicker', true ), $stale, true ) ) {
+			update_post_meta( $post_id, 'cmk_kicker', $game['kicker'] );
+		}
+		foreach ( array( 'emoji', 'color', 'hook', 'minutes' ) as $key ) {
+			if ( '' === get_post_meta( $post_id, 'cmk_' . $key, true ) ) {
+				update_post_meta( $post_id, 'cmk_' . $key, $game[ $key ] );
+			}
+		}
+	}
+	return $log;
+}
+
+/**
+ * Theme updated (uploaded over an existing install): sync games once per version so
+ * new launches go live without re-running the full setup.
+ */
+add_action( 'init', 'cmk_maybe_upgrade', 20 );
+function cmk_maybe_upgrade() {
+	$ran = get_option( 'cmk_setup_version' );
+	if ( ! $ran || CMK_VERSION === get_option( 'cmk_games_version' ) ) {
+		return;
+	}
+	cmk_sync_games();
+	update_option( 'cmk_games_version', CMK_VERSION );
 }

@@ -51,12 +51,16 @@ function cmk_enqueue() {
 	wp_enqueue_script( 'cmk-main', CMK_URI . '/assets/js/main.js', array(), CMK_VERSION, array( 'strategy' => 'defer', 'in_footer' => true ) );
 	wp_localize_script( 'cmk-main', 'CMK', cmk_js_config() );
 
-	if ( is_singular( 'cmk_game' ) && 'shop' === cmk_game_engine( get_queried_object_id() ) ) {
-		wp_enqueue_script( 'cmk-shop', CMK_URI . '/assets/js/game-shop.js', array( 'cmk-main' ), CMK_VERSION, array( 'strategy' => 'defer', 'in_footer' => true ) );
+	$cmk_engine = is_singular( 'cmk_game' ) ? cmk_game_engine( get_queried_object_id() ) : '';
+	if ( in_array( $cmk_engine, array( 'shop', 'quiz' ), true ) || is_page( 'result' ) ) {
+		wp_enqueue_script( 'cmk-games-data', CMK_URI . '/assets/js/games-data.js', array(), CMK_VERSION, array( 'strategy' => 'defer', 'in_footer' => true ) );
+	}
+	if ( in_array( $cmk_engine, array( 'shop', 'quiz' ), true ) ) {
+		wp_enqueue_script( 'cmk-' . $cmk_engine, CMK_URI . '/assets/js/game-' . $cmk_engine . '.js', array( 'cmk-main', 'cmk-games-data' ), CMK_VERSION, array( 'strategy' => 'defer', 'in_footer' => true ) );
 	}
 
 	if ( is_page( 'result' ) ) {
-		wp_enqueue_script( 'cmk-result', CMK_URI . '/assets/js/result.js', array( 'cmk-main' ), CMK_VERSION, array( 'strategy' => 'defer', 'in_footer' => true ) );
+		wp_enqueue_script( 'cmk-result', CMK_URI . '/assets/js/result.js', array( 'cmk-main', 'cmk-games-data' ), CMK_VERSION, array( 'strategy' => 'defer', 'in_footer' => true ) );
 	}
 }
 
@@ -72,6 +76,13 @@ function cmk_js_config() {
 		'resultUrl' => $result_page ? get_permalink( $result_page ) : home_url( '/result/' ),
 		'shopUrl'   => $shop_game ? get_permalink( $shop_game ) : home_url( '/games/shop-like-youre-rich/' ),
 		'gamesUrl'  => get_post_type_archive_link( 'cmk_game' ),
+		'gameUrls'  => wp_list_pluck( array_filter( cmk_game_cards(), function ( $c ) { return $c['playable']; } ), 'url' ),
+		'gameTitles' => array_map(
+			function ( $t ) {
+				return html_entity_decode( $t, ENT_QUOTES, 'UTF-8' );
+			},
+			wp_list_pluck( cmk_game_cards(), 'title' )
+		),
 		'siteName'  => 'clickmatkar.com',
 		'debug'     => defined( 'WP_DEBUG' ) && WP_DEBUG,
 	);
@@ -151,9 +162,13 @@ function cmk_request_result() {
 	$pack = isset( $data['c'], $packs[ $data['c'] ] ) ? $packs[ $data['c'] ] : $packs['usd'];
 	$num  = (int) round( min( (float) $data['s'], 1e12 ) * $pack[1] );
 	$fmt  = '$' === $pack[0] ? number_format( $num ) : cmk_format_lakh( $num );
+	$catalog = cmk_games_catalog();
+	$slug    = isset( $data['g'] ) ? sanitize_title( $data['g'] ) : 'shop-like-youre-rich';
 	return array(
 		'spent' => $pack[0] . $fmt,
 		'iq'    => max( 1, min( 99, (int) $data['q'] ) ),
+		'game'  => isset( $catalog[ $slug ] ) ? $catalog[ $slug ]['title'] : 'Click Mat Kar',
+		'money' => in_array( $slug, array( 'shop-like-youre-rich', 'dream-wedding', 'spend-1-billion', 'dream-life', 'whats-your-price' ), true ),
 	);
 }
 
@@ -185,8 +200,11 @@ function cmk_social_meta() {
 	if ( is_page( 'result' ) ) {
 		$result = cmk_request_result();
 		if ( $result ) {
-			/* translators: 1: money spent, 2: Financial IQ score. */
-			$title = sprintf( __( 'I wasted %1$s. Financial IQ: %2$d/100 🤡', 'click-mat-kar' ), $result['spent'], $result['iq'] );
+			$title = $result['money']
+				/* translators: 1: game title, 2: money, 3: score. */
+				? sprintf( __( '%1$s: %2$s. Score %3$d/100 🤡', 'click-mat-kar' ), $result['game'], $result['spent'], $result['iq'] )
+				/* translators: 1: game title, 2: score. */
+				: sprintf( __( 'My %1$s score: %2$d/100 🤡', 'click-mat-kar' ), $result['game'], $result['iq'] );
 			$desc  = __( 'Think you can make worse decisions? Beat me on Click Mat Kar.', 'click-mat-kar' );
 		}
 	}

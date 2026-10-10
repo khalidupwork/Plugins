@@ -53,6 +53,22 @@
 
 	function money(base) { return moneyIn(LOCALE, base); }
 
+	/* "Rs 10 Crore" / "$1 Million" style labels for budgets. */
+	function bigMoney(pack, base) {
+		pack = PACKS[pack] || pack || LOCALE;
+		var v = base * pack.factor;
+		var units = pack.code === 'usd'
+			? [[1e9, 'Billion'], [1e6, 'Million'], [1e3, 'Thousand']]
+			: [[1e9, 'Arab'], [1e7, 'Crore'], [1e5, 'Lakh']];
+		for (var i = 0; i < units.length; i++) {
+			if (v >= units[i][0]) {
+				var n = Math.round((v / units[i][0]) * 10) / 10;
+				return pack.symbol.trim() + (pack.symbol.length > 1 ? ' ' : '') + n + ' ' + units[i][1];
+			}
+		}
+		return moneyIn(pack, base);
+	}
+
 	/* Compact URL-safe encoding for result / challenge payloads. */
 	function encode(obj) {
 		var json = JSON.stringify(obj);
@@ -114,7 +130,7 @@
 
 	function pick(list) { return list[Math.floor(Math.random() * list.length)]; }
 
-	window.CMKUI = { track: track, money: money, moneyIn: moneyIn, packs: PACKS, encode: encode, decode: decode, locale: LOCALE, toast: toast, flyTo: flyTo, bump: bump, pick: pick, reduceMotion: reduceMotion, config: CFG };
+	window.CMKUI = { track: track, money: money, moneyIn: moneyIn, bigMoney: bigMoney, packs: PACKS, encode: encode, decode: decode, locale: LOCALE, toast: toast, flyTo: flyTo, bump: bump, pick: pick, reduceMotion: reduceMotion, config: CFG };
 
 	/* ---------------------------------------------------------------
 	 * Header + mobile nav
@@ -197,20 +213,67 @@
 		});
 	});
 
-	function rollNumber(el, from, to) {
-		if (reduceMotion) { el.textContent = money(to); return; }
+	function rollNumber(el, from, to, fmt) {
+		fmt = fmt || money;
+		if (reduceMotion) { el.textContent = fmt(to); return; }
 		var start = null;
 		var dur = 500;
 		function step(ts) {
 			if (!start) { start = ts; }
 			var p = Math.min(1, (ts - start) / dur);
 			var eased = 1 - Math.pow(1 - p, 3);
-			el.textContent = money(from + (to - from) * eased);
+			el.textContent = fmt(from + (to - from) * eased);
 			if (p < 1) { requestAnimationFrame(step); }
 		}
 		requestAnimationFrame(step);
 	}
 	window.CMKUI.rollNumber = rollNumber;
+
+	/* ---------------------------------------------------------------
+	 * Shared game shell helpers (used by every engine + result page).
+	 * ------------------------------------------------------------- */
+
+	/* Describe a result payload using its game's pack: big headline value, tier, labels. */
+	function describe(r) {
+		var games = window.CMK_GAMES || {};
+		var G = games[r.g] || games['shop-like-youre-rich'] || { result: {} };
+		var R = G.result || {};
+		var pack = PACKS[r.c] || LOCALE;
+		var big;
+		if (R.big === 'money') { big = moneyIn(pack, r.s); }
+		else if (R.big === 'count') { big = r.s + ' ' + (R.countWord || ''); }
+		else { big = r.q + '/100'; }
+		var tiers = R.tiers || [[100, 'Done.', '']];
+		var tier = tiers.filter(function (t) { return r.q < t[0]; })[0] || tiers[tiers.length - 1];
+		return { G: G, R: R, big: big.trim(), tier: tier, pack: pack };
+	}
+
+	function finishGame(result) {
+		track('game_complete', { game_id: result.g, spend: result.s, items: result.n, duration: result.d });
+		try { sessionStorage.setItem('cmk_last_result', JSON.stringify(result)); } catch (e) {}
+		var url = CFG.resultUrl || '/result/';
+		window.location.href = url + (url.indexOf('?') > -1 ? '&' : '?') + 'r=' + encode(result);
+	}
+
+	/* game_view + "you have been challenged" banner. */
+	function gameView(gameId, currency) {
+		track('game_view', { game_id: gameId, locale: navigator.language || '', currency: currency || LOCALE.code });
+		var banner = doc.querySelector('[data-challenge-banner]');
+		var ch = decode(new URLSearchParams(window.location.search).get('challenge'));
+		if (!banner || !ch || typeof ch.q === 'undefined') { return; }
+		ch.g = gameId;
+		ch.q = Math.max(1, Math.min(99, parseInt(ch.q, 10) || 1));
+		ch.s = Number(ch.s) || 0;
+		var d = describe(ch);
+		var what = d.R.big === 'score' ? '' : d.big + ' · ';
+		banner.querySelector('[data-challenge-text]').textContent = 'Your friend got ' + what + (d.R.scoreLabel || 'Score') + ' ' + ch.q + '/100. Do worse. We dare you.';
+		banner.hidden = false;
+		track('challenge_open', { source_result_id: ch.id || '', game_id: gameId });
+	}
+
+	window.CMKUI.describe = describe;
+	window.CMKUI.finishGame = finishGame;
+	window.CMKUI.gameView = gameView;
 
 	/* ---------------------------------------------------------------
 	 * Featured swipe demo: Nope / Add to cart through a small deck.
@@ -297,5 +360,51 @@
 			var soon = card.classList.contains('is-soon');
 			card.hidden = mode === 'ready' ? soon : mode === 'cooking' ? !soon : false;
 		});
+	});
+})();
+
+/* Spin the wheel of bad ideas (homepage). */
+(function () {
+	'use strict';
+	var machine = document.querySelector('[data-spin]');
+	var btn = document.querySelector('[data-spin-go]');
+	if (!machine || !btn) { return; }
+	var slots = Array.prototype.slice.call(machine.querySelectorAll('[data-spin-slot]'));
+	var cur = 0;
+	var busy = false;
+	var UI = window.CMKUI || {};
+
+	function show(i) {
+		slots.forEach(function (s, idx) {
+			var on = idx === i;
+			s.classList.toggle('is-on', on);
+			if (on) { s.removeAttribute('tabindex'); s.removeAttribute('aria-hidden'); }
+			else { s.setAttribute('tabindex', '-1'); s.setAttribute('aria-hidden', 'true'); }
+		});
+		cur = i;
+	}
+
+	btn.addEventListener('click', function () {
+		if (busy) { return; }
+		busy = true;
+		machine.classList.remove('is-landed');
+		machine.classList.add('is-spinning');
+		var target = Math.floor(Math.random() * slots.length);
+		if (target === cur) { target = (target + 1) % slots.length; }
+		var steps = (UI.reduceMotion ? 1 : slots.length * 2) + ((target - cur + slots.length) % slots.length);
+		var n = 0;
+		(function tick() {
+			show((cur + 1) % slots.length);
+			n += 1;
+			if (n < steps) {
+				setTimeout(tick, 60 + Math.pow(n / steps, 3) * 260);
+			} else {
+				machine.classList.remove('is-spinning');
+				machine.classList.add('is-landed');
+				busy = false;
+				if (UI.toast) { UI.toast('Fate has spoken. No take-backs.'); }
+				if (UI.track) { UI.track('cta_click', { label: 'spin_' + slots[cur].getAttribute('data-game') }); }
+			}
+		})();
 	});
 })();

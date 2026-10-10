@@ -32,7 +32,7 @@ $cmk_play = cmk_first_game_url();
 			</div>
 			<div class="cmk-featured__copy">
 				<?php cmk_pill( __( 'First drop', 'click-mat-kar' ), 'white' ); ?>
-				<h2 id="cmk-featured-title" class="cmk-h1"><?php esc_html_e( 'You have', 'click-mat-kar' ); ?> <span class="cmk-mark" data-budget-label>Rs 10 Crore.</span></h2>
+				<h2 id="cmk-featured-title" class="cmk-h1 cmk-featured__title"><?php esc_html_e( 'You have', 'click-mat-kar' ); ?> <span class="cmk-mark" data-budget-label>Rs 10 Crore.</span></h2>
 				<p class="cmk-lead"><?php esc_html_e( 'Terrible news: you have to spend it. Build the most unnecessary cart possible and see what your Financial IQ says about you.', 'click-mat-kar' ); ?></p>
 				<ul class="cmk-chips cmk-chips--light">
 					<li>✓ <?php esc_html_e( 'No real money', 'click-mat-kar' ); ?></li>

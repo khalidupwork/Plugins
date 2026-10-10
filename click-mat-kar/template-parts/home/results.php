@@ -17,6 +17,7 @@ $cmk_play = cmk_first_game_url();
 				<span class="cmk-result-card__big" data-money="87429200">Rs 8,74,29,200</span>
 				<span class="cmk-result-card__sub"><?php esc_html_e( "on things I definitely don't need.", 'click-mat-kar' ); ?></span>
 				<span class="cmk-result-card__items" aria-hidden="true">🛥️ 👟 ⌚ 🦒 👜</span>
+				<span class="cmk-result-card__top"><?php esc_html_e( 'Worst buy: Emotional Support Giraffe', 'click-mat-kar' ); ?></span>
 				<span class="cmk-result-card__iq"><?php esc_html_e( 'Financial IQ', 'click-mat-kar' ); ?> <b>3/100</b></span>
 				<span class="cmk-result-card__foot"><?php esc_html_e( 'Beat me.', 'click-mat-kar' ); ?> clickmatkar.com</span>
 				<span class="cmk-result-card__stamp"><?php esc_html_e( 'Regret', 'click-mat-kar' ); ?><br>97%</span>

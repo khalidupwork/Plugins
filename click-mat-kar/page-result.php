@@ -14,12 +14,13 @@ get_header();
 		<div class="cmk-result-page__card">
 			<div class="cmk-result-card cmk-result-card--live" data-result-card hidden>
 				<span class="cmk-result-card__logo">CLICK MAT KAR.</span>
+				<span class="cmk-result-card__game" data-r-game></span>
 				<span class="cmk-result-card__label" data-r-label><?php esc_html_e( 'I spent', 'click-mat-kar' ); ?></span>
 				<span class="cmk-result-card__big" data-r-spent></span>
-				<span class="cmk-result-card__sub"><?php esc_html_e( "on things I definitely don't need.", 'click-mat-kar' ); ?></span>
+				<span class="cmk-result-card__sub" data-r-sub></span>
 				<span class="cmk-result-card__items" data-r-items aria-hidden="true"></span>
 				<span class="cmk-result-card__top" data-r-top></span>
-				<span class="cmk-result-card__iq"><?php esc_html_e( 'Financial IQ', 'click-mat-kar' ); ?> <b data-r-iq></b></span>
+				<span class="cmk-result-card__iq"><span data-r-score-label></span> <b data-r-iq></b></span>
 				<span class="cmk-result-card__foot"><?php esc_html_e( 'Beat me.', 'click-mat-kar' ); ?> clickmatkar.com</span>
 				<span class="cmk-result-card__stamp" data-r-stamp></span>
 			</div>

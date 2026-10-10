@@ -95,42 +95,7 @@ function cmk_run_setup() {
 	$log[] = 'Assigned static front page and privacy page.';
 
 	// 3. Games: live ones published, the rest as drafts (never fake live pages).
-	$order = 0;
-	foreach ( cmk_games_catalog() as $slug => $game ) {
-		++$order;
-		$existing = cmk_get_game_by_slug( $slug );
-		if ( $existing ) {
-			if ( $game['live'] && 'publish' !== $existing->post_status ) {
-				wp_update_post( array( 'ID' => $existing->ID, 'post_status' => 'publish' ) );
-				$log[] = sprintf( 'Published game: %s', $game['title'] );
-			} else {
-				$log[] = sprintf( 'Kept game: %s', $game['title'] );
-			}
-			if ( '' === get_post_meta( $existing->ID, 'cmk_engine', true ) ) {
-				update_post_meta( $existing->ID, 'cmk_engine', $game['engine'] );
-			}
-			continue;
-		}
-		$post_id = wp_insert_post(
-			array(
-				'post_type'    => 'cmk_game',
-				'post_status'  => $game['live'] ? 'publish' : 'draft',
-				'post_title'   => $game['title'],
-				'post_name'    => $slug,
-				'post_excerpt' => $game['excerpt'],
-				'menu_order'   => $order,
-			)
-		);
-		if ( $post_id && ! is_wp_error( $post_id ) ) {
-			update_post_meta( $post_id, 'cmk_engine', $game['engine'] );
-			update_post_meta( $post_id, 'cmk_emoji', $game['emoji'] );
-			update_post_meta( $post_id, 'cmk_color', $game['color'] );
-			update_post_meta( $post_id, 'cmk_hook', $game['hook'] );
-			update_post_meta( $post_id, 'cmk_kicker', $game['kicker'] );
-			update_post_meta( $post_id, 'cmk_minutes', $game['minutes'] );
-			$log[] = sprintf( 'Created game (%s): %s', $game['live'] ? 'live' : 'draft', $game['title'] );
-		}
-	}
+	$log = array_merge( $log, cmk_sync_games() );
 
 	// 4. Menus (only created if missing, only assigned to empty locations).
 	$shop      = cmk_get_game_by_slug( 'shop-like-youre-rich' );
@@ -196,6 +161,7 @@ function cmk_run_setup() {
 	$log[] = 'Flushed rewrite rules.';
 
 	update_option( 'cmk_setup_version', CMK_VERSION );
+	update_option( 'cmk_games_version', CMK_VERSION );
 	return $log;
 }
 

@@ -8,17 +8,13 @@
 ?>
 <div class="cmk-game" data-shop-game data-game-id="<?php echo esc_attr( get_post_field( 'post_name' ) ); ?>">
 
-	<div class="cmk-challenge-banner" data-challenge-banner hidden>
-		<div class="cmk-wrap">
-			<span class="cmk-challenge-banner__emoji" aria-hidden="true">⚔️</span>
-			<p><strong><?php esc_html_e( 'You have been challenged.', 'click-mat-kar' ); ?></strong> <span data-challenge-text></span></p>
-		</div>
-	</div>
+	<?php get_template_part( 'template-parts/game/challenge-banner' ); ?>
 
 	<header class="cmk-game__intro cmk-wrap">
 		<?php cmk_pill( __( 'Fake money. Real temptation.', 'click-mat-kar' ) ); ?>
+		<span class="cmk-game__emoji" aria-hidden="true"><?php echo esc_html( get_post_meta( get_the_ID(), 'cmk_emoji', true ) ); ?></span>
 		<h1 class="cmk-h1"><?php the_title(); ?></h1>
-		<p class="cmk-lead"><?php esc_html_e( 'You have', 'click-mat-kar' ); ?> <b data-budget-label>Rs 10 Crore.</b> <?php esc_html_e( 'Spend it on things nobody needs, then see what your Financial IQ says about you.', 'click-mat-kar' ); ?></p>
+		<p class="cmk-lead"><?php esc_html_e( 'You have', 'click-mat-kar' ); ?> <b data-budget-label>Rs 10 Crore.</b> <span data-intro><?php echo esc_html( get_the_excerpt() ); ?></span></p>
 	</header>
 
 	<div class="cmk-hud" data-hud>
@@ -44,7 +40,7 @@
 	<div class="cmk-finish-bar" data-finish-bar hidden>
 		<div class="cmk-wrap cmk-finish-bar__inner">
 			<p data-finish-text></p>
-			<button type="button" class="cmk-btn cmk-btn--ink" data-finish><?php esc_html_e( 'Checkout (fake)', 'click-mat-kar' ); ?> <?php echo cmk_arrow(); // phpcs:ignore WordPress.Security.EscapeOutput ?></button>
+			<button type="button" class="cmk-btn cmk-btn--ink" data-finish><span data-finish-label><?php esc_html_e( 'Checkout (fake)', 'click-mat-kar' ); ?></span> <?php echo cmk_arrow(); // phpcs:ignore WordPress.Security.EscapeOutput ?></button>
 		</div>
 	</div>
 
@@ -58,7 +54,7 @@
 			<p class="cmk-cart__empty" data-cart-empty><?php esc_html_e( 'Empty. Suspiciously responsible.', 'click-mat-kar' ); ?></p>
 			<div class="cmk-cart__foot">
 				<p class="cmk-cart__total"><span><?php esc_html_e( 'Damage', 'click-mat-kar' ); ?></span> <b data-cart-total>—</b></p>
-				<button type="button" class="cmk-btn cmk-btn--lime cmk-btn--lg" data-finish><?php esc_html_e( 'Checkout (fake)', 'click-mat-kar' ); ?> <?php echo cmk_arrow(); // phpcs:ignore WordPress.Security.EscapeOutput ?></button>
+				<button type="button" class="cmk-btn cmk-btn--lime cmk-btn--lg" data-finish><span data-finish-label><?php esc_html_e( 'Checkout (fake)', 'click-mat-kar' ); ?></span> <?php echo cmk_arrow(); // phpcs:ignore WordPress.Security.EscapeOutput ?></button>
 			</div>
 		</div>
 		<div class="cmk-cart__scrim" data-cart-close></div>

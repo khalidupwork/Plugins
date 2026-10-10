@@ -7,7 +7,7 @@
 
 $cmk_words = array( 'Fake shopping', 'Bad decisions', 'Dream weddings', 'Too much money', 'Red flags', 'Zero consequences', 'Mana kiya tha', 'Bad decisions. Good times.' );
 ?>
-<div class="cmk-ticker" aria-hidden="true">
+<div class="cmk-ticker-wrap" aria-hidden="true"><div class="cmk-ticker">
 	<div class="cmk-ticker__track">
 		<?php for ( $cmk_i = 0; $cmk_i < 2; $cmk_i++ ) : ?>
 			<span class="cmk-ticker__group">
@@ -17,4 +17,5 @@ $cmk_words = array( 'Fake shopping', 'Bad decisions', 'Dream weddings', 'Too muc
 			</span>
 		<?php endfor; ?>
 	</div>
+</div>
 </div>
