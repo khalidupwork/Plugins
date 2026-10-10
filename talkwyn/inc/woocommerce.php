@@ -49,7 +49,10 @@ add_shortcode(
 		foreach ( $rows as $r ) {
 			$list .= '<li><span class="tw-ctrust__icon">' . talkwyn_icon( $r[0], 18 ) . '</span><span><strong>' . esc_html( $r[1] ) . '</strong><small>' . esc_html( $r[2] ) . '</small></span></li>';
 		}
-		return '<div class="tw-checkout-head"><h1 class="tw-checkout-head__title">' . esc_html__( 'Checkout', 'talkwyn' ) . '</h1></div>'
+		$back = get_page_by_path( 'pricing' ) ? home_url( '/pricing/' ) : home_url( '/' );
+		return '<div class="tw-checkout-head"><div><a class="tw-checkout-head__back" href="' . esc_url( $back ) . '">' . talkwyn_icon( 'arrow-left', 14 ) . ( get_page_by_path( 'pricing' ) ? esc_html__( 'Back to pricing', 'talkwyn' ) : esc_html__( 'Back to homepage', 'talkwyn' ) ) . '</a></div>'
+			. '<h1 class="tw-checkout-head__title">' . esc_html__( 'Checkout', 'talkwyn' ) . '</h1>'
+			. '<p class="tw-checkout-head__sub">' . esc_html__( 'One step: your details, then payment. Your license key shows right after.', 'talkwyn' ) . '</p></div>'
 			. '<aside class="tw-ctrust" data-tw-checkout-trust aria-label="' . esc_attr__( 'Buy with confidence', 'talkwyn' ) . '"><p class="tw-ctrust__title">' . esc_html__( 'Buy with confidence', 'talkwyn' ) . '</p><ul>' . $list . '</ul>'
 			. '<p class="tw-ctrust__foot"><a href="' . esc_url( home_url( '/refund-policy/' ) ) . '">' . esc_html__( 'Refund policy', 'talkwyn' ) . '</a> · <a href="' . esc_url( home_url( '/contact/' ) ) . '">' . esc_html__( 'Questions? Ask us', 'talkwyn' ) . '</a></p></aside>';
 	}
