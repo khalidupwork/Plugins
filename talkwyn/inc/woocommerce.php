@@ -279,3 +279,9 @@ add_action(
 		echo '<div class="tw-acct-help"><span class="tw-card__icon">' . talkwyn_icon( 'circle-help', 20 ) . '</span><p>' . esc_html__( 'Need a hand with setup or billing?', 'talkwyn' ) . ' <a href="' . esc_url( home_url( '/docs/getting-started/' ) ) . '">' . esc_html__( 'Read the setup guide', 'talkwyn' ) . '</a> ' . esc_html__( 'or', 'talkwyn' ) . ' <a href="' . esc_url( home_url( '/contact/' ) ) . '">' . esc_html__( 'contact us', 'talkwyn' ) . '</a>.</p></div>'; // phpcs:ignore WordPress.Security.EscapingOutput.OutputNotEscaped -- escaped above.
 	}
 );
+
+/**
+ * No "has been added to your cart" notice: pricing links go straight to checkout, so the
+ * notice only showed up later, twice, on another page (My Account).
+ */
+add_filter( 'wc_add_to_cart_message_html', '__return_empty_string', 99 );
