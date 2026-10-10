@@ -117,3 +117,24 @@ function talkwyn_install_links( $html ) {
 	return (string) preg_replace( '#href="(?:' . preg_quote( home_url( '/download/' ), '#' ) . '|/download/)"(\s+data-tw-event="install_click")#', 'href="' . esc_url( $url ) . '" rel="noopener"$1', (string) $html );
 }
 add_filter( 'the_content', 'talkwyn_install_links', 20 );
+
+/**
+ * [tw_when_live path="/blog/slug/"]Text with a link.[/tw_when_live]
+ * Shows its content only once that post or page is published, so links to scheduled
+ * posts appear on the day they go live (launch playbook 6.3).
+ */
+add_shortcode(
+	'tw_when_live',
+	static function ( $atts, $content = '' ) {
+		$atts = shortcode_atts( array( 'path' => '' ), $atts, 'tw_when_live' );
+		$path = trim( (string) $atts['path'], '/' );
+		if ( '' === $path ) {
+			return '';
+		}
+		$parts = explode( '/', $path );
+		$type  = 'blog' === $parts[0] ? 'post' : ( 'docs' === $parts[0] ? 'doc' : 'page' );
+		$slug  = 'page' === $type ? $path : (string) end( $parts );
+		$post  = get_page_by_path( $slug, OBJECT, $type );
+		return $post && 'publish' === $post->post_status ? do_shortcode( (string) $content ) : '';
+	}
+);

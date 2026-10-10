@@ -144,6 +144,11 @@ Run this on a staging copy of talkwyn.com with Stripe in **test mode** (card `42
 - [ ] `GET /wp-json/talkwyn-hub/v1/partners/terms` returns the current settings.
 - [ ] Turn Partners off → `?ref=` does nothing, My Account → Partners says the program is closed.
 
+## 19. Download banner (1.6.5)
+
+- [ ] My Account overview without a license: no download banner (the free plugin has its own download page); the trial button shows.
+- [ ] With a license or trial: "Download Talkwyn Pro" banner, red "Talkwyn Pro .zip" button and a light "Free plugin" button.
+
 ## 18. Audit fixes (1.6.4)
 
 - [ ] Keys in emails off (default): the thank-you page says the email shows only the last characters and the key is in My Account. Turn it on: it says the key was also emailed.

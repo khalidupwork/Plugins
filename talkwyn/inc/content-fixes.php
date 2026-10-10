@@ -11,7 +11,7 @@
 
 defined( 'ABSPATH' ) || exit;
 
-const TALKWYN_CONTENT_FIXES = 2;
+const TALKWYN_CONTENT_FIXES = 3;
 
 /**
  * Old text => new text. Theme 2.12.0: white label is the Agency plan's (logo and
@@ -131,10 +131,34 @@ function talkwyn_content_fixes_post( string $path, string $type ): ?WP_Post {
  * the WooCommerce system pages out of search results.
  */
 function talkwyn_content_fixes_2(): void {
-	$file  = __DIR__ . '/content-fixes-2.json';
-	$fixes = is_readable( $file ) ? json_decode( (string) file_get_contents( $file ), true ) : array(); // phpcs:ignore WordPress.WP.AlternativeFunctions.file_get_contents_file_get_contents -- local theme file.
+	update_option( 'talkwyn_content_fixes_skipped', talkwyn_content_fixes_pages( __DIR__ . '/content-fixes-2.json' ), false );
+	talkwyn_content_fixes_brand();
+}
+
+/**
+ * Apply one per-page fix file. An entry can also create a missing post ("create").
+ *
+ * @param string $file JSON file.
+ * @return int[] IDs of pages left alone because their text was edited by hand.
+ */
+function talkwyn_content_fixes_pages( string $file ): array {
+	$fixes   = is_readable( $file ) ? json_decode( (string) file_get_contents( $file ), true ) : array(); // phpcs:ignore WordPress.WP.AlternativeFunctions.file_get_contents_file_get_contents -- local theme file.
 	$skipped = array();
 	foreach ( (array) $fixes as $path => $fix ) {
+		if ( ! empty( $fix['create'] ) ) {
+			if ( ! talkwyn_content_fixes_post( (string) $path, (string) ( $fix['post_type'] ?? 'post' ) ) && function_exists( 'talkwyn_setup_upsert' ) ) {
+				$report = array(
+					'created' => array(),
+					'updated' => array(),
+					'kept'    => array(),
+				);
+				talkwyn_setup_upsert( (array) $fix['create'], false, $report );
+			}
+			continue;
+		}
+		if ( ! isset( $fix['content'] ) && ! isset( $fix['title'] ) && ! isset( $fix['seo_title'] ) && ! isset( $fix['seo_desc'] ) ) {
+			continue;
+		}
 		$post = talkwyn_content_fixes_post( (string) $path, (string) ( $fix['post_type'] ?? 'page' ) );
 		if ( ! $post ) {
 			continue;
@@ -152,7 +176,18 @@ function talkwyn_content_fixes_2(): void {
 			}
 		}
 		if ( null === $chosen ) {
-			$skipped[] = (int) $post->ID;
+			// Already applied (every new fragment is there) is not a skip.
+			$applied = false;
+			foreach ( array_merge( array( $fix ), (array) ( $fix['variants'] ?? array() ) ) as $variant ) {
+				$new = array_filter( array_map( 'strval', array_values( (array) ( $variant['content'] ?? array() ) ) ), static fn( $n ) => '' !== trim( wp_strip_all_tags( $n ) ) );
+				if ( $new && ! array_filter( $new, static fn( $n ) => false === strpos( $content, $n ) ) ) {
+					$applied = true;
+					break;
+				}
+			}
+			if ( ! $applied ) {
+				$skipped[] = (int) $post->ID;
+			}
 			continue;
 		}
 		$fix = $chosen;
@@ -177,9 +212,42 @@ function talkwyn_content_fixes_2(): void {
 			}
 		}
 	}
+	return $skipped;
+}
 
-	update_option( 'talkwyn_content_fixes_skipped', $skipped, false );
+/**
+ * Set a Rank Math focus keyword on each page that has none yet.
+ *
+ * @param string $file JSON file.
+ */
+function talkwyn_content_fixes_keywords( string $file ): void {
+	$fixes = is_readable( $file ) ? json_decode( (string) file_get_contents( $file ), true ) : array(); // phpcs:ignore WordPress.WP.AlternativeFunctions.file_get_contents_file_get_contents -- local theme file.
+	foreach ( (array) $fixes as $path => $fix ) {
+		if ( empty( $fix['focus_keyword'] ) ) {
+			continue;
+		}
+		$post = talkwyn_content_fixes_post( (string) $path, (string) ( $fix['post_type'] ?? 'page' ) );
+		if ( $post && '' === (string) get_post_meta( (int) $post->ID, 'rank_math_focus_keyword', true ) ) {
+			update_post_meta( (int) $post->ID, 'rank_math_focus_keyword', sanitize_text_field( (string) $fix['focus_keyword'] ) );
+		}
+	}
+}
 
+/**
+ * Fix set 3 (theme 2.14.0, launch playbook part 2): unique alternative pages, internal
+ * links, the gap posts (created as scheduled posts) and Rank Math focus keywords.
+ */
+function talkwyn_content_fixes_3(): void {
+	$file    = __DIR__ . '/content-fixes-3.json';
+	$skipped = array_merge( (array) get_option( 'talkwyn_content_fixes_skipped', array() ), talkwyn_content_fixes_pages( $file ) );
+	update_option( 'talkwyn_content_fixes_skipped', array_values( array_unique( array_map( 'intval', $skipped ) ) ), false );
+	talkwyn_content_fixes_keywords( $file );
+}
+
+/**
+ * Brand name, tagline, Rank Math organization, and the WooCommerce system pages.
+ */
+function talkwyn_content_fixes_brand(): void {
 	// Brand: "Talkwyn" with a capital T, and the tagline, unless the owner set their own.
 	if ( 'talkwyn' === get_option( 'blogname' ) ) {
 		update_option( 'blogname', 'Talkwyn' );
@@ -229,6 +297,9 @@ add_action(
 		}
 		if ( $done < 2 ) {
 			talkwyn_content_fixes_2();
+		}
+		if ( $done < 3 ) {
+			talkwyn_content_fixes_3();
 		}
 		update_option( 'talkwyn_content_fixes', TALKWYN_CONTENT_FIXES, false );
 	}

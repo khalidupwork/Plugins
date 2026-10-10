@@ -501,7 +501,7 @@ function talkwyn_settings_fields(): array {
 			array( 'waitlist_action', __( 'Shopify waitlist form target URL (empty = store sign-ups here and email you)', 'talkwyn' ), 'url' ),
 			array( 'contact_email', __( 'Contact form recipient (empty = site admin email)', 'talkwyn' ), 'email' ),
 			array( 'waitlist_show_count', __( 'Show the live waitlist count on integration pages', 'talkwyn' ), 'checkbox' ),
-			array( 'demo_shortcode', __( 'Live demo shortcode (when the Talkwyn plugin runs on this site), e.g. [talkwyn_chat mode="inline" profile="demo-clinic"]', 'talkwyn' ), 'text' ),
+			array( 'demo_shortcode', __( 'Live demo on the home page (when the Talkwyn plugin runs on this site): [talkwyn_chat mode="inline"]. It answers from this website. Empty = the scripted sample clinic preview.', 'talkwyn' ), 'text' ),
 		),
 		__( 'Legal pages', 'talkwyn' )        => array(
 			array( 'legal_company', __( 'Registered business name', 'talkwyn' ), 'text' ),

@@ -51,7 +51,7 @@ defined( 'ABSPATH' ) || exit;
 <!-- /wp:list -->
 
 <!-- wp:paragraph -->
-<p>Read more about <a href="/features/">how Talkwyn answers</a>.</p>
+<p>See all the <a href="/features/">AI chatbot features</a>.</p>
 <!-- /wp:paragraph --></div>
 <!-- /wp:group -->
 

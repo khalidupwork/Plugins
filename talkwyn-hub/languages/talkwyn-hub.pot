@@ -2,14 +2,14 @@
 # This file is distributed under the GPL-2.0-or-later.
 msgid ""
 msgstr ""
-"Project-Id-Version: Talkwyn Hub 1.6.4\n"
+"Project-Id-Version: Talkwyn Hub 1.6.5\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/talkwyn-hub\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2026-10-10T07:15:37+00:00\n"
+"POT-Creation-Date: 2026-10-10T07:44:11+00:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "X-Generator: WP-CLI 2.12.0\n"
 "X-Domain: talkwyn-hub\n"
@@ -44,7 +44,7 @@ msgstr ""
 #: includes/Admin/Admin.php:50
 #: includes/Admin/Admin.php:106
 #: includes/Admin/LicensesPage.php:71
-#: templates/account/overview.php:65
+#: templates/account/overview.php:67
 msgid "Licenses"
 msgstr ""
 
@@ -844,7 +844,7 @@ msgid "Filter"
 msgstr ""
 
 #: includes/Admin/LicensesTable.php:178
-#: templates/account/overview.php:106
+#: templates/account/overview.php:108
 msgid "Manage"
 msgstr ""
 
@@ -2044,7 +2044,7 @@ msgstr ""
 
 #. translators: %d: free slots
 #: includes/LicenseService.php:267
-#: templates/account/overview.php:102
+#: templates/account/overview.php:104
 msgid "Unlimited"
 msgstr ""
 
@@ -3252,7 +3252,7 @@ msgid "Talkwyn Pro adds paid AI models, analytics, and more sites."
 msgstr ""
 
 #: templates/account/licenses.php:38
-#: templates/account/overview.php:106
+#: templates/account/overview.php:108
 msgid "See plans"
 msgstr ""
 
@@ -3279,103 +3279,99 @@ msgstr ""
 msgid "Your Pro trial has started. Your key is below under Licenses and in your email."
 msgstr ""
 
-#: templates/account/overview.php:40
-msgid "Download the Talkwyn plugin"
+#: templates/account/overview.php:41
+msgid "Download Talkwyn Pro"
 msgstr ""
 
-#: templates/account/overview.php:41
-msgid "Install Talkwyn and Talkwyn Pro on your site, then paste your license key under Talkwyn, License."
-msgstr ""
-
-#: templates/account/overview.php:41
-msgid "Install it on any WordPress site. It is free, and Pro turns on with a license key."
+#: templates/account/overview.php:42
+msgid "Install the free Talkwyn plugin and Talkwyn Pro on your site, then paste your license key under Talkwyn, License."
 msgstr ""
 
 #: templates/account/overview.php:45
-msgid "Talkwyn Pro .zip"
+msgid "Free plugin"
 msgstr ""
 
 #: templates/account/overview.php:47
-msgid "Download .zip"
+msgid "Talkwyn Pro .zip"
 msgstr ""
 
-#: templates/account/overview.php:55
+#: templates/account/overview.php:57
 msgid "Pro features included"
 msgstr ""
 
-#: templates/account/overview.php:60
+#: templates/account/overview.php:62
 msgid "Connected sites"
 msgstr ""
 
-#: templates/account/overview.php:72
+#: templates/account/overview.php:74
 msgid "Features in your plan"
 msgstr ""
 
-#: templates/account/overview.php:72
+#: templates/account/overview.php:74
 msgid "Unlock with Pro"
 msgstr ""
 
-#: templates/account/overview.php:73
-#: templates/account/overview.php:113
+#: templates/account/overview.php:75
+#: templates/account/overview.php:115
 msgid "View all"
 msgstr ""
 
-#: templates/account/overview.php:80
+#: templates/account/overview.php:82
 msgid "Included"
 msgstr ""
 
-#: templates/account/overview.php:80
+#: templates/account/overview.php:82
 msgid "Pro"
 msgstr ""
 
 #. translators: %d: trial length in days
-#: templates/account/overview.php:85
+#: templates/account/overview.php:87
 #, php-format
 msgid "Start free %d-day trial"
 msgstr ""
 
-#: templates/account/overview.php:93
+#: templates/account/overview.php:95
 msgid "Current plan"
 msgstr ""
 
-#: templates/account/overview.php:98
+#: templates/account/overview.php:100
 msgid "Site slots"
 msgstr ""
 
 #. translators: 1: used, 2: limit
-#: templates/account/overview.php:101
+#: templates/account/overview.php:103
 #, php-format
 msgid "%1$d of %2$d used"
 msgstr ""
 
 #. translators: %d: used
-#: templates/account/overview.php:101
+#: templates/account/overview.php:103
 #, php-format
 msgid "%d used"
 msgstr ""
 
 #. translators: %d: free slots
-#: templates/account/overview.php:102
+#: templates/account/overview.php:104
 #, php-format
 msgid "%d available"
 msgstr ""
 
-#: templates/account/overview.php:105
+#: templates/account/overview.php:107
 msgid "No Pro license yet"
 msgstr ""
 
-#: templates/account/overview.php:112
+#: templates/account/overview.php:114
 msgid "Your sites"
 msgstr ""
 
-#: templates/account/overview.php:116
+#: templates/account/overview.php:118
 msgid "No sites yet. Paste your license key in Talkwyn on your site and it shows up here."
 msgstr ""
 
-#: templates/account/overview.php:125
+#: templates/account/overview.php:127
 msgid "Dev"
 msgstr ""
 
-#: templates/account/overview.php:127
+#: templates/account/overview.php:129
 msgid "Live"
 msgstr ""

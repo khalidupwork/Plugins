@@ -23,6 +23,8 @@ Work through this on the live server, in order. Tick each box when done.
 - [ ] Rank Math noindex on shop, cart, checkout and My Account; WooCommerce's sample refund draft is in the Trash; empty the Trash.
 - [ ] Menus: the theme draws its own curated header (mega menu in `inc/header.php`) and footer with the legal pages, so the page-list navigation block in the export is not used. Check that no other theme or template part shows it.
 - [ ] Talkwyn Hub → Settings: From name "Talkwyn", partner commission for the launch year (the playbook suggests 30%, then 20%).
+- [ ] Theme 2.14.0: Posts → Scheduled lists 7 new posts (10 Nov to 22 Dec). Read each before it publishes. The 8th gap post ("ai chatbot for customer service" pillar guide) waits until the site has 30+ referring domains.
+- [ ] Live demo on the home page: with the Talkwyn plugin set up on talkwyn.com, put `[talkwyn_chat mode="inline"]` in Site Settings → Live demo. Empty keeps the scripted sample clinic.
 - [ ] When the WordPress.org listing goes live: set its URL in Site Settings and switch the install steps back to "search Talkwyn".
 
 ## 2. Talkwyn Hub

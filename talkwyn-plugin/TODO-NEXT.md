@@ -70,7 +70,6 @@ Warnings:
 ## Open decision from the October 2026 audit
 - The chat is on by default right after activation, before an AI key is added. Without a key it answers from the site's own text (local answers). Options: keep it, or show the chat only after the wizard's "Go live" step. Waiting for the owner's choice.
 
-## Launch playbook items that are not code (owner)
-- Write the 8 gap posts (playbook 5.2), add the internal links in 6.2 and link the scheduled posts on their publish day (6.3).
-- Make the 12 alternative pages 60% unique and date-stamp them (4.2); set Rank Math focus keywords (Appendix A).
+## Launch playbook items still open
+- Gap post 8, the "ai chatbot for customer service" pillar guide: write once the site has 30+ referring domains (playbook 5.2). Posts 1 to 7 are in theme 2.14.0 as scheduled posts.
 - Optionally restore /urdu with a Roman Urdu demo after launch.

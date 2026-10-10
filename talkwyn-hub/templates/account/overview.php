@@ -34,19 +34,21 @@ $twh_started = isset( $_GET['twh_trial'] ) && 'started' === sanitize_key( wp_uns
 		<div class="twh-ov__notice" role="status"><?php esc_html_e( 'Your Pro trial has started. Your key is below under Licenses and in your email.', 'talkwyn-hub' ); ?></div>
 	<?php endif; ?>
 
+	<?php if ( $twh_has_pro ) : // The free plugin has its own download page; the account is where license holders get Pro. ?>
 	<section class="twh-ov__banner">
 		<span class="twh-ov__banner-icon" aria-hidden="true"><img src="<?php echo esc_url( TWH_URL . 'assets/img/talkwyn-mark.svg' ); ?>" alt="" width="28" height="28"></span>
 		<div class="twh-ov__banner-text">
-			<strong><?php esc_html_e( 'Download the Talkwyn plugin', 'talkwyn-hub' ); ?></strong>
-			<span><?php echo esc_html( $twh_has_pro ? __( 'Install Talkwyn and Talkwyn Pro on your site, then paste your license key under Talkwyn, License.', 'talkwyn-hub' ) : __( 'Install it on any WordPress site. It is free, and Pro turns on with a license key.', 'talkwyn-hub' ) ); ?></span>
+			<strong><?php esc_html_e( 'Download Talkwyn Pro', 'talkwyn-hub' ); ?></strong>
+			<span><?php esc_html_e( 'Install the free Talkwyn plugin and Talkwyn Pro on your site, then paste your license key under Talkwyn, License.', 'talkwyn-hub' ); ?></span>
 		</div>
 		<div class="twh-ov__banner-actions">
+			<a class="twh-app__btn twh-app__btn--light" href="<?php echo esc_url( $twh_o['free_url'] ); ?>"><?php echo App::icon( 'download', 18 ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- static SVG. ?><?php esc_html_e( 'Free plugin', 'talkwyn-hub' ); ?></a>
 			<?php if ( '' !== $twh_o['pro_download'] ) : ?>
-				<a class="twh-app__btn twh-app__btn--light" href="<?php echo esc_url( $twh_o['pro_download'] ); ?>"><?php echo App::icon( 'download', 18 ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- static SVG. ?><?php esc_html_e( 'Talkwyn Pro .zip', 'talkwyn-hub' ); ?></a>
+				<a class="twh-app__btn twh-app__btn--red twh-app__btn--lg" href="<?php echo esc_url( $twh_o['pro_download'] ); ?>"><?php echo App::icon( 'download', 18 ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- static SVG. ?><?php esc_html_e( 'Talkwyn Pro .zip', 'talkwyn-hub' ); ?></a>
 			<?php endif; ?>
-			<a class="twh-app__btn twh-app__btn--red twh-app__btn--lg" href="<?php echo esc_url( $twh_o['free_url'] ); ?>"><?php echo App::icon( 'download', 18 ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- static SVG. ?><?php esc_html_e( 'Download .zip', 'talkwyn-hub' ); ?></a>
 		</div>
 	</section>
+	<?php endif; ?>
 
 	<div class="twh-ov__stats">
 		<div class="twh-ov__stat">

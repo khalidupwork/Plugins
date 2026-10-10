@@ -3,7 +3,7 @@
  * Plugin Name:       Talkwyn Hub
  * Plugin URI:        https://talkwyn.com
  * Description:       License, activation and update server for Talkwyn commercial products, powered by WooCommerce.
- * Version:           1.6.4
+ * Version:           1.6.5
  * Requires at least: 6.4
  * Requires PHP:      8.0
  * Author:            Talkwyn
@@ -20,7 +20,7 @@
 
 defined( 'ABSPATH' ) || exit;
 
-define( 'TWH_VERSION', '1.6.4' );
+define( 'TWH_VERSION', '1.6.5' );
 define( 'TWH_DB_VERSION', '1.2.0' );
 define( 'TWH_FILE', __FILE__ );
 define( 'TWH_DIR', plugin_dir_path( __FILE__ ) );

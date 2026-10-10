@@ -188,7 +188,7 @@ add_shortcode(
 		$real = (string) talkwyn_setting( 'demo_shortcode' );
 		if ( '' !== $real && preg_match( '/^\[([a-z0-9_-]+)/i', $real, $m ) && shortcode_exists( $m[1] ) ) {
 			return '<div class="tw-demo-head tw-center"><h2>' . esc_html__( 'Ask it anything. Really.', 'talkwyn' ) . '</h2>'
-				. '<p class="tw-lede">' . esc_html__( 'This is the same Talkwyn that will run on your site, set up here for a sample dental clinic. Ask about whitening prices, Saturday hours, or insurance. Try it in Arabic or Spanish. Then try asking something the clinic’s website doesn’t cover and watch it admit it doesn’t know.', 'talkwyn' ) . '</p></div>'
+				. '<p class="tw-lede">' . esc_html__( 'This is the real Talkwyn, running on talkwyn.com and answering from this website. Ask about pricing, languages or setup. Try it in Arabic or Spanish. Then ask something this site doesn’t cover and watch it say so.', 'talkwyn' ) . '</p></div>'
 				. '<div class="tw-demo-embed">' . do_shortcode( $real ) . '</div>';
 		}
 
