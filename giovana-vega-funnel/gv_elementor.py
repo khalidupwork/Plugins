@@ -178,12 +178,13 @@ def text(html, *, size=17, tablet=16, mobile=16, color=TEXT, align="left", align
     return widget("text-editor", s)
 
 
-def image(filename, *, width=100, align="center", radius=0, max_px=None, shadow=False):
+def image(filename, *, width=100, align="center", radius=0, max_px=None, shadow=False,
+          mobile_pct=100):
     s = {"image": image_ref(filename), "image_size": "full", "align": align,
          "width": px(width, "%")}
     if max_px:
         s["width"] = px(max_px)
-        s["width_mobile"] = px(100, "%")
+        s["width_mobile"] = px(mobile_pct, "%")
         s["space"] = px(100, "%")
     if radius:
         s["image_border_radius"] = box(radius)

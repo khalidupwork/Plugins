@@ -94,7 +94,7 @@ def build():
     ], width=54, gap_px=16)
 
     hero_right = container([
-        image(MOCKUP_TABLET, max_px=430),
+        image(MOCKUP_TABLET, max_px=430, mobile_pct=72),
         form_card("start_check_top"),
     ], width=46, gap_px=6, align="stretch", anchor="optin")
 
@@ -220,7 +220,7 @@ def build():
     # ------------------------------------------------------------------ about
     content.append(section([
         container([
-            container([image(PORTRAIT, radius=12, max_px=440, shadow=True)], width=42,
+            container([image(PORTRAIT, radius=12, max_px=440, shadow=True, mobile_pct=80)], width=42,
                       align="center"),
             container([
                 heading("Hi, I’m Giovana.", "h2", size=42, tablet=36, mobile=30,
@@ -317,7 +317,7 @@ def build():
                      "start?</p>", color="#E9EFEC", align_mobile="center", size=18),
             ], width=52, gap_px=18),
             container([
-                image(MOCKUP_TABLET, max_px=360),
+                image(MOCKUP_TABLET, max_px=360, mobile_pct=72),
                 form_card("start_check_bottom", dark=True),
             ], width=48, gap_px=6, align="stretch"),
         ], row=True, gap_px=56, align="center"),

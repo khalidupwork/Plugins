@@ -524,7 +524,7 @@
           },
           "width_mobile": {
            "unit": "%",
-           "size": 100,
+           "size": 72,
            "sizes": []
           },
           "space": {
@@ -2646,7 +2646,7 @@
           },
           "width_mobile": {
            "unit": "%",
-           "size": 100,
+           "size": 80,
            "sizes": []
           },
           "space": {
@@ -3916,7 +3916,7 @@
           },
           "width_mobile": {
            "unit": "%",
-           "size": 100,
+           "size": 72,
            "sizes": []
           },
           "space": {
