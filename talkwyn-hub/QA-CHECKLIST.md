@@ -144,6 +144,12 @@ Run this on a staging copy of talkwyn.com with Stripe in **test mode** (card `42
 - [ ] `GET /wp-json/talkwyn-hub/v1/partners/terms` returns the current settings.
 - [ ] Turn Partners off → `?ref=` does nothing, My Account → Partners says the program is closed.
 
+## 23. One plan per cart and WooCommerce emails (1.6.9)
+
+- [ ] Open a pricing Buy link twice: no "You cannot add another" error. Then open another plan's link: the cart holds only the new plan.
+- [ ] Renewal and upgrade carts are not emptied by this.
+- [ ] Store setup → "Use the Talkwyn look for WooCommerce emails". WooCommerce → Settings → Emails shows the new logo and colours; a processing order email has the logo without a white box, a red header, Inter text and "Site · URL" in the footer.
+
 ## 22. Product image (1.6.8)
 
 - [ ] A Talkwyn Pro product without an image: Store setup shows "Add the Talkwyn product image"; after it, the cart, checkout, order emails and Products list show the red Talkwyn icon.

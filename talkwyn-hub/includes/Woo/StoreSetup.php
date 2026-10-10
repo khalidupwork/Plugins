@@ -103,6 +103,7 @@ final class StoreSetup {
 			wp_nonce_field( 'twh_create_plans' );
 			echo '<button type="submit" class="button button-primary">' . esc_html__( 'Create the Talkwyn plans', 'talkwyn-hub' ) . '</button></form>';
 		}
+		EmailBrand::render();
 		echo '</div>';
 	}
 

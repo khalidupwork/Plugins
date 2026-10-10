@@ -2,14 +2,14 @@
 # This file is distributed under the GPL-2.0-or-later.
 msgid ""
 msgstr ""
-"Project-Id-Version: Talkwyn Hub 1.6.8\n"
+"Project-Id-Version: Talkwyn Hub 1.6.9\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/talkwyn-hub\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2026-10-10T12:26:08+00:00\n"
+"POT-Creation-Date: 2026-10-10T12:30:14+00:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "X-Generator: WP-CLI 2.12.0\n"
 "X-Domain: talkwyn-hub\n"
@@ -84,7 +84,7 @@ msgstr ""
 #: includes/Account/Account.php:151
 #: includes/Account/Account.php:275
 #: includes/Account/Account.php:291
-#: includes/Woo/Cart.php:257
+#: includes/Woo/Cart.php:285
 msgid "License not found."
 msgstr ""
 
@@ -124,7 +124,7 @@ msgstr ""
 #: includes/Account/Account.php:286
 #: includes/Account/Account.php:308
 #: includes/Partners/PartnerAccount.php:101
-#: includes/Woo/Cart.php:252
+#: includes/Woo/Cart.php:280
 msgid "Your session expired. Please try again."
 msgstr ""
 
@@ -423,86 +423,90 @@ msgid "The Talkwyn product image was added. The cart, checkout and emails now sh
 msgstr ""
 
 #: includes/Admin/Admin.php:245
-msgid "The Talkwyn Pro product already exists, so nothing new was created."
+msgid "WooCommerce emails now use the Talkwyn logo, colours and font. Preview one under WooCommerce, Settings, Emails."
 msgstr ""
 
 #: includes/Admin/Admin.php:246
-msgid "License created."
+msgid "The Talkwyn Pro product already exists, so nothing new was created."
 msgstr ""
 
 #: includes/Admin/Admin.php:247
-msgid "License email sent."
+msgid "License created."
 msgstr ""
 
 #: includes/Admin/Admin.php:248
-msgid "The email could not be sent."
+msgid "License email sent."
 msgstr ""
 
 #: includes/Admin/Admin.php:249
-msgid "Site deactivated."
+msgid "The email could not be sent."
 msgstr ""
 
 #: includes/Admin/Admin.php:250
-msgid "Bulk action applied."
+msgid "Site deactivated."
 msgstr ""
 
 #: includes/Admin/Admin.php:251
-msgid "Status not changed. To reactivate an expired license, set a future expiry date first."
+msgid "Bulk action applied."
 msgstr ""
 
 #: includes/Admin/Admin.php:252
-msgid "Release uploaded."
+msgid "Status not changed. To reactivate an expired license, set a future expiry date first."
 msgstr ""
 
 #: includes/Admin/Admin.php:253
-msgid "Deleted."
+msgid "Release uploaded."
 msgstr ""
 
 #: includes/Admin/Admin.php:254
-msgid "This product still has licenses or releases and cannot be deleted."
+msgid "Deleted."
 msgstr ""
 
 #: includes/Admin/Admin.php:255
-msgid "Upload failed. Please choose a valid ZIP file."
+msgid "This product still has licenses or releases and cannot be deleted."
 msgstr ""
 
 #: includes/Admin/Admin.php:256
-msgid "The ZIP does not contain a WordPress plugin with a \"Plugin Name\" header."
+msgid "Upload failed. Please choose a valid ZIP file."
 msgstr ""
 
 #: includes/Admin/Admin.php:257
-msgid "The version you entered does not match the \"Version\" header of the plugin inside the ZIP."
+msgid "The ZIP does not contain a WordPress plugin with a \"Plugin Name\" header."
 msgstr ""
 
 #: includes/Admin/Admin.php:258
-msgid "This version already exists for this product and channel."
+msgid "The version you entered does not match the \"Version\" header of the plugin inside the ZIP."
 msgstr ""
 
 #: includes/Admin/Admin.php:259
-msgid "The release directory is not writable."
+msgid "This version already exists for this product and channel."
 msgstr ""
 
 #: includes/Admin/Admin.php:260
-msgid "Please check the form and try again."
+msgid "The release directory is not writable."
 msgstr ""
 
 #: includes/Admin/Admin.php:261
-msgid "A product with this slug already exists."
+msgid "Please check the form and try again."
 msgstr ""
 
 #: includes/Admin/Admin.php:262
-msgid "A new signing key was generated. Add its public key to your client plugin before promoting it."
+msgid "A product with this slug already exists."
 msgstr ""
 
 #: includes/Admin/Admin.php:263
-msgid "The next signing key is now active."
+msgid "A new signing key was generated. Add its public key to your client plugin before promoting it."
 msgstr ""
 
 #: includes/Admin/Admin.php:264
-msgid "Payout recorded and the partner was emailed."
+msgid "The next signing key is now active."
 msgstr ""
 
 #: includes/Admin/Admin.php:265
+msgid "Payout recorded and the partner was emailed."
+msgstr ""
+
+#: includes/Admin/Admin.php:266
 msgid "Add a reason before rejecting a referral. The partner sees it."
 msgstr ""
 
@@ -2357,25 +2361,25 @@ msgstr ""
 msgid "not given"
 msgstr ""
 
-#: includes/Plugin.php:75
+#: includes/Plugin.php:76
 msgid "Talkwyn Hub needs WooCommerce to sell and issue licenses. The license API keeps working for existing licenses."
 msgstr ""
 
-#: includes/Plugin.php:82
+#: includes/Plugin.php:83
 msgid "Talkwyn Hub requires the PHP sodium extension and is currently inactive."
 msgstr ""
 
-#: includes/Plugin.php:92
-#: includes/Plugin.php:106
+#: includes/Plugin.php:93
+#: includes/Plugin.php:107
 msgid "Talkwyn Hub:"
 msgstr ""
 
-#: includes/Plugin.php:92
+#: includes/Plugin.php:93
 msgid "TWH_SECRET_KEY (or your WordPress auth salt) has changed since license data was encrypted. Stored keys and the signing key cannot be decrypted. Restore the previous value in wp-config.php."
 msgstr ""
 
 #. translators: %s: PHP code
-#: includes/Plugin.php:109
+#: includes/Plugin.php:110
 #, php-format
 msgid "Add %s to wp-config.php. Until then, license keys and signing keys are encrypted with a key derived from your WordPress auth salt, which breaks if the salts are rotated. When you add the constant, existing data is re-encrypted automatically. Never change or remove it afterwards."
 msgstr ""
@@ -2766,65 +2770,81 @@ msgid ""
 "After that, see your license, downloads and invoices at %4$s"
 msgstr ""
 
-#: includes/Woo/Cart.php:159
+#: includes/Woo/Cart.php:187
 msgid "This renewal link is not valid."
 msgstr ""
 
-#: includes/Woo/Cart.php:168
+#: includes/Woo/Cart.php:196
 msgid "This license cannot be renewed online. Please contact support."
 msgstr ""
 
-#: includes/Woo/Cart.php:173
+#: includes/Woo/Cart.php:201
 msgid "The renewal product is currently unavailable. Please contact support."
 msgstr ""
 
-#: includes/Woo/Cart.php:181
+#: includes/Woo/Cart.php:209
 msgid "Could not add the renewal to your cart."
 msgstr ""
 
-#: includes/Woo/Cart.php:269
+#: includes/Woo/Cart.php:297
 msgid "This upgrade is not available for your license."
 msgstr ""
 
-#: includes/Woo/Cart.php:275
+#: includes/Woo/Cart.php:303
 msgid "Could not add the upgrade to your cart."
 msgstr ""
 
-#: includes/Woo/Cart.php:328
+#: includes/Woo/Cart.php:356
 msgid "Renewal of license"
 msgstr ""
 
-#: includes/Woo/Cart.php:329
+#: includes/Woo/Cart.php:357
 msgid "Upgrade of license"
 msgstr ""
 
-#: includes/Woo/Cart.php:330
+#: includes/Woo/Cart.php:358
 msgid "Upgrade of your trial"
 msgstr ""
 
-#: includes/Woo/Cart.php:338
-#: includes/Woo/Cart.php:350
+#: includes/Woo/Cart.php:366
+#: includes/Woo/Cart.php:378
 msgid "Note"
 msgstr ""
 
-#: includes/Woo/Cart.php:339
+#: includes/Woo/Cart.php:367
 msgid "You keep the same license key. Your yearly term starts today."
 msgstr ""
 
-#: includes/Woo/Cart.php:344
+#: includes/Woo/Cart.php:372
 msgid "Renewal discount"
 msgstr ""
 
-#: includes/Woo/Cart.php:351
+#: includes/Woo/Cart.php:379
 msgid "Prorated for the remaining license term. Your key and expiry date stay the same."
 msgstr ""
 
-#: includes/Woo/Cart.php:401
+#: includes/Woo/Cart.php:429
 msgid "Renewals and upgrades are limited to a quantity of 1."
 msgstr ""
 
-#: includes/Woo/Cart.php:446
+#: includes/Woo/Cart.php:474
 msgid "A license renewal or upgrade in your cart is no longer valid and was removed."
+msgstr ""
+
+#: includes/Woo/EmailBrand.php:76
+msgid "WooCommerce emails"
+msgstr ""
+
+#: includes/Woo/EmailBrand.php:78
+msgid "Order emails (receipts, refunds, password resets) use the Talkwyn logo, colours and Inter. Change them any time under WooCommerce, Settings, Emails."
+msgstr ""
+
+#: includes/Woo/EmailBrand.php:81
+msgid "Order emails (receipts, refunds, password resets) still use the WooCommerce look. This sets the Talkwyn logo, Talkwyn Red, the Linen background, Inter, and a footer with your site name instead of \"Built with WooCommerce\". Your license, trial and partner emails already use the Talkwyn look."
+msgstr ""
+
+#: includes/Woo/EmailBrand.php:83
+msgid "Use the Talkwyn look for WooCommerce emails"
 msgstr ""
 
 #: includes/Woo/Invoices.php:119
@@ -3136,7 +3156,7 @@ msgstr ""
 msgid "Create the Talkwyn plans"
 msgstr ""
 
-#: includes/Woo/StoreSetup.php:181
+#: includes/Woo/StoreSetup.php:182
 msgid "Pro features for the free Talkwyn plugin, with one year of updates and support."
 msgstr ""
 

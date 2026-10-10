@@ -42,6 +42,34 @@ final class Cart {
 		add_filter( 'woocommerce_get_cart_item_from_session', array( self::class, 'from_session' ), 10, 2 );
 		add_filter( 'woocommerce_checkout_registration_required', array( self::class, 'require_account' ) );
 		add_filter( 'woocommerce_checkout_registration_enabled', array( self::class, 'allow_account' ) );
+		add_filter( 'woocommerce_add_to_cart_validation', array( self::class, 'one_plan' ), 5, 3 );
+	}
+
+	/**
+	 * Buying a plan replaces any plan of the same product already in the cart, so a
+	 * second click on a pricing button (or switching plans) never shows
+	 * "You cannot add another ... to your cart".
+	 *
+	 * @param bool $valid      Current result.
+	 * @param int  $product_id Product id.
+	 * @param int  $quantity   Quantity.
+	 * @return bool
+	 */
+	public static function one_plan( $valid, $product_id, $quantity = 1 ) {
+		unset( $quantity );
+		if ( ! $valid || ! function_exists( 'WC' ) || ! WC()->cart ) {
+			return $valid;
+		}
+		$product = wc_get_product( (int) $product_id );
+		if ( ! $product || ! Mapping::for_product( $product->is_type( 'variable' ) && $product->get_children() ? (int) $product->get_children()[0] : $product ) ) {
+			return $valid;
+		}
+		foreach ( WC()->cart->get_cart() as $key => $line ) {
+			if ( (int) ( $line['product_id'] ?? 0 ) === (int) $product_id && empty( $line[ self::RENEW ] ) && empty( $line[ self::UPGRADE ] ) && empty( $line[ self::CONVERT ] ) ) {
+				WC()->cart->remove_cart_item( $key );
+			}
+		}
+		return $valid;
 	}
 
 	/**

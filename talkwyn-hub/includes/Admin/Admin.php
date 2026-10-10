@@ -242,6 +242,7 @@ final class Admin {
 			'saved'            => array( 'success', __( 'Saved.', 'talkwyn-hub' ) ),
 			'plans_created'    => array( 'success', __( 'The Talkwyn Pro product and its plans were created, and the pricing page now links to checkout. Upload a stable Talkwyn Pro release next.', 'talkwyn-hub' ) ),
 			'plans_image'      => array( 'success', __( 'The Talkwyn product image was added. The cart, checkout and emails now show it.', 'talkwyn-hub' ) ),
+			'emails_branded'   => array( 'success', __( 'WooCommerce emails now use the Talkwyn logo, colours and font. Preview one under WooCommerce, Settings, Emails.', 'talkwyn-hub' ) ),
 			'plans_exist'      => array( 'success', __( 'The Talkwyn Pro product already exists, so nothing new was created.', 'talkwyn-hub' ) ),
 			'created'          => array( 'success', __( 'License created.', 'talkwyn-hub' ) ),
 			'emailed'          => array( 'success', __( 'License email sent.', 'talkwyn-hub' ) ),

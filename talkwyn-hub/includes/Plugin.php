@@ -46,6 +46,7 @@ final class Plugin {
 		if ( class_exists( 'WooCommerce' ) ) {
 			Woo\ProductTab::init();
 			Woo\StoreSetup::init();
+			Woo\EmailBrand::init();
 			Woo\OrderHandler::init();
 			Woo\Subscriptions::init();
 			Woo\Cart::init();
