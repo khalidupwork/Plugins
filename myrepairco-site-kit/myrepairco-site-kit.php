@@ -2,7 +2,7 @@
 /**
  * Plugin Name: MyRepairCo Site Kit
  * Description: One-click setup of the MyRepairCo red theme for Elementor Pro: global colors, fonts and theme style, plus a Home page, Header and Footer built with native Elementor containers and widgets.
- * Version:     1.0.0
+ * Version:     1.2.0
  * Author:      MyRepairCo
  * Requires PHP: 7.4
  * Text Domain: myrepairco-site-kit
@@ -12,9 +12,11 @@ defined( 'ABSPATH' ) || exit;
 
 final class MyRepairCo_Site_Kit {
 
-	const BACKUP_OPTION = 'mrc_site_kit_backup';
-	const ASSETS_OPTION = 'mrc_site_kit_assets';
-	const MENU_NAME     = 'MyRepairCo Main';
+	const VERSION        = '1.2.0';
+	const BACKUP_OPTION  = 'mrc_site_kit_backup';
+	const APPLIED_OPTION = 'mrc_site_kit_applied_version';
+	const ASSETS_OPTION  = 'mrc_site_kit_assets';
+	const MENU_NAME      = 'MyRepairCo Main';
 
 	/** @var array<string,int> */
 	private $assets = array();
@@ -38,13 +40,15 @@ final class MyRepairCo_Site_Kit {
 		$backup = get_option( self::BACKUP_OPTION );
 		?>
 		<div class="wrap">
-			<h1>MyRepairCo Site Kit</h1>
+			<h1>MyRepairCo Site Kit <small style="font-size:13px;color:#646970">v<?php echo esc_html( self::VERSION ); ?></small></h1>
 			<?php if ( $notice ) : ?>
 				<div class="notice notice-success"><p><?php echo esc_html( $notice ); ?></p></div>
 			<?php endif; ?>
 			<?php if ( ! $this->ready() ) : ?>
 				<div class="notice notice-error"><p>Elementor and Elementor Pro must both be active.</p></div>
 			<?php else : ?>
+				<?php $this->status(); ?>
+
 				<h2>1. Global styles</h2>
 				<p>Sets Site Settings &rarr; Global Colors (Brand Red, Dark, Body Text, Red Hover, Light Background, White, Blush), Global Fonts (Montserrat + Open Sans), Theme Style (headings, body, buttons, form fields), container width, custom CSS helper classes, and turns on <em>Disable Default Colors / Fonts</em> so every widget inherits from Theme Style.
 				The current settings are backed up first and can be restored below.</p>
@@ -58,7 +62,7 @@ final class MyRepairCo_Site_Kit {
 				<h2>Restore</h2>
 				<?php if ( $backup ) : ?>
 					<p>Backup from <?php echo esc_html( $backup['time'] ); ?>.</p>
-					<?php $this->button( 'restore_styles', 'Restore previous global styles', false ); ?>
+					<?php $this->button( 'restore_styles', 'Restore previous global styles', false, 'This removes the MyRepairCo colors, fonts and CSS and puts back the settings you had before. The MyRepairCo pages will look unstyled. Continue?' ); ?>
 				<?php else : ?>
 					<p>No backup yet.</p>
 				<?php endif; ?>
@@ -67,9 +71,44 @@ final class MyRepairCo_Site_Kit {
 		<?php
 	}
 
-	private function button( $task, $label, $primary ) {
+	/** Shows whether the MyRepairCo styles are active right now. */
+	private function status() {
+		$kit      = \Elementor\Plugin::$instance->kits_manager->get_active_kit();
+		$settings = $kit ? $kit->get_settings() : array();
+		$primary  = '';
+		foreach ( isset( $settings['system_colors'] ) ? (array) $settings['system_colors'] : array() as $color ) {
+			if ( isset( $color['_id'], $color['color'] ) && 'primary' === $color['_id'] ) {
+				$primary = strtoupper( $color['color'] );
+			}
+		}
+		$kit_json = $this->read_json( 'data/kit-settings.json' );
+		$checks   = array(
+			'Global Colors (Brand Red)'        => strtoupper( $kit_json['system_colors'][0]['color'] ) === $primary,
+			'Custom CSS helper classes'        => isset( $settings['custom_css'] ) && false !== strpos( $settings['custom_css'], '.mrc-card' ),
+			'Disable Default Colors / Fonts'   => 'yes' === get_option( 'elementor_disable_color_schemes' ) && 'yes' === get_option( 'elementor_disable_typography_schemes' ),
+		);
+		$applied  = get_option( self::APPLIED_OPTION );
+		$ok       = ! in_array( false, $checks, true );
 		?>
-		<form method="post" action="<?php echo esc_url( admin_url( 'admin-post.php' ) ); ?>">
+		<div class="notice <?php echo $ok ? 'notice-success' : 'notice-warning'; ?> inline" style="padding:8px 12px">
+			<p><strong>Status</strong> (active kit: <?php echo esc_html( $kit ? get_the_title( $kit->get_main_id() ) . ' #' . $kit->get_main_id() : 'none' ); ?>)</p>
+			<ul style="margin:0 0 8px 18px;list-style:disc">
+				<?php foreach ( $checks as $label => $pass ) : ?>
+					<li><?php echo $pass ? '&#10004;' : '&#10008;'; ?> <?php echo esc_html( $label ); ?></li>
+				<?php endforeach; ?>
+			</ul>
+			<?php if ( ! $ok ) : ?>
+				<p>The MyRepairCo styles are missing or were changed. Click <strong>Apply global styles</strong> below to put them back.</p>
+			<?php elseif ( $applied !== self::VERSION ) : ?>
+				<p>These styles came from an older version of the plugin (<?php echo esc_html( $applied ? $applied : 'unknown' ); ?>). Click <strong>Apply global styles</strong> to update them to v<?php echo esc_html( self::VERSION ); ?>.</p>
+			<?php endif; ?>
+		</div>
+		<?php
+	}
+
+	private function button( $task, $label, $primary, $confirm = '' ) {
+		?>
+		<form method="post" action="<?php echo esc_url( admin_url( 'admin-post.php' ) ); ?>"<?php echo $confirm ? ' onsubmit="return confirm(' . esc_attr( wp_json_encode( $confirm ) ) . ');"' : ''; ?>>
 			<input type="hidden" name="action" value="mrc_site_kit">
 			<input type="hidden" name="task" value="<?php echo esc_attr( $task ); ?>">
 			<?php wp_nonce_field( 'mrc_site_kit_' . $task ); ?>
@@ -131,6 +170,7 @@ final class MyRepairCo_Site_Kit {
 		// Let every widget inherit Theme Style instead of Elementor's default colors/fonts.
 		update_option( 'elementor_disable_color_schemes', 'yes' );
 		update_option( 'elementor_disable_typography_schemes', 'yes' );
+		update_option( self::APPLIED_OPTION, self::VERSION, false );
 
 		return 'Global styles applied. Open Elementor > Site Settings to review them.';
 	}
@@ -145,6 +185,7 @@ final class MyRepairCo_Site_Kit {
 		update_option( 'elementor_disable_color_schemes', $backup['colors'] );
 		update_option( 'elementor_disable_typography_schemes', $backup['typography'] );
 		delete_option( self::BACKUP_OPTION );
+		delete_option( self::APPLIED_OPTION );
 
 		return 'Previous global styles restored.';
 	}
