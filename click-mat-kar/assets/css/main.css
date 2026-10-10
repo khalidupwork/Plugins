@@ -637,6 +637,26 @@ a.cmk-game-card:hover .cmk-game-card__emoji { transform: rotate(8deg) scale(1.12
 .cmk-result-page__next { display: flex; flex-wrap: wrap; gap: 12px; }
 .cmk-result-page__copy[hidden], .cmk-result-page__empty[hidden] { display: none; }
 
+/* ---------- Library + About ---------- */
+.cmk-library-hero, .cmk-about-hero { background: var(--cmk-ink); color: var(--cmk-paper); padding: clamp(40px, 7vw, 88px) 0 clamp(36px, 5vw, 56px);
+	background-image: radial-gradient(rgba(247, 245, 239, .07) 1.5px, transparent 1.5px); background-size: 22px 22px; border-bottom: 3px solid var(--cmk-ink); }
+.cmk-library-hero .cmk-display, .cmk-about-hero .cmk-display { color: var(--cmk-lime); }
+.cmk-library-filter { display: flex; flex-wrap: wrap; gap: 8px; }
+.cmk-library-filter .cmk-filter { border-color: var(--cmk-paper); background: transparent; color: var(--cmk-paper); }
+.cmk-library-filter .cmk-filter.is-on { background: var(--cmk-lime); color: var(--cmk-ink); border-color: var(--cmk-lime); }
+.cmk-filter__n { display: inline-block; min-width: 22px; padding: 0 6px; border-radius: 99px; background: var(--cmk-pink); color: var(--cmk-ink); font-size: .75rem; margin-left: 2px; }
+.cmk-section--library { padding-top: clamp(40px, 6vw, 72px); }
+.cmk-game-grid .cmk-game-card[hidden] { display: none; }
+.cmk-library-note { margin-top: 36px; }
+.cmk-about-grid { display: grid; gap: 16px; margin-bottom: 44px; }
+@media (min-width: 640px) { .cmk-about-grid { grid-template-columns: 1fr 1fr; } }
+@media (min-width: 1024px) { .cmk-about-grid { grid-template-columns: repeat(4, 1fr); } }
+.cmk-about-rule { padding: 22px; }
+.cmk-about-rule:nth-child(even) { transform: rotate(1.2deg); }
+.cmk-about-rule p { margin: 0; }
+.cmk-about-rule__emoji { font-size: 40px; display: block; margin-bottom: 10px; }
+.cmk-about-prose { margin-bottom: 28px; }
+
 /* ---------- Reveal ---------- */
 .cmk-js [data-reveal] { opacity: 0; translate: 0 24px; transition: opacity .5s ease, translate .6s var(--cmk-ease-pop); }
 .cmk-js [data-reveal].is-in { opacity: 1; translate: 0 0; }

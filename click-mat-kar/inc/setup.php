@@ -127,3 +127,90 @@ function cmk_primary_menu_fallback() {
 	}
 	echo '</ul>';
 }
+
+/**
+ * Decode a ?r= result payload server-side (same format as CMKUI.encode in main.js).
+ *
+ * @return array|null
+ */
+function cmk_request_result() {
+	if ( empty( $_GET['r'] ) ) { // phpcs:ignore WordPress.Security.NonceVerification
+		return null;
+	}
+	$raw  = sanitize_text_field( wp_unslash( $_GET['r'] ) ); // phpcs:ignore WordPress.Security.NonceVerification
+	$json = base64_decode( strtr( $raw, '-_', '+/' ), true ); // phpcs:ignore WordPress.PHP.DiscouragedPHPFunctions
+	$data = $json ? json_decode( $json, true ) : null;
+	if ( ! is_array( $data ) || ! isset( $data['s'], $data['q'] ) ) {
+		return null;
+	}
+	$packs = array(
+		'pkr' => array( 'Rs ', 1 ),
+		'inr' => array( '₹', 1 ),
+		'usd' => array( '$', 0.01 ),
+	);
+	$pack = isset( $data['c'], $packs[ $data['c'] ] ) ? $packs[ $data['c'] ] : $packs['usd'];
+	$num  = (int) round( min( (float) $data['s'], 1e12 ) * $pack[1] );
+	$fmt  = '$' === $pack[0] ? number_format( $num ) : cmk_format_lakh( $num );
+	return array(
+		'spent' => $pack[0] . $fmt,
+		'iq'    => max( 1, min( 99, (int) $data['q'] ) ),
+	);
+}
+
+/**
+ * 12,34,56,789 style grouping for Rs / ₹.
+ */
+function cmk_format_lakh( $num ) {
+	$s    = (string) absint( $num );
+	$last = substr( $s, -3 );
+	$rest = substr( $s, 0, -3 );
+	if ( '' === $rest ) {
+		return $last;
+	}
+	return preg_replace( '/\B(?=(\d{2})+(?!\d))/', ',', $rest ) . ',' . $last;
+}
+
+/**
+ * Open Graph / Twitter tags. Result pages get a title built from the shared result.
+ */
+add_action( 'wp_head', 'cmk_social_meta', 5 );
+function cmk_social_meta() {
+	$title = wp_get_document_title();
+	$desc  = __( 'Fake shopping, ridiculous choices and shareable results. We told you not to click.', 'click-mat-kar' );
+	$url   = home_url( add_query_arg( array() ) );
+
+	if ( is_singular( 'cmk_game' ) && has_excerpt() ) {
+		$desc = get_the_excerpt();
+	}
+	if ( is_page( 'result' ) ) {
+		$result = cmk_request_result();
+		if ( $result ) {
+			/* translators: 1: money spent, 2: Financial IQ score. */
+			$title = sprintf( __( 'I wasted %1$s. Financial IQ: %2$d/100 🤡', 'click-mat-kar' ), $result['spent'], $result['iq'] );
+			$desc  = __( 'Think you can make worse decisions? Beat me on Click Mat Kar.', 'click-mat-kar' );
+		}
+	}
+
+	$tags = array(
+		'og:site_name'   => 'Click Mat Kar',
+		'og:type'        => 'website',
+		'og:title'       => $title,
+		'og:description' => $desc,
+		'og:url'         => $url,
+	);
+	foreach ( $tags as $property => $content ) {
+		printf( '<meta property="%s" content="%s">' . "\n", esc_attr( $property ), esc_attr( $content ) );
+	}
+	printf( '<meta name="twitter:card" content="summary_large_image">' . "\n" );
+	printf( '<meta name="description" content="%s">' . "\n", esc_attr( $desc ) );
+}
+
+/* Result URLs are per-player; keep them out of search results. */
+add_filter( 'wp_robots', 'cmk_result_robots' );
+function cmk_result_robots( $robots ) {
+	if ( is_page( 'result' ) ) {
+		$robots['noindex'] = true;
+		$robots['follow']  = true;
+	}
+	return $robots;
+}

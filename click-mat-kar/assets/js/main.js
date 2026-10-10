@@ -278,3 +278,24 @@
 	localizeMoney();
 	track('page_view', { page_type: doc.body.classList.contains('home') ? 'home' : (doc.body.className.match(/\b(single-cmk_game|page|archive)\b/) || ['other'])[0] });
 })();
+
+/* Games library filter (archive page). */
+(function () {
+	'use strict';
+	var bar = document.querySelector('[data-lib-filter]');
+	var grid = document.querySelector('[data-lib-grid]');
+	if (!bar || !grid) { return; }
+	bar.addEventListener('click', function (e) {
+		var btn = e.target.closest('[data-lib]');
+		if (!btn) { return; }
+		var mode = btn.getAttribute('data-lib');
+		bar.querySelectorAll('[data-lib]').forEach(function (b) {
+			b.classList.toggle('is-on', b === btn);
+			b.setAttribute('aria-pressed', b === btn ? 'true' : 'false');
+		});
+		grid.querySelectorAll('.cmk-game-card').forEach(function (card) {
+			var soon = card.classList.contains('is-soon');
+			card.hidden = mode === 'ready' ? soon : mode === 'cooking' ? !soon : false;
+		});
+	});
+})();

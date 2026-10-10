@@ -196,5 +196,35 @@ function cmk_game_cards() {
 		$game['playable'] = '' !== $url;
 		$cards[ $slug ]   = $game;
 	}
+
+	// Games added in wp-admin that are not part of the built-in catalog.
+	$extra = get_posts(
+		array(
+			'post_type'      => 'cmk_game',
+			'post_status'    => 'publish',
+			'posts_per_page' => 50,
+			'orderby'        => 'menu_order',
+			'order'          => 'ASC',
+			'post_name__not_in' => array_keys( $cards ),
+			'no_found_rows'  => true,
+		)
+	);
+	foreach ( $extra as $post ) {
+		$meta = function ( $key, $fallback ) use ( $post ) {
+			$value = get_post_meta( $post->ID, 'cmk_' . $key, true );
+			return '' !== $value ? $value : $fallback;
+		};
+		$cards[ $post->post_name ] = array(
+			'title'    => get_the_title( $post ),
+			'kicker'   => $meta( 'kicker', __( 'New', 'click-mat-kar' ) ),
+			'hook'     => $meta( 'hook', get_the_excerpt( $post ) ),
+			'emoji'    => $meta( 'emoji', '🎲' ),
+			'color'    => $meta( 'color', 'lavender' ),
+			'minutes'  => $meta( 'minutes', '2' ),
+			'slug'     => $post->post_name,
+			'url'      => get_permalink( $post ),
+			'playable' => true,
+		);
+	}
 	return $cards;
 }
