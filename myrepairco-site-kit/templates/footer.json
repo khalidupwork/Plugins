@@ -4,7 +4,7 @@
  "type": "footer",
  "content": [
   {
-   "id": "aa100f0",
+   "id": "aa10103",
    "elType": "container",
    "settings": {
     "content_width": "boxed",
@@ -37,7 +37,7 @@
     "__globals__": {
      "background_color": "globals/colors?id=mrcligh"
     },
-    "shape_divider_top": "drops",
+    "shape_divider_top": "waves",
     "shape_divider_top_color": "#FFFFFF",
     "shape_divider_top_height": {
      "unit": "px",
@@ -47,7 +47,7 @@
    },
    "elements": [
     {
-     "id": "aa100d5",
+     "id": "aa100e8",
      "elType": "widget",
      "widgetType": "image",
      "settings": {
@@ -73,7 +73,7 @@
      "elements": []
     },
     {
-     "id": "aa100d6",
+     "id": "aa100e9",
      "elType": "widget",
      "widgetType": "nav-menu",
      "settings": {
@@ -90,7 +90,7 @@
      "elements": []
     },
     {
-     "id": "aa100d7",
+     "id": "aa100ea",
      "elType": "widget",
      "widgetType": "button",
      "settings": {
@@ -102,22 +102,12 @@
        "custom_attributes": ""
       },
       "align": "center",
-      "size": "md",
-      "selected_icon": {
-       "value": "fas fa-phone-alt",
-       "library": "fa-solid"
-      },
-      "icon_align": "left",
-      "icon_indent": {
-       "unit": "px",
-       "size": 8,
-       "sizes": []
-      }
+      "size": "md"
      },
      "elements": []
     },
     {
-     "id": "aa100e9",
+     "id": "aa100fc",
      "elType": "container",
      "settings": {
       "content_width": "full",
@@ -143,7 +133,7 @@
      },
      "elements": [
       {
-       "id": "aa100dd",
+       "id": "aa100f0",
        "elType": "container",
        "settings": {
         "content_width": "full",
@@ -175,7 +165,7 @@
        },
        "elements": [
         {
-         "id": "aa100d8",
+         "id": "aa100eb",
          "elType": "widget",
          "widgetType": "heading",
          "settings": {
@@ -186,13 +176,13 @@
          "elements": []
         },
         {
-         "id": "aa100dc",
+         "id": "aa100ef",
          "elType": "widget",
          "widgetType": "icon-list",
          "settings": {
           "icon_list": [
            {
-            "_id": "aa100d9",
+            "_id": "aa100ec",
             "text": "324 King Street, FL, USA",
             "selected_icon": {
              "value": "fas fa-map-marker-alt",
@@ -200,7 +190,7 @@
             }
            },
            {
-            "_id": "aa100da",
+            "_id": "aa100ed",
             "text": "+1 123 456 7890",
             "selected_icon": {
              "value": "fas fa-phone-alt",
@@ -214,7 +204,7 @@
             }
            },
            {
-            "_id": "aa100db",
+            "_id": "aa100ee",
             "text": "info@example.com",
             "selected_icon": {
              "value": "fas fa-envelope",
@@ -239,7 +229,7 @@
        "isInner": true
       },
       {
-       "id": "aa100e3",
+       "id": "aa100f6",
        "elType": "container",
        "settings": {
         "content_width": "full",
@@ -271,7 +261,7 @@
        },
        "elements": [
         {
-         "id": "aa100de",
+         "id": "aa100f1",
          "elType": "widget",
          "widgetType": "heading",
          "settings": {
@@ -282,13 +272,13 @@
          "elements": []
         },
         {
-         "id": "aa100e2",
+         "id": "aa100f5",
          "elType": "widget",
          "widgetType": "icon-list",
          "settings": {
           "icon_list": [
            {
-            "_id": "aa100df",
+            "_id": "aa100f2",
             "text": "Mon – Sat: 8 am – 8 pm",
             "selected_icon": {
              "value": "far fa-clock",
@@ -296,7 +286,7 @@
             }
            },
            {
-            "_id": "aa100e0",
+            "_id": "aa100f3",
             "text": "Sunday: Closed",
             "selected_icon": {
              "value": "far fa-calendar-times",
@@ -304,7 +294,7 @@
             }
            },
            {
-            "_id": "aa100e1",
+            "_id": "aa100f4",
             "text": "24/7 emergency service",
             "selected_icon": {
              "value": "fas fa-bolt",
@@ -323,7 +313,7 @@
        "isInner": true
       },
       {
-       "id": "aa100e8",
+       "id": "aa100fb",
        "elType": "container",
        "settings": {
         "content_width": "full",
@@ -355,7 +345,7 @@
        },
        "elements": [
         {
-         "id": "aa100e4",
+         "id": "aa100f7",
          "elType": "widget",
          "widgetType": "heading",
          "settings": {
@@ -366,7 +356,7 @@
          "elements": []
         },
         {
-         "id": "aa100e5",
+         "id": "aa100f8",
          "elType": "widget",
          "widgetType": "text-editor",
          "settings": {
@@ -376,7 +366,7 @@
          "elements": []
         },
         {
-         "id": "aa100e7",
+         "id": "aa100fa",
          "elType": "widget",
          "widgetType": "form",
          "settings": {
@@ -384,7 +374,7 @@
           "show_labels": "",
           "form_fields": [
            {
-            "_id": "aa100e6",
+            "_id": "aa100f9",
             "custom_id": "email",
             "field_type": "email",
             "field_label": "Email address",
@@ -410,7 +400,7 @@
      "isInner": true
     },
     {
-     "id": "aa100ef",
+     "id": "aa10102",
      "elType": "widget",
      "widgetType": "social-icons",
      "settings": {
@@ -419,7 +409,7 @@
       "icon_color": "custom",
       "social_icon_list": [
        {
-        "_id": "aa100ea",
+        "_id": "aa100fd",
         "social_icon": {
          "value": "fab fa-facebook-f",
          "library": "fa-brands"
@@ -432,7 +422,7 @@
         }
        },
        {
-        "_id": "aa100eb",
+        "_id": "aa100fe",
         "social_icon": {
          "value": "fab fa-x-twitter",
          "library": "fa-brands"
@@ -445,7 +435,7 @@
         }
        },
        {
-        "_id": "aa100ec",
+        "_id": "aa100ff",
         "social_icon": {
          "value": "fab fa-youtube",
          "library": "fa-brands"
@@ -458,7 +448,7 @@
         }
        },
        {
-        "_id": "aa100ed",
+        "_id": "aa10100",
         "social_icon": {
          "value": "fab fa-linkedin-in",
          "library": "fa-brands"
@@ -471,7 +461,7 @@
         }
        },
        {
-        "_id": "aa100ee",
+        "_id": "aa10101",
         "social_icon": {
          "value": "fab fa-instagram",
          "library": "fa-brands"
@@ -495,7 +485,7 @@
    "isInner": false
   },
   {
-   "id": "aa100f5",
+   "id": "aa10108",
    "elType": "container",
    "settings": {
     "content_width": "boxed",
@@ -518,7 +508,7 @@
    },
    "elements": [
     {
-     "id": "aa100f1",
+     "id": "aa10104",
      "elType": "widget",
      "widgetType": "heading",
      "settings": {
@@ -530,13 +520,13 @@
      "elements": []
     },
     {
-     "id": "aa100f4",
+     "id": "aa10107",
      "elType": "widget",
      "widgetType": "icon-list",
      "settings": {
       "icon_list": [
        {
-        "_id": "aa100f2",
+        "_id": "aa10105",
         "text": "Terms &amp; Conditions",
         "selected_icon": {
          "value": "fas fa-angle-right",
@@ -550,7 +540,7 @@
         }
        },
        {
-        "_id": "aa100f3",
+        "_id": "aa10106",
         "text": "Privacy Policy",
         "selected_icon": {
          "value": "fas fa-angle-right",

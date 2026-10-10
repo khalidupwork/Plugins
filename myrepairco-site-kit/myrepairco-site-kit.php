@@ -234,7 +234,8 @@ final class MyRepairCo_Site_Kit {
 		require_once ABSPATH . 'wp-admin/includes/image.php';
 
 		$ids = (array) get_option( self::ASSETS_OPTION, array() );
-		foreach ( glob( __DIR__ . '/assets/images/*.png' ) as $path ) {
+		$files = array_merge( (array) glob( __DIR__ . '/assets/images/*.png' ), (array) glob( __DIR__ . '/assets/images/*.jpg' ) );
+		foreach ( $files as $path ) {
 			$name = basename( $path );
 			if ( ! empty( $ids[ $name ] ) && get_post( $ids[ $name ] ) ) {
 				continue;

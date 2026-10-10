@@ -57,7 +57,8 @@ def render_container(el, depth):
                    % s['background_image']['url'])
     if s.get('min_height'):
         css.append('min-height:' + size(s['min_height']))
-    cls = ['e-con', s.get('css_classes', '')]
+    cls = ['e-con', s.get('css_classes', ''), 'dm-col' if s.get('flex_direction_mobile') == 'column' else '',
+           'fx-' + s.get('_flex_size', '')]
     if s.get('width_tablet'):
         cls.append('wt%d' % round(s['width_tablet']['size']))
     if s.get('width_mobile'):
@@ -79,7 +80,7 @@ def render_container(el, depth):
 
 def render_widget(el):
     s, t = el['settings'], el['widgetType']
-    cls = 'w elementor-widget-%s %s' % (t, s.get('_css_classes', ''))
+    cls = 'w elementor-widget-%s %s fx-%s' % (t, s.get('_css_classes', ''), s.get('_flex_size', ''))
     align = {'left': 'left', 'right': 'right', 'center': 'center'}.get(s.get('align'), 'left')
     if t == 'heading':
         c = color(s, 'title_color')
@@ -103,6 +104,8 @@ def render_widget(el):
                                             s['title_size'][1], s['title_text'], s['title_size'][1], s['description_text'])
     if t == 'icon':
         name = s['selected_icon']['value'].split('fa-')[-1]
+        if s.get('view') == 'stacked':
+            return '<div class="%s"><span class="ic" style="margin:0">●</span></div>' % cls
         return '<div class="%s" style="text-align:center;font-size:28px;color:%s">%s</div>' % (
             cls, color(s, 'primary_color'), ICON_GLYPH.get(name, '●'))
     if t == 'icon-list':
@@ -142,16 +145,16 @@ def theme_css():
     for i in range(1, 7):
         out.append('h%d{%s;color:%s;margin:0;line-height:1.2}' % (i, typ('h%d' % i), COLORS['secondary']))
     out.append('.elementor-button{display:inline-block;%s;text-transform:uppercase;background:%s;color:#fff;'
-               'padding:16px 30px;border-radius:6px;text-decoration:none}' % (typ('button'), COLORS['primary']))
+               'padding:14px 28px;border:2px solid %s;border-radius:6px;text-decoration:none}' % (typ('button'), COLORS['primary'], COLORS['primary']))
     return '\n'.join(out)
 
 
 EXTRA = """
-*{box-sizing:border-box} p{margin:0} img{display:block;margin:0 auto}
+*{box-sizing:border-box} .fx-grow{flex:1 1 0!important;min-width:0} .fx-none{flex:0 0 auto!important} p{margin:0} img{display:block;margin:0 auto}
 .w{max-width:100%} .e-con[style*='direction:row']>.w,.e-con-inner[style]>.w{flex:0 1 auto} .w-image[style*="left"] img{margin:0} .w-nav-menu{width:auto;flex-grow:1;text-align:right;font-weight:600}
 .shape{position:absolute;left:0;right:0;height:40px;-webkit-mask:radial-gradient(circle at 50% 0,#000 18px,transparent 19px) 0 0/60px 40px repeat-x}
 .shape-top{top:0}.shape-bottom{bottom:0;transform:scaleY(-1)}
-.ib .ic{display:inline-flex;width:74px;height:74px;border-radius:50%;background:#C62828;color:#fff;align-items:center;justify-content:center;font-size:26px;margin-bottom:14px}
+.ic{display:inline-flex;width:74px;height:74px;border-radius:50%;background:#C62828;color:#fff;align-items:center;justify-content:center;font-size:26px;margin-bottom:14px}
 .ib-left{display:flex;gap:18px;text-align:left}.ib-left .ic{flex:none;width:56px;height:56px}.ibt{margin-bottom:6px}
 .il{list-style:none;padding:0;margin:0}.il li{margin:6px 0}.il-inline li{display:inline-block;margin-right:20px}
 .cn{font:800 48px Montserrat;color:#C62828}
@@ -159,8 +162,8 @@ EXTRA = """
 .posts{display:flex;gap:24px}.post{flex:1;height:220px;background:#fff;border-radius:12px;padding:20px}
 input{padding:12px;border:1px solid #ddd;border-radius:6px;width:100%;margin-bottom:10px}
 @media(max-width:1024px){""" + ''.join('.wt%d{width:%d%%!important}' % (n, n) for n in (12, 24, 47, 58, 100)) + """}
-@media(max-width:767px){""" + ''.join('.wm%d{width:%d%%!important}' % (n, n) for n in (25, 27, 46, 50, 100)) + """
- .posts{flex-direction:column} h1{font-size:34px} h2{font-size:28px}}
+@media(max-width:767px){""" + ''.join('.wm%d{width:%d%%!important}' % (n, n) for n in (25, 27, 30, 40, 46, 50, 100)) + """
+ .posts{flex-direction:column} .dm-col{flex-direction:column!important;flex-wrap:wrap!important} .dm-col>.e-con{width:100%!important} h1{font-size:34px} h2{font-size:28px}}
 """
 
 if __name__ == '__main__':
@@ -169,5 +172,5 @@ if __name__ == '__main__':
         parts += [render(e) for e in json.load(open(os.path.join(ROOT, 'templates/%s.json' % name)))['content']]
     print('<!doctype html><html><head><meta charset="utf-8"><meta name="viewport" content="width=device-width">'
           '<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@500;700;800&family=Open+Sans:wght@400;600&display=swap" rel="stylesheet">'
-          '<style>%s\n%s\n%s</style></head><body>%s</body></html>'
+          '<style>%s\n%s\n%s</style></head><body><div class="elementor">%s</div></body></html>'
           % (theme_css(), EXTRA, kit['custom_css'], '\n'.join(parts)))

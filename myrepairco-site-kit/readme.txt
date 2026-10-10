@@ -28,7 +28,8 @@ Tools > MyRepairCo Site Kit has two buttons:
      Hiring Technicians, Blog.
    * Theme Builder Header and Footer, set to display on the Entire Site (they take effect once published).
    * A menu called "MyRepairCo Main".
-   * Uploads the red logo, the mascot and the two phone illustrations to the Media Library.
+   * Uploads the hero photo, the red logo, the original blue logo, the mascot and the two phone illustrations to the Media Library.
+     To use the blue logo instead, swap the image in the Header and Footer (Media Library: myrepairco-logo-original-blue.png).
 
 All sections use native Elementor containers and widgets. Colors and fonts come from Site Settings.
 The page itself only stores layout values (columns, gaps, alignment) and references to the global colors.
@@ -36,7 +37,6 @@ The page itself only stores layout values (columns, gaps, alignment) and referen
 == After running it ==
 
 1. Open the drafts in Elementor and replace:
-   * the hero background (currently the roof-repair photo) with the technician handshake photo,
    * the sample testimonials (marked "Sample review") with real reviews,
    * the phone number, email and address if they are still the placeholder values.
 2. Publish the Header and Footer (Templates > Theme Builder).

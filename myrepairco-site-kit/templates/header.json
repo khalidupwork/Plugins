@@ -4,7 +4,7 @@
  "type": "header",
  "content": [
   {
-   "id": "aa100d0",
+   "id": "aa100e3",
    "elType": "container",
    "settings": {
     "content_width": "boxed",
@@ -27,13 +27,13 @@
    },
    "elements": [
     {
-     "id": "aa100ce",
+     "id": "aa100e1",
      "elType": "widget",
      "widgetType": "icon-list",
      "settings": {
       "icon_list": [
        {
-        "_id": "aa100cc",
+        "_id": "aa100df",
         "text": "+1 123 456 7890",
         "selected_icon": {
          "value": "fas fa-phone-alt",
@@ -47,7 +47,7 @@
         }
        },
        {
-        "_id": "aa100cd",
+        "_id": "aa100e0",
         "text": "info@example.com",
         "selected_icon": {
          "value": "fas fa-envelope",
@@ -70,7 +70,7 @@
      "elements": []
     },
     {
-     "id": "aa100cf",
+     "id": "aa100e2",
      "elType": "widget",
      "widgetType": "heading",
      "settings": {
@@ -86,7 +86,7 @@
    "isInner": false
   },
   {
-   "id": "aa100d4",
+   "id": "aa100e7",
    "elType": "container",
    "settings": {
     "content_width": "boxed",
@@ -113,7 +113,7 @@
    },
    "elements": [
     {
-     "id": "aa100d1",
+     "id": "aa100e4",
      "elType": "widget",
      "widgetType": "image",
      "settings": {
@@ -146,7 +146,7 @@
      "elements": []
     },
     {
-     "id": "aa100d2",
+     "id": "aa100e5",
      "elType": "widget",
      "widgetType": "nav-menu",
      "settings": {
@@ -168,7 +168,7 @@
      "elements": []
     },
     {
-     "id": "aa100d3",
+     "id": "aa100e6",
      "elType": "widget",
      "widgetType": "button",
      "settings": {

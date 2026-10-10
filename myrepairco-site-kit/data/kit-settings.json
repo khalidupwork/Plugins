@@ -242,6 +242,15 @@
  },
  "button_background_background": "classic",
  "button_hover_background_background": "classic",
+ "button_border_border": "solid",
+ "button_border_width": {
+  "unit": "px",
+  "top": "2",
+  "right": "2",
+  "bottom": "2",
+  "left": "2",
+  "isLinked": false
+ },
  "button_border_radius": {
   "unit": "px",
   "top": "6",
@@ -288,7 +297,7 @@
   "size": 1200,
   "sizes": []
  },
- "custom_css": "/* MyRepairCo helper classes - add them under Advanced > CSS Classes. */\n.mrc-card{background:#fff;border-radius:16px;box-shadow:0 10px 30px rgba(27,27,31,.08);padding:34px 26px;transition:transform .2s,box-shadow .2s}\n.mrc-card:hover{transform:translateY(-4px);box-shadow:0 18px 40px rgba(27,27,31,.14)}\n.mrc-on-dark .elementor-heading-title,.mrc-on-dark .elementor-widget-text-editor,.mrc-on-dark .elementor-icon-list-text,.mrc-on-dark .elementor-icon-list-icon i{color:#fff}\n.mrc-on-dark .mrc-card .elementor-heading-title,.mrc-on-dark .mrc-card .elementor-widget-text-editor{color:inherit}\n.mrc-narrow > .e-con-inner{max-width:860px}\n.mrc-eyebrow .elementor-heading-title{display:inline-block;background:var(--e-global-color-primary);color:#fff;padding:7px 16px;border-radius:30px;font-size:13px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase}\n.mrc-small .elementor-heading-title,.mrc-small .elementor-icon-list-text{font-size:14px}\n.mrc-btn-light .elementor-button{background:#fff;color:var(--e-global-color-primary)}\n.mrc-btn-light .elementor-button:hover{background:var(--e-global-color-secondary);color:#fff}\n.mrc-btn-outline-light .elementor-button{background:transparent;border:2px solid #fff;color:#fff}\n.mrc-btn-outline-light .elementor-button:hover{background:#fff;color:var(--e-global-color-primary)}\n.mrc-brand-col{background:var(--e-global-color-primary)}\n.mrc-brand-col .elementor-heading-title{color:#fff}\n.mrc-brand-top{border-radius:14px 14px 0 0}\n.mrc-others-col{background:#EFE7DF}\n.mrc-others-top{border-radius:14px 14px 0 0;margin-top:20px}\n.mrc-compare-row{border-bottom:1px solid rgba(27,27,31,.08)}\n.mrc-photo img{border-radius:16px;aspect-ratio:4/3;object-fit:cover;width:100%}\n.mrc-stats .elementor-counter-title{color:var(--e-global-color-secondary)}\n.mrc-header-main{box-shadow:0 4px 18px rgba(27,27,31,.08)}\n.mrc-footer-menu .elementor-nav-menu--main .elementor-item{text-transform:uppercase;font-weight:700}",
+ "custom_css": "/* MyRepairCo helper classes - add them under Advanced > CSS Classes. */\n.mrc-card{background:#fff;border-radius:16px;box-shadow:0 10px 30px rgba(27,27,31,.08);padding:34px 28px;transition:transform .2s,box-shadow .2s}\n.mrc-card:hover{transform:translateY(-4px);box-shadow:0 18px 40px rgba(27,27,31,.14)}\n.mrc-strip{background:#fff;border-radius:16px;border:1px solid rgba(27,27,31,.06);box-shadow:0 10px 30px rgba(27,27,31,.08)}\n.mrc-on-dark .elementor-heading-title,.mrc-on-dark .elementor-widget-text-editor,.mrc-on-dark .elementor-icon-list-text,.mrc-on-dark .elementor-icon-list-icon i{color:#fff}\n.mrc-on-dark .mrc-card .elementor-heading-title{color:var(--e-global-color-secondary)}\n.mrc-on-dark .mrc-card .elementor-widget-text-editor{color:var(--e-global-color-text)}\n.mrc-on-red .mrc-eyebrow .elementor-heading-title{background:#fff;color:var(--e-global-color-primary)}\n.mrc-on-dark .mrc-card .mrc-stars .elementor-heading-title,.mrc-stars .elementor-heading-title{color:var(--e-global-color-primary);letter-spacing:3px}\n.mrc-narrow > .e-con-inner{max-width:860px}\n.mrc-eyebrow .elementor-heading-title{display:inline-block;background:var(--e-global-color-primary);color:#fff;padding:7px 16px;border-radius:30px;font-size:13px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;line-height:1.2}\n.mrc-small .elementor-heading-title,.mrc-small .elementor-icon-list-text,.mrc-small.elementor-widget-text-editor{font-size:14px}\n.mrc-muted .elementor-heading-title{color:var(--e-global-color-text);text-transform:uppercase;letter-spacing:1.5px}\n.elementor .mrc-btn-light .elementor-button{background:#fff;border-color:#fff;color:var(--e-global-color-primary)}\n.elementor .mrc-btn-light .elementor-button:hover{background:var(--e-global-color-secondary);border-color:var(--e-global-color-secondary);color:#fff}\n.elementor .mrc-btn-outline .elementor-button{background:transparent;border-color:var(--e-global-color-primary);color:var(--e-global-color-primary)}\n.elementor .mrc-btn-outline .elementor-button:hover{background:var(--e-global-color-primary);color:#fff}\n.elementor .mrc-btn-outline-light .elementor-button{background:transparent;border-color:#fff;color:#fff}\n.elementor .mrc-btn-outline-light .elementor-button:hover{background:#fff;color:var(--e-global-color-primary)}\n.mrc-trust .elementor-icon-list-text{font-weight:600;color:var(--e-global-color-secondary)}\n.mrc-photo img{border-radius:16px;aspect-ratio:4/3;object-fit:cover;width:100%}\n.mrc-photo-hero img{border-radius:20px;aspect-ratio:auto;box-shadow:0 24px 50px rgba(27,27,31,.18)}\n.mrc-compare .mrc-label{border-bottom:1px solid rgba(27,27,31,.08)}\n.mrc-compare .mrc-brand-col{background:var(--e-global-color-primary)}\n.mrc-compare .mrc-brand-col .elementor-heading-title{color:#fff}\n@media(max-width:767px){.mrc-compare .mrc-brand-col .elementor-heading-title,.mrc-compare .mrc-others-col .elementor-heading-title{font-size:15px}}\n.mrc-compare .mrc-others-col{background:#EFE7DF;border-bottom:1px solid rgba(27,27,31,.06)}\n.mrc-compare > .e-con-inner > .e-con:first-child .mrc-brand-col,.mrc-compare > .e-con-inner > .e-con:first-child .mrc-others-col{border-radius:14px 14px 0 0;border-bottom:0}\n.mrc-compare > .e-con-inner > .e-con:first-child .mrc-label{border-bottom:0}\n.mrc-compare > .e-con-inner > .e-con:last-child .mrc-brand-col,.mrc-compare > .e-con-inner > .e-con:last-child .mrc-others-col{border-radius:0 0 14px 14px;border-bottom:0}\n.mrc-compare > .e-con-inner > .e-con:last-child .mrc-label{border-bottom:0}\n.mrc-stats .elementor-counter-title{color:var(--e-global-color-secondary)}\n.mrc-header-main{box-shadow:0 4px 18px rgba(27,27,31,.08)}\n.mrc-footer-menu .elementor-nav-menu--main .elementor-item{text-transform:uppercase;font-weight:700}",
  "__globals__": {
   "body_background_color": "globals/colors?id=mrcwhit",
   "body_color": "globals/colors?id=text",
@@ -304,6 +313,8 @@
   "button_background_color": "globals/colors?id=primary",
   "button_hover_text_color": "globals/colors?id=mrcwhit",
   "button_hover_background_color": "globals/colors?id=accent",
+  "button_border_color": "globals/colors?id=primary",
+  "button_hover_border_color": "globals/colors?id=accent",
   "form_field_border_color": "globals/colors?id=mrcligh",
   "form_field_background_color": "globals/colors?id=mrcwhit"
  }
