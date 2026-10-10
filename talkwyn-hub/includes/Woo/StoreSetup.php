@@ -53,6 +53,36 @@ final class StoreSetup {
 	 */
 	public static function init(): void {
 		add_action( 'admin_post_twh_create_plans', array( self::class, 'handle' ) );
+		// "Talkwyn Pro · Personal" instead of "Talkwyn Pro - Personal", which WordPress shows with a dash.
+		add_filter( 'woocommerce_product_variation_title_attributes_separator', array( self::class, 'separator' ) );
+		add_filter( 'woocommerce_product_variation_get_name', array( self::class, 'plan_name' ) );
+		add_filter( 'woocommerce_order_item_get_name', array( self::class, 'item_name' ), 10, 2 );
+	}
+
+	/**
+	 * Separator between the product and plan name in new variation titles.
+	 */
+	public static function separator(): string {
+		return ' · ';
+	}
+
+	/**
+	 * Variations saved before keep " - " in their stored title.
+	 *
+	 * @param string $name Name.
+	 */
+	public static function plan_name( $name ): string {
+		return str_replace( ' - ', ' · ', (string) $name );
+	}
+
+	/**
+	 * Order lines store the name at purchase time; show older ones the same way.
+	 *
+	 * @param string          $name Name.
+	 * @param \WC_Order_Item $item Item.
+	 */
+	public static function item_name( $name, $item ): string {
+		return $item instanceof \WC_Order_Item_Product && $item->get_variation_id() ? self::plan_name( $name ) : (string) $name;
 	}
 
 	/**

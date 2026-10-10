@@ -144,6 +144,11 @@ Run this on a staging copy of talkwyn.com with Stripe in **test mode** (card `42
 - [ ] `GET /wp-json/talkwyn-hub/v1/partners/terms` returns the current settings.
 - [ ] Turn Partners off → `?ref=` does nothing, My Account → Partners says the program is closed.
 
+## 26. Plan names without a dash (1.7.2)
+
+- [ ] Checkout, the order received page, the completed order email, the invoice and My Account orders show "Talkwyn Pro · Personal" (also for orders placed before 1.7.2).
+- [ ] The admin order screen still saves orders normally.
+
 ## 25. Optional website at checkout (1.7.1)
 
 - [ ] Checkout shows "Website (optional)" under Additional order information. Empty: the order goes through.
