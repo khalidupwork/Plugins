@@ -56,6 +56,17 @@ Fresh theme (not based on the v0.9.0 zip). Source of truth: the 2026-10-10 maste
       brief with spec + AI prompt per product in `assets/img/products/README.md`
 - [x] Hero mini shop + featured swipe demo use the parody products
 
+## v1.0.0-alpha.4 — every visual reacts (`assets/js/fx.js`)
+- [x] 3D tilt + moving shine on game cards, chaos cards, steps, products, phones, mini items, result cards, spin machine
+      (desktop pointer); press-squish on touch
+- [x] Drag & throw with spring-back: hero stickers, tags ("Poke the shop", "Bad idea"…), chat bubbles, result stamp,
+      product badges, section pills; tap gives a random line
+- [x] "Click mat kar" easter egg: clicks on empty space pop "Mana kiya tha!", after 5 a counter pill appears
+      ("7 clicks. Concerning. Play →") linking to the game
+- [x] Magnetic big CTAs, hero depth parallax (stickers/phone/cursor), bouncy wordmark letters, logo "press" sequence on click
+- [x] Ticker speeds up with scroll velocity; section headings slide in; card emojis jump on hover
+- [x] All of it is off for prefers-reduced-motion; tilt/magnet only for fine pointers
+
 ## Next (in order)
 - [ ] Produce the 90 product images from `assets/img/products/README.md` (start with the 29 in Shop Like You're Rich)
 - [ ] Site icon / OG share image (1200×630) + per-result OG image (needs server-side render or a static set by IQ tier)
