@@ -1147,3 +1147,44 @@
 	window.addEventListener( 'scroll', onScroll, { passive: true } );
 	document.addEventListener( 'tw:consent', check );
 }() );
+
+/* Checkout: put the "Buy with confidence" card under the order summary once WooCommerce
+   has drawn the checkout. If the summary column never appears, the card stays below. */
+( function () {
+	var card = document.querySelector( '[data-tw-checkout-trust]' );
+	if ( ! card ) {
+		return;
+	}
+	var tries = 0;
+	function place() {
+		// Phones: WooCommerce puts the summary above the form, so the card goes after the form.
+		if ( window.innerWidth < 782 ) {
+			var main = document.querySelector( '.wc-block-checkout__main' );
+			if ( main && main.querySelector( '.wc-block-checkout__actions, .wc-block-components-checkout-place-order-button' ) ) {
+				main.appendChild( card );
+				card.classList.add( 'is-placed' );
+				return true;
+			}
+			return false;
+		}
+		var summary = document.querySelector( '.wc-block-checkout__sidebar .wp-block-woocommerce-checkout-order-summary-block' );
+		if ( summary && summary.querySelector( '.wc-block-components-totals-footer-item, .wc-block-components-order-summary' ) ) {
+			summary.parentNode.insertBefore( card, summary.nextSibling );
+			card.classList.add( 'is-placed' );
+			return true;
+		}
+		return false;
+	}
+	if ( place() ) {
+		return;
+	}
+	var mo = new MutationObserver( function () {
+		if ( place() || ++tries > 200 ) {
+			mo.disconnect();
+		}
+	} );
+	mo.observe( document.body, { childList: true, subtree: true } );
+	setTimeout( function () {
+		mo.disconnect();
+	}, 15000 );
+}() );

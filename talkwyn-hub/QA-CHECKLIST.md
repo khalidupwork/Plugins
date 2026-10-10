@@ -144,6 +144,10 @@ Run this on a staging copy of talkwyn.com with Stripe in **test mode** (card `42
 - [ ] `GET /wp-json/talkwyn-hub/v1/partners/terms` returns the current settings.
 - [ ] Turn Partners off → `?ref=` does nothing, My Account → Partners says the program is closed.
 
+## 24. One product per order (1.7.0)
+
+- [ ] A pricing link (`?add-to-cart=`) for a license product empties the cart first, so checkout always holds just that plan. Renewal and upgrade links work as before.
+
 ## 23. One plan per cart and WooCommerce emails (1.6.9)
 
 - [ ] Open a pricing Buy link twice: no "You cannot add another" error. Then open another plan's link: the cart holds only the new plan.

@@ -8,50 +8,74 @@
 defined( 'ABSPATH' ) || exit;
 
 /**
- * [tw_checkout_trust] Shown above the checkout. Uses the real refund window from Site Settings.
+ * [tw_checkout_trust] The checkout heading, and a "Buy with confidence" card that theme.js
+ * moves under the order summary (it stays below the form if that column is missing).
+ * Only facts this site can back up.
  */
 add_shortcode(
 	'tw_checkout_trust',
 	static function () {
+		$rows = array();
 		$days = (int) talkwyn_setting( 'refund_days' );
-		// Renewals are automatic only with WooCommerce Subscriptions.
-		$renew = class_exists( 'WC_Subscriptions' ) ? __( 'Cancel renewal anytime.', 'talkwyn' ) : __( 'No automatic renewal.', 'talkwyn' );
-		$text  = $days > 0
-			/* translators: 1: refund window in days, 2: renewal sentence */
-			? sprintf( __( '%1$d-day refund policy. %2$s', 'talkwyn' ), $days, $renew )
-			: $renew;
-		// Keys are emailed in full only when Talkwyn Hub's "Keys in emails" is on.
+		if ( $days > 0 ) {
+			/* translators: %d: refund window in days */
+			$rows[] = array( 'shield-check', sprintf( __( '%d-day refund', 'talkwyn' ), $days ), __( 'Ask within that time for a full refund. No reason needed.', 'talkwyn' ) );
+		}
 		$emailed = class_exists( '\TWH\Support\Settings' ) && \TWH\Support\Settings::email_keys();
-		$key     = $emailed
-			? __( 'Your license key appears right after payment and arrives by email.', 'talkwyn' )
-			: __( 'Your license key appears right after payment and stays in your account.', 'talkwyn' );
-		// Only facts this site can vouch for: who takes the payment, HTTPS, what happens after a year.
-		$extra = '';
+		$rows[]  = array( 'key-round', __( 'License key right away', 'talkwyn' ), $emailed ? __( 'Shown after payment and sent by email.', 'talkwyn' ) : __( 'Shown after payment and kept in your account.', 'talkwyn' ) );
+		$rows[]  = class_exists( 'WC_Subscriptions' )
+			? array( 'refresh-cw', __( 'Cancel renewal any time', 'talkwyn' ), __( 'From your account, in one click.', 'talkwyn' ) )
+			: array( 'refresh-cw', __( 'No automatic renewal', 'talkwyn' ), __( 'We remind you before your license ends.', 'talkwyn' ) );
+		$rows[] = array( 'sparkles', __( 'Pro keeps working', 'talkwyn' ), __( 'If you do not renew, only updates and support stop.', 'talkwyn' ) );
+		$rows[] = array( 'layers', __( 'Staging sites are free', 'talkwyn' ), __( 'They never count toward your plan.', 'talkwyn' ) );
+		$pay    = array();
 		if ( function_exists( 'WC' ) && WC()->payment_gateways() ) {
-			$names = array();
 			foreach ( WC()->payment_gateways()->get_available_payment_gateways() as $gateway ) {
-				$names[] = wp_strip_all_tags( (string) $gateway->get_title() );
+				$pay[] = wp_strip_all_tags( (string) $gateway->get_title() );
 			}
-			$names = array_values( array_unique( array_filter( $names ) ) );
-			if ( $names ) {
+			$pay = array_values( array_unique( array_filter( $pay ) ) );
+		}
+		$https = is_ssl() || 'https' === wp_parse_url( home_url(), PHP_URL_SCHEME );
+		if ( $pay || $https ) {
+			$sub    = $pay
 				/* translators: %s: payment methods, e.g. "Credit card, PayPal" */
-				$extra .= '<li>' . talkwyn_icon( 'wallet', 18 ) . '<span>' . esc_html( sprintf( __( 'Secure payment: %s. We never see your full card number.', 'talkwyn' ), implode( ', ', $names ) ) ) . '</span></li>';
-			}
+				? sprintf( __( '%s. We never see your full card number.', 'talkwyn' ), implode( ', ', $pay ) )
+				: __( 'Your details travel over an encrypted connection.', 'talkwyn' );
+			$rows[] = array( 'lock', __( 'Secure, encrypted checkout', 'talkwyn' ), $sub );
 		}
-		// Behind Cloudflare or a proxy is_ssl() can be false although visitors use HTTPS.
-		if ( is_ssl() || 'https' === wp_parse_url( home_url(), PHP_URL_SCHEME ) ) {
-			$extra .= '<li>' . talkwyn_icon( 'lock', 18 ) . '<span>' . esc_html__( 'Encrypted, secure checkout (HTTPS).', 'talkwyn' ) . '</span></li>';
+		$rows[] = array( 'file-text', __( 'Numbered invoice', 'talkwyn' ), __( 'Download it any time from your account.', 'talkwyn' ) );
+
+		$list = '';
+		foreach ( $rows as $r ) {
+			$list .= '<li><span class="tw-ctrust__icon">' . talkwyn_icon( $r[0], 18 ) . '</span><span><strong>' . esc_html( $r[1] ) . '</strong><small>' . esc_html( $r[2] ) . '</small></span></li>';
 		}
-		$extra .= '<li>' . talkwyn_icon( 'refresh-cw', 18 ) . '<span>' . esc_html__( 'If you do not renew, Pro keeps working. Only updates and support stop.', 'talkwyn' ) . '</span></li>';
-		$extra .= '<li>' . talkwyn_icon( 'layers', 18 ) . '<span>' . esc_html__( 'Staging and local sites never count toward your plan.', 'talkwyn' ) . '</span></li>';
-		$extra .= '<li>' . talkwyn_icon( 'mail', 18 ) . '<span>' . esc_html__( 'Help from the Talkwyn team by email, from setup to your first lead.', 'talkwyn' ) . '</span></li>';
-		return '<ul class="tw-trustline">'
-			. '<li>' . talkwyn_icon( 'shield-check', 18 ) . '<span>' . esc_html( $text ) . ' <a href="' . esc_url( home_url( '/refund-policy/' ) ) . '">' . esc_html__( 'Read the policy', 'talkwyn' ) . '</a></span></li>'
-			. '<li>' . talkwyn_icon( 'key-round', 18 ) . '<span>' . esc_html( $key ) . '</span></li>'
-			. '<li>' . talkwyn_icon( 'file-text', 18 ) . '<span>' . esc_html__( 'A numbered invoice for every order, in your account.', 'talkwyn' ) . '</span></li>'
-			. $extra
-			. '</ul>';
+		return '<div class="tw-checkout-head"><h1 class="tw-checkout-head__title">' . esc_html__( 'Checkout', 'talkwyn' ) . '</h1></div>'
+			. '<aside class="tw-ctrust" data-tw-checkout-trust aria-label="' . esc_attr__( 'Buy with confidence', 'talkwyn' ) . '"><p class="tw-ctrust__title">' . esc_html__( 'Buy with confidence', 'talkwyn' ) . '</p><ul>' . $list . '</ul>'
+			. '<p class="tw-ctrust__foot"><a href="' . esc_url( home_url( '/refund-policy/' ) ) . '">' . esc_html__( 'Refund policy', 'talkwyn' ) . '</a> · <a href="' . esc_url( home_url( '/contact/' ) ) . '">' . esc_html__( 'Questions? Ask us', 'talkwyn' ) . '</a></p></aside>';
 	}
+);
+
+/**
+ * The cart is not a step of its own: one product per order, bought from /pricing/.
+ * /cart/ goes to checkout when something is in the cart, else to pricing. An empty
+ * checkout goes to pricing too (order received and pay links are left alone).
+ */
+add_action(
+	'template_redirect',
+	static function () {
+		if ( ! class_exists( 'WooCommerce' ) || ! function_exists( 'WC' ) || ! WC()->cart || ! apply_filters( 'talkwyn_skip_cart', true ) ) {
+			return;
+		}
+		if ( is_cart() ) {
+			wp_safe_redirect( WC()->cart->is_empty() ? home_url( '/pricing/' ) : wc_get_checkout_url() );
+			exit;
+		}
+		if ( is_checkout() && WC()->cart->is_empty() && ! is_wc_endpoint_url( 'order-received' ) && ! is_wc_endpoint_url( 'order-pay' ) && ! isset( $_GET['add-to-cart'] ) ) { // phpcs:ignore WordPress.Security.NonceVerification.Recommended -- read only.
+			wp_safe_redirect( home_url( '/pricing/' ) );
+			exit;
+		}
+	},
+	20
 );
 
 /**

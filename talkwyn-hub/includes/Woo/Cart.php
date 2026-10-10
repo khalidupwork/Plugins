@@ -43,6 +43,29 @@ final class Cart {
 		add_filter( 'woocommerce_checkout_registration_required', array( self::class, 'require_account' ) );
 		add_filter( 'woocommerce_checkout_registration_enabled', array( self::class, 'allow_account' ) );
 		add_filter( 'woocommerce_add_to_cart_validation', array( self::class, 'one_plan' ), 5, 3 );
+		add_action( 'wp_loaded', array( self::class, 'clear_before_add' ), 19 );
+	}
+
+	/**
+	 * One product per order: a pricing link (?add-to-cart=) for a license product starts
+	 * from an empty cart. Runs just before WooCommerce adds the item (wp_loaded, 20), so a
+	 * second click or another plan never meets "You cannot add another".
+	 */
+	public static function clear_before_add(): void {
+		// phpcs:ignore WordPress.Security.NonceVerification.Recommended -- WooCommerce's own public add-to-cart link.
+		$id = isset( $_REQUEST['add-to-cart'] ) ? absint( wp_unslash( $_REQUEST['add-to-cart'] ) ) : 0;
+		if ( ! $id || is_admin() || ! function_exists( 'WC' ) || ! WC()->cart || WC()->cart->is_empty() ) {
+			return;
+		}
+		// phpcs:ignore WordPress.Security.NonceVerification.Recommended -- see above.
+		$variation = isset( $_REQUEST['variation_id'] ) ? absint( wp_unslash( $_REQUEST['variation_id'] ) ) : 0;
+		$product   = wc_get_product( $variation ? $variation : $id );
+		if ( $product && $product->is_type( 'variable' ) && $product->get_children() ) {
+			$product = wc_get_product( (int) $product->get_children()[0] );
+		}
+		if ( $product && Mapping::for_product( $product ) ) {
+			WC()->cart->empty_cart();
+		}
 	}
 
 	/**
